@@ -1,18 +1,25 @@
-import { ThemeProvider } from 'styled-components';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 
-import { mainTheme } from '../../themes/mainTheme';
+import { ThemeProvider } from "styled-components";
 
-import Navbar from '../../components/Navbar/Navbar';
+import { mainTheme } from "../../themes/mainTheme";
 
-import * as S from './MainView.style';
+import Navbar from "../../components/Navbar/Navbar";
+
+import * as S from "./MainView.style";
+import HomeView from "./HomeView/HomeView";
 
 const MainView = () => {
     return (
         <ThemeProvider theme={mainTheme}>
             <S.Container>
                 <Navbar />
-                <S.Content></S.Content>
+                <S.Content>
+                    <Routes>
+                        <Route path='/' element={<HomeView />} />
+                    </Routes>
+                </S.Content>
+                {/* <Footer /> */}
             </S.Container>
         </ThemeProvider>
     );

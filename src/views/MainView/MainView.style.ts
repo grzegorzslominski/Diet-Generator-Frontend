@@ -1,12 +1,16 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+
+import mainBackgroudn from "../../assets/mainBackground.png";
 
 export const Container = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
+    width: 100%;
     position: relative;
-    background: ${({ theme }) => theme.colors.mainBlack};
+    background: url(${mainBackgroudn});
+    background-size: cover;
 `;
 
 export const Content = styled.div`
@@ -15,17 +19,16 @@ export const Content = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 1520px;
-    min-height: calc(100vh - 61px);
-    padding: 0 36px 60px 36px;
+    width: 100%;
+    min-height: calc(100vh - 92px);
+`;
 
+export const NarrowSection = styled.div`
     @media screen and (max-width: 1420px) {
-        width: 100%;
-        padding: 0 36px 60px 36px;
+        padding: 0 24px 60px 24px;
     }
 
     @media screen and (max-width: 520px) {
-        padding: 0 12px;
-        padding-bottom: 32px;
+        padding: 0 12px 32px 12px;
     }
 `;

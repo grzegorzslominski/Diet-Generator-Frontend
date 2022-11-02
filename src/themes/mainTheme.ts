@@ -1,15 +1,25 @@
-export const mainTheme = {
-  colors: {
-    primaryColor: '#9fe800',
-    textColor: '#7a86a1',
-    mainBlack: '#121212',
-    red: '#FF0000',
-    gray: '#989898',
-  },
-  gradients: {
-    mainGradient:
-      'linear-gradient(90deg, #ff893c 0%, #d57680 14%, #aa64bb 32%, #8b65dc 49%, #6d7cf1 66%, #4abcfb 82%, #3ef7ef 100%)',
-  },
+type MainThemeProps = {
+    colors: {
+        primaryColor: string;
+        secondaryColor: string;
+        textColor: string;
+        mainBlack: string;
+    };
+    gradients: {
+        mainGradient: string;
+    };
+};
+
+export const mainTheme: MainThemeProps = {
+    colors: {
+        primaryColor: "#F5F6FA",
+        secondaryColor: "#4E4C75",
+        textColor: "#737380",
+        mainBlack: "#232323",
+    },
+    gradients: {
+        mainGradient: "linear-gradient(90deg, #4E4B77 0%, #6D5E9D 40%, #F44B42 70%, #F05840 100%)",
+    },
 };
 
 export type Theme = typeof mainTheme;
