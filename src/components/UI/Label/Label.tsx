@@ -58,6 +58,7 @@ const StyledLabel = styled.span<StyledLabelProps>`
     }
 `;
 
+// do tekstu
 const Label = ({
     fontFamily,
     fontSize,

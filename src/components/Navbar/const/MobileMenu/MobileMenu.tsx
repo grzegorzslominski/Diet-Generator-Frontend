@@ -1,6 +1,6 @@
 import Label from "../../../UI/Label/Label";
 
-import { NavItem, NAV_ITEMS } from "../NavIteams";
+import { NavItem, NAV_ITEMS } from "../NavItems";
 
 import * as S from "./MobileMenu.style";
 
