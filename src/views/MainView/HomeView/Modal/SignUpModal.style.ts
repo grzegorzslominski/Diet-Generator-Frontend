@@ -12,6 +12,5 @@ export const ContainerBG = styled.div`
   opacity: 0.5;
   height: 100vh;
   width: 100vw;
-
 ;
 `
