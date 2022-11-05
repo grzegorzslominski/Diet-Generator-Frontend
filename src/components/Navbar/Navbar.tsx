@@ -7,7 +7,7 @@ import { mainTheme } from "../../themes/mainTheme";
 import Label from "../UI/Label/Label";
 import MobileMenu from "./const/MobileMenu/MobileMenu";
 
-import { NavItem, NAV_ITEMS } from "./const/NavIteams";
+import { NavItem, NAV_ITEMS } from "./const/NavItems";
 
 import * as S from "./Navbar.style";
 
@@ -16,6 +16,9 @@ const Navbar = () => {
     const location = useLocation();
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const handleClickItemModal = () => setIsOpen((current) => !current);
 
     useEffect(() => {
         if (mobileMenuOpen) setMobileMenuOpen(false);

@@ -8,6 +8,10 @@ type MainThemeProps = {
     gradients: {
         mainGradient: string;
     };
+    text: {
+        Allan: string;
+        Lato: string;
+    }
 };
 
 export const mainTheme: MainThemeProps = {
@@ -19,6 +23,10 @@ export const mainTheme: MainThemeProps = {
     },
     gradients: {
         mainGradient: "linear-gradient(90deg, #4E4B77 0%, #6D5E9D 40%, #F44B42 70%, #F05840 100%)",
+    },
+    text: {
+        Allan: "Allan",
+        Lato: "Lato"
     },
 };
 

@@ -5,9 +5,14 @@ import { mainTheme } from "../../../themes/mainTheme";
 import Advantages from "./components/Advantages/Advantages";
 
 import * as S from "./HomeView.style";
+import HowItsWorking from "./components/HowItsWorking/HowItsWorking";
+import SignUpModal from "./Modal/SignUpModal";
+import Login from "../../Login/Login";
+import Register from "../../Register/Register";
 
 const HomeView = () => {
     return (
+
         <S.Container>
             <S.TopSection>
                 <S.TopSectionContent>
@@ -30,7 +35,12 @@ const HomeView = () => {
                 </S.TopSectionContent>
             </S.TopSection>
             <Advantages />
+            <HowItsWorking/>
+            <SignUpModal open={false}>
+                <Login/>
+            </SignUpModal>
         </S.Container>
+
     );
 };
 
