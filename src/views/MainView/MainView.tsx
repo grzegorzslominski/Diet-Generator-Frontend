@@ -8,6 +8,7 @@ import Navbar from "../../components/Navbar/Navbar";
 
 import * as S from "./MainView.style";
 import HomeView from "./HomeView/HomeView";
+import DashboardView from "../DashboardView/components/DashboardView";
 
 const MainView = () => {
     return (
@@ -17,6 +18,7 @@ const MainView = () => {
                 <S.Content>
                     <Routes>
                         <Route path='/' element={<HomeView />} />
+                        <Route path='/dashboard' element={<DashboardView/>} />
                     </Routes>
                 </S.Content>
                 {/* <Footer /> */}
