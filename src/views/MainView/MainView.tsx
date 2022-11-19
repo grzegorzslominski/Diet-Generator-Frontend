@@ -5,9 +5,10 @@ import { ThemeProvider } from "styled-components";
 import { mainTheme } from "../../themes/mainTheme";
 
 import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
+import HomeView from "./HomeView/HomeView";
 
 import * as S from "./MainView.style";
-import HomeView from "./HomeView/HomeView";
 
 const MainView = () => {
     return (
@@ -19,7 +20,7 @@ const MainView = () => {
                         <Route path='/' element={<HomeView />} />
                     </Routes>
                 </S.Content>
-                {/* <Footer /> */}
+                <Footer />
             </S.Container>
         </ThemeProvider>
     );
