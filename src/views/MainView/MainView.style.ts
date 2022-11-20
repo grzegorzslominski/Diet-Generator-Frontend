@@ -24,7 +24,7 @@ export const Content = styled.div`
 `;
 
 export const NarrowSection = styled.div`
-    @media screen and (max-width: 1420px) {
+    @media screen and (max-width: 1440px) {
         padding: 0 24px 60px 24px;
     }
 

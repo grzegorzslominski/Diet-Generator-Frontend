@@ -11,11 +11,12 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    background: #ffffff;
+    background-color: white;
+    z-index: 2;
 `;
 
 export const Logo = styled(FoodieLogo)`
-    height: 60px;
+    height: 50px;
     width: auto;
 
     :hover {
