@@ -2,17 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  background-color: lightblue;
-  min-height: 100px;
-  display: flex;
-  
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 100px;
+  background-color: white;
+  min-height: 110px;
+  margin: -20px 0 20px 0;
   border-radius: 0.5rem;
   z-index: 0;
-  
+
 `
 
 export const Author = styled.div`
@@ -37,4 +32,12 @@ export const ImageContainer = styled.div`
   img {
     height: 3rem;
   }
+`
+
+export const Content = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 40px;
 `

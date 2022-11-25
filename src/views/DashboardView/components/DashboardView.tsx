@@ -13,7 +13,7 @@ const DashboardView = () => {
             <S.TopSection>
                 <S.ContainerItem2>
              <Label
-                fontSize='2rem'
+                fontSize='1.5rem'
                 fontFamily='Lato'
                 fontWeight='700'
                 lineHeight='2.3rem'
@@ -25,7 +25,7 @@ const DashboardView = () => {
                 </S.ContainerItem2>
                 <S.ContainerItem1>
                 <Label
-                    fontSize='2rem'
+                    fontSize='1.5rem'
                     fontFamily='Lato'
                     fontWeight='700'
                     lineHeight='2.3rem'
@@ -38,7 +38,6 @@ const DashboardView = () => {
             </S.TopSection>
           <MealsList title='Top rated meals' />
           <MealsList title='New meals from influencers' display={true} />
-
         </S.Container>
     );
 };

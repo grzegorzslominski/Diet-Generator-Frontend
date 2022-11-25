@@ -1,16 +1,20 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+  position: relative;
+`
 export const Container = styled.div`
   position: relative;
   margin-top: 60px;
-  width: 240px;
-  height: 330px;
+  width: 270px;
+  height: 360px;
   display: flex;
   flex-direction: column;
   background: linear-gradient(184.44deg, rgba(106, 179, 91, 0.9) -2.43%, rgba(87, 82, 179, 0.5) -2.42%, rgba(87, 82, 179, 0.75) 87.44%);
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 0.5rem;
   z-index: 1;
+  padding: 0 20px 0 20px;
 
 
 `
@@ -55,18 +59,16 @@ export const NewBorder = styled.div`
 export const MiddleSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 10px 0 10px;
   padding-top: 20px;
-
-
-
+  
 `
 
 export const Content = styled.ul`
   display: grid;
   grid-template-columns: repeat(3,auto);
   justify-content: space-between ;
-  padding-left: 20px;
+  padding: 0 20px 0 20px;
+  margin: 20px 0 20px 0;
 
 `
 
@@ -87,8 +89,7 @@ export const TitleContainer = styled.div`
 export const BottomSection = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 0 10px 0 10px;
-  
+  justify-content: space-between;  
 `
 
 export const BottomItemContainer = styled.div`
@@ -99,11 +100,12 @@ export const BottomItemContainer = styled.div`
 export const BottomSingleItem = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 10px;
 `
 
 export const Footer = styled.div`
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
   right: 15px;
   display: flex;
   justify-content: center;

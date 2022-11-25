@@ -12,6 +12,7 @@ const NewCreator = () => {
         <S.Container>
             <img src={trainer} alt="creator"/>
             <S.RightSection>
+                <S.TitleWrapper>
                 <Label
                     fontFamily="Lato"
                     fontWeight='700'
@@ -32,6 +33,7 @@ const NewCreator = () => {
                 >
                     Personal trainer
                 </Label>
+                </S.TitleWrapper>
                 <S.Description>
                 <Label
                     fontFamily="Lato"
@@ -44,7 +46,7 @@ const NewCreator = () => {
                     Lucy has been involved in helping others train in the gym for ten years. She helped achieve the goals set by her charges and now she wants to share her knowledge with Foodie users.
                 </Label>
                 </S.Description>
-
+                <S.IconWrapper>
                 <S.IconContainer>
                 <S.Icon>
                     <Label
@@ -54,7 +56,8 @@ const NewCreator = () => {
                         lineHeight='1.1rem'
                         textAlign='center'
                         color={mainTheme.colors.mainBlack}
-                    >Youtube
+                    >
+                        Youtube
                     </Label>
                 </S.Icon>
                     <S.Icon>
@@ -76,7 +79,8 @@ const NewCreator = () => {
                             lineHeight='1.1rem'
                             textAlign='center'
                             color={mainTheme.colors.mainBlack}
-                        >Coach
+                        >
+                            Coach
                         </Label>
                     </S.Icon>
                 </S.IconContainer>
@@ -103,11 +107,8 @@ const NewCreator = () => {
                     </S.Button>
 
                 </S.IconContainer>
-
-
-
+                </S.IconWrapper>
             </S.RightSection>
-
         </S.Container>
     );
 };

@@ -1,11 +1,12 @@
 import React from "react";
 import * as S from "./MealAuthor.style"
-import Label from "../../../../components/UI/Label/Label";
-import { mainTheme } from "../../../../themes/mainTheme";
-import trainerAvatar from "../../../../assets/dashboard/images/trainerAvatar.png"
+import Label from "../../../../../../components/UI/Label/Label";
+import { mainTheme } from "../../../../../../themes/mainTheme";
+import trainerAvatar from "../../../../../../assets/dashboard/images/trainerAvatar.png"
 const MealAuthor = () => {
   return (
     <S.Container>
+      <S.Content>
       <S.Author>
         <S.LabelContainer>
       <Label
@@ -32,6 +33,7 @@ const MealAuthor = () => {
       <S.ImageContainer>
       <img src={trainerAvatar} alt="" />
       </S.ImageContainer>
+      </S.Content>
     </S.Container>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import MealItem from "./MealItem";
+import MealItem from "./item/MealItem";
 import * as S from "./MealList.style"
 import { data } from "./const/data";
 import Label from "../../../../components/UI/Label/Label";
@@ -24,6 +24,7 @@ const MealsList = ({ title, display=false }: props) => {
         {title}
       </Label>
       </S.LabelContainer>
+      <S.ItemWrapper>
       {
         data.map(v => (
           <S.ItemContainer key={v.name}>
@@ -41,6 +42,7 @@ const MealsList = ({ title, display=false }: props) => {
           </S.ItemContainer>
         ))
       }
+        </S.ItemWrapper>
     </S.Container>
   );
 };
