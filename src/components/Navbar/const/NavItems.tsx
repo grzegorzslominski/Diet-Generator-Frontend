@@ -1,4 +1,4 @@
-export type NavItem = {
+    export type NavItem = {
     label: string;
     routing?: string;
     external?: boolean;

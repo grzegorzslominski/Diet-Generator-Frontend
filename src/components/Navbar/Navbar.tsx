@@ -16,9 +16,6 @@ const Navbar = () => {
     const location = useLocation();
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-
-    const handleClickItemModal = () => setIsOpen((current) => !current);
 
     useEffect(() => {
         if (mobileMenuOpen) setMobileMenuOpen(false);
