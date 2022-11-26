@@ -28,13 +28,23 @@ export const TopSection = styled.div`
   }
 `
 
+export const LabelContainer = styled.div`
+
+  
+  @media screen and (max-width: 650px){
+    display: flex;
+    margin: 0 10px 0 10px;
+    width: 350px;
+    justify-content: center;
+  }
+`
+
 export const ContainerItem1 = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
 
   @media screen and (max-width: 1420px){
-    
     align-items: center;
   }
 `

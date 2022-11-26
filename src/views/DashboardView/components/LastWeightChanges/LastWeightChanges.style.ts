@@ -27,16 +27,19 @@ export const StatisticWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(2,auto);
     justify-items: center;
-    align-items: stretch;
-    margin-top: -20px;
+    align-items: center;
+    padding: 6px 0 6px 0;
+    width: 300px;
+
   }
 `
 export const StatisticContainer = styled.div`
   display: flex;
   flex-direction: column;
-  
+
   @media screen and (max-width: 720px){
     margin-top: -10px;
+    
   }
 
 
@@ -44,6 +47,10 @@ export const StatisticContainer = styled.div`
 
 export const Labelh1 = styled.div`
   margin-bottom: 2rem;
+  
+  @media screen and (max-width: 720px){
+    margin: 0;
+  }
 `
 
 export const LabelStyled = styled(Labelh1)`

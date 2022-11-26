@@ -12,6 +12,7 @@ const DashboardView = () => {
           <NavbarVertical/>
             <S.TopSection>
                 <S.ContainerItem2>
+                  <S.LabelContainer>
              <Label
                 fontSize='1.5rem'
                 fontFamily='Lato'
@@ -21,9 +22,11 @@ const DashboardView = () => {
              >
                  Last weight changes
              </Label>
+                  </S.LabelContainer>
                     <LastWeightChanges/>
                 </S.ContainerItem2>
                 <S.ContainerItem1>
+                  <S.LabelContainer>
                 <Label
                     fontSize='1.5rem'
                     fontFamily='Lato'
@@ -33,6 +36,7 @@ const DashboardView = () => {
                 >
                     New creators on the platform
                 </Label>
+                  </S.LabelContainer>
                 <NewCreator/>
                 </S.ContainerItem1>
             </S.TopSection>

@@ -10,7 +10,9 @@ import twitter from '../../../../assets/dashboard/icons/twitter-grey.svg'
 const NewCreator = () => {
     return (
         <S.Container>
+            <S.ImgWrapper>
             <img src={trainer} alt="creator"/>
+            </S.ImgWrapper>
             <S.RightSection>
                 <S.TitleWrapper>
                 <Label
