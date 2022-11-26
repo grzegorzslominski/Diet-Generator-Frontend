@@ -20,8 +20,7 @@ const GradientCSS = css`
 `;
 
 const StyledLabel = styled.span<StyledLabelProps>`
-    font-family: ${({ fontFamily }) =>
-        fontFamily === "Poppins" ? "'Poppins', sans-serif" : "'Montserrat', sans-serif"};
+    font-family: ${({ fontFamily }) => (fontFamily === "Lato" ? "'Lato', sans-serif" : fontFamily)};
     font-size: ${({ fontSize }) => fontSize};
     font-weight: ${({ fontWeight }) => fontWeight};
     text-shadow: ${({ textShadow }) => textShadow};
@@ -58,9 +57,8 @@ const StyledLabel = styled.span<StyledLabelProps>`
     }
 `;
 
-// do tekstu
 const Label = ({
-    fontFamily,
+    fontFamily = "'Montserrat', sans-serif",
     fontSize,
     lineHeight,
     textDecoration,

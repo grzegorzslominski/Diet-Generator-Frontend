@@ -36,7 +36,7 @@ const Navbar = () => {
                 {NAV_ITEMS.map((navItem) => (
                     <S.NavItem key={navItem.label}>
                         <Label
-                            fontSize='18px'
+                            fontSize='16px'
                             fontWeight='500'
                             onClick={() => navigationHandler(navItem)}
                         >

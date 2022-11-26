@@ -5,7 +5,8 @@ import { ThemeProvider } from "styled-components";
 import { mainTheme } from "../../themes/mainTheme";
 
 import Navbar from "../../components/Navbar/Navbar";
-
+import Footer from "../../components/Footer/Footer";
+import HomeView from "./HomeView/HomeView";
 import * as S from "./MainView.style";
 import HomeView from "./HomeView/HomeView";
 import DashboardView from "../DashboardView/components/DashboardView";
@@ -23,7 +24,7 @@ const MainView = () => {
                         <Route path='/myDiet' element={<MyDietView/>} />
                     </Routes>
                 </S.Content>
-                {/* <Footer /> */}
+                <Footer />
             </S.Container>
         </ThemeProvider>
     );

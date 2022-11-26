@@ -6,16 +6,16 @@ export const Container = styled.div`
     position: sticky;
     height: 5%;
     top: 0;
-    left: 0;
-    padding: 16px 32px 16px 32px;
+    padding: 12px 32px 12px 32px;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    background: #ffffff;
+    background-color: white;
+    z-index: 2;
 `;
 
 export const Logo = styled(FoodieLogo)`
-    height: 60px;
+    height: 50px;
     width: auto;
 
     :hover {

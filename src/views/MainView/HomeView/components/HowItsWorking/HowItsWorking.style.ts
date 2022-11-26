@@ -1,46 +1,90 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  padding: 2rem 3rem 4rem 3rem;
-  background-color: white;
-  
+export const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6rem;
+
+    @media screen and (max-width: 420px) {
+        gap: 4rem;
+    }
 `;
 
-export const PStyled = styled.div`
-    padding: 4rem 0 4rem 0;
-`
+export const WorkingPointsContainer = styled.div`
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
 
-export const GridContainer = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-top: 2rem;
+    @media screen and (max-width: 1200px) and (min-width: 581px) {
+        display: grid;
+        grid-template-columns: auto auto;
 
-`
+        & > div:nth-child(2) {
+            flex-direction: column;
 
-export const GridElement = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  img {
-    margin-bottom: 2rem;
-  }
-  ul {
-    margin-top: 2rem;
-  }
-  
-`
+            & > div:last-child {
+                padding: 5rem 0;
+                svg {
+                    transform: rotate(90deg) translateY(140px);
+                }
+            }
+        }
+    }
 
-export const LineElement = styled.div`
-  padding-top: 33%;
+    @media screen and (max-width: 580px) {
+        flex-direction: column;
+    }
+`;
 
-`
+export const WorkingPointContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 
-export const ImageContainer = styled.div`
-  img {
-    height: 7rem;
-  }
-`
+    @media screen and (max-width: 580px) {
+        flex-direction: column;
+        align-items: center;
+    }
+`;
 
+export const WorkingPoint = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 9rem;
+    svg {
+        height: 5rem;
+        width: fit-content;
+    }
+
+    @media screen and (max-width: 580px) {
+        align-items: center;
+
+        /* svg {
+            height: 8rem;
+            width: fit-content;
+        } */
+    }
+`;
+
+export const PointsContainer = styled.ul`
+    margin: -0.5rem 0 0 0;
+    padding: 0 0 0 20px;
+`;
+
+export const LineContainer = styled.div`
+    padding-top: 40px;
+
+    & > svg {
+        max-width: 5rem;
+    }
+
+    @media screen and (max-width: 580px) {
+        padding: 80px 0 60px 0;
+
+        & > svg {
+            transform: rotate(90deg);
+        }
+    }
+`;

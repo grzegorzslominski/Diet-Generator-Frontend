@@ -21,8 +21,8 @@ const MobileMenu = ({ close }: MobileMenuProps) => {
                     key={menuItem.label}
                     fontSize='32px'
                     hoverColor='gradient'
-                    fontFamily='Poppins'
-                    fontWeight='300'
+                    fontFamily='Lato'
+                    fontWeight='400'
                     color='#d9d9d9'
                     onClick={() => menuClickHandler(menuItem)}
                 >
