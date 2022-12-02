@@ -1,4 +1,5 @@
 import React from "react";
+
 import * as S from './LastWeightChanges.style'
 import Label from "../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../themes/mainTheme";

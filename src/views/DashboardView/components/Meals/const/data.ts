@@ -10,6 +10,7 @@ export interface dataI {
   p: string;
   f: string;
 }
+
 export const  data = [
   {
     name: "Chiken Masala",
@@ -34,6 +35,7 @@ export const  data = [
     c: "12g",
     p: "12g",
     f: "12g"
+  }
   },
   {
     name: "Chiken Masala1",
@@ -71,6 +73,4 @@ export const  data = [
     p: "12g",
     f: "12g"
   },
-
-
 ]

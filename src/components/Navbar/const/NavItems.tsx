@@ -1,6 +1,8 @@
     export type NavItem = {
     label: string;
     routing?: string;
+    login?: boolean;
+    register?: boolean;
     external?: boolean;
 };
 
@@ -11,10 +13,10 @@ export const NAV_ITEMS: NavItem[] = [
     },
     {
         label: "Sign In",
-        routing: "/",
+        login: true,
     },
     {
         label: "Sign Up",
-        routing: "/",
+        register: true,
     },
 ];

@@ -26,7 +26,8 @@
         "quotes": ["warn", "double"],
         "no-duplicate-imports": "error",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-empty-function": "warn"
+        "@typescript-eslint/no-empty-function": "warn",
+        "react/display-name": "off"
     },
     "settings": {
         "import/resolver": {

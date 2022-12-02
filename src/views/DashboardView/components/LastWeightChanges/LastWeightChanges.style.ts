@@ -42,15 +42,16 @@ export const StatisticContainer = styled.div`
     
   }
 
-
 `
 
 export const Labelh1 = styled.div`
   margin-bottom: 2rem;
+
   
   @media screen and (max-width: 720px){
     margin: 0;
   }
+
 `
 
 export const LabelStyled = styled(Labelh1)`
@@ -60,7 +61,6 @@ export const LabelStyled = styled(Labelh1)`
   background-clip: text;
   text-fill-color: transparent;
   text-align: left;
-  
 
   @media screen and (max-width: 720px){
     display: flex;

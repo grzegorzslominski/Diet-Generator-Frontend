@@ -21,7 +21,6 @@ const NewCreator = () => {
                     fontSize='1.8rem'
                     lineHeight='2.2rem'
                     color={mainTheme.colors.mainBlack}
-
                 >
                     Lucy Beckham
                 </Label>
@@ -31,7 +30,6 @@ const NewCreator = () => {
                     fontSize='1rem'
                     lineHeight='1.2rem'
                     color={mainTheme.colors.mainBlack}
-
                 >
                     Personal trainer
                 </Label>
@@ -70,6 +68,20 @@ const NewCreator = () => {
                             lineHeight='1.1rem'
                             textAlign='center'
                             color={mainTheme.colors.mainBlack}
+                        >
+                            Youtube
+                        </Label>
+                    </S.Icon>
+                    <S.Icon>
+                        <Label
+                            fontFamily='Lato'
+                            fontSize='0.9rem'
+                            fontWeight='500'
+                            lineHeight='1.1rem'
+                            textAlign='center'
+                            color={mainTheme.colors.mainBlack}
+                        >
+                            Fittnes
                         >Fittnes
                         </Label>
                     </S.Icon>
@@ -87,6 +99,7 @@ const NewCreator = () => {
                     </S.Icon>
                 </S.IconContainer>
                 <S.IconContainer>
+
                 <S.ImageContainer>
                     <img src={instagram} alt=""/>
                 </S.ImageContainer>
@@ -114,5 +127,6 @@ const NewCreator = () => {
         </S.Container>
     );
 };
+
 
 export default NewCreator;
