@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: #FFFFFF;
-  width: 100%;
-  height: 31rem;
+  width: 900px;
+  height: 400px;
   border-radius: 1rem;
   display: flex;
   flex-direction: row;
@@ -11,22 +11,47 @@ export const Container = styled.div`
   text-align: center;
   align-items: center;
   gap: 2rem;
-  padding: 5% 0 5% 0;
+  padding: 5% 5% 5% 5%;
   margin-top: 2%;
+  
+  @media screen and (max-width: 1900px){
+    width: 700px;
+  }
+  @media screen and (max-width: 720px){
+    flex-direction: column;
+  }
 `
 
-export const ChartContainer = styled.div`
-  width: 70%;
-`
+export const StatisticWrapper = styled.div`
+  @media screen and (max-width: 720px){
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    justify-items: center;
+    align-items: center;
+    padding: 6px 0 6px 0;
+    width: 300px;
 
+  }
+`
 export const StatisticContainer = styled.div`
   display: flex;
   flex-direction: column;
-  
+
+  @media screen and (max-width: 720px){
+    margin-top: -10px;
+    
+  }
+
 `
 
 export const Labelh1 = styled.div`
   margin-bottom: 2rem;
+
+  
+  @media screen and (max-width: 720px){
+    margin: 0;
+  }
+
 `
 
 export const LabelStyled = styled(Labelh1)`
@@ -36,4 +61,11 @@ export const LabelStyled = styled(Labelh1)`
   background-clip: text;
   text-fill-color: transparent;
   text-align: left;
+
+  @media screen and (max-width: 720px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `

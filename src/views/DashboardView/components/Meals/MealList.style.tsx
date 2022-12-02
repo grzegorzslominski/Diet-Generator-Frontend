@@ -11,5 +11,31 @@ export const LabelContainer = styled.div`
 
 export const ItemContainer = styled.div`
   display: inline-flex;
-  margin: 6px;
+
+`
+
+export const ItemWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  @media screen and (max-width: 1720px){
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    justify-content: center;
+    gap: 10px;
+  }
+
+  @media screen and (max-width: 1050px){
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    justify-content: center;
+    gap: 10px;
+  }
+  @media screen and (max-width: 700px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
 `

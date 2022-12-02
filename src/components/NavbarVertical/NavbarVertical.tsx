@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+
+import React  from "react";
 import * as S from "./NavbarVertical.style"
 import {NavItem, NAV_ITEMS} from "./const/NavVerticalItem";
 import { useLocation, useNavigate } from "react-router-dom";
 import Label from "../UI/Label/Label";
-import { ReactComponent } from "*.svg";
 
 const NavbarVertical = () => {
   const navigate = useNavigate();

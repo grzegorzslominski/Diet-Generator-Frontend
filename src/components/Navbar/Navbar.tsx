@@ -25,6 +25,7 @@ const Navbar = ({ authorizeUser }: NavbarProps) => {
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
+
     useEffect(() => {
         if (mobileMenuOpen) setMobileMenuOpen(false);
     }, [location.pathname]);

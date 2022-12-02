@@ -11,6 +11,10 @@ export const Container = styled.div`
     background: #48456D;
     color: #FFFFFF;
     justify-content: center;
+
+  @media screen and (max-width: 870px){
+    display: none;
+  }
 `;
 
 export const NavItemsContainer = styled.div`
