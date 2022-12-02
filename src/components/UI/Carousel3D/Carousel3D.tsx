@@ -44,8 +44,6 @@ const Carousel3D = ({
             currentActiveElement + valueToActiveIndex >= 0 &&
             currentActiveElement + valueToActiveIndex < children.length
         ) {
-            console.log("test");
-
             currentActiveElement = currentActiveElement + valueToActiveIndex;
             setActiveElement(currentActiveElement);
         }
@@ -72,9 +70,6 @@ const Carousel3D = ({
         }
         setTranslate(translateValue);
     };
-
-    console.log(activeElemet === 0);
-    console.log(children.length);
 
     return (
         <S.Container>

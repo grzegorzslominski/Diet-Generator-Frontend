@@ -3,14 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
     background: rgba(18, 18, 18, 0.9);
-    backdrop-filter: blur(4px);
-    z-index: 1100;
     justify-content: center;
     padding: 0 40px;
     gap: 28px;
@@ -30,4 +26,11 @@ export const Container = styled.div`
             transform: translateX(0px);
         }
     }
+`;
+
+export const CloseButtonContanier = styled.div`
+    position: absolute;
+    top: 28px;
+    right: 19px;
+    z-index: 1;
 `;
