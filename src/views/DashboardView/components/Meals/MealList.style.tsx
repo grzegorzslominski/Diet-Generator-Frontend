@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 80%;
-  
-  
 `
 export const LabelContainer = styled.div`
   margin-right: auto;
@@ -13,6 +11,7 @@ export const LabelContainer = styled.div`
 
 export const ItemContainer = styled.div`
   display: inline-flex;
+
 `
 
 export const ItemWrapper = styled.div`

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Label from "../../../../components/UI/Label/Label";
 
 export const Container = styled.div`
     position: relative;

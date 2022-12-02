@@ -6,7 +6,8 @@ export const Container = styled.div`
     position: sticky;
     height: 5%;
     top: 0;
-    padding: 12px 32px 12px 32px;
+    left: 0;
+    padding: 16px 32px 16px 32px;
     display: flex;
     justify-content: space-between;
     width: 100%;

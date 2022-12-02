@@ -1,3 +1,4 @@
+
 import React  from "react";
 import * as S from "./NavbarVertical.style"
 import {NavItem, NAV_ITEMS} from "./const/NavVerticalItem";
