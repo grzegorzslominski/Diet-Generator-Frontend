@@ -27,7 +27,9 @@
         "no-duplicate-imports": "error",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-empty-function": "warn",
-        "react/display-name": "off"
+        "react/display-name": "off",
+        "@typescript-eslint/ban-types": "warn",
+        "@typescript-eslint/no-unnecessary-type-constraint": "off"
     },
     "settings": {
         "import/resolver": {

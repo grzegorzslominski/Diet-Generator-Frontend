@@ -111,7 +111,7 @@ const Register = () => {
     });
 
     return (
-        <ModalPortal blurBackground>
+        <ModalPortal blurBackground close={closeAuthViews}>
             <AuthPad header='Sign Up'>
                 <S.Contanier>
                     <S.InputsContainer>
