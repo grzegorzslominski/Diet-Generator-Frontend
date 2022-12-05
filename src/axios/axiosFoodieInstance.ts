@@ -8,8 +8,7 @@ const axiosFoodieInstance = axios.create({
 
 axiosFoodieInstance.interceptors.request.use(async (axiosConfig: AxiosRequestConfig) => {
     const config = await getConfig();
-    // axiosConfig.baseURL = config.foodieAPI;
-    axiosConfig.baseURL = "https://foodie-369621.ey.r.appspot.com/";
+    axiosConfig.baseURL = config.foodieAPI;
 
     const authToken = localStorage.getItem("authToken");
     if (authToken && axiosConfig && axiosConfig?.headers) {

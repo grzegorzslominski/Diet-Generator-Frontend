@@ -25,6 +25,7 @@
         "spaced-comment": "error",
         "quotes": ["warn", "double"],
         "no-duplicate-imports": "error",
+        "no-prototype-builtins": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-empty-function": "warn",
         "react/display-name": "off",

@@ -1,12 +1,13 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAuthViews } from "../../../hooks/useAuthViews";
+import { useForm } from "../../../hooks/useForm";
+import { setNotification } from "../../../redux/slices/notification";
 
 import { ReactComponent as UserIcon } from "../../../assets/icons/user.svg";
 import { ReactComponent as PasswordIcon } from "../../../assets/icons/password.svg";
 import { mainTheme } from "../../../themes/mainTheme";
-import { useForm } from "../../../hooks/useForm";
-import { setNotification } from "../../../redux/slices/notification";
+import { ENDPOINTS_USER } from "../../../navigation/endpoints";
 import axiosFoodieInstance from "../../../axios/axiosFoodieInstance";
 
 import Label from "../../../components/UI/Label/Label";
@@ -15,11 +16,11 @@ import ExternalAuthProvidres from "../components/ExternalAuthProvidres/ExternalA
 import GradientLabel from "../../../components/UI/GradientLabel/GradientLabel";
 import Input from "../../../components/UI/Input/Input";
 import Button from "../../../components/UI/Button/Button";
+import ModalPortal from "../../../components/UI/ModalPortal/ModalPortal";
 
 import { UserSignUp } from "../../../models/User/User";
 
 import * as S from "../AuthViews.style";
-import ModalPortal from "../../../components/UI/ModalPortal/ModalPortal";
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const Register = () => {
             email: {
                 required: {
                     value: true,
-                    message: "This field is required.",
+                    message: "This field is required",
                 },
                 pattern: {
                     value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -50,9 +51,8 @@ const Register = () => {
                     message: "This field is required",
                 },
                 pattern: {
-                    value: /^[a-zA-Z]{6,24}$/,
-                    message:
-                        "The password must consist of at least 6 characters. Enter a different password",
+                    value: /^[A-Za-z0-9]\w{6,}$/,
+                    message: "The password must consist of at least 6 characters",
                 },
             },
             confirmPassword: {
@@ -70,13 +70,13 @@ const Register = () => {
         },
 
         onSubmit: () => {
-            const dataToSend = {
+            setIsLoading(true);
+            const userData = {
                 email: userRegisterData.email,
                 password: userRegisterData.password,
             };
-            setIsLoading(true);
             axiosFoodieInstance
-                .post(`/account/register`, dataToSend)
+                .post(ENDPOINTS_USER.register, userData)
                 .then((response) => {
                     if (response.status === 201) {
                         dispatch(
