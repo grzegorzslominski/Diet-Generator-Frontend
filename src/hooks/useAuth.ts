@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import axiosFoodieInstance from "../axios/axiosFoodieInstance";
 import { User } from "../models/User/User";
+import { NAVIGATION } from "../navigation/paths";
 import { setUser } from "../redux/slices/user";
 
 export default function useAuth() {
@@ -30,19 +31,17 @@ export default function useAuth() {
         if (!localAuthToken && !localAuthCookie.includes("session")) {
             return;
         }
-
         return loginUser();
     };
 
     const loginUser = async () => {
-        let foundUser = false;
+        let userData: User = null;
 
         await axiosFoodieInstance
             .get("/account")
             .then((response) => {
                 if (response.status === 200) {
-                    const userData = response.data as User;
-                    foundUser = true;
+                    userData = response.data;
                     dispatch(setUser(userData));
                 }
             })
@@ -51,11 +50,11 @@ export default function useAuth() {
                     localStorage.removeItem("authToken");
                     document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     dispatch(setUser(null));
-                    navigate("/homepage");
+                    navigate(NAVIGATION.home);
                 }
             });
 
-        return foundUser;
+        return userData;
     };
 
     return { authorizeUser };

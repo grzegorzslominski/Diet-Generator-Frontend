@@ -3,9 +3,11 @@ import { useForm } from "../../../hooks/useForm";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../../../redux/slices/notification";
 import { useAuthViews } from "../../../hooks/useAuthViews";
+import useAuth from "../../../hooks/useAuth";
 
 import { ReactComponent as UserIcon } from "../../../assets/icons/user.svg";
 import { ReactComponent as PasswordIcon } from "../../../assets/icons/password.svg";
+import { ENDPOINTS_USER } from "../../../navigation/endpoints";
 
 import Label from "../../../components/UI/Label/Label";
 import AuthPad from "../components/AuthPad/AuthPad";
@@ -23,13 +25,10 @@ import { UserSignIn } from "../../../models/User/User";
 
 import * as S from "../AuthViews.style";
 
-type LoginProsp = {
-    authorizeUser: () => void;
-};
-
-const Login = ({ authorizeUser }: LoginProsp) => {
+const Login = () => {
     const dispatch = useDispatch();
     const { changeAutView, closeAuthViews } = useAuthViews();
+    const { authorizeUser } = useAuth();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -61,10 +60,13 @@ const Login = ({ authorizeUser }: LoginProsp) => {
         onSubmit: () => {
             true;
             axiosFoodieInstance
-                .post(`/login`, userLoginData)
+                .post(ENDPOINTS_USER.login, userLoginData)
                 .then((response) => {
                     if (response.status === 201) {
-                        //
+                        const authToken = response.data;
+                        if (authToken) {
+                            localStorage.setItem("authToken", JSON.stringify(authToken));
+                        }
                     }
                 })
                 .catch((err) => {

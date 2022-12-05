@@ -1,30 +1,22 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthViews } from "../../hooks/useAuthViews";
 
 import HamburgerMenu from "react-hamburger-menu";
 import Label from "../UI/Label/Label";
 import MobileMenu from "./const/MobileMenu/MobileMenu";
-import ModalPortal from "../../components/UI/ModalPortal/ModalPortal";
-import Login from "../../views/AuthViews/Login/Login";
-import Register from "../../views/AuthViews/Register/Register";
 
 import { mainTheme } from "../../themes/mainTheme";
 import { NavItem, NAV_ITEMS } from "./const/NavItems";
 
 import * as S from "./Navbar.style";
-import { useAuthViews } from "../../hooks/useAuthViews";
 
-type NavbarProps = {
-    authorizeUser: () => void;
-};
-
-const Navbar = ({ authorizeUser }: NavbarProps) => {
+const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { openRegisterView, openLoginView } = useAuthViews();
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-
 
     useEffect(() => {
         if (mobileMenuOpen) setMobileMenuOpen(false);
