@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: #FFFFFF;
-  width: 900px;
-  height: 400px;
+  min-width: 900px;
+  min-height: 400px;
   border-radius: 1rem;
   display: flex;
   flex-direction: row;
@@ -11,15 +11,22 @@ export const Container = styled.div`
   text-align: center;
   align-items: center;
   gap: 2rem;
-  padding: 5% 5% 5% 5%;
+  padding: 20px;
   margin-top: 2%;
   
   @media screen and (max-width: 1900px){
-    width: 700px;
+    max-width: 700px;
+    min-width: 700px;
+    
   }
   @media screen and (max-width: 720px){
     flex-direction: column;
+    min-width: unset;
+    width: 100%
   }
+ 
+
+    
 `
 
 export const StatisticWrapper = styled.div`

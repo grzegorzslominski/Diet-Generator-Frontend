@@ -3,11 +3,9 @@ import styled from "styled-components";
 export const ChartContainer = styled.div`
   width: 60%;
 
-  @media screen and (max-width: 720px){
+  @media screen and (max-width: 870px){
     margin-top: 30px;
-  }
-  
-  @media screen and (max-width: 400px){
-    width: 350px
+    width: 300px
+
   }
 `
