@@ -11,7 +11,7 @@ import { ConfigData, setConfig } from "../../redux/slices/config";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import DashboardView from "../DashboardView/components/DashboardView";
+import DashboardView from "../DashboardView/DashboardView";
 import MyDietView from "../MyDietView/MyDietView";
 import DietGeneratorView from "../DietGeneratorView/DietGeneratorView";
 import HomeView from "../HomeView/HomeView";

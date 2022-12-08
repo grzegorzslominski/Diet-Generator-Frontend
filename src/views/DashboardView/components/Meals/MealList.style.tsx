@@ -7,6 +7,13 @@ export const Container = styled.div`
 export const LabelContainer = styled.div`
   margin-right: auto;
   margin-top: 2%;
+  @media screen and (max-width: 1720px){
+    margin: 5% 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 `
 
 export const ItemContainer = styled.div`
@@ -19,7 +26,7 @@ export const ItemWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  @media screen and (max-width: 1720px){
+  @media screen and (max-width: 1820px){
     display: grid;
     grid-template-columns: repeat(3,auto);
     justify-content: center;

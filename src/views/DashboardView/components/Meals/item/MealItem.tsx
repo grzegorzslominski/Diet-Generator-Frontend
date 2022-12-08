@@ -35,7 +35,7 @@ const MealItem = (props: props) => {
                 </S.Border> : <S.NewBorder><Label
                   fontFamily='Montserrat'
                   fontWeight='700'
-                  fontSize='1.1rem'
+                  fontSize='1rem'
                   lineHeight='1.3rem'
                   textAlign='center'
                   color='white'
@@ -46,7 +46,7 @@ const MealItem = (props: props) => {
               <Label
                 fontFamily='Montserrat'
                 fontWeight='600'
-                fontSize='1.4rem'
+                fontSize='1.2rem'
                 textAlign='center'
                 color={mainTheme.colors.mainBlack}
               >
@@ -59,6 +59,7 @@ const MealItem = (props: props) => {
                 <Label
                   fontFamily='Monserrat'
                   fontWeight='600'
+                  fontSize='0.9rem'
                   lineHeight='1rem'
                   color='white'
                 >

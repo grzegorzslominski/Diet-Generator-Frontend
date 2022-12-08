@@ -69,18 +69,6 @@ const NewCreator = () => {
                                 textAlign='center'
                                 color={mainTheme.colors.mainBlack}
                             >
-                                Youtube
-                            </Label>
-                        </S.Icon>
-                        <S.Icon>
-                            <Label
-                                fontFamily='Lato'
-                                fontSize='0.9rem'
-                                fontWeight='500'
-                                lineHeight='1.1rem'
-                                textAlign='center'
-                                color={mainTheme.colors.mainBlack}
-                            >
                                 Fittnes
                             </Label>
                         </S.Icon>

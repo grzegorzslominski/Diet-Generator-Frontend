@@ -4,15 +4,15 @@ import Label from "../../../../components/UI/Label/Label";
 export const Container = styled.div`
     position: relative;
     background-color: #FFFFFF;
-    width: 590px;
-    height: 400px;
+    min-width: 570px;
+    min-height: 400px;
     border-radius: 1rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
-    padding: 5% 5% 5% 5%;
+    gap: 0.5rem;
+    padding: 20px;
     margin-top: 3%;
     
     
@@ -20,10 +20,15 @@ export const Container = styled.div`
   @media screen and (max-width: 650px){
     align-items: center;
     flex-direction: column;
+    min-width: unset;
+    width: 400px;
     gap: 0;
     padding: 0;
     justify-content: center;
-  }
+
+    @media screen and (max-width: 650px){
+      width: 300px;
+    }
 `
 
 export const ImgWrapper = styled.div`
@@ -64,9 +69,13 @@ export const RightSection = styled.div`
 `
 
 export const Description = styled.div`
-  width: 100%;
-  min-height: 15vh;
+  min-height: 170px;
   margin: 7% 0 7% 0;
+  text-overflow: ellipsis;
+  width: 220px;
+  overflow: hidden;
+  max-height: 110px;
+  white-space: nowrap;
 
   @media screen and (max-width: 650px){
     min-height: 5vh;

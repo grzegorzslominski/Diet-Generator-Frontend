@@ -2,7 +2,6 @@ import React from "react";
 import * as S from "./Questions.style";
 import { data } from "./const/data";
 import Label from "../../../../../components/UI/Label/Label";
-import RadioInput from "./hook/RadioInput";
 
 const Questions = () => {
     return (
