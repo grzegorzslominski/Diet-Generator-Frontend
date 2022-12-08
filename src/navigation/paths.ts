@@ -4,4 +4,5 @@ export enum NAVIGATION {
     dashboard = "/dashboard",
     dietGenerator = "/diet/generator",
     myDiet = "/diet/my",
+    basicUserProfile = "/profile",
 }
