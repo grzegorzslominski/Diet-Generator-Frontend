@@ -5,11 +5,11 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 
 import Label from "../Label/Label";
+import { mainTheme } from "../../../themes/mainTheme";
 
 import { InputProps } from "./Input.type";
 
 import * as S from "./Input.style";
-import { mainTheme } from "../../../themes/mainTheme";
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
     (
@@ -36,6 +36,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             clearError,
             id = "",
             width = "100%",
+            size = "normal",
         },
         ref,
     ) => {
@@ -89,13 +90,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 labelIndent={labelIndent}
                 label={label}
                 disabled={disabled}
+                icon={Boolean(icon)}
+                size={size}
             >
                 {label && (
                     <>
                         <Label
                             fontFamily='Lato'
-                            fontWeight='700'
-                            fontSize='0.8rem'
+                            fontWeight='800'
+                            fontSize={size === "normal" ? "0.8rem" : "0.6rem"}
                             color={mainTheme.colors.inputText}
                         >
                             {label}
@@ -103,7 +106,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     </>
                 )}
 
-                <S.InputContainer width={width}>
+                <S.InputContainer width={width} icon={Boolean(icon)} size={size}>
                     {icon ? icon : null}
                     {type !== "date" && (
                         <S.StyledInput
@@ -148,7 +151,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
                 {(internalValidationError || error) && (
                     <S.ErrorContainer labelIndent={labelIndent}>
-                        <Label fontSize='12px' color='#FF0000'>
+                        <Label
+                            fontWeight='700'
+                            fontSize={size === "normal" ? "0.8rem" : "0.6rem"}
+                            color='#FF0000'
+                        >
                             {internalValidationError || error}
                         </Label>
                     </S.ErrorContainer>

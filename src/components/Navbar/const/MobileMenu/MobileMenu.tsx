@@ -1,12 +1,12 @@
 import { useAuthViews } from "../../../../hooks/useAuthViews";
 import { NavItem, NAV_ITEMS } from "../NavItems";
 
-import CloseButton from "../../../UI/CloseButton/CloseButton";
 import Label from "../../../UI/Label/Label";
 import ModalPortal from "../../../UI/ModalPortal/ModalPortal";
 
 import * as S from "./MobileMenu.style";
 import { mainTheme } from "../../../../themes/mainTheme";
+import ActionButton from "../../../UI/ActionButton/ActionButton";
 
 type MobileMenuProps = {
     close: () => void;
@@ -32,7 +32,7 @@ const MobileMenu = ({ close }: MobileMenuProps) => {
         <ModalPortal blurBackground>
             <S.Container>
                 <S.CloseButtonContanier>
-                    <CloseButton onClick={close} size='big' color={mainTheme.colors.grey} />
+                    <ActionButton type='remove' onClick={close} />
                 </S.CloseButtonContanier>
                 {NAV_ITEMS.map((menuItem: NavItem) => (
                     <Label

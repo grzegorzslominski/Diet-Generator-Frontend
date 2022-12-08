@@ -7,6 +7,8 @@ export type InputContainerProps = {
     label?: string | React.ReactElement;
     disabled?: boolean;
     type?: string;
+    icon: boolean;
+    size: "small" | "normal";
 };
 
 export type InputProps = {
@@ -32,4 +34,5 @@ export type InputProps = {
     onKeyDown?: (e: any) => void;
     onChange?: (e: any) => void;
     onBlur?: (e: any | Moment | null) => void;
+    size?: "small" | "normal";
 };

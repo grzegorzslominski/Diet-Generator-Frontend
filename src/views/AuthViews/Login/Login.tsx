@@ -3,11 +3,13 @@ import { useForm } from "../../../hooks/useForm";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../../../redux/slices/notification";
 import { useAuthViews } from "../../../hooks/useAuthViews";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
 import { ReactComponent as UserIcon } from "../../../assets/icons/user.svg";
 import { ReactComponent as PasswordIcon } from "../../../assets/icons/password.svg";
 import { ENDPOINTS_USER } from "../../../navigation/endpoints";
+import { NAVIGATION } from "../../../navigation/paths";
 
 import Label from "../../../components/UI/Label/Label";
 import AuthPad from "../components/AuthPad/AuthPad";
@@ -30,6 +32,7 @@ const Login = () => {
     const { changeAutView, closeAuthViews } = useAuthViews();
     const { authorizeUser } = useAuth();
 
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -66,6 +69,8 @@ const Login = () => {
                         const authToken = response.data;
                         if (authToken) {
                             localStorage.setItem("authToken", JSON.stringify(authToken));
+                            closeAuthViews();
+                            navigate(NAVIGATION.dashboard);
                         }
                     }
                 })

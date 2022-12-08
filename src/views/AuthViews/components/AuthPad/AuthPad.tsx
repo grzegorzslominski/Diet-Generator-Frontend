@@ -1,10 +1,10 @@
 import { useAuthViews } from "../../../../hooks/useAuthViews";
 import { mainTheme } from "../../../../themes/mainTheme";
 
-import CloseButton from "../../../../components/UI/CloseButton/CloseButton";
 import Label from "../../../../components/UI/Label/Label";
 
 import * as S from "./AuthPad.style";
+import ActionButton from "../../../../components/UI/ActionButton/ActionButton";
 
 type AuthPadProps = {
     header: string;
@@ -16,7 +16,7 @@ const AuthPad = ({ header, children }: AuthPadProps) => {
     return (
         <S.Contanier>
             <S.CloseContainer>
-                <CloseButton onClick={closeAuthViews} />
+                <ActionButton type='remove' onClick={closeAuthViews} />
             </S.CloseContainer>
             <S.Content>
                 <Label

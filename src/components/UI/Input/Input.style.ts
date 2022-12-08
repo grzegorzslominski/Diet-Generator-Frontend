@@ -10,22 +10,29 @@ export const Container = styled.div<InputContainerProps>`
     flex-direction: column;
     position: relative;
     width: ${({ width }) => width};
-    gap: 8px;
 
     ${({ labelIndent }) =>
         labelIndent &&
         css`
             & > span {
-                padding-left: 24px;
+                padding-left: 36px;
             }
+        `}
+
+    ${({ size }) =>
+        size === "normal" &&
+        css`
+            gap: 8px;
         `}
 `;
 
 export const InputContainer = styled.div<InputContainerProps>`
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #d9d9d9;
-    padding-left: 12px;
+    border-bottom: 1px solid;
+    border-color: ${({ disabled }) => (disabled ? "#B0B0B0" : "#d9d9d9")};
+
+    // padding-left: 12px;
     svg {
         height: 15px;
         width: auto;
@@ -37,10 +44,15 @@ export const InputContainer = styled.div<InputContainerProps>`
         text-align: left;
         font-family: "Montserrat", sans-serif;
         box-sizing: border-box;
-        padding: 6px 24px;
-        font-size: 0.8rem;
-
-        color: ${mainTheme.colors.inputText};
+        padding: ${({ icon, size }) =>
+            icon && size === "normal"
+                ? "6px 24px"
+                : icon && size !== "normal"
+                ? "6px 24px 0px 24px"
+                : "6px  0px 2px  0px"};
+        font-size: ${({ size }) => (size === "normal" ? "0.8rem" : "0.7rem")};
+        font-weight: 600;
+        color: ${mainTheme.colors.grey};
         margin-top: ${({ label, type }) => (label && type !== "date" ? "6px" : "0")};
         opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 

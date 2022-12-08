@@ -1,11 +1,23 @@
 export type UserData = {
     readonly id: number;
-    firstName?: string;
-    lastName?: string;
+    firstName: string;
+    lastName: string;
     email: string;
-    username?: string;
+    username: string;
     profileType: ProfileType;
+    avatar: string;
+    details: UserDetails;
 };
+
+export type UserDetails = {
+    weight: number;
+    height: number;
+    gender: GenderType;
+    bmi: number;
+    dailyCalories: number;
+};
+
+export type GenderType = "Male" | "Female";
 
 export type User = UserData | null;
 
