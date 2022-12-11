@@ -3,8 +3,9 @@ import * as S from "./AnswerQuestions.style"
 import { mainTheme } from "../../../../themes/mainTheme";
 import Label from "../../../../components/UI/Label/Label";
 import Questions from "./Questions/Questions";
+import { GeneratorHandleChangeI } from "../../../../models/Generator/GeneratorI";
 
-const AnswerQuestions = () => {
+const AnswerQuestions = ({data,handleChange}: GeneratorHandleChangeI) => {
   return (
     <S.Container>
       <Label
@@ -16,7 +17,7 @@ const AnswerQuestions = () => {
       >
         Step 3: Answer questions
       </Label>
-      <Questions/>
+      <Questions handleChange={handleChange} data={data}/>
     </S.Container>
   );
 };

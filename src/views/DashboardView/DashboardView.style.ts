@@ -20,7 +20,7 @@ export const TopSection = styled.div`
     width: 80%;
     gap: 1rem;
     margin-top: 2%;
-    max-height: 450px;
+    max-height: 500px;
     @media screen and (max-width: 1900px){
       justify-content: center;
     }

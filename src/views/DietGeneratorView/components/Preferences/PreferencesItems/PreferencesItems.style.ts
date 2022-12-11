@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 
 export const Wrapper = styled.div`
@@ -52,7 +52,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   cursor: pointer;
-
+  
 `
 
 export const ButtonContainer = styled.button`
@@ -73,7 +73,36 @@ export const Border = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 130px;
+  width: 130px;
   min-height: 54px;
+  position: relative;
+  z-index: 2;
 
+
+`
+interface prop {
+  selected: boolean;
+}
+export const Customize = styled.div<prop>`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+
+  ${({selected}) => selected ? css `
+    span{
+      position: absolute;
+      display: block;
+      height: 3px;
+      width: 134px;
+      background: #CD5C5C;
+      transform: rotate(20deg);
+      top: 46%;
+      left: -2.5%;
+    }
+    span:last-of-type{
+      transform: rotate(340deg);
+    }
+    
+  ` : null}
 `
