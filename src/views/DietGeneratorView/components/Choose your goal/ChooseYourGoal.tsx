@@ -1,10 +1,12 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import * as S from "./ChooseYourGoal.style"
 import { mainTheme } from "../../../../themes/mainTheme";
 import Label from "../../../../components/UI/Label/Label";
 import Goal from "./Goals/Goal";
+import { GeneratorHandleChangeI } from "../../../../models/Generator/GeneratorI";
 
-const ChooseYourGoal = () => {
+
+const ChooseYourGoal = ({handleChange}: GeneratorHandleChangeI) => {
   return (
     <S.Container>
       <Label
@@ -16,7 +18,7 @@ const ChooseYourGoal = () => {
       >
         Step 1: Choose your goal
       </Label>
-      <Goal/>
+      <Goal handleChange={handleChange}/>
     </S.Container>
   );
 };

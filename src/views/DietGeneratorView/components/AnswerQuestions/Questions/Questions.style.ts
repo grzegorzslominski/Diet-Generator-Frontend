@@ -35,6 +35,7 @@ export const Border = styled.div`
   justify-content: center;
   min-width: 550px;
   min-height: 54px;
+  padding: 5px 0 5px 0;
   @media screen and (max-width: 1195px){
     min-width: 300px;
     max-width: 300px;
