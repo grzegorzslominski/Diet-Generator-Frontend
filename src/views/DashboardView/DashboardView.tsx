@@ -1,14 +1,14 @@
-import * as S from "./DashboardView.style";
-import Label from "../../components/UI/Label/Label";
 import { mainTheme } from "../../themes/mainTheme";
+
+import Label from "../../components/UI/Label/Label";
 import NewCreator from "./components/newCreator/NewCreator";
 import LastWeightChanges from "./components/LastWeightChanges/LastWeightChanges";
-import NavbarVertical from "../../components/NavbarVertical/NavbarVertical";
 import MealsList from "./components/Meals/MealsList";
+
+import * as S from "./DashboardView.style";
 const DashboardView = () => {
     return (
         <S.Container>
-            <NavbarVertical />
             <S.TopSection>
                 <S.ContainerItem2>
                     <Label

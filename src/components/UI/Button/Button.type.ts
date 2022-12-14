@@ -7,7 +7,7 @@ export type ButtonContainerProps = {
 
 export type ButtonProps = {
     onClick: any;
-    styleType: "primary" | "secondary";
+    styleType: ButtonStyleType;
     borderRadius?: string;
     borderWidth?: string;
     isLoading?: boolean;
@@ -19,4 +19,6 @@ export type ButtonProps = {
     disabled?: boolean;
     width?: string;
     gradient?: string;
+    color?: string;
 };
+type ButtonStyleType = "gradientFull" | "gradientEmpty" | "primaryFull" | "primaryEmpty";

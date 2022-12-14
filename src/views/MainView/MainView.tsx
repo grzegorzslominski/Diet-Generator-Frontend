@@ -16,6 +16,7 @@ import MyDietView from "../MyDietView/MyDietView";
 import DietGeneratorView from "../DietGeneratorView/DietGeneratorView";
 import HomeView from "../HomeView/HomeView";
 import BasicUserProfileView from "../UserProfileView/BasicUserProfileView/BasicUserProfileView";
+import NavbarVertical from "../../components/NavbarVertical/NavbarVertical";
 
 import { TStore } from "../../redux/store/store";
 
@@ -39,7 +40,8 @@ const MainView = () => {
         <ThemeProvider theme={mainTheme}>
             <S.Container>
                 <Navbar />
-                <S.Content>
+                {true && <NavbarVertical />}
+                <S.Content user={true}>
                     <Routes>
                         {true && (
                             <>

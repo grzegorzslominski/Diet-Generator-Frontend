@@ -6,6 +6,7 @@ import * as S from "./BoxPad.style";
 type BoxPadType = {
     children: React.ReactNode;
     padding?: string;
+    gap?: string;
     backgroundColor?: string;
     header?: string;
 };
@@ -13,14 +14,17 @@ type BoxPadType = {
 const BoxPad = ({
     children,
     padding = "24px",
+    gap = "12px",
     backgroundColor = "#ffffff",
     header,
 }: BoxPadType) => {
     return (
-        <S.Contanier padding={padding} backgroundColor={backgroundColor}>
-            <Label fontSize='18px' fontWeight='700' color={mainTheme.colors.mainBlack}>
-                {header}
-            </Label>
+        <S.Contanier padding={padding} backgroundColor={backgroundColor} gap={gap}>
+            {header && (
+                <Label fontSize='16px' fontWeight='600' color={mainTheme.colors.mainBlack}>
+                    {header}
+                </Label>
+            )}
             {children}
         </S.Contanier>
     );

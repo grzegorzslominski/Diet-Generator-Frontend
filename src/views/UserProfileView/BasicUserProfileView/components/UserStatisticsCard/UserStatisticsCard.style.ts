@@ -6,7 +6,11 @@ export const Content = styled.div`
 `;
 
 export const ChartContainer = styled.div`
-    width: 550px;
+    width: 650px;
+    min-height: 356px;
+    height: 100%;
+    display: flex;
+    align-items: center;
 
     & > div {
         width: 100%;
@@ -23,4 +27,8 @@ export const ChartSettinges = styled.div`
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    & > span {
+        padding-left: 4px;
+    }
 `;

@@ -82,14 +82,14 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
     });
 
     return (
-        <BoxPad padding='24px 24px 48px 24px'>
+        <BoxPad>
             <S.Content>
                 <S.AvatarContanier>
                     <img src={user.avatar} />
                 </S.AvatarContanier>
                 <S.CardName>
                     <Label
-                        lineHeight='0.8rem'
+                        lineHeight='12px'
                         color={mainTheme.colors.mainBlack}
                         fontWeight='700'
                         fontFamily='Lato'
@@ -164,12 +164,12 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
                 </S.DataContanier>
                 <S.ExtraDetailsContainer>
                     <S.ExtraDetail>
-                        <Label color={mainTheme.colors.mainBlack} fontSize='10px' fontWeight='700'>
+                        <Label color={mainTheme.colors.mainBlack} fontSize='12px' fontWeight='700'>
                             BMI
                         </Label>
                         <Label
                             color={mainTheme.colors.mainBlack}
-                            fontSize='12px'
+                            fontSize='14px'
                             fontWeight='700'
                             lineHeight='18px'
                         >
@@ -177,12 +177,12 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
                         </Label>
                     </S.ExtraDetail>
                     <S.ExtraDetail>
-                        <Label color={mainTheme.colors.mainBlack} fontSize='10px' fontWeight='700'>
+                        <Label color={mainTheme.colors.mainBlack} fontSize='12px' fontWeight='700'>
                             Daily calories
                         </Label>
                         <Label
                             color={mainTheme.colors.mainBlack}
-                            fontSize='12px'
+                            fontSize='14px'
                             fontWeight='700'
                             lineHeight='18px'
                         >
@@ -190,13 +190,13 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
                         </Label>
                     </S.ExtraDetail>
                     <S.ExtraDetail>
-                        <Label color={mainTheme.colors.mainBlack} fontSize='10px' fontWeight='700'>
+                        <Label color={mainTheme.colors.mainBlack} fontSize='12px' fontWeight='700'>
                             Account type
                         </Label>
                         <GradientLabel>
                             <Label
                                 color={mainTheme.colors.mainBlack}
-                                fontSize='12px'
+                                fontSize='14px'
                                 fontWeight='700'
                                 lineHeight='18px'
                             >
@@ -208,7 +208,7 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
                         <Button
                             size='small'
                             width='100px'
-                            styleType='secondary'
+                            styleType='gradientEmpty'
                             onClick={handleSubmit}
                         >
                             Save

@@ -3,6 +3,9 @@ export enum NAVIGATION {
     home = "/",
     dashboard = "/dashboard",
     dietGenerator = "/diet/generator",
-    myDiet = "/diet/my",
+    myDiet = "/diet",
+    myMeals = "/meals",
     basicUserProfile = "/profile",
+    ownMeals = "/profile/meals",
+    premium = "/premium",
 }

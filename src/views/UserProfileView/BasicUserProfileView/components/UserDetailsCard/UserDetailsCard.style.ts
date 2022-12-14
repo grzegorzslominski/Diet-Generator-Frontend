@@ -4,7 +4,7 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 20rem;
+    width: 400px;
 `;
 
 export const AvatarContanier = styled.div`

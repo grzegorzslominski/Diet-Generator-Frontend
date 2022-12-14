@@ -3,6 +3,7 @@ import styled from "styled-components";
 type ContanierProps = {
     padding: string;
     backgroundColor: string;
+    gap: string;
 };
 
 export const Contanier = styled.div<ContanierProps>`
@@ -14,5 +15,5 @@ export const Contanier = styled.div<ContanierProps>`
     height: fit-content;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: ${({ gap }) => gap};
 `;
