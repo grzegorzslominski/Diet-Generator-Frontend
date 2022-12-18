@@ -6,7 +6,7 @@ export const ButtonContainer = styled.div<ButtonContainerProps>`
     position: relative;
     width: ${({ width }) => width};
     height: ${({ size }) =>
-        size === "big" ? "64px" : size === "medium" ? "45px" : size === "small" ? "40px" : "25px"};
+        size === "big" ? "64px" : size === "medium" ? "45px" : size === "small" ? "40px" : "20px"};
 `;
 
 export const InnerContainer = styled.div`

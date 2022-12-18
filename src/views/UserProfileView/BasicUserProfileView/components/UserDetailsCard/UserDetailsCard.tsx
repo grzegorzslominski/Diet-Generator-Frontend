@@ -19,9 +19,10 @@ import Button from "../../../../../components/UI/Button/Button";
 
 type UserDetailsCardProps = {
     user: UserData;
+    className?: string;
 };
 
-const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
+const UserDetailsCard = ({ user, className }: UserDetailsCardProps) => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [isloading, setIsLoading] = useState<boolean>(false);
 
@@ -82,23 +83,23 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
     });
 
     return (
-        <BoxPad>
+        <BoxPad className={className}>
             <S.Content>
-                <S.AvatarContanier>
+                <S.TopSection>
                     <img src={user.avatar} />
-                </S.AvatarContanier>
-                <S.CardName>
-                    <Label
-                        lineHeight='12px'
-                        color={mainTheme.colors.mainBlack}
-                        fontWeight='700'
-                        fontFamily='Lato'
-                    >
-                        Profile
-                    </Label>
+                    <S.CardName>
+                        <Label fontSize='16px' color={mainTheme.colors.mainBlack} fontWeight='600'>
+                            Profile
+                        </Label>
 
-                    <ActionButton size='small' type='edit' onClick={() => setEditMode(!editMode)} />
-                </S.CardName>
+                        <ActionButton
+                            size='small'
+                            type='edit'
+                            onClick={() => setEditMode(!editMode)}
+                        />
+                    </S.CardName>
+                </S.TopSection>
+
                 <S.DataContanier>
                     <Input
                         onChange={handleChange("firstName")}
@@ -117,18 +118,19 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
                         size='small'
                     />
                     <Input
-                        onChange={handleChange("username")}
-                        label='Username'
-                        value={userFormData.username}
+                        onChange={handleChange("email")}
+                        label='E-mail'
+                        value={userFormData.email}
                         disabled={!editMode}
                         width='90%'
                         size='small'
                     />
                     <Input
                         onChange={handleChange("email")}
-                        label='E-mail'
+                        label='Gander'
                         value={userFormData.email}
-                        disabled={!editMode}
+                        // disabled={!editMode}
+                        disabled
                         width='90%'
                         size='small'
                     />
@@ -139,7 +141,6 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
                             value={userFormData.email}
                             // disabled={!editMode}
                             disabled
-                            width='90%'
                             size='small'
                         />
                         <Input
@@ -148,36 +149,21 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
                             value={userFormData.email}
                             // disabled={!editMode}
                             disabled
-                            width='90%'
+                            size='small'
+                        />
+                        <Input
+                            onChange={handleChange("email")}
+                            label='Age'
+                            value={userFormData.email}
+                            // disabled={!editMode}
+                            disabled
                             size='small'
                         />
                     </S.BodyDetails>
-                    <Input
-                        onChange={handleChange("email")}
-                        label='Gander'
-                        value={userFormData.email}
-                        // disabled={!editMode}
-                        disabled
-                        width='90%'
-                        size='small'
-                    />
                 </S.DataContanier>
                 <S.ExtraDetailsContainer>
                     <S.ExtraDetail>
-                        <Label color={mainTheme.colors.mainBlack} fontSize='12px' fontWeight='700'>
-                            BMI
-                        </Label>
-                        <Label
-                            color={mainTheme.colors.mainBlack}
-                            fontSize='14px'
-                            fontWeight='700'
-                            lineHeight='18px'
-                        >
-                            21
-                        </Label>
-                    </S.ExtraDetail>
-                    <S.ExtraDetail>
-                        <Label color={mainTheme.colors.mainBlack} fontSize='12px' fontWeight='700'>
+                        <Label color={mainTheme.colors.mainBlack} fontSize='11px' fontWeight='700'>
                             Daily calories
                         </Label>
                         <Label
@@ -190,7 +176,20 @@ const UserDetailsCard = ({ user }: UserDetailsCardProps) => {
                         </Label>
                     </S.ExtraDetail>
                     <S.ExtraDetail>
-                        <Label color={mainTheme.colors.mainBlack} fontSize='12px' fontWeight='700'>
+                        <Label color={mainTheme.colors.mainBlack} fontSize='10px' fontWeight='700'>
+                            BMI
+                        </Label>
+                        <Label
+                            color={mainTheme.colors.mainBlack}
+                            fontSize='14px'
+                            fontWeight='700'
+                            lineHeight='18px'
+                        >
+                            21
+                        </Label>
+                    </S.ExtraDetail>
+                    <S.ExtraDetail>
+                        <Label color={mainTheme.colors.mainBlack} fontSize='11px' fontWeight='700'>
                             Account type
                         </Label>
                         <GradientLabel>

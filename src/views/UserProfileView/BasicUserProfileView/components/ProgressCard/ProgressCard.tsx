@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
+import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPad";
 import Label from "../../../../../components/UI/Label/Label";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
@@ -8,7 +8,9 @@ import AddWeightModal from "./components/AddWeightModal";
 
 import * as S from "./ProgressCard.style";
 
-const ProgressCard = () => {
+type ProgressCardProps = ClassNameProp & {};
+
+const ProgressCard = ({ className }: ProgressCardProps) => {
     const [openAddWeightModal, setOpenAddWeightModal] = useState<boolean>(false);
 
     const handleOpenAddWeightModal = (open: boolean) => {
@@ -17,12 +19,12 @@ const ProgressCard = () => {
 
     return (
         <>
-            <BoxPad header='Progress' gap='0'>
+            <BoxPad header='Progress' gap='10px' padding='12px 24px' className={className}>
                 <S.Container>
                     <S.ButtonContainer>
                         <S.WeightButton onClick={() => handleOpenAddWeightModal(true)}>
                             <Label
-                                fontWeight='700'
+                                fontWeight='800'
                                 fontSize='16px'
                                 fontFamily='Lato'
                                 color={mainTheme.colors.inputText}
@@ -50,7 +52,7 @@ const ProgressCard = () => {
                         <S.CurrentResult>
                             <Label
                                 fontFamily='Lato'
-                                fontSize='22px'
+                                fontSize='20px'
                                 color={mainTheme.colors.mainBlack}
                                 fontWeight='700'
                             >

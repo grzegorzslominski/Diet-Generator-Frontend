@@ -7,7 +7,6 @@ export const USER: UserData = {
     firstName: "John",
     lastName: "Test",
     email: "johnTest@gmail.com",
-    username: "john12",
     profileType: "standard",
     avatar: avatar,
     details: {
@@ -15,6 +14,7 @@ export const USER: UserData = {
         height: 182,
         gender: "Male",
         bmi: 32,
+        age: 28,
         dailyCalories: 2300,
     },
 };
@@ -34,15 +34,7 @@ export type Setting = {
 
 export const USER_STATISTICS_CHART_SETTING: CharSetting[] = [
     {
-        header: "Type of chart",
-        setting: [
-            { value: "weight", label: "Weight" },
-            { value: "bmi", label: "BMI" },
-        ],
-        settingType: "type",
-    },
-    {
-        header: "Time period",
+        header: "Time:",
         setting: [
             { value: "7", label: "7 day" },
             { value: "30", label: "30 day" },
@@ -50,6 +42,14 @@ export const USER_STATISTICS_CHART_SETTING: CharSetting[] = [
             { value: "all", label: "All" },
         ],
         settingType: "length",
+    },
+    {
+        header: "Type:",
+        setting: [
+            { value: "weight", label: "Weight" },
+            { value: "bmi", label: "BMI" },
+        ],
+        settingType: "type",
     },
 ];
 

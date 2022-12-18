@@ -6,8 +6,12 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 9px;
-    width: 402px;
+    gap: 8px;
+    width: 352px;
+
+    @media screen and (max-width: 820px) {
+        width: 272px;
+    }
 `;
 
 export const ContentWrapper = styled.div`
@@ -16,14 +20,14 @@ export const ContentWrapper = styled.div`
     width: 100%;
     overflow: hidden;
     align-items: center;
-    height: 115px;
+    height: 90px;
     position: relative;
 `;
 
 export const ButtonContainer = styled.div`
     position: absolute;
-    right: 0;
-    top: -25px;
+    right: -8px;
+    top: -18px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,7 +49,11 @@ export const WeightButton = styled.div`
 export const GoalRange = styled.div`
     display: flex;
     justify-content: space-between;
-    width: 370px;
+    width: 320px;
+
+    @media screen and (max-width: 820px) {
+        width: 280px;
+    }
 `;
 
 export const CurrentResult = styled.div`
@@ -61,17 +69,24 @@ export const CurrentResult = styled.div`
 `;
 
 export const ProgressBarWrapper = styled.div`
-    width: 375px;
-    height: 375px;
-    min-width: 375px;
-    min-height: 375px;
+    width: 335px;
+    height: 335px;
+    min-width: 335px;
+    min-height: 335px;
     border-radius: 50%;
     border: 3px solid #9a9898;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 20px;
+    top: 10px;
+
+    @media screen and (max-width: 820px) {
+        width: 280px;
+        height: 280px;
+        min-width: 280px;
+        min-height: 280px;
+    }
 `;
 
 type ProgressBarBackgroundProps = {
@@ -82,10 +97,10 @@ export const ProgressBarBackground = styled.div<ProgressBarBackgroundProps>`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 380px;
-    height: 380px;
-    min-width: 380px;
-    min-height: 380px;
+    width: 320px;
+    height: 320px;
+    min-width: 320px;
+    min-height: 320px;
     border-radius: 50%;
     transition: all 1s;
     ${({ progressValue }) => css`
@@ -95,13 +110,27 @@ export const ProgressBarBackground = styled.div<ProgressBarBackgroundProps>`
             rgba(0, 0, 0, 0) 0
         );
     `}
+
+    @media screen and (max-width: 820px) {
+        width: 285px;
+        height: 285px;
+        min-width: 285px;
+        min-height: 285px;
+    }
 `;
 
 export const ProgressBarTop = styled.div`
-    width: 365px;
-    height: 365px;
-    min-width: 365px;
-    min-height: 365px;
+    width: 325px;
+    height: 325px;
+    min-width: 325px;
+    min-height: 325px;
     background-color: white;
     border-radius: 50%;
+
+    @media screen and (max-width: 820px) {
+        width: 275px;
+        height: 275px;
+        min-width: 275px;
+        min-height: 275px;
+    }
 `;

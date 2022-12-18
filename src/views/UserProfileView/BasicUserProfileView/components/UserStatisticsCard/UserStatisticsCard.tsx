@@ -1,15 +1,18 @@
+import { useState } from "react";
+
 import { ChartSettingType, USER_STATISTICS_CHART_SETTING } from "../../const/userData";
 import { mainTheme } from "../../../../../themes/mainTheme";
 
-import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
+import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPad";
 import Button from "../../../../../components/UI/Button/Button";
 import Label from "../../../../../components/UI/Label/Label";
 import ChartData from "../../../../DashboardView/components/LastWeightChanges/chart/ChartData";
 
 import * as S from "./UserStatisticsCard.style";
-import { useState } from "react";
 
-const UserStatisticsCard = () => {
+type UserStatisticsCardProps = ClassNameProp & {};
+
+const UserStatisticsCard = ({ className }: UserStatisticsCardProps) => {
     const [chartType, setChartType] = useState("weight");
     const [chartLength, setChartLength] = useState("7");
 
@@ -22,14 +25,11 @@ const UserStatisticsCard = () => {
     };
 
     return (
-        <BoxPad header='Statistcs'>
+        <BoxPad header='Statistcs' className={className}>
             <S.Content>
-                <S.ChartContainer>
-                    <ChartData />
-                </S.ChartContainer>
                 <S.ChartSettingsContainer>
                     {USER_STATISTICS_CHART_SETTING.map((chartSetting) => (
-                        <S.ChartSettinges key={chartSetting.header}>
+                        <S.CharSetting key={chartSetting.header}>
                             <Label
                                 fontSize='12px'
                                 fontWeight='600'
@@ -37,32 +37,37 @@ const UserStatisticsCard = () => {
                             >
                                 {chartSetting.header}
                             </Label>
-                            {chartSetting.setting.map((settingValue) => (
-                                <Button
-                                    fontSize='12px'
-                                    styleType={
-                                        chartType === settingValue.value ||
-                                        chartLength === settingValue.value
-                                            ? "primaryFull"
-                                            : "primaryEmpty"
-                                    }
-                                    size='extraSmall'
-                                    width='60px'
-                                    borderRadius='15px'
-                                    onClick={() =>
-                                        handleChangeChartSetting(
-                                            chartSetting.settingType,
-                                            settingValue.value,
-                                        )
-                                    }
-                                    key={settingValue.value}
-                                >
-                                    {settingValue.label}
-                                </Button>
-                            ))}
-                        </S.ChartSettinges>
+                            <S.ChartSettingButtonsContainer>
+                                {chartSetting.setting.map((settingValue) => (
+                                    <Button
+                                        fontSize='10px'
+                                        styleType={
+                                            chartType === settingValue.value ||
+                                            chartLength === settingValue.value
+                                                ? "primaryFull"
+                                                : "primaryEmpty"
+                                        }
+                                        size='extraSmall'
+                                        width='60px'
+                                        borderRadius='15px'
+                                        onClick={() =>
+                                            handleChangeChartSetting(
+                                                chartSetting.settingType,
+                                                settingValue.value,
+                                            )
+                                        }
+                                        key={settingValue.value}
+                                    >
+                                        {settingValue.label}
+                                    </Button>
+                                ))}
+                            </S.ChartSettingButtonsContainer>
+                        </S.CharSetting>
                     ))}
                 </S.ChartSettingsContainer>
+                <S.ChartContainer>
+                    <ChartData />
+                </S.ChartContainer>
             </S.Content>
         </BoxPad>
     );

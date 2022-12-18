@@ -1,13 +1,20 @@
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { NavItem, NAV_ITEMS } from "./const/NavVerticalItem";
 import { ReactComponent as LogoutIcon } from "../../assets/icons/navbar/logout.svg";
+import { ReactComponent as ArrowIcon } from "../../assets/icons/arrow-icon.svg";
+import { NavItem, NAV_ITEMS } from "./const/NavVerticalItem";
 
 import Label from "../UI/Label/Label";
 
 import * as S from "./NavbarVertical.style";
 
-const NavbarVertical = () => {
+type NavbarVerticalProps = {
+    isOpen: boolean;
+    handleMenuIsOpen: (actionType: "change" | "close") => void;
+};
+
+const NavbarVertical = ({ isOpen, handleMenuIsOpen }: NavbarVerticalProps) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -15,11 +22,14 @@ const NavbarVertical = () => {
         if (item.routing) {
             if (item.external) {
                 window.open(item.routing, "_self");
-            } else navigate(item.routing);
+            } else {
+                navigate(item.routing);
+                handleMenuIsOpen("close");
+            }
         }
     };
     return (
-        <S.Container>
+        <S.Container isOpen={isOpen}>
             <Label fontSize='14px' color='#ffffff' textAlign='center'>
                 MENU
             </Label>
@@ -39,6 +49,9 @@ const NavbarVertical = () => {
                     Logout
                 </Label>
             </S.LogoutContanier>
+            <S.OpenButton isOpen={isOpen} onClick={() => handleMenuIsOpen("change")}>
+                <ArrowIcon />
+            </S.OpenButton>
         </S.Container>
     );
 };

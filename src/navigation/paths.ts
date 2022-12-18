@@ -8,4 +8,5 @@ export enum NAVIGATION {
     basicUserProfile = "/profile",
     ownMeals = "/profile/meals",
     premium = "/premium",
+    exclusions = "/exclusions",
 }

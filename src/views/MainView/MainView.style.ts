@@ -15,6 +15,7 @@ export const Container = styled.div`
 
 type ContentProps = {
     user?: boolean;
+    verticalMenuIsOpen: boolean;
 };
 
 export const Content = styled.div<ContentProps>`
@@ -23,8 +24,27 @@ export const Content = styled.div<ContentProps>`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: ${({ user }) => (user ? "calc(100vw - 80px)" : "100vw")};
+    width: ${({ user }) => (user ? "calc(100vw - 85px)" : "100vw")};
     min-height: calc(100vh - 82px);
+    z-index: 1;
+    transition: all 0.5s;
+
+    @media screen and (max-width: 860px) {
+        width: ${({ user }) => (user ? "calc(100vw - 50px)" : "100vw")};
+    }
+
+    @media screen and (max-width: 561px) {
+        ${({ user, verticalMenuIsOpen }) =>
+            user && verticalMenuIsOpen
+                ? css`
+                      width: calc(100vw - 40px);
+                      padding: 0 12px;
+                  `
+                : css`
+                      width: 100vw;
+                      padding: 0 24px;
+                  `};
+    }
 `;
 
 export const NarrowSection = styled.div`
