@@ -98,7 +98,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                         <Label
                             fontFamily='Lato'
                             fontWeight='800'
-                            fontSize={size === "normal" ? "0.8rem" : "0.6rem"}
+                            fontSize={size === "normal" ? "15px" : "11px"}
                             color={mainTheme.colors.inputText}
                         >
                             {label}
@@ -153,7 +153,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     <S.ErrorContainer labelIndent={labelIndent}>
                         <Label
                             fontWeight='700'
-                            fontSize={size === "normal" ? "0.8rem" : "0.6rem"}
+                            fontSize={size === "normal" ? "15px" : "11px"}
                             color='#FF0000'
                         >
                             {internalValidationError || error}

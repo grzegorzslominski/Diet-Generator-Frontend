@@ -3,7 +3,6 @@ export type UserData = {
     firstName: string;
     lastName: string;
     email: string;
-    username: string;
     profileType: ProfileType;
     avatar: string;
     details: UserDetails;
@@ -14,6 +13,7 @@ export type UserDetails = {
     height: number;
     gender: GenderType;
     bmi: number;
+    age: number;
     dailyCalories: number;
 };
 

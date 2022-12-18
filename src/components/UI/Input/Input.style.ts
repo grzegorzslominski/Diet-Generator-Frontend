@@ -50,7 +50,7 @@ export const InputContainer = styled.div<InputContainerProps>`
                 : icon && size !== "normal"
                 ? "6px 24px 0px 24px"
                 : "6px  0px 2px  0px"};
-        font-size: ${({ size }) => (size === "normal" ? "0.8rem" : "0.7rem")};
+        font-size: ${({ size }) => (size === "normal" ? "15px" : "11px")};
         font-weight: 600;
         color: ${mainTheme.colors.grey};
         margin-top: ${({ label, type }) => (label && type !== "date" ? "6px" : "0")};

@@ -147,7 +147,7 @@ const Register = () => {
                     <Button
                         isLoading={isLoading}
                         width='12rem'
-                        styleType='primary'
+                        styleType='gradientFull'
                         onClick={handleSubmit}
                         borderRadius='15px'
                         fontSize='1rem'

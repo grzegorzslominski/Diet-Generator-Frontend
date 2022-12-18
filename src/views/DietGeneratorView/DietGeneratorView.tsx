@@ -1,16 +1,20 @@
-import React, { useState } from "react";
-import * as S from "./DietGeneratorView.style"
-import NavbarVertical from "../../components/NavbarVertical/NavbarVertical";
+
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { setNotification } from "../../redux/slices/notification";
+
+import { BASIC_GENERATOR_DATA, GeneratorI, questionType } from "../../models/Generator/GeneratorI";
+import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+import { ENDPOINTS_USER } from "../../navigation/endpoints";
+
 import GenerateYourOwnDiet from "./components/GenerateYourOwnDiet/GenerateYourOwnDiet";
 import ChooseYourGoal from "./components/Choose your goal/ChooseYourGoal";
 import Preferences from "./components/Preferences/Preferences";
 import AnswerQuestions from "./components/AnswerQuestions/AnswerQuestions";
-import { BASIC_GENERATOR_DATA, GeneratorI, questionType } from "../../models/Generator/GeneratorI";
-import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
-import { ENDPOINTS_USER } from "../../navigation/endpoints";
-import { useDispatch } from "react-redux";
-import { setNotification } from "../../redux/slices/notification";
 import Button from "../../components/UI/Button/Button";
+
+import * as S from "./DietGeneratorView.style";
 
 const DietGeneratorView = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -87,13 +91,10 @@ const DietGeneratorView = () => {
 
    return (
     <S.Container>
-      <NavbarVertical/>
       <GenerateYourOwnDiet/>
-
       <ChooseYourGoal handleChange={handleChange}/>
       <Preferences handleChange={handleChange}/>
       <AnswerQuestions data={data} handleChange={handleChange}/>
-
       <Button
         onClick={onSubmit}
         styleType='primary'
@@ -105,9 +106,8 @@ const DietGeneratorView = () => {
       >
         Submit your answers
       </Button>
-
     </S.Container>
-  );
+    );
 };
 
 export default DietGeneratorView;

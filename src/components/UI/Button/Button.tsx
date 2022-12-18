@@ -1,6 +1,7 @@
 import Label from "../Label/Label";
 import Spinner from "../Spinner/Spinner";
 import GradientLabel from "../GradientLabel/GradientLabel";
+import { BUTTON_STYLE_PRESET } from "./const/const";
 
 import { ButtonProps } from "./Button.type";
 
@@ -13,9 +14,9 @@ const Button = ({
     icon,
     borderRadius = "6px",
     borderWidth = "2px",
-    background = "transparent",
+    background,
     fontSize = "14px",
-    styleType = "primary",
+    styleType = "primaryFull",
     size = "medium",
     disabled,
     gradient,
@@ -27,23 +28,26 @@ const Button = ({
                 size={size}
                 borderRadius={borderRadius}
                 borderWidth={borderWidth}
-                background={background}
+                background={
+                    background ? background : BUTTON_STYLE_PRESET[styleType].backgroundColor
+                }
                 styleType={styleType}
                 gradient={gradient}
                 onClick={disabled ? () => {} : onClick}
                 disabled={disabled || isLoading}
                 width={width}
                 isLoading={isLoading}
+                color={BUTTON_STYLE_PRESET[styleType].color}
             >
                 {!isLoading && !icon && (
                     <>
-                        {styleType === "secondary" ? (
+                        {styleType === "gradientEmpty" ? (
                             <GradientLabel gradient={gradient}>
                                 <Label
                                     fontSize={fontSize}
                                     lineHeight='100%'
                                     fontWeight='700'
-                                    color='#121212'
+                                    color={BUTTON_STYLE_PRESET.gradientEmpty.color}
                                     fontFamily='Lato'
                                 >
                                     {children}
@@ -54,7 +58,7 @@ const Button = ({
                                 fontSize={fontSize}
                                 lineHeight='100%'
                                 fontWeight='600'
-                                color='white'
+                                color={BUTTON_STYLE_PRESET[styleType].color}
                                 fontFamily='Lato'
                             >
                                 {children}
@@ -70,7 +74,7 @@ const Button = ({
                                     fontSize={fontSize}
                                     lineHeight='100%'
                                     fontWeight='700'
-                                    color='#121212'
+                                    color={BUTTON_STYLE_PRESET[styleType].color}
                                 >
                                     {children}
                                 </Label>
