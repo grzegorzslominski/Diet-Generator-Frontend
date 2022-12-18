@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: #FFFFFF;
-  min-width: 900px;
+  max-width: 750px;
+  min-width: 750px;
   min-height: 400px;
   border-radius: 1rem;
   display: flex;
@@ -14,11 +15,6 @@ export const Container = styled.div`
   padding: 20px;
   margin-top: 2%;
   
-  @media screen and (max-width: 1900px){
-    max-width: 700px;
-    min-width: 700px;
-    
-  }
   @media screen and (max-width: 720px){
     flex-direction: column;
     min-width: unset;

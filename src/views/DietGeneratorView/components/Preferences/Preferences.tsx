@@ -3,8 +3,9 @@ import * as S from "./Preferences.style"
 import { mainTheme } from "../../../../themes/mainTheme";
 import Label from "../../../../components/UI/Label/Label";
 import PreferencesItems from "./PreferencesItems/PreferencesItems";
+import { GeneratorHandleChangeI } from "../../../../models/Generator/GeneratorI";
 
-const Preferences = () => {
+const Preferences = ({handleChange}: GeneratorHandleChangeI) => {
   return (
     <S.Container>
       <Label
@@ -16,7 +17,7 @@ const Preferences = () => {
       >
         Step 2: Preferences
       </Label>
-      <PreferencesItems/>
+      <PreferencesItems handleChange={handleChange}/>
 
     </S.Container>
   );
