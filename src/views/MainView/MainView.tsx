@@ -20,6 +20,7 @@ import BasicUserProfileView from "../UserProfileView/BasicUserProfileView/BasicU
 import { TStore } from "../../redux/store/store";
 
 import * as S from "./MainView.style";
+import ForumView from "../ForumView/ForumView";
 
 const MainView = () => {
     const user = useSelector((state: TStore) => state?.userReducer);
@@ -54,6 +55,7 @@ const MainView = () => {
                                     path={NAVIGATION.basicUserProfile}
                                     element={<BasicUserProfileView />}
                                 />
+                              <Route path={NAVIGATION.forum} element={<ForumView/>} />
                             </>
                         )}
                         <Route path={NAVIGATION.home} element={<HomeView />} />

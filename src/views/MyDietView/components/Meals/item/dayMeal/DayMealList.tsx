@@ -1,10 +1,17 @@
 import React from "react";
 import * as S from "./DayMealList.style";
-import { mealDayI } from "../../const/MEALItem";
+import { mealDayI, mealItemI } from "../../const/MEALItem";
 import DayMealItem from "./item/DayMealItem";
 
 interface props {
     mealDays: mealDayI[];
+    date: string;
+    day: string;
+    meals: string[];
+    kcal: string;
+    fat: string;
+    carbs: string;
+    proteins: string;
 }
 
 const DayMealList = (props: props) => {
@@ -14,6 +21,7 @@ const DayMealList = (props: props) => {
                 return (
                     <DayMealItem
                         key={item.name}
+                        image={item.image}
                         name={item.name}
                         category={item.category}
                         calories={item.calories}
@@ -21,6 +29,8 @@ const DayMealList = (props: props) => {
                         carbs={item.proteins}
                         fat={item.fat}
                         basicIngredients={item.basicIngredients}
+                        properties={item.properties}
+
                     />
                 );
             })}

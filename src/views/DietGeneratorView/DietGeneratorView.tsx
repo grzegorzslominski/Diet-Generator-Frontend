@@ -11,6 +11,7 @@ import { ENDPOINTS_USER } from "../../navigation/endpoints";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../../redux/slices/notification";
 import Button from "../../components/UI/Button/Button";
+import { mainTheme } from "../../themes/mainTheme";
 
 const DietGeneratorView = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -102,6 +103,7 @@ const DietGeneratorView = () => {
         borderRadius='15px'
         fontSize='1rem'
         disabled={!handleForm()}
+        background={mainTheme.gradients.buttonGradient}
       >
         Submit your answers
       </Button>

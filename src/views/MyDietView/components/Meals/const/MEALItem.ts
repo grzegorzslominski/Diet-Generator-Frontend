@@ -1,3 +1,5 @@
+import Chicken from "../../../../../assets/dashboard/images/chicken.png"
+
 export interface mealItemI {
   date: string;
   day: string;
@@ -11,12 +13,23 @@ export interface mealItemI {
 
 export interface mealDayI {
   name: string;
+  image: string;
   category: string;
   calories: string;
   proteins: string;
   carbs: string;
   fat: string;
   basicIngredients: string[];
+  properties?: propObject[];
+
+}
+
+export type propObject = {
+  vegetarian: string;
+  vegan: string;
+  glutenFree: string;
+  dairyFree: string;
+  veryHealthy: string;
 }
 
 export const MEALItem: mealItemI[] = [
@@ -32,15 +45,26 @@ export const MEALItem: mealItemI[] = [
     mealDays: [
       {
           name: "Meal name",
+          image: Chicken,
           category: "category",
           calories: "699",
           proteins: "699",
           carbs: "699",
           fat: "699",
-          basicIngredients: ["rice","tomato","chicken","nuts"]
+          basicIngredients: ["rice","tomato","chicken","nuts"],
+          properties: [
+            {
+              vegetarian: "true",
+              vegan: "false",
+              glutenFree: "true",
+              dairyFree: "falke",
+              veryHealthy: "true",
+            }
+          ],
         },
       {
         name: "Meal name2",
+        image: Chicken,
         category: "category",
         calories: "699",
         proteins: "699",
@@ -50,6 +74,7 @@ export const MEALItem: mealItemI[] = [
       },
       {
         name: "Meal name3",
+        image: Chicken,
         category: "category",
         calories: "699",
         proteins: "699",

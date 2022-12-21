@@ -5,4 +5,5 @@ export enum NAVIGATION {
     dietGenerator = "/diet/generator",
     myDiet = "/diet/my",
     basicUserProfile = "/profile",
+    forum = "/forum"
 }
