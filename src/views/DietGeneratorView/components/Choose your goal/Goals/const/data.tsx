@@ -1,29 +1,25 @@
-import { ReactComponent as Dish } from "../../../../../../assets/dietGenerator/images/Dish.svg"
+import { ReactComponent as Dish } from "../../../../../../assets/dietGenerator/images/Dish.svg";
 import { ReactNode } from "react";
 
-
-export interface DataI {
-  name: string;
-  image: ReactNode;
+export interface GoalI {
+    name: string;
+    image: ReactNode;
 }
-export const data: DataI[] = [
-  {
-    name: "Loose weight",
-    image: <Dish/>
-  },
-  {
-    name: "Maintain weight",
-    image: <Dish/>
-
-  },
-  {
-    name: "Gain weight",
-    image: <Dish/>
-
-  },
-  {
-    name: "Gain muscle",
-    image: <Dish/>
-
-  }
-]
+export const data: GoalI[] = [
+    {
+        name: "Loose weight",
+        image: <Dish />,
+    },
+    {
+        name: "Maintain weight",
+        image: <Dish />,
+    },
+    {
+        name: "Gain weight",
+        image: <Dish />,
+    },
+    {
+        name: "Gain muscle",
+        image: <Dish />,
+    },
+];
