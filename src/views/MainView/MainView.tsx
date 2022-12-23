@@ -17,6 +17,7 @@ import DietGeneratorView from "../DietGeneratorView/DietGeneratorView";
 import HomeView from "../HomeView/HomeView";
 import BasicUserProfileView from "../UserProfileView/BasicUserProfileView/BasicUserProfileView";
 import NavbarVertical from "../../components/NavbarVertical/NavbarVertical";
+import ExpandedUserProfileView from "../UserProfileView/ExpandedUserProfileView/ExpandedUserProfileView";
 
 import { TStore } from "../../redux/store/store";
 
@@ -65,6 +66,10 @@ const MainView = () => {
                                 <Route
                                     path={NAVIGATION.basicUserProfile}
                                     element={<BasicUserProfileView />}
+                                />
+                                <Route
+                                    path={NAVIGATION.expandedUserProfile}
+                                    element={<ExpandedUserProfileView />}
                                 />
                             </>
                         )}
