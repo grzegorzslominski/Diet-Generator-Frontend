@@ -1,14 +1,41 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
-  position: relative;
-  background: #FFFFFF;
-  border-radius: 10px;
-  gap: 20px;
   display: flex;
+  padding: 10px;
   flex-direction: column;
-  align-items: center;
-  padding: 5px;
-  min-height: auto;
+  min-height: 200px;
 `
+
+export const Header = styled.div`
+  width: 30%;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  justify-content: space-evenly;
+  
+  img {
+    width: 40px;
+  }
+`
+
+export const Description = styled.div`
+  display: flex;
+  align-items: start;
+  padding: 10px;
+  width: 90%;
+  margin: 15px;
+  min-height: 50px;
+`
+
+export const Footer = styled(Header)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  width: 100px;
+  padding-left: 15px;
+  & > svg {
+    filter: brightness(0%);
+  }
+`;

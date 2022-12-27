@@ -1,3 +1,4 @@
+import { NAVIGATION } from "../../../navigation/paths";
 export type NavbarForumI = {
   label: string;
   routing?: string;
@@ -7,18 +8,18 @@ export type NavbarForumI = {
 export const NAV_ITEMS: NavbarForumI[] = [
   {
     label: "Newest posts",
-    routing: "/",
+    routing: NAVIGATION.forumPosts,
   },
   {
     label: "Newest added meals",
-    routing: ""
+    routing: NAVIGATION.forumMeals
   },
   {
     label: "Share your feedback",
-    routing: ""
+    routing: NAVIGATION.forumFeedback
   },
   {
     label: "Verify newly added meals",
-    routing: ""
+    routing: NAVIGATION.forumNewlyAddedMeals
   },
 ];

@@ -6,13 +6,28 @@ import {ReactComponent as Heart} from "../../../../assets/icons/heart.svg";
 import {ReactComponent as Comment} from "../../../../assets/icons/CommentIcon.svg";
 import Button from "../../../../components/UI/Button/Button";
 import { mainTheme } from "../../../../themes/mainTheme";
-import ModalPortal from "../../../../components/UI/ModalPortal/ModalPortal";
-import FullPostItem from "./FullPostItem/FullPostItem";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PostItem = (props: PostsI) => {
-  const [isOpen,setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleIsOpen = () => setIsOpen(curr => !curr)
+  const handleNavigate = () => {
+    if(location.pathname === "/forum/posts") {
+      navigate(`/forum/posts/post/${props.id}`)
+    }
+    else if(location.pathname ==="/forum/newMeals") {
+      navigate(`/forum/newMeals/newMeal/${props.id}`)
+    }
+    else if(location.pathname ==="/forum/feedbacks") {
+      navigate(`/forum/feedbacks/feedback/${props.id}`)
+    }
+    else if(location.pathname ==="/forum/newlyAddedMeals") {
+      navigate(`/forum/newlyAddedMeals/newlyAddedMeal/${props.id}`)
+
+    }
+  }
+
   return (
     <S.Container>
       <S.Header>
@@ -68,7 +83,7 @@ const PostItem = (props: PostsI) => {
           color={mainTheme.colors.mainBlack}
           textAlign="center"
         >
-          {45}
+          {props.likes}
         </Label>
           </S.IconWrapper>
         </S.FfirstItem>
@@ -79,7 +94,7 @@ const PostItem = (props: PostsI) => {
             fontSize="0.8rem"
             size="extraSmall"
             background={mainTheme.gradients.buttonGradient}
-            onClick={handleIsOpen}
+            onClick={handleNavigate}
           >
             <Label
               textAlign='center'
@@ -91,20 +106,6 @@ const PostItem = (props: PostsI) => {
           </Button>
         </S.FsecondItem>
       </S.Footer>
-      {
-        isOpen ?
-        <ModalPortal blurBackground={true} close={handleIsOpen}>
-          <FullPostItem
-            key={props.id}
-            id={props.id}
-            userName={props.userName}
-            title={props.title}
-            description={props.description}
-            image={props.image}
-            comments={props.comments}
-          />
-        </ModalPortal> : null
-      }
     </S.Container>
   );
 };

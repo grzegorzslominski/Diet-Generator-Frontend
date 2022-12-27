@@ -6,8 +6,26 @@ import { ReactComponent as Comment } from "../../../../../assets/icons/CommentIc
 import { mainTheme } from "../../../../../themes/mainTheme";
 import { ReactComponent as Heart } from "../../../../../assets/icons/heart.svg";
 import CommentsList from "./CommentsList/CommentsList";
+import AddNewComment from "./AddNewComment/AddNewComment";
+import ActionButton from "../../../../../components/UI/ActionButton/ActionButton";
+import { useNavigate } from "react-router-dom";
 
 const FullPostItem = (props: PostsI) => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+      if(location.pathname === `/forum/posts/post/${props.id}`){
+        navigate("/forum/posts")
+      }
+      else if(location.pathname === `/forum/newMeals/newMeal/${props.id}`){
+        navigate("/forum/newMeals")
+      }
+      else if(location.pathname === `/forum/feedbacks/feedback/${props.id}`){
+        navigate("/forum/feedbacks")
+      }
+      else if(location.pathname === `/forum/newlyAddedMeals/newlyAddedMeal/${props.id}`){
+        navigate("/forum/newlyAddedMeals")
+      }
+  }
   return (
     <S.Container>
       <S.Post>
@@ -53,13 +71,19 @@ const FullPostItem = (props: PostsI) => {
                   color={mainTheme.colors.mainBlack}
                   textAlign="center"
                 >
-                  {45}
+                  {props.likes}
                 </Label>
               </S.IconWrapper>
           </S.FfirstItem>
         </S.Footer>
       </S.Post>
-      <CommentsList comments={props.comments}/>
+      <S.Comments>
+      <AddNewComment/>
+      <CommentsList image={props.image} username={props.userName} comments={props.comments}/>
+      </S.Comments>
+      <S.ClosingContainer>
+      <ActionButton type='remove' onClick={() => handleNavigate()} />
+      </S.ClosingContainer>
     </S.Container>
   );
 };

@@ -6,7 +6,7 @@ export const Container = styled.div`
   background: url(${mainBackgroudn});
   border: solid black 1px;
   border-radius: 10px;
-  height: 800px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   gap:20px;
@@ -38,9 +38,11 @@ export const Post = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5px;
+  padding: 15px;
   min-height: auto;
 `
+
+export const Comments = styled(Post)``
 
 export const Footer = styled.div`
   position: relative;
@@ -68,6 +70,10 @@ export const FfirstItem = styled.div`
   align-items: center;
   width: 100px;
   justify-content: space-between;
-
   
+`
+
+export const ClosingContainer = styled.div`
+  position: absolute;
+  right: 15px;
 `

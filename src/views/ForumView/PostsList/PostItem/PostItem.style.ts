@@ -5,10 +5,12 @@ export const Container = styled.div`
   background: #FFFFFF;
   box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  height: 500px;
+  height: 515px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
   position: relative;
+  padding: 15px;
   
   &:hover {
     border: solid black 1px;
@@ -19,7 +21,6 @@ export const Header = styled.div`
   width: 40%;
   display: flex;
   align-items: center;
-  padding: 10px;
   justify-content: space-evenly;
   
   img {
@@ -32,13 +33,11 @@ export const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px 0 10px 0;
 `
 
 export const Description = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
   max-height: 325px;
   text-overflow: ellipsis;

@@ -1,11 +1,16 @@
 import React from "react";
 import * as S from "./PostsList.style";
-import { Posts } from "./const/Posts";
+import { PostsI } from "./const/Posts";
 import PostItem from "./PostItem/PostItem";
-const PostsLists = () => {
+import { LinksContainer } from "../../../components/Footer/Footer.style";
+
+interface props {
+    data: PostsI[]
+}
+const PostsLists = ({data}: props) => {
     return (
         <S.Container>
-            {Posts.map((item) => {
+            {data.map((item: PostsI) => {
                 return (
                     <PostItem
                         key={item.id}
@@ -14,6 +19,7 @@ const PostsLists = () => {
                         title={item.title}
                         description={item.description}
                         image={item.image}
+                        likes={item.likes}
                         comments={item.comments}
                     />
                 );

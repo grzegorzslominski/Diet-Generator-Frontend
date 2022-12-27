@@ -2,16 +2,24 @@ import React, { useState } from "react";
 import * as S from "./ForumView.style"
 import Label from "../../components/UI/Label/Label";
 import { mainTheme } from "../../themes/mainTheme";
-import PostsLists from "./PostsList/PostsLists";
-import { NAV_ITEMS } from "./const/NavbarForum";
+import { NAV_ITEMS, NavbarForumI } from "./const/NavbarForum";
+import { Outlet, useNavigate } from "react-router-dom";
 const ForumView = () => {
+  const navigate = useNavigate();
 
+  const navigationHandler = (item: NavbarForumI) => {
+    if (item.routing) {
+        if (item.external) {
+            window.open(item.routing, "_self");
+        } else navigate(item.routing);
+    }
+};
   return (
     <S.Container>
       <S.Header>
         {
           NAV_ITEMS.map((item) => {
-            return <S.HeaderItem key={item.label}>
+            return <S.HeaderItem key={item.label} onClick={() => navigationHandler(item)}>
               <Label
                 fontFamily='Lato'
                 fontWeight='600'
@@ -36,13 +44,7 @@ const ForumView = () => {
       >
         Newest posts:
       </Label>
-        <S.MiddleSectionWrapper>
-          <S.Posts>
-              <PostsLists/>
-          </S.Posts>
-          <S.RightSection>
-          </S.RightSection>
-        </S.MiddleSectionWrapper>
+        <Outlet/>
       </S.MiddleSection>
     </S.Container>
   );
