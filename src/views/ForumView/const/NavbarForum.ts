@@ -16,7 +16,7 @@ export const NAV_ITEMS: NavbarForumI[] = [
   },
   {
     label: "Share your feedback",
-    routing: NAVIGATION.forumFeedback
+    routing: NAVIGATION.forumFeedbacks
   },
   {
     label: "Verify newly added meals",

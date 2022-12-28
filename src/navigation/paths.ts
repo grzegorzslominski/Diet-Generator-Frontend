@@ -7,7 +7,12 @@ export enum NAVIGATION {
     basicUserProfile = "/profile",
     forum = "/forum",
     forumPosts = "/forum/posts",
+    forumPost = "/forum/posts/post",
     forumMeals = "/forum/newMeals",
-    forumFeedback = "/forum/feedbacks",
-    forumNewlyAddedMeals = "/forum/newlyAddedMeals"
+    forumMeal = "/forum/newMeals/newMeal",
+    forumFeedbacks = "/forum/feedbacks",
+    forumFeedback = "/forum/feedbacks/feedback",
+    forumNewlyAddedMeals = "/forum/newlyAddedMeals",
+    forumNewlyAddedMeal = "/forum/newlyAddedMeals/newlyAddedMeal"
+
 }

@@ -63,17 +63,17 @@ const MainView = () => {
                                     element={<BasicUserProfileView />}
                                 />
                               <Route path={NAVIGATION.forum} element={<ForumView/>} >
-                                <Route path="posts" element={<NewestPosts/>} >
-                                    <Route path="post/:postId" element={<SinglePostItem path="/forum/posts" list={Posts}/>}/>
+                                <Route path={NAVIGATION.forumPosts} element={<NewestPosts/>} >
+                                    <Route path={`${NAVIGATION.forumPost}/:postId`} element={<SinglePostItem path="/forum/posts" list={Posts}/>}/>
                                     </Route>
-                                <Route path="newMeals" element={<NewestMeals/>} >
-                                    <Route path="newMeal/:postId" element={<SinglePostItem path="/forum/newMeals" list={Meals}/>} />
+                                <Route path={NAVIGATION.forumMeals} element={<NewestMeals/>} >
+                                    <Route path={`${NAVIGATION.forumMeal}/:postId`} element={<SinglePostItem path="/forum/newMeals" list={Meals}/>} />
                                     </Route>
-                                <Route path="feedbacks" element={<Feedback/>} >
-                                <Route path="feedback/:postId" element={<SinglePostItem path="/forum/feedbacks" list={Posts}/>} />
+                                <Route path={NAVIGATION.forumFeedbacks} element={<Feedback/>} >
+                                <Route path={`${NAVIGATION.forumFeedback}/:postId`} element={<SinglePostItem path="/forum/feedbacks" list={Posts}/>} />
                                     </Route>
-                                <Route path="newlyAddedMeals" element={<VerifyNewMeal/>} >
-                                <Route path="newlyAddedMeal/:postId" element={<SinglePostItem path="/forum/newlyAddedMeals" list={Meals}/>} />
+                                <Route path={NAVIGATION.forumNewlyAddedMeals} element={<VerifyNewMeal/>} >
+                                <Route path={`${NAVIGATION.forumNewlyAddedMeal}/:postId`} element={<SinglePostItem path="/forum/newlyAddedMeals" list={Meals}/>} />
                                     </Route>
                               </Route>
                             </>

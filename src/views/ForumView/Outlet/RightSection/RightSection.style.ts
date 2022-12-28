@@ -1,9 +1,15 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column; 
   margin-top: 20px;
+  gap: 20px;  width: 300px;
+
+
+`
+export const Container = styled.div`
   padding: 15px;
-  width: 300px;
   background: #FFFFFF;
   box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -11,6 +17,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
+`
+
+export const Container2 = styled(Container)`
+  align-items: center;
 `
 
 export const Header = styled.div`
