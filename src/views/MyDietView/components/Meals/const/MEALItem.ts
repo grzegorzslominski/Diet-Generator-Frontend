@@ -106,6 +106,6 @@ export const MEALItem: mealItemI[] = [
     proteins: "51g"
   },
 ]
-}
+
 
 

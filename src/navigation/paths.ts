@@ -14,7 +14,7 @@ export enum NAVIGATION {
     forumFeedbacks = "/forum/feedbacks",
     forumFeedback = "/forum/feedbacks/feedback",
     forumNewlyAddedMeals = "/forum/newlyAddedMeals",
-    forumNewlyAddedMeal = "/forum/newlyAddedMeals/newlyAddedMeal"
+    forumNewlyAddedMeal = "/forum/newlyAddedMeals/newlyAddedMeal",
     expandedUserProfile = "/profile/expanded",
     ownMeals = "/profile/meals",
     premium = "/premium",
