@@ -47,3 +47,7 @@ export type UserSignUpRequest = {
 export type UserSignUpResponse = {
     encodedData: string;
 };
+
+export type UserComment = {
+    comment: string;
+}

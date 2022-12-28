@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
@@ -112,7 +113,18 @@ const MealItem = (props: mealItemI) => {
                 </S.RightSection>
                 {open ? <S.Line /> : null}
             </S.Container>
-            {open && props.mealDays ? <DayMealList mealDays={props.mealDays} /> : null}
+            {open && props.mealDays ? (
+                <DayMealList
+                    mealDays={props.mealDays}
+                    date={props.date}
+                    day={props.day}
+                    meals={props.meals}
+                    kcal={props.kcal}
+                    fat={props.fat}
+                    carbs={props.carbs}
+                    proteins={props.proteins}
+                />
+            ) : null}
         </S.Wrapper>
     );
 };

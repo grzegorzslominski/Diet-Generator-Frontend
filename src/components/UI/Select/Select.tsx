@@ -342,11 +342,12 @@ const Select = ({
                                           React.isValidElement(child) &&
                                           customSearching(searchValue, child)
                                       ) {
-                                          return React.cloneElement(child, {
-                                              onChange: onChangePrehandler,
-                                              selected:
-                                                  multiSelect && value.includes(child.props.value),
-                                          });
+                                          return <p></p>
+                                          // return React.cloneElement(child, {
+                                          //     onChange: onChangePrehandler,
+                                          //     selected:
+                                          //         multiSelect && value.includes(child.props.value),
+                                          // });
                                       } else if (
                                           React.isValidElement(child) &&
                                           !customSearching &&
@@ -356,11 +357,12 @@ const Select = ({
                                                       .toLowerCase()
                                                       .includes(searchValue.trim().toLowerCase())))
                                       ) {
-                                          return React.cloneElement(child, {
-                                              onChange: onChangePrehandler,
-                                              selected:
-                                                  multiSelect && value.includes(child.props.value),
-                                          });
+                                          return <p></p>
+                                          // return React.cloneElement(child, {
+                                          //     onChange: onChangePrehandler,
+                                          //     selected:
+                                          //         multiSelect && value.includes(child.props.value),
+                                          // });
                                       }
                                   },
                               )

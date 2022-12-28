@@ -26,7 +26,7 @@ const PreferencesItems = ({handleChange}: GeneratorHandleChangeI) => {
           data.map((item,index) => {
             return <S.Content key={item.id} onClick={() => {
               findElement(index)
-              handleChange("exclusions",item.id)}}>
+              handleChange("exclusions",item.searchValue)}}>
               <S.Border>
                 {
                   selectedGoal.find(i => i === index) ?

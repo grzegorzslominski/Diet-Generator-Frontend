@@ -3,6 +3,8 @@ import * as S from "./MealItemList.style";
 import MealItem from "./item/MealItem";
 import {mealItemI, mealDayI,MEALItem} from "./const/MEALItem";
 
+
+
 const MealItemList = () => {
     return (
         <S.Container>

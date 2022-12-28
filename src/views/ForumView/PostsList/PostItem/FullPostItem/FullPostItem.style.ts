@@ -1,26 +1,26 @@
 import styled from "styled-components";
+import mainBackgroudn from "../../../../../assets/mainBackground.png"
 
 export const Container = styled.div`
   width: 800px;
-  background: #FFFFFF;
-  box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
+  background: url(${mainBackgroudn});
+  border: solid black 1px;
   border-radius: 10px;
-  height: 515px;
+  height: 600px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap:20px;
   position: relative;
-  padding: 15px;
-  
-  &:hover {
-    border: solid black 1px;
-  }
+  align-items: center;
+  padding: 25px;
+  overflow-y: auto;
 `
 
 export const Header = styled.div`
   width: 40%;
   display: flex;
   align-items: center;
+  padding: 10px;
   justify-content: space-evenly;
   
   img {
@@ -28,23 +28,32 @@ export const Header = styled.div`
   }
 `
 
-export const Title = styled.div`
-  width: 100%;
+export const Post = styled.div`
+  box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 10px;
+  width: 80%;
+  gap: 20px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding: 15px;
+  min-height: auto;
 `
 
-export const Description = styled.div`
+export const Comments = styled(Post)``
+
+export const Footer = styled.div`
+  position: relative;
   width: 100%;
+  padding: 0 10% 0 10%;
   display: flex;
-  justify-content: center;
-  max-height: 325px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  direction: rtl;
-  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+
 `
+
 export const IconWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -54,14 +63,6 @@ export const IconWrapper = styled.div`
     filter: brightness(0%);
   }
 `
-export const Footer = styled.div`
-  position: relative;
-  width: 100%;
-  padding: 0 10% 0 10%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
 
 export const FfirstItem = styled.div`
   position: relative;
@@ -69,12 +70,10 @@ export const FfirstItem = styled.div`
   align-items: center;
   width: 100px;
   justify-content: space-between;
+  
 `
 
-export const FsecondItem = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  max-height: 40px;
-  justify-content: center;
+export const ClosingContainer = styled.div`
+  position: absolute;
+  right: 15px;
 `

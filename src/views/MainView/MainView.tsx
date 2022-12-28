@@ -22,6 +22,14 @@ import ExpandedUserProfileView from "../UserProfileView/ExpandedUserProfileView/
 import { TStore } from "../../redux/store/store";
 
 import * as S from "./MainView.style";
+import ForumView from "../ForumView/ForumView";
+import NewestPosts from "../ForumView/Outlet/NewestPosts/NewestPosts";
+import NewestMeals from "../ForumView/Outlet/NewestMeals/NewestMeals";
+import Feedback from "../ForumView/Outlet/Feedback/Feedback";
+import SinglePostItem from "../ForumView/PostsList/SinglePostItem/SinglePostItem";
+import { Posts } from "../ForumView/PostsList/const/Posts";
+import { Meals } from "../ForumView/Outlet/NewestMeals/const/Meals";
+import VerifyNewMeal from "../ForumView/Outlet/VerifyNewMeal/VerifyNewMeal";
 
 const MainView = () => {
     const user = useSelector((state: TStore) => state?.userReducer);
@@ -71,6 +79,20 @@ const MainView = () => {
                                     path={NAVIGATION.expandedUserProfile}
                                     element={<ExpandedUserProfileView />}
                                 />
+                                <Route path={NAVIGATION.forum} element={<ForumView/>} >
+                                  <Route path={NAVIGATION.forumPosts} element={<NewestPosts/>} >
+                                      <Route path={`${NAVIGATION.forumPost}/:postId`} element={<SinglePostItem path="/forum/posts" list={Posts}/>}/>
+                                      </Route>
+                                  <Route path={NAVIGATION.forumMeals} element={<NewestMeals/>} >
+                                      <Route path={`${NAVIGATION.forumMeal}/:postId`} element={<SinglePostItem path="/forum/newMeals" list={Meals}/>} />
+                                      </Route>
+                                  <Route path={NAVIGATION.forumFeedbacks} element={<Feedback/>} >
+                                  <Route path={`${NAVIGATION.forumFeedback}/:postId`} element={<SinglePostItem path="/forum/feedbacks" list={Posts}/>} />
+                                      </Route>
+                                  <Route path={NAVIGATION.forumNewlyAddedMeals} element={<VerifyNewMeal/>} >
+                                  <Route path={`${NAVIGATION.forumNewlyAddedMeal}/:postId`} element={<SinglePostItem path="/forum/newlyAddedMeals" list={Meals}/>} />
+                                      </Route>
+                                </Route>
                             </>
                         )}
                         <Route path={NAVIGATION.home} element={<HomeView />} />
