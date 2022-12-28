@@ -3,7 +3,8 @@ export enum NAVIGATION {
     home = "/",
     dashboard = "/dashboard",
     dietGenerator = "/diet/generator",
-    myDiet = "/diet/my",
+    myDiet = "/diet",
+    myMeals = "/meals",
     basicUserProfile = "/profile",
     forum = "/forum",
     forumPosts = "/forum/posts",
@@ -14,5 +15,8 @@ export enum NAVIGATION {
     forumFeedback = "/forum/feedbacks/feedback",
     forumNewlyAddedMeals = "/forum/newlyAddedMeals",
     forumNewlyAddedMeal = "/forum/newlyAddedMeals/newlyAddedMeal"
-
+    expandedUserProfile = "/profile/expanded",
+    ownMeals = "/profile/meals",
+    premium = "/premium",
+    exclusions = "/exclusions",
 }

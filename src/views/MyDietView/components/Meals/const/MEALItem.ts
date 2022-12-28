@@ -1,14 +1,14 @@
 import Chicken from "../../../../../assets/dashboard/images/chicken.png"
 
 export interface mealItemI {
-  date: string;
-  day: string;
-  meals: string[];
-  kcal: string;
-  fat: string;
-  carbs: string;
-  proteins: string;
-  mealDays?: mealDayI[];
+    date: string;
+    day: string;
+    meals: string[];
+    kcal: string;
+    fat: string;
+    carbs: string;
+    proteins: string;
+    mealDays?: mealDayI[];
 }
 
 export interface mealDayI {
@@ -106,3 +106,6 @@ export const MEALItem: mealItemI[] = [
     proteins: "51g"
   },
 ]
+}
+
+

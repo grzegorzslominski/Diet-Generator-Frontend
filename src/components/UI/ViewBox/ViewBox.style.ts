@@ -1,8 +1,26 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Container = styled.div`
-    width: 1720px;
-    padding-top: 46px;
+type ContainerProps = {
+    paddintTop: boolean;
+    maxWidth: string;
+};
+
+export const Container = styled.div<ContainerProps>`
+    width: calc(100% - 80px);
+    max-width: ${({ maxWidth }) => maxWidth};
     display: flex;
+    justify-content: center;
     position: relative;
+    ${({ paddintTop }) =>
+        paddintTop &&
+        css`
+            padding-top: 46px;
+            @media screen and (max-width: 560px) {
+                padding-top: 24px;
+            }
+        `}
+
+    @media screen and (max-width: 1720px) {
+        width: 100%;
+    }
 `;

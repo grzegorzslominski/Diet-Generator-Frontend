@@ -1,8 +1,8 @@
-import { mainTheme } from '../../../themes/mainTheme';
+import { mainTheme } from "../../../themes/mainTheme";
 
-import { GradientLabelProps } from './GradientLabel.type';
+import { GradientLabelProps } from "./GradientLabel.type";
 
-import * as S from './GradientLabel.style';
+import * as S from "./GradientLabel.style";
 
 const GradientLabel = ({ gradient, children, style }: GradientLabelProps) => {
     return (

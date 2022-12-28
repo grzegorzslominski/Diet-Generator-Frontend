@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import * as S from "./MealItem.style";
-import Label from "../../../../../components/UI/Label/Label";
+
+import { useState } from "react";
+
 import { mainTheme } from "../../../../../themes/mainTheme";
 import pen from "../../../../../assets/MyDiet/icons/pen.svg";
 import downArrow from "../../../../../assets/MyDiet/icons/downArrow.svg";
+
 import MyDietChart from "../chart/MyDietChart";
 import DayMealList from "./dayMeal/DayMealList";
-import { mealDayI, mealItemI } from "../const/MEALItem";
+import Label from "../../../../../components/UI/Label/Label";
+
+import { mealItemI } from "../const/MEALItem";
+
+import * as S from "./MealItem.style";
 
 const MealItem = (props: mealItemI) => {
     const [open, setIsOpen] = useState(false);

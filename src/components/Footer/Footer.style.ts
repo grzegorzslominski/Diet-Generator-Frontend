@@ -2,18 +2,19 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     padding: 1.5rem;
-    width: 90%;
+    width: 95%;
     gap: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 96px;
 `;
 
 export const TopSection = styled.div`
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 90%;
+    width: 80%;
 `;
 
 export const LinksContainer = styled.div`

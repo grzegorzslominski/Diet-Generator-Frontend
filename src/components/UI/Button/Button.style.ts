@@ -6,7 +6,7 @@ export const ButtonContainer = styled.div<ButtonContainerProps>`
     position: relative;
     width: ${({ width }) => width};
     height: ${({ size }) =>
-        size === "big" ? "64px" : size === "medium" ? "45px" : size === "small" ? "40px" : "25px"};
+        size === "big" ? "64px" : size === "medium" ? "45px" : size === "small" ? "40px" : "20px"};
 `;
 
 export const InnerContainer = styled.div`
@@ -35,10 +35,17 @@ export const StyledButton = styled.button<ButtonProps>`
     justify-content: center;
     border-radius: ${({ borderRadius }) => borderRadius};
     background: ${({ theme, styleType, background }) =>
-        styleType === "primary" && !background ? theme.gradients.buttonGradient : background};
-    //transition: all 0.2s ease-out;
+        styleType === "gradientFull" && !background ? theme.gradients.buttonGradient : background};
+    transition: all 0.2s ease-out;
     opacity: ${({ disabled, isLoading }) =>
         isLoading && disabled ? "0.9" : disabled ? "0.2" : "1"};
+
+    ${({ color, styleType }) =>
+        styleType !== "gradientFull" &&
+        styleType !== "gradientEmpty" &&
+        css`
+            border: 2px solid ${color};
+        `}
 
     & > div {
         display: flex;
@@ -65,7 +72,7 @@ export const StyledButton = styled.button<ButtonProps>`
     }
 
     ${({ styleType, borderRadius, gradient, borderWidth }) =>
-        styleType === "secondary" &&
+        styleType === "gradientEmpty" &&
         css`
             &::before {
                 content: "";

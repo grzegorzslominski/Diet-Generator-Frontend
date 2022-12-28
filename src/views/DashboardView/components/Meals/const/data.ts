@@ -1,6 +1,6 @@
 import Chicken from "../../../../../assets/dashboard/images/chicken.png";
 
-export interface dataI {
+export interface MealI {
     name: string;
     rating: number;
     image: string;
@@ -11,49 +11,9 @@ export interface dataI {
     f: string;
 }
 
-export const data = [
+export const data: MealI[] = [
     {
         name: "Chiken Masala",
-        rating: 8.4,
-        image: Chicken,
-        basicIngredients: ["rice", "chicken", "rice", "chicken", "rice", "chicken"],
-        kcal: 511,
-        c: "12g",
-        p: "12g",
-        f: "12g",
-    },
-    {
-        name: "Chiken Masala1",
-        rating: 8.4,
-        image: Chicken,
-        basicIngredients: ["rice", "chicken", "rice", "chicken", "rice", "chicken"],
-        kcal: 511,
-        c: "12g",
-        p: "12g",
-        f: "12g",
-    },
-    {
-        name: "Chiken Masala1",
-        rating: 8.4,
-        image: Chicken,
-        basicIngredients: ["rice", "chicken", "rice", "chicken", "rice", "chicken"],
-        kcal: 511,
-        c: "12g",
-        p: "12g",
-        f: "12g",
-    },
-    {
-        name: "Chiken Masala1",
-        rating: 8.4,
-        image: Chicken,
-        basicIngredients: ["rice", "chicken", "rice", "chicken", "rice", "chicken"],
-        kcal: 511,
-        c: "12g",
-        p: "12g",
-        f: "12g",
-    },
-    {
-        name: "Chiken Masala1",
         rating: 8.4,
         image: Chicken,
         basicIngredients: ["rice", "chicken", "rice", "chicken", "rice", "chicken"],

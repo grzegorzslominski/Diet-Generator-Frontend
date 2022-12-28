@@ -4,49 +4,93 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 20rem;
+    width: 352px;
+
+    @media screen and (max-width: 1220px) and (min-width: 821px) {
+        width: 672px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 50px;
+    }
+
+    @media screen and (max-width: 820px) {
+        width: 272px;
+    }
 `;
 
-export const AvatarContanier = styled.div`
+export const TopSection = styled.div`
     width: 100%;
-    padding-bottom: 12px;
-    img {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    & > img {
         border-radius: 15px;
         width: 100%;
+        height: 239px;
+        max-height: 239px;
+    }
+
+    @media screen and (max-width: 1220px) and (min-width: 821px) {
+        width: 250px;
+        min-width: 250px;
+        & > img {
+            border-radius: 15px;
+            width: 100%;
+            height: auto;
+            max-height: 170px;
+        }
+    }
+
+    @media screen and (max-width: 820px) {
+        & > img {
+            height: auto;
+            max-height: 185px;
+        }
     }
 `;
 
 export const CardName = styled.div`
     display: flex;
     align-items: center;
-    //gap: 24px;
     justify-content: space-between;
-    padding-bottom: 12px;
-    padding-right: 12px;
+    padding-bottom: 16px;
 
     svg {
         width: 16px;
         height: auto;
         cursor: pointer;
     }
+
+    @media screen and (max-width: 1220px) and (min-width: 821px) {
+        padding-bottom: 0;
+    }
 `;
 
 export const DataContanier = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 2rem;
-    row-gap: 2rem;
+    column-gap: 32px;
+    row-gap: 24px;
+    padding-top: 16px;
 `;
 
 export const BodyDetails = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 82px);
     gap: 15px;
+    grid-column: 1 / 3;
 `;
 
 export const ExtraDetailsContainer = styled.div`
     display: flex;
-    gap: 32px;
-    padding-top: 12px;
+    gap: 24px;
+    padding-top: 28px;
+
+    @media screen and (max-width: 1220px) and (min-width: 821px) {
+        padding-top: 0;
+        width: 100%;
+        gap: 38px;
+    }
 `;
 
 export const ExtraDetail = styled.div`
@@ -54,5 +98,5 @@ export const ExtraDetail = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 4px;
 `;

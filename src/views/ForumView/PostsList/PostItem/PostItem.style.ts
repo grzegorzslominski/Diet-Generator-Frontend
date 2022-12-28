@@ -61,7 +61,6 @@ export const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
 `
 
 export const FfirstItem = styled.div`
@@ -70,8 +69,6 @@ export const FfirstItem = styled.div`
   align-items: center;
   width: 100px;
   justify-content: space-between;
-
-  
 `
 
 export const FsecondItem = styled.div`
@@ -80,6 +77,4 @@ export const FsecondItem = styled.div`
   align-items: center;
   max-height: 40px;
   justify-content: center;
-
-
 `

@@ -6,6 +6,8 @@ type ContainerProps = {
 };
 
 export const Container = styled.div<ContainerProps>`
+    height: fit-content;
+    width: fit-content;
     span {
         background: ${({ gradient, mainTheme }) =>
             gradient
