@@ -2,11 +2,11 @@ import styled from "styled-components";
 import mainBackgroudn from "../../../../../assets/mainBackground.png"
 
 export const Container = styled.div`
-  width: 800px;
+  width: 1000px;
   background: url(${mainBackgroudn});
   border: solid black 1px;
   border-radius: 10px;
-  height: 600px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   gap:20px;
@@ -14,18 +14,36 @@ export const Container = styled.div`
   align-items: center;
   padding: 25px;
   overflow-y: auto;
+  
+  
+  @media screen and (max-width: 1050px){
+    width: 600px;
+    transform: translateX(-10%) translateY(-10%);
+
+  }
+
+  @media screen and (max-width: 700px){
+    width: 375px;
+    transform: translateX(-20%) translateY(-20%);
+  }
+
 `
 
 export const Header = styled.div`
-  width: 40%;
+  width: 400px;
   display: flex;
   align-items: center;
   padding: 10px;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 15px;
   
   img {
     width: 40px;
   }
+  @media screen and (max-width: 700px){
+    flex-direction: column;
+  }
+
 `
 
 export const Post = styled.div`

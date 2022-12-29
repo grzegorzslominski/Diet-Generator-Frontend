@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ModalPortal from '../../../../components/UI/ModalPortal/ModalPortal';
 import FullPostItem from '../PostItem/FullPostItem/FullPostItem';
 import { PostsI, Posts } from '../const/Posts';
-import * as S from "./SinglePostItem.style"
 import { useNavigate, useParams } from 'react-router-dom';
 
 

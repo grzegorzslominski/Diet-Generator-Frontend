@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./RightSection.style";
 import { PostsI } from "../../PostsList/const/Posts";
 import Label from "../../../../components/UI/Label/Label";
@@ -8,14 +8,18 @@ import { ReactComponent as Heart } from "../../../../assets/icons/heart.svg";
 import { ReactComponent as Comment } from "../../../../assets/icons/CommentIcon.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { NAVIGATION } from "../../../../navigation/paths";
+import ModalPortal from "../../../../components/UI/ModalPortal/ModalPortal";
+import AddNewPost from "../../AddNewPost/AddNewPost";
 
 interface props {
     data: PostsI[];
 }
 const RightSection = ({ data }: props) => {
+    const [isOpen,setIsOpen] = useState<boolean>(false);
     const location = useLocation();
     const navigate = useNavigate();
     const mostLikedPost = data.reduce((prev, curr) => (prev.likes > curr.likes ? prev : curr));
+    const handleIsOpen = () => setIsOpen(curr => !curr);
     const handleNavigate = () => {
         if (location.pathname === NAVIGATION.forumPosts) {
             navigate(`${NAVIGATION.forumPost}/${mostLikedPost.id}`);
@@ -27,7 +31,6 @@ const RightSection = ({ data }: props) => {
             navigate(`${NAVIGATION.forumNewlyAddedMeal}/${mostLikedPost.id}`);
         }
     };
-
     return (
         <S.Wrapper>
             <S.Container2>
@@ -39,7 +42,7 @@ const RightSection = ({ data }: props) => {
                     size='small'
                     borderRadius='10px'
                     fontSize='1rem'
-                    onClick={() => console.log()}
+                    onClick={handleIsOpen}
                     background={mainTheme.gradients.buttonGradient}
                 >
                     <Label textAlign='center' color='white'>
@@ -89,6 +92,13 @@ const RightSection = ({ data }: props) => {
                     </Button>
                 </S.Footer>
             </S.Container>
+            {
+                isOpen ?
+                <ModalPortal blurBackground={true} close={handleIsOpen}>
+                    <AddNewPost open={isOpen} setIsOpen={handleIsOpen}/>
+                </ModalPortal> : null
+            }
+
         </S.Wrapper>
     );
 };

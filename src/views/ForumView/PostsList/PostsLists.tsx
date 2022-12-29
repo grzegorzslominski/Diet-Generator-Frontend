@@ -2,7 +2,6 @@ import React from "react";
 import * as S from "./PostsList.style";
 import { PostsI } from "./const/Posts";
 import PostItem from "./PostItem/PostItem";
-import { LinksContainer } from "../../../components/Footer/Footer.style";
 
 interface props {
     data: PostsI[]
