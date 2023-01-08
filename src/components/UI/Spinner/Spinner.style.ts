@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SpinnerProps } from "./Spinner.type";
+import { mainTheme } from "../../../themes/mainTheme";
 
 export const Container = styled.div`
     position: absolute;
@@ -9,7 +9,12 @@ export const Container = styled.div`
     z-index: 100;
 `;
 
-export const Ring = styled.div<SpinnerProps>`
+type RingProps = {
+    size?: "small" | "medium" | "big";
+    color: "primary" | "secondary";
+};
+
+export const Ring = styled.div<RingProps>`
     display: inline-block;
     position: relative;
     width: ${({ size }) => (size === "small" ? "35px" : size === "medium" ? "45px" : "75px")};
@@ -25,7 +30,9 @@ export const Ring = styled.div<SpinnerProps>`
         border: 4px solid #fff;
         border-radius: 50%;
         animation: spinnerAnim 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        border-color: #fff transparent transparent transparent;
+        border-color: ${({ color }) =>
+                color === "primary" ? "#fff" : `${mainTheme.colors.secondaryColor}`}
+            transparent transparent transparent;
     }
 
     & div:nth-child(1) {

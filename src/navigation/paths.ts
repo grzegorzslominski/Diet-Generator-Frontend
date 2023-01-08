@@ -18,5 +18,6 @@ export enum NAVIGATION {
     expandedUserProfile = "/profile/expanded",
     ownMeals = "/profile/meals",
     premium = "/premium",
+    payment = "/payment",
     exclusions = "/exclusions",
 }

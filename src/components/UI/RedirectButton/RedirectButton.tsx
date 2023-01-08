@@ -6,16 +6,17 @@ import { mainTheme } from "../../../themes/mainTheme";
 
 type RedirectButtonProps = {
     label: string;
+    arrowIcon?: boolean;
     onClick: () => void;
 };
 
-const RedirectButton = ({ label, onClick }: RedirectButtonProps) => {
+const RedirectButton = ({ label, arrowIcon = true, onClick }: RedirectButtonProps) => {
     return (
         <S.Container onClick={onClick}>
             <Label fontSize='14px' fontWeight='700' color={mainTheme.colors.mainBlack}>
                 {label}
             </Label>
-            <ArrowIcon />
+            {arrowIcon && <ArrowIcon />}
         </S.Container>
     );
 };

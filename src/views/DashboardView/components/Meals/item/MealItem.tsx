@@ -6,51 +6,46 @@ import PieChart from "../chart/PieChart";
 import MealAuthor from "./author/MealAuthor";
 import Label from "../../../../../components/UI/Label/Label";
 
-import { MealI } from "../const/data";
+import { MealI } from "../const/mealListData";
 
 import * as S from "./MealItem.style";
 
-type prop = {
-    display?: boolean;
+type MealItemProps = MealI & {
+    version?: "basic" | "author";
 };
 
-type props = prop & MealI;
-const MealItem = (props: props) => {
+const MealItem = ({
+    name,
+    rating,
+    image,
+    basicIngredients,
+    kcal,
+    c,
+    p,
+    f,
+    version = "basic",
+}: MealItemProps) => {
     return (
         <S.Wrapper>
             <S.Container>
                 <S.TopSection>
                     <Heart />
-                    <img src={props.image} alt='' />
-                    {!props.display ? (
-                        <S.Border>
-                            <Label
-                                textAlign='center'
-                                fontFamily='Montserrat'
-                                fontWeight='500'
-                                fontSize='1rem'
-                                lineHeight='1rem'
-                                color='white'
-                            >
-                                {props.rating}
-                            </Label>
-                        </S.Border>
-                    ) : (
-                        <S.NewBorder>
-                            <Label
-                                fontFamily='Montserrat'
-                                fontWeight='700'
-                                fontSize='1rem'
-                                lineHeight='1.3rem'
-                                textAlign='center'
-                                color='white'
-                            >
-                                NEW
-                            </Label>
-                        </S.NewBorder>
-                    )}
+                    <S.MealImage image={image} />
+
+                    <S.RateBox rate={Boolean(rating)}>
+                        <Label
+                            textAlign='center'
+                            fontFamily='Montserrat'
+                            fontWeight='500'
+                            fontSize='16px'
+                            lineHeight='1rem'
+                            color='white'
+                        >
+                            {rating ? rating : "NEW"}
+                        </Label>
+                    </S.RateBox>
                 </S.TopSection>
-                <S.TitleContainer>
+                <S.MiddleSection version={version}>
                     <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
@@ -58,55 +53,43 @@ const MealItem = (props: props) => {
                         textAlign='center'
                         color={mainTheme.colors.mainBlack}
                     >
-                        {props.name}
+                        {name}
                     </Label>
-                </S.TitleContainer>
+                    {version === "basic" ? (
+                        <S.BasicIngredients>
+                            <Label fontWeight='500' fontSize='14px' color='white'>
+                                Basic ingredients
+                            </Label>
+                            <S.IngredientsList>
+                                {basicIngredients.map((item) => {
+                                    return (
+                                        <li key={item}>
+                                            <Label fontSize='12px' lineHeight='10px' color='white'>
+                                                {item}
+                                            </Label>
+                                        </li>
+                                    );
+                                })}
+                            </S.IngredientsList>
+                        </S.BasicIngredients>
+                    ) : (
+                        <S.TextContent>
+                            <Label
+                                fontFamily='Montserrat'
+                                fontWeight='400'
+                                fontSize='0.6rem'
+                                textAlign='center'
+                                color='white'
+                                lineHeight='1px'
+                            >
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                                varius lorem eget nisi bibendum, non consequat est ullamcorper. Ut
+                                in volutpat sem, ut ultricies augue.
+                            </Label>
+                        </S.TextContent>
+                    )}
+                </S.MiddleSection>
 
-                {!props.display ? (
-                    <S.MiddleSection>
-                        <Label
-                            fontFamily='Monserrat'
-                            fontWeight='600'
-                            fontSize='0.9rem'
-                            lineHeight='1rem'
-                            color='white'
-                        >
-                            Basic ingredients
-                        </Label>
-                        <S.Content>
-                            {props.basicIngredients.map((item) => {
-                                return (
-                                    <S.ContentItem key={item}>
-                                        <Label
-                                            fontFamily='Monserrat'
-                                            fontWeight='500'
-                                            fontSize='0.75rem'
-                                            lineHeight='0.9rem'
-                                            color='white'
-                                        >
-                                            {item}
-                                        </Label>
-                                    </S.ContentItem>
-                                );
-                            })}
-                        </S.Content>
-                    </S.MiddleSection>
-                ) : (
-                    <S.TextContent>
-                        <Label
-                            fontFamily='Montserrat'
-                            fontWeight='400'
-                            fontSize='0.6rem'
-                            textAlign='center'
-                            color='white'
-                            lineHeight='1px'
-                        >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            varius lorem eget nisi bibendum, non consequat est ullamcorper. Ut in
-                            volutpat sem, ut ultricies augue.
-                        </Label>
-                    </S.TextContent>
-                )}
                 <S.BottomSection>
                     <S.BottomItemContainer>
                         <S.BottomSingleItem>
@@ -126,7 +109,7 @@ const MealItem = (props: props) => {
                                 lineHeight='1.4rem'
                                 color='#E6CB6E'
                             >
-                                {props.kcal}
+                                {kcal}
                             </Label>
                         </S.BottomSingleItem>
                         <S.BottomSingleItem>
@@ -147,7 +130,7 @@ const MealItem = (props: props) => {
                                 lineHeight='1.4rem'
                                 color='#E6CB6E'
                             >
-                                {props.c}
+                                {c}
                             </Label>
                         </S.BottomSingleItem>
                         <S.BottomSingleItem>
@@ -167,7 +150,7 @@ const MealItem = (props: props) => {
                                 lineHeight='1.4rem'
                                 color='#E6CB6E;'
                             >
-                                {props.p}
+                                {p}
                             </Label>
                         </S.BottomSingleItem>
                         <S.BottomSingleItem>
@@ -187,12 +170,12 @@ const MealItem = (props: props) => {
                                 lineHeight='1.4rem'
                                 color='#E6CB6E;'
                             >
-                                {props.f}
+                                {f}
                             </Label>
                         </S.BottomSingleItem>
                     </S.BottomItemContainer>
                     <PieChart />
-                    {!props.display ? (
+                    {version === "basic" ? (
                         <S.Footer>
                             <Label
                                 fontFamily='Montserrat'
@@ -208,7 +191,7 @@ const MealItem = (props: props) => {
                     ) : null}
                 </S.BottomSection>
             </S.Container>
-            {props.display ? <MealAuthor /> : null}
+            {version === "author" ? <MealAuthor /> : null}
         </S.Wrapper>
     );
 };

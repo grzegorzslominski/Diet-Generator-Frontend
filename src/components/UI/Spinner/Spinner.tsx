@@ -1,11 +1,14 @@
-import { SpinnerProps } from "./Spinner.type";
-
 import * as S from "./Spinner.style";
 
-const Spinner = ({ size = "medium" }: SpinnerProps) => {
+export type SpinnerProps = {
+    size?: "small" | "medium" | "big";
+    color?: "primary" | "secondary";
+};
+
+const Spinner = ({ size = "medium", color = "primary" }: SpinnerProps) => {
     return (
         <S.Container>
-            <S.Ring size={size}>
+            <S.Ring size={size} color={color}>
                 <div></div>
                 <div></div>
                 <div></div>

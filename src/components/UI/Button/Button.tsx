@@ -86,7 +86,14 @@ const Button = ({
             </S.StyledButton>
             {isLoading && (
                 <S.SpinnerContainer>
-                    <Spinner size={size === "small" ? "small" : "medium"} />
+                    <Spinner
+                        color={
+                            styleType === "gradientEmpty" || styleType === "primaryEmpty"
+                                ? "secondary"
+                                : "primary"
+                        }
+                        size={size === "small" ? "small" : "medium"}
+                    />
                 </S.SpinnerContainer>
             )}
         </S.ButtonContainer>

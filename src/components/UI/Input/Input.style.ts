@@ -32,7 +32,6 @@ export const InputContainer = styled.div<InputContainerProps>`
     border-bottom: 1px solid;
     border-color: ${({ disabled }) => (disabled ? "#B0B0B0" : "#d9d9d9")};
 
-    // padding-left: 12px;
     svg {
         height: 15px;
         width: auto;
@@ -50,7 +49,7 @@ export const InputContainer = styled.div<InputContainerProps>`
                 : icon && size !== "normal"
                 ? "6px 24px 0px 24px"
                 : "6px  0px 2px  0px"};
-        font-size: ${({ size }) => (size === "normal" ? "15px" : "11px")};
+        font-size: ${({ size }) => (size === "normal" ? "15px" : "12px")};
         font-weight: 600;
         color: ${mainTheme.colors.grey};
         margin-top: ${({ label, type }) => (label && type !== "date" ? "6px" : "0")};

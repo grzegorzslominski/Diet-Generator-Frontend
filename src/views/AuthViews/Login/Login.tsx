@@ -61,16 +61,20 @@ const Login = () => {
         },
 
         onSubmit: () => {
-            true;
+            setIsLoading(true);
             axiosFoodieInstance
                 .post(ENDPOINTS_USER.login, userLoginData)
-                .then((response) => {
-                    if (response.status === 201) {
+                .then(async (response) => {
+                    if (response.status === 200) {
                         const authToken = response.data;
+
                         if (authToken) {
-                            localStorage.setItem("authToken", JSON.stringify(authToken));
+                            localStorage.setItem("authToken", authToken.token);
                             closeAuthViews();
-                            navigate(NAVIGATION.dashboard);
+                            const user = await authorizeUser();
+                            console.log(user);
+
+                            user && navigate(NAVIGATION.dashboard);
                         }
                     }
                 })
@@ -91,8 +95,6 @@ const Login = () => {
                 .finally(() => {
                     setIsLoading(false);
                 });
-
-            authorizeUser();
         },
     });
 
