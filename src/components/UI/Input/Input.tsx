@@ -94,16 +94,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 size={size}
             >
                 {label && (
-                    <>
-                        <Label
-                            fontFamily='Lato'
-                            fontWeight='800'
-                            fontSize={size === "normal" ? "15px" : "11px"}
-                            color={mainTheme.colors.inputText}
-                        >
-                            {label}
-                        </Label>
-                    </>
+                    <Label
+                        fontFamily='Lato'
+                        fontWeight='800'
+                        fontSize={size === "normal" ? "15px" : "11px"}
+                        color={mainTheme.colors.inputText}
+                    >
+                        {label}
+                    </Label>
                 )}
 
                 <S.InputContainer width={width} icon={Boolean(icon)} size={size}>

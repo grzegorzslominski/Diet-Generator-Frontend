@@ -28,6 +28,7 @@ export const RemainingStatusContainer = styled.div`
 
     @media screen and (max-width: 820px) {
         flex-direction: column;
+        align-items: flex-start;
         gap: 0;
         & > span:first-child {
             font-size: 13px;

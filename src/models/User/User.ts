@@ -1,21 +1,27 @@
+import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+
 export type UserData = {
     readonly id: number;
-    firstName: string;
-    lastName: string;
+    firstName?: string;
+    lastName?: string;
     email: string;
     profileType: ProfileType;
-    avatar: string;
+    avatar?: string;
     details: UserDetails;
+    [key: string]: number | string | ProfileType | UserDetails | undefined;
 };
 
 export type UserDetails = {
-    weight: number;
-    height: number;
-    gender: GenderType;
-    bmi: number;
-    age: number;
-    dailyCalories: number;
+    weight?: number;
+    height?: number;
+    gender?: GenderType;
+    bmi?: number;
+    age?: number;
+    dailyCalories?: number;
+    [key: string]: number | GenderType | undefined;
 };
+
+export const GENDERS: GenderType[] = ["Male", "Female"];
 
 export type GenderType = "Male" | "Female";
 
@@ -80,5 +86,14 @@ export type UserComment = {
 export type NewPost = {
     title: string;
     description: string;
+};
 
-}
+export const getBasicUserProfile = async (userID: number) => {
+    return await axiosFoodieInstance
+        .get<UserData[]>(`account/profile/${userID}`)
+        .then((response) => {
+            if (response.status === 200) {
+                return response.data;
+            }
+        });
+};

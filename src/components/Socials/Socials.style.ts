@@ -14,9 +14,12 @@ export const IconContanier = styled.div<IconContanierProps>`
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 
     svg {
         height: ${({ iconSize }) => iconSize};
+    }
+
+    :hover {
+        cursor: pointer;
     }
 `;

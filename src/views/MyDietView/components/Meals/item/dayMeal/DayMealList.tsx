@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./DayMealList.style";
-import { mealDayI, mealItemI } from "../../const/MEALItem";
+import { mealDayI, mealItemI } from "../../const/mealItemData";
 import DayMealItem from "./item/DayMealItem";
 
 interface props {
@@ -30,7 +30,6 @@ const DayMealList = (props: props) => {
                         fat={item.fat}
                         basicIngredients={item.basicIngredients}
                         properties={item.properties}
-
                     />
                 );
             })}

@@ -8,6 +8,9 @@ import { NAVIGATION } from "../../navigation/paths";
 import reducer from "../../redux/reducer/reducer";
 import { getConfig } from "../../helpers/getConfig";
 import { ConfigData, setConfig } from "../../redux/slices/config";
+import { Posts } from "../ForumView/PostsList/const/Posts";
+import { Meals } from "../ForumView/Outlet/NewestMeals/const/Meals";
+import { TStore } from "../../redux/store/store";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -18,19 +21,17 @@ import HomeView from "../HomeView/HomeView";
 import BasicUserProfileView from "../UserProfileView/BasicUserProfileView/BasicUserProfileView";
 import NavbarVertical from "../../components/NavbarVertical/NavbarVertical";
 import ExpandedUserProfileView from "../UserProfileView/ExpandedUserProfileView/ExpandedUserProfileView";
-
-import { TStore } from "../../redux/store/store";
-
-import * as S from "./MainView.style";
+import PremiumView from "../PremiumView/PremiumView";
 import ForumView from "../ForumView/ForumView";
 import NewestPosts from "../ForumView/Outlet/NewestPosts/NewestPosts";
 import NewestMeals from "../ForumView/Outlet/NewestMeals/NewestMeals";
 import Feedback from "../ForumView/Outlet/Feedback/Feedback";
 import SinglePostItem from "../ForumView/PostsList/SinglePostItem/SinglePostItem";
-import { Posts } from "../ForumView/PostsList/const/Posts";
-import { Meals } from "../ForumView/Outlet/NewestMeals/const/Meals";
 import VerifyNewMeal from "../ForumView/Outlet/VerifyNewMeal/VerifyNewMeal";
 import NewMealView from "../NewMealView/NewMealView";
+
+import * as S from "./MainView.style";
+
 const MainView = () => {
   const user = useSelector((state: TStore) => state?.userReducer);
   const [verticalMenuIsOpen, setVerticalMenuIsOpen] = useState<boolean>(false);
@@ -50,63 +51,64 @@ const MainView = () => {
     setVerticalMenuIsOpen(actionType === "change" ? !verticalMenuIsOpen : false);
   };
 
-  return (
-    <ThemeProvider theme={mainTheme}>
-      <S.Container>
-        <Navbar />
-        {true && (
-          <NavbarVertical
-            handleMenuIsOpen={hadnleSetVerticalMenu}
-            isOpen={verticalMenuIsOpen}
-          />
-        )}
-        <S.Content user={true} verticalMenuIsOpen={verticalMenuIsOpen}>
-          <Routes>
-            {true && (
-              <>
-                <Route path={NAVIGATION.dashboard} element={<DashboardView />} />
-                <Route
-                  path={NAVIGATION.dietGenerator}
-                  element={<DietGeneratorView />}
-                />
-                <Route path={NAVIGATION.myDiet} element={<MyDietView />} />
-                <Route path={NAVIGATION.default} element={<DashboardView />} />
-                <Route
-                  path={NAVIGATION.basicUserProfile}
-                  element={<BasicUserProfileView />}
-                />
-                <Route
-                  path={NAVIGATION.expandedUserProfile}
-                  element={<ExpandedUserProfileView />}
-                />
-                <Route
-                  path={NAVIGATION.newMeal}
-                  element={<NewMealView/>}
-                />
-                <Route path={NAVIGATION.forum} element={<ForumView/>} >
-                  <Route path={NAVIGATION.forumPosts} element={<NewestPosts/>} >
-                    <Route path={`${NAVIGATION.forumPost}/:postId`} element={<SinglePostItem path="/forum/posts" list={Posts}/>}/>
-                  </Route>
-                  <Route path={NAVIGATION.forumMeals} element={<NewestMeals/>} >
-                    <Route path={`${NAVIGATION.forumMeal}/:postId`} element={<SinglePostItem path="/forum/newMeals" list={Meals}/>} />
-                  </Route>
-                  <Route path={NAVIGATION.forumFeedbacks} element={<Feedback/>} >
-                    <Route path={`${NAVIGATION.forumFeedback}/:postId`} element={<SinglePostItem path="/forum/feedbacks" list={Posts}/>} />
-                  </Route>
-                  <Route path={NAVIGATION.forumNewlyAddedMeals} element={<VerifyNewMeal/>} >
-                    <Route path={`${NAVIGATION.forumNewlyAddedMeal}/:postId`} element={<SinglePostItem path="/forum/newlyAddedMeals" list={Meals}/>} />
-                  </Route>
-                </Route>
-              </>
-            )}
-            <Route path={NAVIGATION.home} element={<HomeView />} />
-            <Route path={NAVIGATION.default} element={<HomeView />} />
-          </Routes>
-          <Footer />
-        </S.Content>
-      </S.Container>
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider theme={mainTheme}>
+            <S.Container>
+                <Navbar />
+                {true && (
+                    <NavbarVertical
+                        handleMenuIsOpen={hadnleSetVerticalMenu}
+                        isOpen={verticalMenuIsOpen}
+                    />
+                )}
+                <S.Content user={Boolean(true)} verticalMenuIsOpen={verticalMenuIsOpen}>
+                    <Routes>
+                        {true && (
+                            <>
+                                <Route path={NAVIGATION.dashboard} element={<DashboardView />} />
+                                <Route
+                                    path={NAVIGATION.dietGenerator}
+                                    element={<DietGeneratorView />}
+                                />
+                                <Route path={NAVIGATION.myDiet} element={<MyDietView />} />
+                                <Route path={NAVIGATION.default} element={<DashboardView />} />
+                                <Route
+                                    path={NAVIGATION.basicUserProfile}
+                                    element={<BasicUserProfileView />}
+                                />
+                                <Route
+                                    path={NAVIGATION.expandedUserProfile}
+                                    element={<ExpandedUserProfileView />}
+                                />
+                                <Route path={NAVIGATION.premium} element={<PremiumView />} />
+                                <Route
+                                  path={NAVIGATION.newMeal}
+                                  element={<NewMealView/>}
+                                />
+                                <Route path={NAVIGATION.forum} element={<ForumView/>} >
+                                  <Route path={NAVIGATION.forumPosts} element={<NewestPosts/>} >
+                                    <Route path={`${NAVIGATION.forumPost}/:postId`} element={<SinglePostItem path="/forum/posts" list={Posts}/>}/>
+                                  </Route>
+                                  <Route path={NAVIGATION.forumMeals} element={<NewestMeals/>} >
+                                    <Route path={`${NAVIGATION.forumMeal}/:postId`} element={<SinglePostItem path="/forum/newMeals" list={Meals}/>} />
+                                  </Route>
+                                  <Route path={NAVIGATION.forumFeedbacks} element={<Feedback/>} >
+                                    <Route path={`${NAVIGATION.forumFeedback}/:postId`} element={<SinglePostItem path="/forum/feedbacks" list={Posts}/>} />
+                                  </Route>
+                                  <Route path={NAVIGATION.forumNewlyAddedMeals} element={<VerifyNewMeal/>} >
+                                    <Route path={`${NAVIGATION.forumNewlyAddedMeal}/:postId`} element={<SinglePostItem path="/forum/newlyAddedMeals" list={Meals}/>} />
+                                  </Route>
+                                </Route>
+                            </>
+                        )}
+                        <Route path={NAVIGATION.home} element={<HomeView />} />
+                        <Route path={NAVIGATION.default} element={<HomeView />} />
+                    </Routes>
+                    <Footer />
+                </S.Content>
+            </S.Container>
+        </ThemeProvider>
+    );
 };
 
 export default MainView;

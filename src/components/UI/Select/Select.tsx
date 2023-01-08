@@ -36,31 +36,31 @@ type SelectProps = {
 };
 
 const Select = ({
-                    width = "100%",
-                    labelIndent = false,
-                    label,
-                    placeholder,
-                    error,
-                    value,
-                    onChange,
-                    multiSelect = false,
-                    optionsMaxHeight = 220,
-                    textOverflow = "",
-                    border = "",
-                    maxAddOptionLength,
-                    borderRadius = "6px",
-                    background = "transparent",
-                    optionsBackground = "transparent",
-                    size = "medium",
-                    disabled,
-                    searchCallback,
-                    addSelectOption,
-                    searchable,
-                    editable,
-                    position,
-                    children,
-                    customSearching,
-                }: SelectProps) => {
+    width = "100%",
+    labelIndent = false,
+    label,
+    placeholder,
+    error,
+    value,
+    onChange,
+    multiSelect = false,
+    optionsMaxHeight = 220,
+    textOverflow = "",
+    border = "",
+    maxAddOptionLength,
+    borderRadius = "6px",
+    background = "transparent",
+    optionsBackground = "transparent",
+    size = "medium",
+    disabled,
+    searchCallback,
+    addSelectOption,
+    searchable,
+    editable,
+    position,
+    children,
+    customSearching,
+}: SelectProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
     const valueContainerRef = useRef<HTMLDivElement>(null);
@@ -170,7 +170,7 @@ const Select = ({
     const renderMultiSelectValue = () => {
         const multiSelectValue = value.map((selectValue: any, i: number) => {
             const foundValueChildren = children.find(
-              (child: any) => child.props.value === selectValue,
+                (child: any) => child.props.value === selectValue,
             );
             if (foundValueChildren) {
                 return i > remainingMultiselectCount - 1
@@ -230,174 +230,173 @@ const Select = ({
     };
 
     return (
-      <S.Container width={width} labelIndent={labelIndent}>
-          {label && (
-            <>
-                <Label
-                  error={error}
-                  fontWeight='700'
-                  fontSize='11px'
-                  color={mainTheme.colors.inputText}
+        <S.Container width={width} labelIndent={labelIndent}>
+            {label && (
+                <>
+                    <Label
+                        error={error}
+                        fontWeight='700'
+                        fontSize='11px'
+                        color={mainTheme.colors.inputText}
+                    >
+                        {label}
+                    </Label>
+                </>
+            )}
+            <S.InnerContainer ref={ref} tabIndex={0} onFocus={onFocusHandler}>
+                <S.CustomSelect
+                    size={size}
+                    border={border}
+                    borderRadius={borderRadius}
+                    disabled={disabled}
+                    background={background}
+                    label={label}
+                    error={error}
+                    onClick={() =>
+                        !disabled && !multiSelect && !searchable
+                            ? setOpenSelect((prev) => !prev)
+                            : null
+                    }
                 >
-                    {label}
-                </Label>
-            </>
-          )}
-          <S.InnerContainer ref={ref} tabIndex={0} onFocus={onFocusHandler}>
-              <S.CustomSelect
-                size={size}
-                border={border}
-                borderRadius={borderRadius}
-                disabled={disabled}
-                background={background}
-                label={label}
-                error={error}
-                onClick={() =>
-                  !disabled && !multiSelect && !searchable
-                    ? setOpenSelect((prev) => !prev)
-                    : null
-                }
-              >
-                  <S.SelectTrigger>
-                      {isFocus && searchable ? (
-                        <S.SearchInput
-                          background={background}
-                          maxLength={maxAddOptionLength}
-                          ref={searchInputRef}
-                          value={searchValue}
-                          onChange={(e) => setSearchValue(e.target.value)}
-                        />
-                      ) : value && !multiSelect ? (
-                        React.Children.count(children) > 1 ? (
-                          children.map((child: any) => {
-                              if (child.props.value === value) {
-                                  return (
-                                    <S.ValueContainer
-                                      textOverflow={textOverflow}
-                                      ref={valueContainerRef}
-                                    >
-                                        {child.props.children}
-                                    </S.ValueContainer>
-                                  );
-                              }
-                          })
-                        ) : (
-                          <>
-                              {children?.props?.children?.props?.value === value ? (
-                                <S.ValueContainer
-                                  textOverflow={textOverflow}
-                                  ref={valueContainerRef}
+                    <S.SelectTrigger>
+                        {isFocus && searchable ? (
+                            <S.SearchInput
+                                background={background}
+                                maxLength={maxAddOptionLength}
+                                ref={searchInputRef}
+                                value={searchValue}
+                                onChange={(e) => setSearchValue(e.target.value)}
+                            />
+                        ) : value && !multiSelect ? (
+                            React.Children.count(children) > 1 ? (
+                                children.map((child: any) => {
+                                    if (child.props.value === value) {
+                                        return (
+                                            <S.ValueContainer
+                                                textOverflow={textOverflow}
+                                                ref={valueContainerRef}
+                                            >
+                                                {child.props.children}
+                                            </S.ValueContainer>
+                                        );
+                                    }
+                                })
+                            ) : (
+                                <>
+                                    {children?.props?.children?.props?.value === value ? (
+                                        <S.ValueContainer
+                                            textOverflow={textOverflow}
+                                            ref={valueContainerRef}
+                                        >
+                                            {children.props.children}
+                                        </S.ValueContainer>
+                                    ) : Array.isArray(children) &&
+                                      children[0]?.props.value === value ? (
+                                        <S.ValueContainer
+                                            textOverflow={textOverflow}
+                                            ref={valueContainerRef}
+                                        >
+                                            {children[0]?.props.children}
+                                        </S.ValueContainer>
+                                    ) : searchCallback ? (
+                                        <S.ValueContainer
+                                            textOverflow={textOverflow}
+                                            ref={valueContainerRef}
+                                        >
+                                            {value}
+                                        </S.ValueContainer>
+                                    ) : (
+                                        <></>
+                                    )}
+                                </>
+                            )
+                        ) : value && multiSelect ? (
+                            <S.ValueContainer textOverflow={textOverflow} ref={valueContainerRef}>
+                                {renderMultiSelectValue()}
+                            </S.ValueContainer>
+                        ) : <S.ValueContainer textOverflow={textOverflow} ref={valueContainerRef}>
+                              <Label fontSize='12px' color={mainTheme.colors.inputText}>
+                                  {placeholder}
+                              </Label>
+                          </S.ValueContainer> ? (
+                            <S.ValueContainer textOverflow={textOverflow} ref={valueContainerRef}>
+                                <Label fontSize='12px' color={mainTheme.colors.inputText}>
+                                    {placeholder}
+                                </Label>
+                            </S.ValueContainer>
+                        ) : null}
+                        <S.Arrow disabled={disabled} />
+                    </S.SelectTrigger>
+                </S.CustomSelect>
+                <S.CustomOptions
+                    show={openSelect}
+                    background={optionsBackground}
+                    optionsPosition={optionsPosition}
+                    maxHeight={optionsMaxHeight}
+                >
+                    <ScrollBox
+                        height={optionsMaxHeight}
+                        scrollDistance={14}
+                        scrollPosition='outside'
+                    >
+                        {React.Children.count(children) > 0
+                            ? React.Children.map<React.ReactNode, React.ReactNode>(
+                                  children,
+                                  (child) => {
+                                      if (
+                                          customSearching &&
+                                          React.isValidElement(child) &&
+                                          customSearching(searchValue, child)
+                                      ) {
+                                          return React.cloneElement(child, {
+                                              onChange: onChangePrehandler,
+                                              selected:
+                                                  multiSelect && value.includes(child.props.value),
+                                          });
+                                      } else if (
+                                          React.isValidElement(child) &&
+                                          !customSearching &&
+                                          (!searchable ||
+                                              (searchable &&
+                                                  child.props.children
+                                                      .toLowerCase()
+                                                      .includes(searchValue.trim().toLowerCase())))
+                                      ) {
+                                          return React.cloneElement(child, {
+                                              onChange: onChangePrehandler,
+                                              selected:
+                                                  multiSelect && value.includes(child.props.value),
+                                          });
+                                      }
+                                  },
+                              )
+                            : children}
+                        {searchValue &&
+                        editable &&
+                        addSelectOption &&
+                        handleShowAddOption(searchValue) ? (
+                            <S.AddOption onClick={() => addSelectOptionPrehandler(searchValue)}>
+                                <ActionButton type='add' onClick={() => null} />
+                                <Label
+                                    fontSize='12px'
+                                    fontWeight='600'
+                                    color={mainTheme.colors.grey}
                                 >
-                                    {children.props.children}
-                                </S.ValueContainer>
-                              ) : Array.isArray(children) &&
-                              children[0]?.props.value === value ? (
-                                <S.ValueContainer
-                                  textOverflow={textOverflow}
-                                  ref={valueContainerRef}
-                                >
-                                    {children[0]?.props.children}
-                                </S.ValueContainer>
-                              ) : searchCallback ? (
-                                <S.ValueContainer
-                                  textOverflow={textOverflow}
-                                  ref={valueContainerRef}
-                                >
-                                    {value}
-                                </S.ValueContainer>
-                              ) : (
-                                <></>
-                              )}
-                          </>
-                        )
-                      ) : value && multiSelect ? (
-                        <S.ValueContainer textOverflow={textOverflow} ref={valueContainerRef}>
-                            {renderMultiSelectValue()}
-                        </S.ValueContainer>
-                      ) : <S.ValueContainer textOverflow={textOverflow} ref={valueContainerRef}>
-                          <Label fontSize='12px' color={mainTheme.colors.inputText}>
-                              {placeholder}
-                          </Label>
-                      </S.ValueContainer> ? (
-                        <S.ValueContainer textOverflow={textOverflow} ref={valueContainerRef}>
-                            <Label fontSize='12px' color={mainTheme.colors.inputText}>
-                                {placeholder}
-                            </Label>
-                        </S.ValueContainer>
-                      ) : null}
-                      <S.Arrow disabled={disabled} />
-                  </S.SelectTrigger>
-              </S.CustomSelect>
-              <S.CustomOptions
-                show={openSelect}
-                background={optionsBackground}
-                optionsPosition={optionsPosition}
-                maxHeight={optionsMaxHeight}
-              >
-                  <ScrollBox
-                    height={optionsMaxHeight}
-                    scrollDistance={14}
-                    scrollPosition='outside'
-                  >
-                      {React.Children.count(children) > 0
-                        ? React.Children.map<React.ReactNode, React.ReactNode>(
-                          children,
-                          (child) => {
-                              if (
-                                customSearching &&
-                                React.isValidElement(child) &&
-                                customSearching(searchValue, child)
-                              ) {
-                                  // @ts-ignore
-                                  return React.cloneElement(child, {
-                                      onChange: onChangePrehandler,
-                                      selected:
-                                        multiSelect && value.includes(child.props.value),
-                                  });
-                              } else if (
-                                React.isValidElement(child) &&
-                                !customSearching &&
-                                (!searchable ||
-                                  (searchable &&
-                                    child.props.children
-                                      .toLowerCase()
-                                      .includes(searchValue.trim().toLowerCase())))
-                              ) {
-                                  return React.cloneElement(child, {
-                                      onChange: onChangePrehandler,
-                                      selected:
-                                        multiSelect && value.includes(child.props.value),
-                                  });
-                              }
-                          },
-                        )
-                        : children}
-                      {searchValue &&
-                      editable &&
-                      addSelectOption &&
-                      handleShowAddOption(searchValue) ? (
-                        <S.AddOption onClick={() => addSelectOptionPrehandler(searchValue)}>
-                            <ActionButton type='add' onClick={() => null} />
-                            <Label
-                              fontSize='12px'
-                              fontWeight='600'
-                              color={mainTheme.colors.grey}
-                            >
-                                {searchValue}
-                            </Label>
-                        </S.AddOption>
-                      ) : null}
-                  </ScrollBox>
-              </S.CustomOptions>
-          </S.InnerContainer>
-          {error && (
-            <S.ErrorContainer>
-                <Label fontSize='12px' color='#FF0000'>
-                    {error}
-                </Label>
-            </S.ErrorContainer>
-          )}
-      </S.Container>
+                                    {searchValue}
+                                </Label>
+                            </S.AddOption>
+                        ) : null}
+                    </ScrollBox>
+                </S.CustomOptions>
+            </S.InnerContainer>
+            {error && (
+                <S.ErrorContainer>
+                    <Label fontSize='12px' color='#FF0000'>
+                        {error}
+                    </Label>
+                </S.ErrorContainer>
+            )}
+        </S.Container>
     );
 };
 

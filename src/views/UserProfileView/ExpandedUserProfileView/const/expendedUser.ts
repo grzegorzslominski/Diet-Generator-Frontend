@@ -1,10 +1,10 @@
 import backgroundIMG from "../../../../assets/profile/background.png";
 import profileIMG from "../../../../assets/profile/avatar.png";
-import mealIMG from "../../../../assets/dashboard/images/chicken.png";
+import mealIMG from "../../../../assets/dashboard/images/chicken.jpg";
 import articleIMG from "../../../../assets/profile/article_image.png";
 
 import { SocialLinks } from "../../../../models/SocialsLinks/SocialsLinks";
-import { MealI } from "../../../DashboardView/components/Meals/const/data";
+import { MealI } from "../../../DashboardView/components/Meals/const/mealListData";
 
 export type ExpendedUser = {
     backgroundIMG: string;

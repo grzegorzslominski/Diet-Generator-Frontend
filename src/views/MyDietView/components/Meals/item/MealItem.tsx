@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
@@ -9,7 +8,7 @@ import MyDietChart from "../chart/MyDietChart";
 import DayMealList from "./dayMeal/DayMealList";
 import Label from "../../../../../components/UI/Label/Label";
 
-import { mealItemI } from "../const/MEALItem";
+import { mealItemI } from "../const/mealItemData";
 
 import * as S from "./MealItem.style";
 

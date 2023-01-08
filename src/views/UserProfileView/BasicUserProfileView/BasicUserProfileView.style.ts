@@ -20,6 +20,10 @@ export const Container = styled.div`
         height: 1849px;
     }
 
+    @media screen and (max-width: 860px) {
+        height: 1909px;
+    }
+
     @media screen and (max-width: 820px) {
         width: 320px;
         height: auto;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mainTheme } from "../../../themes/mainTheme";
 
 import { ScrollProps, ContentProps, ContainerProps, CircleProps } from "./ScrollBox.type";
 
@@ -38,11 +39,11 @@ export const Scroll = styled.div<ScrollProps>`
     ::after {
         content: "";
         height: ${({ height }) => `${height}px`};
-        background-color: #161819;
-        width: 3px;
+        background-color: ${mainTheme.colors.grey};
+        width: 2px;
         position: absolute;
         top: 0;
-        right: 5px;
+        right: 6px;
         ${({ hidden }) => (hidden ? `display: none` : "display: flex")}
     }
 
@@ -57,16 +58,7 @@ export const Circle = styled.div<CircleProps>`
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background: linear-gradient(
-        90deg,
-        #ff893c 0%,
-        #d57680 14%,
-        #aa64bb 32%,
-        #8b65dc 49%,
-        #6d7cf1 66%,
-        #4abcfb 82%,
-        #3ef7ef 100%
-    );
+    background: ${mainTheme.colors.secondaryColor};
 
     ${({ hidden }) => (hidden ? `display: none` : "display: flex")}
 

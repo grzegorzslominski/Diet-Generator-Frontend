@@ -105,8 +105,9 @@ export const Arrow = styled.div<ArrowProps>`
     -webkit-transform: rotate(45deg);
 
     ${({ disabled }) =>
-  disabled &&
-  css`
+
+        disabled &&
+        css`
             display: none;
         `}
 `;
