@@ -11,12 +11,13 @@ export const Header = styled.div`
   width: 30%;
   display: flex;
   align-items: center;
-  padding: 15px;
-  justify-content: space-evenly;
+  justify-content: start;
+  gap:15px;
   
   img {
     width: 40px;
   }
+
 `
 
 export const Description = styled.div`
@@ -24,7 +25,6 @@ export const Description = styled.div`
   align-items: start;
   padding: 10px;
   width: 90%;
-  margin: 15px;
   min-height: 50px;
 `
 
@@ -32,9 +32,9 @@ export const Footer = styled(Header)`
   display: flex;
   align-items: center;
   gap: 10px;
-  justify-content: center;
-  width: 100px;
-  padding-left: 15px;
+  justify-content: start;
+  padding-left: 10px;
+  width: 30%;
   & > svg {
     filter: brightness(0%);
   }

@@ -34,6 +34,31 @@ export type UserSignIn = {
     password: string;
 };
 
+export type NewMeal = {
+    mealName: string;
+    servings: number;
+    readyInMinutes: number;
+    image: string;
+    instructions: string;
+    vegetarian: boolean;
+    vegan: boolean;
+    glutenFree: boolean;
+    veryHealthy: boolean;
+    calories: string;
+    fat: string;
+    protein: string;
+    carbs: string;
+    ingredients: NewMealIngredient[];
+}
+
+export const NewMealType = ["g","ml"]
+
+export type NewMealIngredient = {
+    name: string;
+    amount: number;
+    unit: string;
+}
+
 export type UserSignInResponse = {
     user: User;
     authToken: string;
@@ -56,6 +81,11 @@ export type UserSignUpResponse = {
 
 export type UserComment = {
     comment: string;
+}
+
+export type NewPost = {
+    title: string;
+    description: string;
 };
 
 export const getBasicUserProfile = async (userID: number) => {

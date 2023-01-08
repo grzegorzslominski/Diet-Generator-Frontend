@@ -12,55 +12,70 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-  display: flex;
-  width: 60%;
-  justify-content: space-between;
-`
+    display: flex;
+    width: 1100px;
+    justify-content: space-between;
+
+    @media screen and (max-width: 1250px) {
+        width: 530px;
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        justify-content: space-evenly;
+        gap: 20px;
+    }
+
+    @media screen and (max-width: 535px) {
+      width: 300px;
+      }
+
+  
+
+`;
 
 export const HeaderItem = styled.div`
-  background: #FFFFFF;
-  box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  width: 250px;
-  height: 175px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  
-  &:hover {
-    border: solid black 1px;
-  }
-`
+    background: #ffffff;
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 250px;
+    height: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    @media screen and (max-width: 535px) {
+      width: 120px;
+      height: 120px;
+    }
+
+    &:hover {
+        border: solid black 1px;
+    }
+`;
 
 export const MiddleSection = styled.div`
-  margin: 50px 0 50px 0;
-  width: 60%;
-  gap: 25px;
-  display: flex;
-  flex-direction: column;
-  span {
-    align-items: start;
-  }
-`
-export const MiddleSectionWrapper = styled.div`
-   display: flex;
-   width:100%;
-    gap: 50px;
+    margin: 50px 0 50px 0;
+    width: 1100px;
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+    span {
+        align-items: start;
+    }
+    position: relative;
 
+    @media screen and (max-width: 1250px) {
+        width: 800px;
+      align-items: center;
+    }
 
-`
+    @media screen and (max-width: 535px) {
+      width: 350px;
+    }
+`;
+
 export const Posts = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 800px;
-`
-
-export const RightSection = styled.div`
-  margin-top: 20px;
-  width: 300px;
-  background: #FFFFFF;
-  box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  max-height: 400px;
-`
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+`;

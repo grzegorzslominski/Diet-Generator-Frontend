@@ -18,7 +18,7 @@ type ContentProps = {
     verticalMenuIsOpen: boolean;
 };
 
-export const Content = styled.div<ContentProps>`
+export const  Content = styled.div<ContentProps>`
     position: relative;
     display: flex;
     flex-direction: column;

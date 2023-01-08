@@ -10,6 +10,7 @@ import { getConfig } from "../../helpers/getConfig";
 import { ConfigData, setConfig } from "../../redux/slices/config";
 import { Posts } from "../ForumView/PostsList/const/Posts";
 import { Meals } from "../ForumView/Outlet/NewestMeals/const/Meals";
+import { TStore } from "../../redux/store/store";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -27,29 +28,28 @@ import NewestMeals from "../ForumView/Outlet/NewestMeals/NewestMeals";
 import Feedback from "../ForumView/Outlet/Feedback/Feedback";
 import SinglePostItem from "../ForumView/PostsList/SinglePostItem/SinglePostItem";
 import VerifyNewMeal from "../ForumView/Outlet/VerifyNewMeal/VerifyNewMeal";
-
-import { TStore } from "../../redux/store/store";
+import NewMealView from "../NewMealView/NewMealView";
 
 import * as S from "./MainView.style";
 
 const MainView = () => {
-    const user = useSelector((state: TStore) => state?.userReducer);
-    const [verticalMenuIsOpen, setVerticalMenuIsOpen] = useState<boolean>(false);
+  const user = useSelector((state: TStore) => state?.userReducer);
+  const [verticalMenuIsOpen, setVerticalMenuIsOpen] = useState<boolean>(false);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        handleSetConfig();
-    }, [reducer]);
+  useEffect(() => {
+    handleSetConfig();
+  }, [reducer]);
 
-    const handleSetConfig = async () => {
-        const config: ConfigData = await getConfig();
-        dispatch(setConfig(config));
-    };
+  const handleSetConfig = async () => {
+    const config: ConfigData = await getConfig();
+    dispatch(setConfig(config));
+  };
 
-    const hadnleSetVerticalMenu = (actionType: "change" | "close") => {
-        setVerticalMenuIsOpen(actionType === "change" ? !verticalMenuIsOpen : false);
-    };
+  const hadnleSetVerticalMenu = (actionType: "change" | "close") => {
+    setVerticalMenuIsOpen(actionType === "change" ? !verticalMenuIsOpen : false);
+  };
 
     return (
         <ThemeProvider theme={mainTheme}>
@@ -81,51 +81,23 @@ const MainView = () => {
                                     element={<ExpandedUserProfileView />}
                                 />
                                 <Route path={NAVIGATION.premium} element={<PremiumView />} />
-                                <Route path={NAVIGATION.forum} element={<ForumView />}>
-                                    <Route path={NAVIGATION.forumPosts} element={<NewestPosts />}>
-                                        <Route
-                                            path={`${NAVIGATION.forumPost}/:postId`}
-                                            element={
-                                                <SinglePostItem path='/forum/posts' list={Posts} />
-                                            }
-                                        />
-                                    </Route>
-                                    <Route path={NAVIGATION.forumMeals} element={<NewestMeals />}>
-                                        <Route
-                                            path={`${NAVIGATION.forumMeal}/:postId`}
-                                            element={
-                                                <SinglePostItem
-                                                    path='/forum/newMeals'
-                                                    list={Meals}
-                                                />
-                                            }
-                                        />
-                                    </Route>
-                                    <Route path={NAVIGATION.forumFeedbacks} element={<Feedback />}>
-                                        <Route
-                                            path={`${NAVIGATION.forumFeedback}/:postId`}
-                                            element={
-                                                <SinglePostItem
-                                                    path='/forum/feedbacks'
-                                                    list={Posts}
-                                                />
-                                            }
-                                        />
-                                    </Route>
-                                    <Route
-                                        path={NAVIGATION.forumNewlyAddedMeals}
-                                        element={<VerifyNewMeal />}
-                                    >
-                                        <Route
-                                            path={`${NAVIGATION.forumNewlyAddedMeal}/:postId`}
-                                            element={
-                                                <SinglePostItem
-                                                    path='/forum/newlyAddedMeals'
-                                                    list={Meals}
-                                                />
-                                            }
-                                        />
-                                    </Route>
+                                <Route
+                                  path={NAVIGATION.newMeal}
+                                  element={<NewMealView/>}
+                                />
+                                <Route path={NAVIGATION.forum} element={<ForumView/>} >
+                                  <Route path={NAVIGATION.forumPosts} element={<NewestPosts/>} >
+                                    <Route path={`${NAVIGATION.forumPost}/:postId`} element={<SinglePostItem path="/forum/posts" list={Posts}/>}/>
+                                  </Route>
+                                  <Route path={NAVIGATION.forumMeals} element={<NewestMeals/>} >
+                                    <Route path={`${NAVIGATION.forumMeal}/:postId`} element={<SinglePostItem path="/forum/newMeals" list={Meals}/>} />
+                                  </Route>
+                                  <Route path={NAVIGATION.forumFeedbacks} element={<Feedback/>} >
+                                    <Route path={`${NAVIGATION.forumFeedback}/:postId`} element={<SinglePostItem path="/forum/feedbacks" list={Posts}/>} />
+                                  </Route>
+                                  <Route path={NAVIGATION.forumNewlyAddedMeals} element={<VerifyNewMeal/>} >
+                                    <Route path={`${NAVIGATION.forumNewlyAddedMeal}/:postId`} element={<SinglePostItem path="/forum/newlyAddedMeals" list={Meals}/>} />
+                                  </Route>
                                 </Route>
                             </>
                         )}

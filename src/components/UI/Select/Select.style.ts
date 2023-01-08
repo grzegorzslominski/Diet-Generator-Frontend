@@ -15,8 +15,8 @@ export const Container = styled.div<ContainerProps>`
     height: fit-content;
 
     ${({ labelIndent }) =>
-        labelIndent &&
-        css`
+  labelIndent &&
+  css`
             & > span {
                 padding-left: 24px;
             }
@@ -105,6 +105,7 @@ export const Arrow = styled.div<ArrowProps>`
     -webkit-transform: rotate(45deg);
 
     ${({ disabled }) =>
+
         disabled &&
         css`
             display: none;
@@ -122,9 +123,9 @@ export const CustomOptions = styled.div<CustomOptionsProps>`
     position: absolute;
     display: ${(props) => (props.show ? "block" : "none")};
     top: ${({ optionsPosition, maxHeight }) =>
-        optionsPosition === "bottom"
-            ? "calc(100% + 8px)"
-            : "calc(0px + 24px - " + maxHeight + "px)"};
+  optionsPosition === "bottom"
+    ? "calc(100% + 8px)"
+    : "calc(0px + 24px - " + maxHeight + "px)"};
     max-height: ${({ maxHeight }) => maxHeight}px;
     left: 0;
     min-width: 100%;

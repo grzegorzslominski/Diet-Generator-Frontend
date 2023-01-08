@@ -3,9 +3,9 @@ import { mainTheme } from "../../../themes/mainTheme";
 import ActionButton from "../ActionButton/ActionButton";
 
 type CustomOptionProps = {
-    selected?: boolean;
-    size?: "small" | "medium" | "auto";
-    editable?: boolean;
+  selected?: boolean;
+  size?: "small" | "medium" | "auto";
+  editable?: boolean;
 };
 
 const CustomOption = styled.span<CustomOptionProps>`
@@ -35,46 +35,46 @@ const CustomOption = styled.span<CustomOptionProps>`
 `;
 
 type SelectOptionProps = {
-    children: React.ReactElement | string;
-    value: any;
-    size?: "small" | "medium" | "auto";
-    onChange?: any;
-    selected?: boolean;
-    editable?: boolean;
-    removeSelectOption?: (value: any) => void;
+  children: React.ReactElement | string;
+  value: any;
+  size?: "small" | "medium" | "auto";
+  onChange?: any;
+  selected?: boolean;
+  editable?: boolean;
+  removeSelectOption?: (value: any) => void;
 };
 
 const SelectOption = ({
-    children,
-    value,
-    size,
-    selected,
-    onChange,
-    editable,
-    removeSelectOption,
-}: SelectOptionProps) => {
-    const removeSelectOptionPrehandler = (e: React.MouseEvent<HTMLElement>, value: any) => {
-        e.stopPropagation();
+                        children,
+                        value,
+                        size,
+                        selected,
+                        onChange,
+                        editable,
+                        removeSelectOption,
+                      }: SelectOptionProps) => {
+  const removeSelectOptionPrehandler = (e: React.MouseEvent<HTMLElement>, value: any) => {
+    e.stopPropagation();
 
-        if (removeSelectOption) removeSelectOption(value);
-    };
+    if (removeSelectOption) removeSelectOption(value);
+  };
 
-    return (
-        <CustomOption
-            selected={selected}
-            onClick={() => onChange(value)}
-            editable={editable}
-            size={size}
-        >
-            {editable && removeSelectOption ? (
-                <ActionButton
-                    type='remove'
-                    onClick={(e: any) => removeSelectOptionPrehandler(e, value)}
-                />
-            ) : null}
-            {children}
-        </CustomOption>
-    );
+  return (
+    <CustomOption
+      selected={selected}
+      onClick={() => onChange(value)}
+      editable={editable}
+      size={size}
+    >
+      {editable && removeSelectOption ? (
+        <ActionButton
+          type='remove'
+          onClick={(e: any) => removeSelectOptionPrehandler(e, value)}
+        />
+      ) : null}
+      {children}
+    </CustomOption>
+  );
 };
 
 export default SelectOption;

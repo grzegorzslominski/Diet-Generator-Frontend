@@ -15,6 +15,15 @@ export const Container = styled.div`
   &:hover {
     border: solid black 1px;
   }
+  
+  @media screen and (max-width: 1250px){
+    width: 500px;
+  }
+
+  @media screen and (max-width: 535px){
+    width: 300px;
+  }
+
 `
 
 export const Header = styled.div`
@@ -26,6 +35,12 @@ export const Header = styled.div`
   img {
     width: 40px;
   }
+
+  @media screen and (max-width: 535px){
+    justify-content: center;
+    width: 100%;
+  }
+
 `
 
 export const Title = styled.div`

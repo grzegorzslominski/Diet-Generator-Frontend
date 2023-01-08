@@ -4,8 +4,9 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column; 
   margin-top: 20px;
-  gap: 20px;  width: 300px;
-
+  gap: 20px; 
+  width: 250px;
+  position: relative;
 
 `
 export const Container = styled.div`
@@ -17,10 +18,20 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
+  max-width: 250px;
+  
+  @media screen and (max-width: 900px){
+    display: none;
+  }
+
 `
 
 export const Container2 = styled(Container)`
   align-items: center;
+
+  @media screen and (max-width: 900px){
+    display: flex;
+  }
 `
 
 export const Header = styled.div`
@@ -52,7 +63,7 @@ export const Description = styled.div`
 `
 export const IconContainer = styled.div`
     display: flex;
-    width: 40%;
+    width: 50%;
     align-items: center;
     justify-content: space-evenly;
 
