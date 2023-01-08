@@ -6,12 +6,12 @@ import { ScrollBoxProps } from "./ScrollBox.type";
 import * as S from "./ScrollBox.style";
 
 const ScrollBox = ({
-    children,
-    height,
-    scrollDistance,
-    scrollPosition = "inside",
-    mobileScrollDistance,
-}: ScrollBoxProps) => {
+                       children,
+                       height,
+                       scrollDistance,
+                       scrollPosition = "inside",
+                       mobileScrollDistance,
+                   }: ScrollBoxProps) => {
     const scrollbarRef = useRef<HTMLDivElement>(null);
     const scrollContentRef = useRef<HTMLDivElement>(null);
 
@@ -83,7 +83,7 @@ const ScrollBox = ({
     };
 
     const handleScrollbarPosition = (element: HTMLDivElement) => {
-        let scrollRatio = element.scrollTop / (element.scrollHeight - height);
+        const scrollRatio = element.scrollTop / (element.scrollHeight - height);
         if (!scrolled && scrollRatio * height <= height - 11) {
             animation.start({
                 y: scrollRatio * height,
@@ -97,46 +97,46 @@ const ScrollBox = ({
     };
 
     return (
-        <S.Container scrollDistance={scrollDistanceValue} scrollPosition={scrollPosition}>
-            <S.Content
-                height={height}
-                scrollDistance={scrollDistanceValue}
-                scrollPosition={scrollPosition}
-                ref={scrollContentRef}
-                onScroll={() => {
+      <S.Container scrollDistance={scrollDistanceValue} scrollPosition={scrollPosition}>
+          <S.Content
+            height={height}
+            scrollDistance={scrollDistanceValue}
+            scrollPosition={scrollPosition}
+            ref={scrollContentRef}
+            onScroll={() => {
+                if (scrollContentRef.current) {
+                    handleScrollbarPosition(scrollContentRef.current);
+                }
+            }}
+          >
+              {children}
+          </S.Content>
+          <S.Scroll
+            height={height}
+            ref={scrollbarRef}
+            hidden={hiddenScroll}
+            scrollDistance={scrollDistanceValue}
+            scrollPosition={scrollPosition}
+          >
+              <motion.div
+                drag={"y"}
+                dragMomentum={false}
+                dragElastic={0}
+                dragConstraints={scrollbarRef}
+                animate={animation}
+                transition={{ type: "Inertia" }}
+                onDragStart={() => setScrolled(true)}
+                onDrag={(event, info) => {
                     if (scrollContentRef.current) {
-                        handleScrollbarPosition(scrollContentRef.current);
+                        handleScrollContentPosition(scrollContentRef.current, info.point.y);
                     }
                 }}
-            >
-                {children}
-            </S.Content>
-            <S.Scroll
-                height={height}
-                ref={scrollbarRef}
-                hidden={hiddenScroll}
-                scrollDistance={scrollDistanceValue}
-                scrollPosition={scrollPosition}
-            >
-                <motion.div
-                    drag={"y"}
-                    dragMomentum={false}
-                    dragElastic={0}
-                    dragConstraints={scrollbarRef}
-                    animate={animation}
-                    transition={{ type: "Inertia" }}
-                    onDragStart={() => setScrolled(true)}
-                    onDrag={(event, info) => {
-                        if (scrollContentRef.current) {
-                            handleScrollContentPosition(scrollContentRef.current, info.point.y);
-                        }
-                    }}
-                    onDragEnd={() => setScrolled(false)}
-                >
-                    <S.Circle hidden={hiddenScroll} />
-                </motion.div>
-            </S.Scroll>
-        </S.Container>
+                onDragEnd={() => setScrolled(false)}
+              >
+                  <S.Circle hidden={hiddenScroll} />
+              </motion.div>
+          </S.Scroll>
+      </S.Container>
     );
 };
 

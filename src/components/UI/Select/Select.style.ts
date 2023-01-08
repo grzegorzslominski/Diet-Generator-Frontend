@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { mainTheme } from "../../../themes/mainTheme";
 
 type ContainerProps = {
     width: string;
@@ -14,8 +15,8 @@ export const Container = styled.div<ContainerProps>`
     height: fit-content;
 
     ${({ labelIndent }) =>
-        labelIndent &&
-        css`
+  labelIndent &&
+  css`
             & > span {
                 padding-left: 24px;
             }
@@ -42,22 +43,21 @@ type CustomSelectProps = {
 export const CustomSelect = styled.div<CustomSelectProps>`
     position: relative;
     display: flex;
-    min-height: 30px;
+    padding: 6px 0 2px 0;
     height: ${({ size }) => (size === "medium" ? "42px" : size === "small" ? "30px" : "auto")};
     ${({ border }) => (border ? `border: ${border} ;` : "")};
-
     width: 100%;
     flex-direction: column;
-    background: ${({ background }) => (background ? background : "#161819")};
+    background: ${({ background }) => (background ? background : "transparent")};
     border-radius: ${({ borderRadius }) => borderRadius};
     text-align: left;
     font-family: "Montserrat", sans-serif;
-    font-size: 14px;
-    color: #747474;
-    padding: 1px;
+    font-size: 12px;
+    line-height: 12px;
+    border-bottom: solid 1px #d9d9d9;
+    font-weight: 600;
+    color: ${mainTheme.colors.grey};
     width: 100%;
-    margin-top: ${({ label }) => (label ? "12px" : "0")};
-    opacity: ${({ disabled }) => (disabled ? "0.5" : "1")};
 
     & span {
         pointer-events: none;
@@ -73,7 +73,6 @@ type ValueContainerProps = {
 };
 
 export const ValueContainer = styled.div<ValueContainerProps>`
-    padding-left: 20px;
     width: calc(100% - 45px);
     overflow: hidden;
     text-overflow: ${({ textOverflow }) => textOverflow};
@@ -90,9 +89,13 @@ export const SelectTrigger = styled.div`
     white-space: nowrap;
 `;
 
-export const Arrow = styled.div`
+type ArrowProps = {
+    disabled?: boolean;
+};
+
+export const Arrow = styled.div<ArrowProps>`
     position: absolute;
-    right: 24px;
+    right: 8px;
     margin-bottom: 4px;
     border: solid #a0a0a0;
     border-width: 0 1px 1px 0;
@@ -100,6 +103,12 @@ export const Arrow = styled.div`
     padding: 2px;
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
+
+    ${({ disabled }) =>
+  disabled &&
+  css`
+            display: none;
+        `}
 `;
 
 type CustomOptionsProps = {
@@ -113,9 +122,9 @@ export const CustomOptions = styled.div<CustomOptionsProps>`
     position: absolute;
     display: ${(props) => (props.show ? "block" : "none")};
     top: ${({ optionsPosition, maxHeight }) =>
-        optionsPosition === "bottom"
-            ? "calc(100% + 8px)"
-            : "calc(0px + 24px - " + maxHeight + "px)"};
+  optionsPosition === "bottom"
+    ? "calc(100% + 8px)"
+    : "calc(0px + 24px - " + maxHeight + "px)"};
     max-height: ${({ maxHeight }) => maxHeight}px;
     left: 0;
     min-width: 100%;
@@ -152,7 +161,7 @@ export const SearchInput = styled.input<SearchInputProps>`
     background: ${({ background }) => background};
     font-family: "Montserrat", sans-serif;
     font-size: 14px;
-    color: #747474;
+    color: ${mainTheme.colors.grey};
 `;
 
 export const AddOption = styled.div`

@@ -29,7 +29,19 @@ export const Post = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   padding: 15px;
   min-height: auto;
+`
+
+export const InputContainer = styled.div`
+  margin-top: 50px;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 25px;
+  align-items: center;
+  gap: 25px;
 `
