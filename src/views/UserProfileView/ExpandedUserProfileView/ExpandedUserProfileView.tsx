@@ -5,7 +5,7 @@ import { mainTheme } from "../../../themes/mainTheme";
 import ViewBox from "../../../components/UI/ViewBox/ViewBox";
 import Label from "../../../components/UI/Label/Label";
 import Carousel from "../../../components/UI/Carousel/Carousel";
-import ProfileSection from "./components/ProfileSection/ProfileSection";
+import ProfileSection from "./components/SectionBox/SectionBox";
 import MealItem from "../../DashboardView/components/Meals/item/MealItem";
 import ProfileArticle from "./components/ProfileArticle/ProfileArticle";
 import Social from "../../../components/Socials/Socials";

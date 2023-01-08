@@ -1,14 +1,14 @@
 import { ReactComponent as Heart } from "../../../../../assets/icons/heart.svg";
 import { mainTheme } from "../../../../../themes/mainTheme";
-import arrow from "../../../../../assets/icons/arrow.svg";
 
-import PieChart from "../chart/PieChart";
-import MealAuthor from "./author/MealAuthor";
+import RedirectButton from "../../../../../components/UI/RedirectButton/RedirectButton";
 import Label from "../../../../../components/UI/Label/Label";
+import PieChart from "../chart/PieChart";
 
 import { MealI } from "../const/mealListData";
 
 import * as S from "./MealItem.style";
+import GradientLabel from "../../../../../components/UI/GradientLabel/GradientLabel";
 
 type MealItemProps = MealI & {
     version?: "basic" | "author";
@@ -19,6 +19,7 @@ const MealItem = ({
     rating,
     image,
     basicIngredients,
+    mealAuthor,
     kcal,
     c,
     p,
@@ -31,7 +32,6 @@ const MealItem = ({
                 <S.TopSection>
                     <Heart />
                     <S.MealImage image={image} />
-
                     <S.RateBox rate={Boolean(rating)}>
                         <Label
                             textAlign='center'
@@ -49,7 +49,7 @@ const MealItem = ({
                     <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
-                        fontSize='1.2rem'
+                        fontSize='22px'
                         textAlign='center'
                         color={mainTheme.colors.mainBlack}
                     >
@@ -57,14 +57,19 @@ const MealItem = ({
                     </Label>
                     {version === "basic" ? (
                         <S.BasicIngredients>
-                            <Label fontWeight='500' fontSize='14px' color='white'>
+                            <Label fontSize='14px' color='white'>
                                 Basic ingredients
                             </Label>
                             <S.IngredientsList>
                                 {basicIngredients.map((item) => {
                                     return (
                                         <li key={item}>
-                                            <Label fontSize='12px' lineHeight='10px' color='white'>
+                                            <Label
+                                                fontWeight='300'
+                                                fontSize='12px'
+                                                lineHeight='10px'
+                                                color='white'
+                                            >
                                                 {item}
                                             </Label>
                                         </li>
@@ -76,11 +81,9 @@ const MealItem = ({
                         <S.TextContent>
                             <Label
                                 fontFamily='Montserrat'
-                                fontWeight='400'
-                                fontSize='0.6rem'
+                                fontSize='11px'
                                 textAlign='center'
                                 color='white'
-                                lineHeight='1px'
                             >
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
                                 varius lorem eget nisi bibendum, non consequat est ullamcorper. Ut
@@ -91,107 +94,102 @@ const MealItem = ({
                 </S.MiddleSection>
 
                 <S.BottomSection>
-                    <S.BottomItemContainer>
-                        <S.BottomSingleItem>
+                    <S.NutrionsContainer>
+                        <S.NutrionItem>
                             <Label
                                 fontFamily='Montserrat'
                                 fontWeight='500'
-                                fontSize='1.1rem'
-                                lineHeight='1.4rem'
-                                color='#363635'
+                                fontSize='18px'
+                                color={mainTheme.colors.inputText}
                             >
                                 {"Kcal: "}
                             </Label>
                             <Label
                                 fontFamily='Montserrat'
                                 fontWeight='500'
-                                fontSize='1.1rem'
-                                lineHeight='1.4rem'
+                                fontSize='18px'
                                 color='#E6CB6E'
                             >
                                 {kcal}
                             </Label>
-                        </S.BottomSingleItem>
-                        <S.BottomSingleItem>
+                        </S.NutrionItem>
+
+                        <S.NutrionItem>
                             <Label
                                 fontFamily='Montserrat'
                                 fontWeight='500'
-                                fontSize='0.8rem'
-                                lineHeight='1.4rem'
-                                color='#363635'
-                                whiteSpace='pre-line'
+                                fontSize='14px'
+                                color={mainTheme.colors.inputText}
                             >
-                                {`C: `}
+                                {"Fat: "}
                             </Label>
                             <Label
                                 fontFamily='Montserrat'
                                 fontWeight='500'
-                                fontSize='0.8rem'
-                                lineHeight='1.4rem'
-                                color='#E6CB6E'
-                            >
-                                {c}
-                            </Label>
-                        </S.BottomSingleItem>
-                        <S.BottomSingleItem>
-                            <Label
-                                fontFamily='Montserrat'
-                                fontWeight='500'
-                                fontSize='0.8rem'
-                                lineHeight='1.4rem'
-                                color='#363635'
-                            >
-                                {"P:"}
-                            </Label>
-                            <Label
-                                fontFamily='Montserrat'
-                                fontWeight='500'
-                                fontSize='0.8rem'
-                                lineHeight='1.4rem'
-                                color='#E6CB6E;'
-                            >
-                                {p}
-                            </Label>
-                        </S.BottomSingleItem>
-                        <S.BottomSingleItem>
-                            <Label
-                                fontFamily='Montserrat'
-                                fontWeight='500'
-                                fontSize='0.8rem'
-                                lineHeight='1.4rem'
-                                color='#363635'
-                            >
-                                {"F: "}
-                            </Label>
-                            <Label
-                                fontFamily='Montserrat'
-                                fontWeight='500'
-                                fontSize='0.8rem'
-                                lineHeight='1.4rem'
+                                fontSize='14px'
                                 color='#E6CB6E;'
                             >
                                 {f}
                             </Label>
-                        </S.BottomSingleItem>
-                    </S.BottomItemContainer>
-                    <PieChart />
-                    {version === "basic" ? (
-                        <S.Footer>
+                        </S.NutrionItem>
+                        <S.NutrionItem>
                             <Label
                                 fontFamily='Montserrat'
-                                fontWeight='600'
-                                fontSize='0.8rem'
-                                textAlign='center'
-                                color={mainTheme.colors.mainBlack}
+                                fontWeight='500'
+                                fontSize='14px'
+                                color={mainTheme.colors.inputText}
                             >
-                                Details:
+                                {`Carb: `}
                             </Label>
-                            <img src={arrow} alt='' />
-                        </S.Footer>
-                    ) : null}
+                            <Label
+                                fontFamily='Montserrat'
+                                fontWeight='500'
+                                fontSize='14px'
+                                color='#E6CB6E'
+                            >
+                                {c}
+                            </Label>
+                        </S.NutrionItem>
+                        <S.NutrionItem>
+                            <Label
+                                fontFamily='Montserrat'
+                                fontWeight='500'
+                                fontSize='14px'
+                                color={mainTheme.colors.inputText}
+                            >
+                                {"Protein:"}
+                            </Label>
+                            <Label
+                                fontFamily='Montserrat'
+                                fontWeight='500'
+                                fontSize='14px'
+                                color='#E6CB6E;'
+                            >
+                                {p}
+                            </Label>
+                        </S.NutrionItem>
+                    </S.NutrionsContainer>
+                    <PieChart />
                 </S.BottomSection>
+                <S.ActionButton>
+                    <RedirectButton label='Details' onClick={() => {}} />
+                </S.ActionButton>
             </S.Container>
-            {version === "author" ? <MealAuthor /> : null}
+            {version === "author" && mealAuthor ? (
+                <S.AuthorBox>
+                    <S.AuthorName>
+                        <GradientLabel gradient={mainTheme.gradients.buttonGradient}>
+                            <Label fontSize='12px' fontWeight='600'>
+                                Author
+                            </Label>
+                        </GradientLabel>
+                        <Label fontSize='14px' fontWeight='500' color={mainTheme.colors.mainBlack}>
+                            {mealAuthor.name}
+                        </Label>
+                    </S.AuthorName>
+                    <img src={mealAuthor.avatarIMG} alt='meal author' />
+                </S.AuthorBox>
+            ) : null}
         </S.Wrapper>
     );
 };

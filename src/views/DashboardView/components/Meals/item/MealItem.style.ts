@@ -5,15 +5,16 @@ import noPhoto from "../../../../../assets/no-photo.png";
 export const Wrapper = styled.div`
     padding-top: 60px;
 `;
+
 export const Container = styled.div`
-    width: 260px;
-    height: 380px;
+    position: relative;
+    width: 270px;
     display: flex;
     flex-direction: column;
     background: ${({ theme }) => theme.gradients.mealGradient};
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    padding: 0 20px;
+    padding: 20px;
     gap: 12px;
 `;
 
@@ -22,7 +23,7 @@ export const TopSection = styled.div`
     justify-content: space-between;
     align-items: center;
     position: relative;
-    padding: 24px 0 0 8px;
+    padding: 12px 0 0 8px;
 
     & > svg {
         width: 22px;
@@ -41,7 +42,7 @@ export const MealImage = styled.div<MealImageProps>`
     border: 2px solid white;
     position: absolute;
     left: 50%;
-    top: -60px;
+    top: -75px;
     transform: translateX(-50%);
     background-image: url(${({ image }) => (image ? image : noPhoto)});
     background-size: cover;
@@ -73,13 +74,14 @@ type MiddleSectionProps = {
 export const MiddleSection = styled.div<MiddleSectionProps>`
     display: flex;
     flex-direction: column;
-    gap: ${({ version }) => (version ? "24px" : "6")};
+    gap: ${({ version }) => (version === "basic" ? "20px" : "12px")};
+    min-height: 115px;
+    max-height: 115px;
 `;
 
 export const BasicIngredients = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 4px;
 `;
 
 export const IngredientsList = styled.ul`
@@ -100,42 +102,65 @@ export const IngredientsList = styled.ul`
 `;
 
 export const TextContent = styled.div`
-    margin: 10px 10px 10px 10px;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
     width: 220px;
-    overflow: hidden;
-    max-height: 110px;
-    white-space: nowrap;
+    max-height: 115px;
 `;
 
 export const BottomSection = styled.div`
     display: flex;
+    padding-top: 6px;
     flex-direction: row;
     justify-content: space-between;
 `;
 
-export const BottomItemContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-`;
-export const BottomSingleItem = styled.div`
+export const NutrionItem = styled.div`
     display: flex;
     flex-direction: row;
     gap: 10px;
 `;
 
-export const Footer = styled.div`
-    position: absolute;
-    bottom: 10px;
-    right: 15px;
+export const NutrionsContainer = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-        height: 0.7rem;
-        padding-left: 5px;
+    flex-direction: column;
+    gap: 6px;
+
+    & > div:first-child {
+        padding-bottom: 2px;
     }
-    cursor: pointer;
-    z-index: 1;
+`;
+
+export const ActionButton = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`;
+
+export const AuthorBox = styled.div`
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 270px;
+    padding: 42px 24px 16px 24px;
+    border-radius: 10px;
+    margin-top: -24px;
+
+    img {
+        width: 65px;
+        height: 65px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+    }
+`;
+
+export const AuthorName = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 115px;
 `;

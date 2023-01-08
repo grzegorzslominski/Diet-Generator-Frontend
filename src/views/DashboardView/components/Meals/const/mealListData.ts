@@ -12,6 +12,7 @@ export interface MealI {
     c: string;
     p: string;
     f: string;
+    [key: string]: string | string[] | number | MealAuthor | undefined;
 }
 
 type MealAuthor = {

@@ -14,9 +14,9 @@ const MealsList = ({ title, version = "basic" }: MealsListProps) => {
     return (
         <S.Container>
             <Label
-                fontSize='27px'
+                fontSize='24px'
                 fontFamily='Lato'
-                fontWeight='700'
+                fontWeight='600'
                 color={mainTheme.colors.mainBlack}
             >
                 {title}

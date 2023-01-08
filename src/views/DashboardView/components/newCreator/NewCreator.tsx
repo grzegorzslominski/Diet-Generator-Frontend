@@ -13,8 +13,8 @@ const NewCreator = () => {
         <S.Container>
             <Label
                 fontFamily='Lato'
-                fontWeight='700'
-                fontSize='27px'
+                fontWeight='600'
+                fontSize='24px'
                 color={mainTheme.colors.mainBlack}
             >
                 New creators on the platform

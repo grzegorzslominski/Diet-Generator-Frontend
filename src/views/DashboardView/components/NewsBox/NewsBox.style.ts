@@ -4,7 +4,7 @@ import { mainTheme } from "../../../../themes/mainTheme";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     width: 100%;
 
     & > span:first-child {
