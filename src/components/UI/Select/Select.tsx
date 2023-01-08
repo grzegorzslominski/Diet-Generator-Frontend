@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { withTheme } from "styled-components";
+import { mainTheme } from "../../../themes/mainTheme";
 import ActionButton from "../ActionButton/ActionButton";
 import Label from "../Label/Label";
 import ScrollBox from "../ScrollBox/ScrollBox";
@@ -48,8 +49,8 @@ const Select = ({
     border = "",
     maxAddOptionLength,
     borderRadius = "6px",
-    background = "#161819",
-    optionsBackground = "#161819",
+    background = "transparent",
+    optionsBackground = "transparent",
     size = "medium",
     disabled,
     searchCallback,
@@ -111,9 +112,9 @@ const Select = ({
     };
 
     const optionsPositionHandler = () => {
-        let pageBottomPadding = 40;
+        const pageBottomPadding = 40;
         if (ref.current) {
-            let selectTopPosition = ref.current?.getBoundingClientRect().top;
+            const selectTopPosition = ref.current?.getBoundingClientRect().top;
 
             if (
                 selectTopPosition + optionsMaxHeight >
@@ -150,15 +151,15 @@ const Select = ({
     };
 
     const calculateCountPlaceholder = () => {
-        let visibleWidth = valueContainerRef.current?.scrollWidth;
-        let valuesLength = value.join().length;
+        const visibleWidth = valueContainerRef.current?.scrollWidth;
+        const valuesLength = value.join().length;
 
         if (visibleWidth) {
-            let remainingWidth = visibleWidth - 24 - valuesLength * 10;
+            const remainingWidth = visibleWidth - 24 - valuesLength * 10;
 
             if (remainingWidth < 0 && visibleWidth) {
-                let valuesSubstring = value.join().substr(0, Math.round(visibleWidth / 10));
-                let countVisibleItems = valuesSubstring.split(",").length - 1;
+                const valuesSubstring = value.join().substr(0, Math.round(visibleWidth / 10));
+                const countVisibleItems = valuesSubstring.split(",").length - 1;
                 setRemainingMultiselectCount(countVisibleItems);
             } else {
                 setRemainingMultiselectCount(value.length);
@@ -167,8 +168,8 @@ const Select = ({
     };
 
     const renderMultiSelectValue = () => {
-        let multiSelectValue = value.map((selectValue: any, i: number) => {
-            let foundValueChildren = children.find(
+        const multiSelectValue = value.map((selectValue: any, i: number) => {
+            const foundValueChildren = children.find(
                 (child: any) => child.props.value === selectValue,
             );
             if (foundValueChildren) {
@@ -182,7 +183,7 @@ const Select = ({
             }
         });
 
-        let filteredMultiselectValue = multiSelectValue.filter((x: any) => x);
+        const filteredMultiselectValue = multiSelectValue.filter((x: any) => x);
         if (filteredMultiselectValue.length !== value.length) {
             filteredMultiselectValue.push(" +" + (value.length - filteredMultiselectValue.length));
         }
@@ -232,7 +233,12 @@ const Select = ({
         <S.Container width={width} labelIndent={labelIndent}>
             {label && (
                 <>
-                    <Label error={error} fontWeight='700' fontSize='14px'>
+                    <Label
+                        error={error}
+                        fontWeight='700'
+                        fontSize='11px'
+                        color={mainTheme.colors.inputText}
+                    >
                         {label}
                     </Label>
                 </>
@@ -309,17 +315,17 @@ const Select = ({
                                 {renderMultiSelectValue()}
                             </S.ValueContainer>
                         ) : <S.ValueContainer textOverflow={textOverflow} ref={valueContainerRef}>
-                              <Label fontSize='14px' color='#747474'>
+                              <Label fontSize='12px' color={mainTheme.colors.inputText}>
                                   {placeholder}
                               </Label>
                           </S.ValueContainer> ? (
                             <S.ValueContainer textOverflow={textOverflow} ref={valueContainerRef}>
-                                <Label fontSize='14px' color='#747474'>
+                                <Label fontSize='12px' color={mainTheme.colors.inputText}>
                                     {placeholder}
                                 </Label>
                             </S.ValueContainer>
                         ) : null}
-                        <S.Arrow />
+                        <S.Arrow disabled={disabled} />
                     </S.SelectTrigger>
                 </S.CustomSelect>
                 <S.CustomOptions
@@ -342,12 +348,11 @@ const Select = ({
                                           React.isValidElement(child) &&
                                           customSearching(searchValue, child)
                                       ) {
-                                          return <p></p>
-                                          // return React.cloneElement(child, {
-                                          //     onChange: onChangePrehandler,
-                                          //     selected:
-                                          //         multiSelect && value.includes(child.props.value),
-                                          // });
+                                          return React.cloneElement(child, {
+                                              onChange: onChangePrehandler,
+                                              selected:
+                                                  multiSelect && value.includes(child.props.value),
+                                          });
                                       } else if (
                                           React.isValidElement(child) &&
                                           !customSearching &&
@@ -357,12 +362,11 @@ const Select = ({
                                                       .toLowerCase()
                                                       .includes(searchValue.trim().toLowerCase())))
                                       ) {
-                                          return <p></p>
-                                          // return React.cloneElement(child, {
-                                          //     onChange: onChangePrehandler,
-                                          //     selected:
-                                          //         multiSelect && value.includes(child.props.value),
-                                          // });
+                                          return React.cloneElement(child, {
+                                              onChange: onChangePrehandler,
+                                              selected:
+                                                  multiSelect && value.includes(child.props.value),
+                                          });
                                       }
                                   },
                               )
@@ -373,7 +377,11 @@ const Select = ({
                         handleShowAddOption(searchValue) ? (
                             <S.AddOption onClick={() => addSelectOptionPrehandler(searchValue)}>
                                 <ActionButton type='add' onClick={() => null} />
-                                <Label fontSize='14px' color='#747474'>
+                                <Label
+                                    fontSize='12px'
+                                    fontWeight='600'
+                                    color={mainTheme.colors.grey}
+                                >
                                     {searchValue}
                                 </Label>
                             </S.AddOption>

@@ -53,7 +53,7 @@ export const CardName = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 16px;
+    padding-bottom: 8px;
 
     svg {
         width: 16px;
@@ -70,7 +70,7 @@ export const DataContanier = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 32px;
-    row-gap: 24px;
+    row-gap: 28px;
     padding-top: 16px;
 `;
 
@@ -84,7 +84,7 @@ export const BodyDetails = styled.div`
 export const ExtraDetailsContainer = styled.div`
     display: flex;
     gap: 24px;
-    padding-top: 28px;
+    padding-top: 25px;
 
     @media screen and (max-width: 1220px) and (min-width: 821px) {
         padding-top: 0;

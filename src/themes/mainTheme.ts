@@ -10,6 +10,7 @@ type MainThemeProps = {
     gradients: {
         mainGradient: string;
         buttonGradient: string;
+        mealGradient: string;
     };
     text: {
         Allan: string;
@@ -30,6 +31,8 @@ export const mainTheme: MainThemeProps = {
         mainGradient: "linear-gradient(90deg, #4E4B77 0%, #6D5E9D 40%, #F44B42 70%, #F05840 100%)",
         buttonGradient:
             "linear-gradient(45deg, rgba(244, 128, 66, 0.9) 0, rgb(109, 94, 157) 92.5%)",
+        mealGradient:
+            "linear-gradient(184.44deg, rgba(106, 179, 91, 0.9) -2.43%, rgba(87, 82, 179, 0.5) -2.42%, rgba(87, 82, 179, 0.75) 87.44%)",
     },
     text: {
         Allan: "Allan",

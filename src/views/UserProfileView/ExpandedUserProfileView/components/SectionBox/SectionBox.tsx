@@ -4,21 +4,16 @@ import { mainTheme } from "../../../../../themes/mainTheme";
 
 import Label from "../../../../../components/UI/Label/Label";
 
-import * as S from "./ProfileSection.style";
+import * as S from "./SectionBox.style";
 
-type ProfileSectionProps = {
+type SectionBoxProps = {
     title: string;
     children: ReactElement;
     padding?: string;
     gap?: string;
 };
 
-const ProfileSection = ({
-    title,
-    children,
-    padding = "12px",
-    gap = "12px",
-}: ProfileSectionProps) => {
+const SectionBox = ({ title, children, padding = "12px", gap = "12px" }: SectionBoxProps) => {
     return (
         <S.Container padding={padding}>
             <S.Content gap={gap}>
@@ -36,4 +31,4 @@ const ProfileSection = ({
     );
 };
 
-export default ProfileSection;
+export default SectionBox;

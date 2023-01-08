@@ -1,9 +1,7 @@
 import React from "react";
 import * as S from "./MealItemList.style";
 import MealItem from "./item/MealItem";
-import {mealItemI, mealDayI,MEALItem} from "./const/MEALItem";
-
-
+import { mealItemI, mealDayI, MEALItem } from "./const/mealItemData";
 
 const MealItemList = () => {
     return (

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { ReactComponent as LogoutIcon } from "../../assets/icons/navbar/logout.svg";

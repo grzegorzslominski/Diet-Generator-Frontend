@@ -1,114 +1,84 @@
 import { mainTheme } from "../../../../themes/mainTheme";
+import { NEW_CREATORS } from "./const/creatorsData";
+
+import RedirectButton from "../../../../components/UI/RedirectButton/RedirectButton";
+import BoxPad from "../../../../components/UI/BoxPad/BoxPad";
+import Social from "../../../../components/Socials/Socials";
 import Label from "../../../../components/UI/Label/Label";
+
 import * as S from "./NewCreator.style";
-import trainer from "../../../../assets/dashboard/trainer.svg";
-import facebook from "../../../../assets/dashboard/icons/facebook-gray.svg";
-import instagram from "../../../../assets/dashboard/icons/instagram-grey.svg";
-import twitter from "../../../../assets/dashboard/icons/twitter-grey.svg";
 
 const NewCreator = () => {
     return (
         <S.Container>
-            <S.ImgWrapper>
-                <img src={trainer} alt='creator' />
-            </S.ImgWrapper>
-            <S.RightSection>
-                <S.TitleWrapper>
-                    <Label
-                        fontFamily='Lato'
-                        fontWeight='700'
-                        fontSize='1.8rem'
-                        lineHeight='2.2rem'
-                        color={mainTheme.colors.mainBlack}
-                    >
-                        Lucy Beckham
-                    </Label>
-                    <Label
-                        fontFamily='Lato'
-                        fontWeight='700'
-                        fontSize='1rem'
-                        lineHeight='1.2rem'
-                        color={mainTheme.colors.mainBlack}
-                    >
-                        Personal trainer
-                    </Label>
-                </S.TitleWrapper>
-                <S.Description>
-                    <Label
-                        fontFamily='Lato'
-                        fontWeight='500'
-                        fontSize='0.9rem'
-                        lineHeight='1'
-                        color={mainTheme.colors.mainBlack}
-                    >
-                        Lucy has been involved in helping others train in the gym for ten years. She
-                        helped achieve the goals set by her charges and now she wants to share her
-                        knowledge with Foodie users.
-                    </Label>
-                </S.Description>
-                <S.IconWrapper>
-                    <S.IconContainer>
-                        <S.Icon>
-                            <Label
-                                fontFamily='Lato'
-                                fontSize='0.9rem'
-                                fontWeight='500'
-                                lineHeight='1.1rem'
-                                textAlign='center'
-                                color={mainTheme.colors.mainBlack}
-                            >
-                                Youtube
-                            </Label>
-                        </S.Icon>
-                        <S.Icon>
-                            <Label
-                                fontFamily='Lato'
-                                fontSize='0.9rem'
-                                fontWeight='500'
-                                lineHeight='1.1rem'
-                                textAlign='center'
-                                color={mainTheme.colors.mainBlack}
-                            >
-                                Fittnes
-                            </Label>
-                        </S.Icon>
-                        <S.Icon>
-                            <Label
-                                fontFamily='Lato'
-                                fontSize='0.9rem'
-                                fontWeight='500'
-                                lineHeight='1.1rem'
-                                textAlign='center'
-                                color={mainTheme.colors.mainBlack}
-                            >
-                                Coach
-                            </Label>
-                        </S.Icon>
-                    </S.IconContainer>
-                    <S.IconContainer>
-                        <S.ImageContainer>
-                            <img src={instagram} alt='' />
-                        </S.ImageContainer>
-                        <S.ImageContainer>
-                            <img src={facebook} alt='' />
-                        </S.ImageContainer>
-                        <S.ImageContainer>
-                            <img src={twitter} alt='' />
-                        </S.ImageContainer>
-                        <S.Button>
+            <Label
+                fontFamily='Lato'
+                fontWeight='600'
+                fontSize='24px'
+                color={mainTheme.colors.mainBlack}
+            >
+                New creators on the platform
+            </Label>
+
+            <BoxPad width='100%' padding='30px 24px 30px 36px'>
+                <S.CreatorCard>
+                    <S.ProfileAvatar backgroundIMG={NEW_CREATORS[0].avatarIMG}></S.ProfileAvatar>
+                    <S.RightSection>
+                        <S.TitleWrapper>
                             <Label
                                 fontFamily='Lato'
                                 fontWeight='700'
-                                fontSize='1rem'
-                                lineHeight='1.2rem'
+                                fontSize='24px'
+                                lineHeight='24px'
                                 color={mainTheme.colors.mainBlack}
                             >
-                                See profile
+                                {`${NEW_CREATORS[0].firstName} ${NEW_CREATORS[0].lastName}`}
                             </Label>
-                        </S.Button>
-                    </S.IconContainer>
-                </S.IconWrapper>
-            </S.RightSection>
+                            <Label
+                                fontFamily='Lato'
+                                fontWeight='700'
+                                fontSize='14px'
+                                color={mainTheme.colors.mainBlack}
+                            >
+                                Personal trainer
+                            </Label>
+                        </S.TitleWrapper>
+                        <S.Description>
+                            <Label
+                                fontFamily='Lato'
+                                fontSize='13px'
+                                color={mainTheme.colors.mainBlack}
+                            >
+                                Lucy has been involved in helping others train in the gym for ten
+                                years. She helped achieve the goals set by her charges and now she
+                                wants to share her knowledge with Foodie users.
+                            </Label>
+                        </S.Description>
+                        <S.TagsContainer>
+                            {NEW_CREATORS[0].tags.map((tag) => (
+                                <S.Tag key={tag}>
+                                    <Label
+                                        fontWeight='600'
+                                        fontSize='12px'
+                                        lineHeight='12px'
+                                        color={mainTheme.colors.mainBlack}
+                                    >
+                                        {tag}
+                                    </Label>
+                                </S.Tag>
+                            ))}
+                        </S.TagsContainer>
+                        <S.ActionWrapper>
+                            <Social iconSize='20px' social={NEW_CREATORS[0].socials} />
+                            <RedirectButton
+                                label='See profile'
+                                arrowIcon={false}
+                                onClick={() => {}}
+                            />
+                        </S.ActionWrapper>
+                    </S.RightSection>
+                </S.CreatorCard>
+            </BoxPad>
         </S.Container>
     );
 };

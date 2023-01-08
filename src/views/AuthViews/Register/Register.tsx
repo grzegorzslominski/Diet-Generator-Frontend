@@ -8,6 +8,7 @@ import { ReactComponent as UserIcon } from "../../../assets/icons/user.svg";
 import { ReactComponent as PasswordIcon } from "../../../assets/icons/password.svg";
 import { mainTheme } from "../../../themes/mainTheme";
 import { ENDPOINTS_USER } from "../../../navigation/endpoints";
+import { emailRegex } from "../../../helpers/validation";
 import axiosFoodieInstance from "../../../axios/axiosFoodieInstance";
 
 import Label from "../../../components/UI/Label/Label";
@@ -41,7 +42,7 @@ const Register = () => {
                     message: "This field is required",
                 },
                 pattern: {
-                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    value: emailRegex,
                     message: "Incorrect email address",
                 },
             },

@@ -1,46 +1,32 @@
-import React from "react";
-import MealItem from "./item/MealItem";
-import * as S from "./MealList.style";
-import { data } from "./const/data";
-import Label from "../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../themes/mainTheme";
+import { MEALS_DATA, MealI } from "./const/mealListData";
 
-interface props {
+import Label from "../../../../components/UI/Label/Label";
+import MealItem from "./item/MealItem";
+
+import * as S from "./MealList.style";
+
+type MealsListProps = {
     title: string;
-    display?: boolean;
-}
-const MealsList = ({ title, display = false }: props) => {
+    version?: "basic" | "author";
+};
+const MealsList = ({ title, version = "basic" }: MealsListProps) => {
     return (
         <S.Container>
-            <S.LabelContainer>
-                <Label
-                    fontSize='1.5rem'
-                    fontFamily='Lato'
-                    fontWeight='700'
-                    lineHeight='2.4rem'
-                    textAlign='center'
-                    color={mainTheme.colors.mainBlack}
-                >
-                    {title}
-                </Label>
-            </S.LabelContainer>
-            <S.ItemWrapper>
-                {data.map((v) => (
-                    <S.ItemContainer key={v.name}>
-                        <MealItem
-                            name={v.name}
-                            image={v.image}
-                            basicIngredients={v.basicIngredients}
-                            kcal={v.kcal}
-                            rating={v.rating}
-                            c={v.c}
-                            p={v.p}
-                            f={v.f}
-                            display={display}
-                        />
-                    </S.ItemContainer>
+            <Label
+                fontSize='24px'
+                fontFamily='Lato'
+                fontWeight='600'
+                color={mainTheme.colors.mainBlack}
+            >
+                {title}
+            </Label>
+
+            <S.MealsContainer>
+                {MEALS_DATA.map((meal: MealI) => (
+                    <MealItem key={meal.name} {...meal} version={version} />
                 ))}
-            </S.ItemWrapper>
+            </S.MealsContainer>
         </S.Container>
     );
 };

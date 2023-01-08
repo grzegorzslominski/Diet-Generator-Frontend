@@ -12,6 +12,7 @@ axiosFoodieInstance.interceptors.request.use(async (axiosConfig: AxiosRequestCon
 
     const authToken = localStorage.getItem("authToken");
     if (authToken && axiosConfig && axiosConfig?.headers) {
+        console.log(authToken);
         axiosConfig.headers.Authorization = "Bearer " + authToken;
     }
 

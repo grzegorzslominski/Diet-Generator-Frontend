@@ -1,11 +1,12 @@
-import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
+import React from "react";
 
-import { store } from "./redux/store/store";
-import { getConfig } from "./helpers/getConfig";
 import axiosFoodieInstance from "./axios/axiosFoodieInstance";
+import { getConfig } from "./helpers/getConfig";
+import { store } from "./redux/store/store";
 
 import MainView from "./views/MainView/MainView";
 
@@ -26,6 +27,16 @@ const getApiPath = async () => {
     console.log(`Foodie version: ${config.version}`);
 };
 
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            refetchOnReconnect: false,
+            retry: false,
+        },
+    },
+});
+
 getApiPath();
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
@@ -33,7 +44,9 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <Provider store={store}>
-                <MainView />
+                <QueryClientProvider client={queryClient}>
+                    <MainView />
+                </QueryClientProvider>
             </Provider>
         </BrowserRouter>
     </React.StrictMode>,

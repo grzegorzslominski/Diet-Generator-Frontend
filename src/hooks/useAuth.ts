@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import axiosFoodieInstance from "../axios/axiosFoodieInstance";
 import { User } from "../models/User/User";
+import { ENDPOINTS_USER } from "../navigation/endpoints";
 import { NAVIGATION } from "../navigation/paths";
 import { setUser } from "../redux/slices/user";
 
@@ -38,7 +39,7 @@ export default function useAuth() {
         let userData: User = null;
 
         await axiosFoodieInstance
-            .get("/account")
+            .get(ENDPOINTS_USER.userInfo)
             .then((response) => {
                 if (response.status === 200) {
                     userData = response.data;
