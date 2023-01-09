@@ -1,52 +1,43 @@
-import React from "react";
-import { CommentsI } from "../../../../const/Posts";
-import * as S from "./CommentItem.style"
-import Label from "../../../../../../../components/UI/Label/Label";
-import {ReactComponent as Heart} from "../../../../../../../assets/icons/heart.svg"
+import { ReactComponent as Heart } from "../../../../../../../assets/icons/heart.svg";
 import { mainTheme } from "../../../../../../../themes/mainTheme";
 
-interface props {
-  image: string;
-}
+import Label from "../../../../../../../components/UI/Label/Label";
 
-type prop = props & CommentsI
-const CommentItem = (props: prop) => {
-  return (
-    <S.Container>
-        <S.Header>
-          <img src={props.image} alt="profile" />
-          <Label
-            textAlign="center"
-            fontSize="1rem"
-            fontWeight="400"
-            color={mainTheme.colors.mainBlack}
-          >
-            {props.userName}
-          </Label>
-        </S.Header>
-        <S.Description>
-          <Label
-          textAlign="center"
-          fontSize="1.2rem"
-          fontWeight="400"
-          color={mainTheme.colors.mainBlack}
-          >
-            {props.comment}
-          </Label>
-        </S.Description>
-        <S.Footer>
-          <Label
-          textAlign="center"
-          fontSize="1rem"
-          fontWeight="400"
-          color={mainTheme.colors.mainBlack}
-          >
-            {props.likes}
-          </Label>
-          <Heart/>
-        </S.Footer>
-    </S.Container>
-  );
+import { CommentI } from "../../../../const/Posts";
+
+import * as S from "./CommentItem.style";
+
+const CommentItem = ({ id, content, timestamp, user }: CommentI) => {
+    return (
+        <S.Container>
+            <S.Header>
+                {user.userProfilePicture ? (
+                    <img src={user.userProfilePicture} alt='profile' />
+                ) : null}
+                <Label
+                    fontSize='1rem'
+                    textAlign='center'
+                    fontWeight='600'
+                    color={mainTheme.colors.mainBlack}
+                >
+                    Posted by :{" "}
+                    {user.firstName && user.lastName
+                        ? `${user.firstName} ${user.lastName}`
+                        : `user${user.id}`}
+                </Label>
+            </S.Header>
+            <S.Description>
+                <Label
+                    textAlign='center'
+                    fontSize='1.2rem'
+                    fontWeight='400'
+                    color={mainTheme.colors.mainBlack}
+                >
+                    {content}
+                </Label>
+            </S.Description>
+        </S.Container>
+    );
 };
 
 export default CommentItem;

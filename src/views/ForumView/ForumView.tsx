@@ -6,14 +6,14 @@ import { NAV_ITEMS, NavbarForumI } from "./const/NavbarForum";
 import { Outlet, useNavigate } from "react-router-dom";
 const ForumView = () => {
     const navigate = useNavigate();
-    
-  const navigationHandler = (item: NavbarForumI) => {
-    if (item.routing) {
-        if (item.external) {
-            window.open(item.routing, "_self");
-        } else navigate(item.routing);
-    }
-};
+
+    const navigationHandler = (item: NavbarForumI) => {
+        if (item.routing) {
+            if (item.external) {
+                window.open(item.routing, "_self");
+            } else navigate(item.routing);
+        }
+    };
 
     return (
         <S.Container>

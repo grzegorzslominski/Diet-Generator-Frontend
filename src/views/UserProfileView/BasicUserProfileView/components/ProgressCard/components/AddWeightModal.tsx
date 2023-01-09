@@ -80,8 +80,6 @@ const AddWeightModal = ({ close }: AddWeightModal) => {
         },
     });
 
-    console.log(addWeightData);
-
     return (
         <ModalPortal close={close} blurBackground blurLevel='normal'>
             <BoxPad>
