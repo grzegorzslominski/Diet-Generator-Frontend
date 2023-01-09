@@ -6,8 +6,16 @@ export const Content = styled.div`
     row-gap: 80px;
     width: 1500px;
 
-    @media screen and (max-width: 1600px) {
-        width: 1100px;
+    @media screen and (max-width: 1680px) {
+        width: 880px;
+    }
+
+    @media screen and (max-width: 1120px) {
+        width: 575px;
+    }
+
+    @media screen and (max-width: 760px) {
+        width: 275px;
     }
 `;
 
@@ -16,8 +24,12 @@ export const TopSection = styled.div`
     grid-template-columns: 800px 660px;
     gap: 40px;
 
-    @media screen and (max-width: 1600px) {
-        grid-template-columns: 600px 460px;
+    @media screen and (max-width: 1680px) {
+        grid-template-columns: 460px 380px;
+    }
+
+    @media screen and (max-width: 1120px) {
+        grid-template-columns: 100%;
     }
 `;
 

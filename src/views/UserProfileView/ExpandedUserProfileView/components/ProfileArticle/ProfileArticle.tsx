@@ -1,11 +1,11 @@
 import { Article } from "../../const/expendedUser";
+import { mainTheme } from "../../../../../themes/mainTheme";
 
 import Label from "../../../../../components/UI/Label/Label";
+import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
 import RedirectButton from "../../../../../components/UI/RedirectButton/RedirectButton";
 
 import * as S from "./ProfileArticlestyle";
-import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
-import { mainTheme } from "../../../../../themes/mainTheme";
 
 const ProfileArticle = ({ header, content, image, author, id }: Article) => {
     return (

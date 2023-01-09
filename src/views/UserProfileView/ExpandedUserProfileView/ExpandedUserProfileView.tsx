@@ -60,7 +60,7 @@ const ExpandedUserProfileView = () => {
                     <ProfileSection title='Creator meals' padding='0 12px'>
                         <S.MealsContainer>
                             <Carousel
-                                widthElement={260}
+                                widthElement={270}
                                 version='arrows'
                                 gap={39.5}
                                 buttonPosition={{ horizontal: -35, vertical: 230 }}

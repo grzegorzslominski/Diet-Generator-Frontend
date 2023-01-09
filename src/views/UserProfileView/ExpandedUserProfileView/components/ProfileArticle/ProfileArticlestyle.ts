@@ -15,7 +15,7 @@ export const Container = styled.div`
 
     @media screen and (max-width: 1220px) {
         flex-direction: column;
-        width: 512px;
+        width: 527px;
 
         img {
             width: 512px;

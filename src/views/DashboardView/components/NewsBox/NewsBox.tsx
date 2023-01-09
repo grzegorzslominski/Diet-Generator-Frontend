@@ -18,13 +18,13 @@ const NewsBox = () => {
             >
                 News
             </Label>
-            <BoxPad width='100%' padding='30px 24px 42px 36px'>
+            <BoxPad width='100%' padding='18px 12px 18px 18px'>
                 <S.Content>
                     <S.NewsSection>
                         <Label fontSize='18px' fontWeight='500' color={mainTheme.colors.mainBlack}>
                             Developers note
                         </Label>
-                        <ScrollBox scrollDistance={50} height={280}>
+                        <ScrollBox scrollDistance={40} height={280} mobileScrollDistance={30}>
                             <S.NotesContainer>
                                 {DEV_NOTE.map((note) => {
                                     return (
