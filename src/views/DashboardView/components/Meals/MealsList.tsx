@@ -1,6 +1,7 @@
 import { mainTheme } from "../../../../themes/mainTheme";
 import { MEALS_DATA, MealI } from "./const/mealListData";
 
+import Carousel from "../../../../components/UI/Carousel/Carousel";
 import Label from "../../../../components/UI/Label/Label";
 import MealItem from "./item/MealItem";
 
@@ -18,14 +19,22 @@ const MealsList = ({ title, version = "basic" }: MealsListProps) => {
                 fontFamily='Lato'
                 fontWeight='600'
                 color={mainTheme.colors.mainBlack}
+                width='100%'
             >
                 {title}
             </Label>
 
             <S.MealsContainer>
-                {MEALS_DATA.map((meal: MealI) => (
-                    <MealItem key={meal.name} {...meal} version={version} />
-                ))}
+                <Carousel
+                    widthElement={270}
+                    version='arrows'
+                    gap={35}
+                    buttonPosition={{ horizontal: -35, vertical: 230 }}
+                >
+                    {MEALS_DATA.map((meal: MealI) => (
+                        <MealItem key={meal.name} {...meal} version={version} />
+                    ))}
+                </Carousel>
             </S.MealsContainer>
         </S.Container>
     );
