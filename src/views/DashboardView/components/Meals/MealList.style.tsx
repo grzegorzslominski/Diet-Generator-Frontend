@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 16px;
 `;
 
@@ -12,6 +13,6 @@ export const ItemContainer = styled.div`
 
 export const MealsContainer = styled.div`
     display: flex;
-    gap: 37px;
+    justify-content: center;
     width: 100%;
 `;

@@ -15,13 +15,12 @@ const DashboardView = () => {
     return (
         <ViewBox>
             <S.Content>
-                {/* <S.TopSection>
+                <S.TopSection>
                     <NewsBox />
                     <NewCreator />
-                </S.TopSection> 
-                */}
+                </S.TopSection>
                 <MealsList title='Top rated meals' />
-                {/* <S.ArticleSection>
+                <S.ArticleSection>
                     <Label
                         fontSize='24px'
                         fontWeight='600'
@@ -32,7 +31,7 @@ const DashboardView = () => {
                     </Label>
                     <ProfileArticle {...NEWLY_ARTICLE} />
                 </S.ArticleSection>
-                <MealsList title='New meals from influencers' version='author' /> */}
+                <MealsList title='New meals from influencers' version='author' />
             </S.Content>
         </ViewBox>
     );

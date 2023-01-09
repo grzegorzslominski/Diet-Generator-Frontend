@@ -61,12 +61,12 @@ export const TopBackground = styled.div<TopBackgroundProps>`
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
-    width: calc(100% - 12rem);
+    width: calc(100% - 9.75rem);
     align-items: center;
     gap: 48px;
 
     @media screen and (max-width: 1220px) {
-        width: calc(100% - 4rem);
+        width: calc(100% - 2rem);
     }
 
     @media screen and (max-width: 620px) {
@@ -211,6 +211,6 @@ export const MealsContainer = styled.div`
     }
 
     @media screen and (max-width: 820px) {
-        width: 260px;
+        width: 270px;
     }
 `;

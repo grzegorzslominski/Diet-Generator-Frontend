@@ -20,7 +20,7 @@ const NewCreator = () => {
                 New creators on the platform
             </Label>
 
-            <BoxPad width='100%' padding='30px 24px 30px 36px'>
+            <BoxPad width='100%' padding='24px'>
                 <S.CreatorCard>
                     <S.ProfileAvatar backgroundIMG={NEW_CREATORS[0].avatarIMG}></S.ProfileAvatar>
                     <S.RightSection>
