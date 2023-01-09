@@ -31,6 +31,8 @@ import VerifyNewMeal from "../ForumView/Outlet/VerifyNewMeal/VerifyNewMeal";
 import NewMealView from "../NewMealView/NewMealView";
 
 import * as S from "./MainView.style";
+import { useQuery } from "@tanstack/react-query";
+import { getBasicUserProfile } from "../../models/User/User";
 
 const MainView = () => {
   const user = useSelector((state: TStore) => state?.userReducer);

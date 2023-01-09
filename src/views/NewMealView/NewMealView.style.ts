@@ -22,7 +22,7 @@ export const Border = styled.div`
   box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   width: 1100px;
-  min-height: 800px;
+  min-height: 1000px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -45,6 +45,10 @@ export const InputRow = styled.div`
   display: flex;
   justify-content: space-evenly;
   gap: 25px;
+`
+
+export const InputRowForUnits = styled(InputRow)`
+  width: 80%;
 `
 
 export const Table = styled.div`

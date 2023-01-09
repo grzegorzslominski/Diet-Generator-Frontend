@@ -27,3 +27,34 @@ export const BASIC_USER_PROFILE_VALIDATION_DATA: BasicUserProfileValidation = {
         age: "",
     },
 };
+
+export type UserNewMeal = {
+    mealName: string;
+    servings: number;
+    readyInMinutes: number;
+    image: string;
+    instructions: string;
+    vegetarian: boolean;
+    vegan: boolean;
+    glutenFree: boolean;
+    veryHealthy: boolean;
+    calories: string;
+    fat: string;
+    proteins: string;
+    carbs: string;
+}
+export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
+    mealName: "",
+    servings: 0,
+    readyInMinutes: 0,
+    image: "",
+    instructions: "",
+    vegetarian: false,
+    vegan: false,
+    glutenFree: false,
+    veryHealthy: false,
+    calories: "",
+    fat: "",
+    proteins: "",
+    carbs: ""
+}

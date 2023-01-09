@@ -14,6 +14,7 @@ const ForumView = () => {
         } else navigate(item.routing);
     }
 };
+
   return (
     <S.Container>
       <S.Header>

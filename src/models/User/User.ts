@@ -49,15 +49,15 @@ export type NewMeal = {
     protein: string;
     carbs: string;
     ingredients: NewMealIngredient[];
-}
+};
 
-export const NewMealType = ["g","ml"]
+export const UNITS: string[] = ["g", "ml"];
 
 export type NewMealIngredient = {
     name: string;
     amount: number;
     unit: string;
-}
+};
 
 export type UserSignInResponse = {
     user: User;
@@ -81,7 +81,7 @@ export type UserSignUpResponse = {
 
 export type UserComment = {
     comment: string;
-}
+};
 
 export type NewPost = {
     title: string;
@@ -90,10 +90,10 @@ export type NewPost = {
 
 export const getBasicUserProfile = async (userID: number) => {
     return await axiosFoodieInstance
-        .get<UserData[]>(`account/profile/${userID}`)
-        .then((response) => {
-            if (response.status === 200) {
-                return response.data;
-            }
-        });
+      .get<UserData[]>(`account/profile/${userID}`)
+      .then((response) => {
+          if (response.status === 200) {
+              return response.data;
+          }
+      });
 };
