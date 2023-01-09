@@ -12,7 +12,6 @@ import ChooseYourGoal from "./components/Choose your goal/ChooseYourGoal";
 import Preferences from "./components/Preferences/Preferences";
 import AnswerQuestions from "./components/AnswerQuestions/AnswerQuestions";
 import Button from "../../components/UI/Button/Button";
-import { mainTheme } from "../../themes/mainTheme";
 
 import * as S from "./DietGeneratorView.style";
 

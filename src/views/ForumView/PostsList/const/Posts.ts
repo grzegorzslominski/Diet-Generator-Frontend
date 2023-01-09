@@ -1,4 +1,5 @@
 import ImageProfile from "../../../../assets/dashboard/images/userProfile.png"
+import axiosFoodieInstance from "../../../../axios/axiosFoodieInstance";
 
 export interface PostsI {
   id: string;
@@ -106,3 +107,13 @@ export const Posts: PostsI[] = [
     ]
   },
 ]
+
+export const getForumPosts = async () => {
+  return await axiosFoodieInstance
+    .get<PostsI[]>(`forum/post`)
+    .then((response) => {
+      if (response.status === 200) {
+        return response.data;
+      }
+    });
+};

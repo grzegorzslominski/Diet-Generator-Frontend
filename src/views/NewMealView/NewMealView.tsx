@@ -4,13 +4,15 @@ import Label from "../../components/UI/Label/Label";
 import { mainTheme } from "../../themes/mainTheme";
 import Input from "../../components/UI/Input/Input";
 import { useForm } from "../../hooks/useForm";
-import { NewMeal, NewMealType } from "../../models/User/User";
+import { NewMeal, UNITS } from "../../models/User/User";
 import CheckMark from "../../assets/icons/checkMark.svg";
 import XIcon from "../../assets/icons/XIcon.svg";
 import TextArea from "../../components/UI/TextArea/TextArea";
 import Button from "../../components/UI/Button/Button";
 import Select from "../../components/UI/Select/Select";
 import SelectOption from "../../components/UI/Select/SelectOption";
+import { USER_PROFILE_NEW_MEAL, UserNewMeal } from "../../models/User/UserForm";
+
 const NewMealView = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [vegan, setVegan] = useState<boolean>(false);
@@ -19,214 +21,274 @@ const NewMealView = () => {
     const [dairyFree, setDairyFree] = useState<boolean>(false);
     const [veryHealthy, setVeryHealthy] = useState<boolean>(false);
 
-    const {
-      handleSubmit,
-      handleChange,
-      data: NewMealData,
-      errors
-    } = useForm<NewMeal>({});
-    return (
-        <S.Container>
-            <S.Border>
-                <Label
-                    fontFamily='Lato'
-                    fontSize='1.2rem'
-                    color={mainTheme.colors.mainBlack}
-                    textAlign='center'
-                >
-                    Add new meal
-                </Label>
-                <S.InputContainer>
-                    <S.InputRow>
-                        <Input
-                            placeholder='Type title'
-                            onChange={handleChange("mealName")}
-                            label='Meal name'
-                            value={NewMealData.mealName}
-                            error={errors.mealName}
-                        />
-                        <Input
-                            placeholder='Type title'
-                            onChange={handleChange("servings")}
-                            label='servings'
-                            value={NewMealData.servings}
-                            error={errors.servings}
-                        />
-                    </S.InputRow>
+    const [testValue, setTestValue] = useState<string>();
+    const [newMeal, setNewMeal] = useState<UserNewMeal>(
+      USER_PROFILE_NEW_MEAL,
+    )
 
-                    <S.InputRow>
-                        <Input
-                            placeholder='Type title'
-                            onChange={handleChange("readyInMinutes")}
-                            label='ready in mintues'
-                            value={NewMealData.readyInMinutes}
-                            error={errors.readyInMinutes}
-                        />
-                        <Input
-                            placeholder='Type title'
-                            onChange={handleChange("image")}
-                            label='image'
-                            value={NewMealData.image}
-                            error={errors.image}
-                        />
-                    </S.InputRow>
-                    <TextArea
-                        onChange={handleChange("instructions")}
-                        label='description'
-                        placeholder='give instructions'
-                        value={NewMealData.instructions}
-                        error={errors.instructions}
-                        width='100%'
-                    />
-                </S.InputContainer>
-                <S.Table>
-                    <S.TableItem isOpen={vegetarian} onClick={() => setVegetarian((prev) => !prev)}>
-                        <Label
-                            fontFamily='Montserrat'
-                            fontWeight='600'
-                            fontSize='0.8rem'
-                            lineHeight='1rem'
-                            color={mainTheme.colors.mainBlack}
-                        >
-                            Vegetarian
-                        </Label>
-                        {vegetarian ? (
-                            <img src={CheckMark} alt='checkMark' />
-                        ) : (
-                            <img src={XIcon} alt='checkMark' />
-                        )}
-                    </S.TableItem>
-                    <S.TableItem isOpen={vegan} onClick={() => setVegan((prev) => !prev)}>
-                        <Label
-                            fontFamily='Montserrat'
-                            fontWeight='600'
-                            fontSize='0.8rem'
-                            lineHeight='1rem'
-                            color={mainTheme.colors.mainBlack}
-                        >
-                            Vegan
-                        </Label>
-                        {vegan ? (
-                            <img src={CheckMark} alt='checkMark' />
-                        ) : (
-                            <img src={XIcon} alt='checkMark' />
-                        )}
-                    </S.TableItem>
-                    <S.TableItem isOpen={glutenFree} onClick={() => setGlutenFree((prev) => !prev)}>
-                        <Label
-                            fontFamily='Montserrat'
-                            fontWeight='600'
-                            fontSize='0.8rem'
-                            lineHeight='1rem'
-                            color={mainTheme.colors.mainBlack}
-                        >
-                            Gluten free
-                        </Label>
-                        {glutenFree ? (
-                            <img src={CheckMark} alt='checkMark' />
-                        ) : (
-                            <img src={XIcon} alt='checkMark' />
-                        )}
-                    </S.TableItem>
-                    <S.TableItem isOpen={dairyFree} onClick={() => setDairyFree((prev) => !prev)}>
-                        <Label
-                            fontFamily='Montserrat'
-                            fontWeight='600'
-                            fontSize='0.8rem'
-                            lineHeight='1rem'
-                            color={mainTheme.colors.mainBlack}
-                        >
-                            Dairy free
-                        </Label>
-                        {dairyFree ? (
-                            <img src={CheckMark} alt='checkMark' />
-                        ) : (
-                            <img src={XIcon} alt='checkMark' />
-                        )}
-                    </S.TableItem>
-                    <S.TableItem
-                        isOpen={veryHealthy}
-                        onClick={() => setVeryHealthy((prev) => !prev)}
-                    >
-                        <Label
-                            fontFamily='Montserrat'
-                            fontWeight='600'
-                            fontSize='0.8rem'
-                            lineHeight='1rem'
-                            color={mainTheme.colors.mainBlack}
-                        >
-                            Very healthy
-                        </Label>
-                        {veryHealthy ? (
-                            <img src={CheckMark} alt='checkMark' />
-                        ) : (
-                            <img src={XIcon} alt='checkMark' />
-                        )}
-                    </S.TableItem>
-                </S.Table>
-                <S.InputContainer>
-                    <S.InputRow>
-                        <Input
-                            placeholder='Type title'
-                            onChange={handleChange("mealName")}
-                            label='image'
-                            value={NewMealData.mealName}
-                            error={errors.mealName}
-                        />
+    const handleOnChange = (property: string, value: any) => {
+        const currentMeal: UserNewMeal = JSON.parse(JSON.stringify(newMeal));
+
+        if(property === "mealName" || property === "instructions" || property === "fat" || property === "carbs" || property === "proteins" || property === "calories"){
+            currentMeal[property] = value
+        }else if(property === "readyInMinutes" || property === "servings"){
+            currentMeal[property] = parseInt(value)
+        }
+        setNewMeal(currentMeal)
+        console.log(newMeal)
+    }
+    const handleTestChange = (value: string) => {
+        setTestValue(value);
+    };
+
+    return (
+      <S.Container>
+          <S.Border>
+              <Label
+                fontFamily='Lato'
+                fontSize='1.2rem'
+                color={mainTheme.colors.mainBlack}
+                textAlign='center'
+              >
+                  Add new meal
+              </Label>
+              <S.InputContainer>
+                  <S.InputRow>
+                      <Input
+                        placeholder='Type title'
+                        onChange={(e) => handleOnChange("mealName",e.target.value)}
+                        label='Meal name'
+                        value={newMeal.mealName}
+                      />
+                      <Input
+                        placeholder='Type title'
+                        onChange={(e) => handleOnChange("servings",e.target.value)}
+                        label='servings'
+                        value={newMeal.servings}
+                      />
+                  </S.InputRow>
+                  <S.InputRow>
+                      <Input
+                        placeholder='amount of time to prepare'
+                        onChange={(e) => handleOnChange("readyInMinutes",e.target.value)}
+                        label='ready in minutes'
+                        value={newMeal.readyInMinutes}
+                      />
+                      <Input
+                        placeholder='Type title'
+                        onChange={(e) => handleOnChange("image",e.target.value)}
+                        label='image'
+                        value={newMeal.image}
+                      />
+                  </S.InputRow>
+                  <TextArea
+                    onChange={(e) => handleOnChange("instructions",e.target.value)}
+                    label='description'
+                    placeholder='give instructions'
+                    value={newMeal.instructions}
+                    width='100%'
+                  />
+              </S.InputContainer>
+              <S.Table>
+                  <S.TableItem isOpen={vegetarian} onClick={() => setVegetarian((prev) => !prev)}>
+                      <Label
+                        fontFamily='Montserrat'
+                        fontWeight='600'
+                        fontSize='0.8rem'
+                        lineHeight='1rem'
+                        color={mainTheme.colors.mainBlack}
+                      >
+                          Vegetarian
+                      </Label>
+                      {vegetarian ? (
+                        <img src={CheckMark} alt='checkMark' />
+                      ) : (
+                        <img src={XIcon} alt='checkMark' />
+                      )}
+                  </S.TableItem>
+                  <S.TableItem isOpen={vegan} onClick={() => setVegan((prev) => !prev)}>
+                      <Label
+                        fontFamily='Montserrat'
+                        fontWeight='600'
+                        fontSize='0.8rem'
+                        lineHeight='1rem'
+                        color={mainTheme.colors.mainBlack}
+                      >
+                          Vegan
+                      </Label>
+                      {vegan ? (
+                        <img src={CheckMark} alt='checkMark' />
+                      ) : (
+                        <img src={XIcon} alt='checkMark' />
+                      )}
+                  </S.TableItem>
+                  <S.TableItem isOpen={glutenFree} onClick={() => setGlutenFree((prev) => !prev)}>
+                      <Label
+                        fontFamily='Montserrat'
+                        fontWeight='600'
+                        fontSize='0.8rem'
+                        lineHeight='1rem'
+                        color={mainTheme.colors.mainBlack}
+                      >
+                          Gluten free
+                      </Label>
+                      {glutenFree ? (
+                        <img src={CheckMark} alt='checkMark' />
+                      ) : (
+                        <img src={XIcon} alt='checkMark' />
+                      )}
+                  </S.TableItem>
+                  <S.TableItem isOpen={dairyFree} onClick={() => setDairyFree((prev) => !prev)}>
+                      <Label
+                        fontFamily='Montserrat'
+                        fontWeight='600'
+                        fontSize='0.8rem'
+                        lineHeight='1rem'
+                        color={mainTheme.colors.mainBlack}
+                      >
+                          Dairy free
+                      </Label>
+                      {dairyFree ? (
+                        <img src={CheckMark} alt='checkMark' />
+                      ) : (
+                        <img src={XIcon} alt='checkMark' />
+                      )}
+                  </S.TableItem>
+                  <S.TableItem
+                    isOpen={veryHealthy}
+                    onClick={() => setVeryHealthy((prev) => !prev)}
+                  >
+                      <Label
+                        fontFamily='Montserrat'
+                        fontWeight='600'
+                        fontSize='0.8rem'
+                        lineHeight='1rem'
+                        color={mainTheme.colors.mainBlack}
+                      >
+                          Very healthy
+                      </Label>
+                      {veryHealthy ? (
+                        <img src={CheckMark} alt='checkMark' />
+                      ) : (
+                        <img src={XIcon} alt='checkMark' />
+                      )}
+                  </S.TableItem>
+              </S.Table>
+              <S.InputContainer>
+                  <S.InputRowForUnits>
+                      <Input
+                        placeholder='Calories'
+                        onChange={(e) => handleOnChange("calories",e.target.value)}
+                        label='Calories'
+                        value={newMeal.calories}
+                      />
                       <Select
                         borderRadius='0'
-                        onChange={(gender: string) => {}}
-                        value="ml"
+                        onChange={(value: string) => handleTestChange(value)}
+                        value={testValue}
                         width='90%'
-                        label='Gender'
-                        size='auto'
+                        label='Unit'
                       >
-                        {NewMealType.map((mealType: string) => (
-                          <SelectOption
-                            key={mealType}
-                            onChange={(gender: string) => {}}
-                            value="ml"
-                          >
-                            {mealType}
-                          </SelectOption>
-                        ))}
+                          {UNITS.map((unit: string) => (
+                            <SelectOption
+                              key={unit}
+                              onChange={(value: string) => handleTestChange(value)}
+                              value={unit}
+                            >
+                                {unit}
+                            </SelectOption>
+                          ))}
                       </Select>
-                        <Input
-                            placeholder='Type title'
-                            onChange={handleChange("mealName")}
-                            label='image'
-                            value={NewMealData.mealName}
-                            error={errors.mealName}
-                        />
-                        <Input
-                            placeholder='Type title'
-                            onChange={handleChange("mealName")}
-                            label='image'
-                            value={NewMealData.mealName}
-                            error={errors.mealName}
-                        />
-                        <Input
-                            placeholder='Type title'
-                            onChange={handleChange("mealName")}
-                            label='image'
-                            value={NewMealData.mealName}
-                            error={errors.mealName}
-                        />
-                    </S.InputRow>
-                </S.InputContainer>
-                <Button
-                    isLoading={isLoading}
-                    width='12rem'
-                    styleType='gradientFull'
-                    onClick={handleSubmit}
-                    borderRadius='15px'
-                    fontSize='1rem'
-                    size='small'
-                >
-                    Add new meal
-                </Button>
-            </S.Border>
-        </S.Container>
+                  </S.InputRowForUnits>
+                  <S.InputRowForUnits>
+                      <Input
+                        placeholder='Carbs'
+                        onChange={(e) => handleOnChange("carbs",e.target.value)}
+                        label='Carbs'
+                        value={newMeal.carbs}
+                      />
+                      <Select
+                        borderRadius='0'
+                        onChange={(value: string) => handleTestChange(value)}
+                        value={testValue}
+                        width='90%'
+                        label='Unit'
+                      >
+                          {UNITS.map((unit: string) => (
+                            <SelectOption
+                              key={unit}
+                              onChange={(value: string) => handleTestChange(value)}
+                              value={unit}
+                            >
+                                {unit}
+                            </SelectOption>
+                          ))}
+                      </Select>
+                  </S.InputRowForUnits>
+                  <S.InputRowForUnits>
+                      <Input
+                        placeholder='Fat'
+                        onChange={(e) => handleOnChange("fat",e.target.value)}
+                        label='Fat'
+                        value={newMeal.fat}
+                      />
+                      <Select
+                        borderRadius='0'
+                        onChange={(value: string) => handleTestChange(value)}
+                        value={testValue}
+                        width='90%'
+                        label='Unit'
+                      >
+                          {UNITS.map((unit: string) => (
+                            <SelectOption
+                              key={unit}
+                              onChange={(value: string) => handleTestChange(value)}
+                              value={unit}
+                            >
+                                {unit}
+                            </SelectOption>
+                          ))}
+                      </Select>
+                  </S.InputRowForUnits>
+                  <S.InputRowForUnits>
+                      <Input
+                        placeholder='Proteins'
+                        onChange={(e) => handleOnChange("proteins",e.target.value)}
+                        label='Proteins'
+                        value={newMeal.proteins}
+                      />
+                      <Select
+                        borderRadius='0'
+                        onChange={(value: string) => handleTestChange(value)}
+                        value={testValue}
+                        width='90%'
+                        label='Unit'
+                      >
+                          {UNITS.map((unit: string) => (
+                            <SelectOption
+                              key={unit}
+                              onChange={(value: string) => handleTestChange(value)}
+                              value={unit}
+                            >
+                                {unit}
+                            </SelectOption>
+                          ))}
+                      </Select>
+                  </S.InputRowForUnits>
+              </S.InputContainer>
+              <Button
+                isLoading={isLoading}
+                width='12rem'
+                styleType='gradientFull'
+                onClick={() => {}}
+                borderRadius='15px'
+                fontSize='1rem'
+                size='small'
+              >
+                  Add new meal
+              </Button>
+          </S.Border>
+      </S.Container>
     );
 };
 
