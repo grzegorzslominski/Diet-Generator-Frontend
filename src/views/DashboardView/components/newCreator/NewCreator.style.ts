@@ -19,7 +19,7 @@ export const CreatorCard = styled.div`
     height: 326px;
     padding: 12px 0;
 
-    @media screen and (max-width: 1680px) and (min-width: 1120px) {
+    @media screen and (max-width: 1680px) and (min-width: 1121px) {
         padding: 0;
         grid-template-columns: 1fr;
     }
@@ -30,7 +30,7 @@ export const RightSection = styled.div`
     flex-direction: column;
     gap: 24px;
 
-    @media screen and (max-width: 1680px) and (min-width: 1120px) {
+    @media screen and (max-width: 1680px) and (min-width: 1121px) {
         align-items: flex-end;
         gap: 18px;
     }
@@ -48,7 +48,7 @@ export const ProfileAvatar = styled.div<ProfileAvatarProps>`
     background-position: center;
     border-radius: 12px;
 
-    @media screen and (max-width: 1680px) and (min-width: 1120px) {
+    @media screen and (max-width: 1680px) and (min-width: 1121px) {
         height: 180px;
         width: 140px;
         border-radius: 8px;
@@ -63,7 +63,7 @@ export const TitleWrapper = styled.div`
     flex-direction: column;
     gap: 2px;
 
-    @media screen and (max-width: 1680px) and (min-width: 1120px) {
+    @media screen and (max-width: 1680px) and (min-width: 1121px) {
         width: 170px;
     }
 `;
@@ -76,7 +76,7 @@ export const Description = styled.div`
     overflow: hidden;
     width: calc(100% - 24px);
 
-    @media screen and (max-width: 1680px) and (min-width: 1120px) {
+    @media screen and (max-width: 1680px) and (min-width: 1121px) {
         height: 130px;
         max-height: 130px;
         width: 170px;
@@ -92,7 +92,7 @@ export const TagsContainer = styled.div`
     display: flex;
     gap: 6px;
 
-    @media screen and (max-width: 1680px) and (min-width: 1120px) {
+    @media screen and (max-width: 1680px) and (min-width: 1121px) {
         width: 100%;
     }
 `;
@@ -131,7 +131,7 @@ export const ActionWrapper = styled.div`
     justify-content: space-between;
     padding: 12px 12px 0 0;
 
-    @media screen and (max-width: 1680px) and (min-width: 1120px) {
+    @media screen and (max-width: 1680px) and (min-width: 1121px) {
         padding: 0;
         width: 100%;
 

@@ -1,40 +1,48 @@
-import React, { useState } from "react";
-import { PostsI } from "../const/Posts";
-import * as S from "./PostItem.style";
-import Label from "../../../../components/UI/Label/Label";
+import { useState } from "react";
+
+import { mainTheme } from "../../../../themes/mainTheme";
 import { ReactComponent as Heart } from "../../../../assets/icons/heart.svg";
 import { ReactComponent as Comment } from "../../../../assets/icons/CommentIcon.svg";
+
+import Label from "../../../../components/UI/Label/Label";
 import Button from "../../../../components/UI/Button/Button";
-import { mainTheme } from "../../../../themes/mainTheme";
-import { useLocation, useNavigate } from "react-router-dom";
 
-const PostItem = (props: PostsI) => {
-    const navigate = useNavigate();
-    const location = useLocation();
+import { BasicPostI } from "../const/Posts";
 
-    const handleNavigate = () => {
-        if (location.pathname === "/forum/posts") {
-            navigate(`/forum/posts/post/${props.id}`);
-        } else if (location.pathname === "/forum/newMeals") {
-            navigate(`/forum/newMeals/newMeal/${props.id}`);
-        } else if (location.pathname === "/forum/feedbacks") {
-            navigate(`/forum/feedbacks/feedback/${props.id}`);
-        } else if (location.pathname === "/forum/newlyAddedMeals") {
-            navigate(`/forum/newlyAddedMeals/newlyAddedMeal/${props.id}`);
-        }
-    };
+import * as S from "./PostItem.style";
+import SinglePostItem from "../SinglePostItem/SinglePostItem";
+
+const PostItem = ({
+    id,
+    title,
+    timestamp,
+    author,
+    userProfilePicture,
+    description,
+    commentsCount,
+    likesCount,
+}: BasicPostI) => {
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleChangeOpenModal = () => setOpenModal((prev) => !prev);
+
+    console.log(openModal);
 
     return (
         <S.Container>
             <S.Header>
-                <img src={props.image} alt='' />
+                {userProfilePicture ? <img src={userProfilePicture} alt='' /> : null}
+
                 <Label
                     fontSize='1rem'
                     textAlign='center'
                     fontWeight='600'
                     color={mainTheme.colors.mainBlack}
                 >
-                    Posted by user: {props.userName}
+                    Posted by :
+                    {author && author.firstName && author.lastName
+                        ? `${author.firstName} ${author.lastName}`
+                        : `user${author.id}`}
                 </Label>
             </S.Header>
             <S.Title>
@@ -44,7 +52,7 @@ const PostItem = (props: PostsI) => {
                     fontWeight='400'
                     color={mainTheme.colors.mainBlack}
                 >
-                    {props.title}
+                    {title}
                 </Label>
             </S.Title>
             <S.Description>
@@ -55,7 +63,7 @@ const PostItem = (props: PostsI) => {
                     fontWeight='400'
                     color={mainTheme.colors.mainBlack}
                 >
-                    {props.description}
+                    {description}
                 </Label>
             </S.Description>
             <S.Footer>
@@ -68,7 +76,7 @@ const PostItem = (props: PostsI) => {
                             color={mainTheme.colors.mainBlack}
                             textAlign='center'
                         >
-                            {props.comments.length}
+                            {commentsCount}
                         </Label>
                     </S.IconWrapper>
                     <S.IconWrapper>
@@ -79,7 +87,7 @@ const PostItem = (props: PostsI) => {
                             color={mainTheme.colors.mainBlack}
                             textAlign='center'
                         >
-                            {props.likes}
+                            {likesCount}
                         </Label>
                     </S.IconWrapper>
                 </S.FfirstItem>
@@ -90,7 +98,7 @@ const PostItem = (props: PostsI) => {
                         fontSize='0.8rem'
                         size='extraSmall'
                         background={mainTheme.gradients.buttonGradient}
-                        onClick={handleNavigate}
+                        onClick={() => handleChangeOpenModal()}
                     >
                         <Label
                             textAlign='center'
@@ -103,6 +111,7 @@ const PostItem = (props: PostsI) => {
                     </Button>
                 </S.FsecondItem>
             </S.Footer>
+            {openModal ? <SinglePostItem id={id} close={handleChangeOpenModal} /> : null}
         </S.Container>
     );
 };

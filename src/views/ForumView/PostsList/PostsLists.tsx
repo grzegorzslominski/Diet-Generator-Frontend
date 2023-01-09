@@ -1,25 +1,27 @@
-import React from "react";
-import * as S from "./PostsList.style";
-import { PostsI } from "./const/Posts";
 import PostItem from "./PostItem/PostItem";
 
+import { BasicPostI } from "./const/Posts";
+
+import * as S from "./PostsList.style";
+
 interface props {
-    data: PostsI[]
+    basicPosts: BasicPostI[];
 }
-const PostsLists = ({data}: props) => {
+const PostsLists = ({ basicPosts }: props) => {
     return (
         <S.Container>
-            {data.map((item: PostsI) => {
+            {basicPosts.map((item: BasicPostI) => {
                 return (
                     <PostItem
                         key={item.id}
                         id={item.id}
-                        userName={item.userName}
+                        author={item.author}
                         title={item.title}
                         description={item.description}
-                        image={item.image}
-                        likes={item.likes}
-                        comments={item.comments}
+                        userProfilePicture={item.userProfilePicture}
+                        likesCount={item.likesCount}
+                        commentsCount={item.commentsCount}
+                        timestamp={item.timestamp}
                     />
                 );
             })}

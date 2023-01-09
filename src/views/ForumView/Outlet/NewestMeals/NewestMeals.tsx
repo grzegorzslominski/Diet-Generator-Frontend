@@ -1,18 +1,19 @@
-import React from 'react';
-import * as S from "./NewestMeals.style"
-import PostsLists from '../../PostsList/PostsLists';
-import { Meals } from './const/Meals';
-import RightSection from '../RightSection/RightSection';
-import { Outlet } from 'react-router-dom';
+import PostsLists from "../../PostsList/PostsLists";
+import RightSection from "../RightSection/RightSection";
+
+import { Meals } from "./const/Meals";
+import { Outlet } from "react-router-dom";
+
+import * as S from "./NewestMeals.style";
 
 const NewestMeals = () => {
     return (
         <S.Container>
-            <S.Posts>
+            {/* <S.Posts>
               <PostsLists data={Meals} />
           </S.Posts>
           <RightSection data={Meals}/>
-          <Outlet/>
+          <Outlet/> */}
         </S.Container>
     );
 };
