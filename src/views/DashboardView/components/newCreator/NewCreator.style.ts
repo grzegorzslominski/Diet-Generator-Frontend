@@ -23,16 +23,11 @@ export const CreatorCard = styled.div`
         padding: 0;
         grid-template-columns: 1fr;
     }
-`;
 
-export const RightSection = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-
-    @media screen and (max-width: 1680px) and (min-width: 1121px) {
-        align-items: flex-end;
-        gap: 18px;
+    @media screen and (max-width: 760px) {
+        padding: 0;
+        grid-template-columns: 1fr;
+        height: auto;
     }
 `;
 
@@ -56,6 +51,28 @@ export const ProfileAvatar = styled.div<ProfileAvatarProps>`
         top: 70px;
         left: 24px;
     }
+
+    @media screen and (max-width: 760px) {
+        height: 130px;
+        width: 100px;
+        border-radius: 8px;
+    }
+`;
+
+export const RightSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media screen and (max-width: 1680px) and (min-width: 1121px) {
+        align-items: flex-end;
+        gap: 18px;
+    }
+
+    @media screen and (max-width: 760px) {
+        align-items: flex-end;
+        margin-top: -102px;
+    }
 `;
 
 export const TitleWrapper = styled.div`
@@ -65,6 +82,10 @@ export const TitleWrapper = styled.div`
 
     @media screen and (max-width: 1680px) and (min-width: 1121px) {
         width: 170px;
+    }
+
+    @media screen and (max-width: 760px) {
+        width: 115px;
     }
 `;
 
@@ -86,6 +107,12 @@ export const Description = styled.div`
             max-width: 190px;
         }
     }
+
+    @media screen and (max-width: 760px) {
+        height: auto;
+        max-height: auto;
+        width: 100%;
+    }
 `;
 
 export const TagsContainer = styled.div`
@@ -94,6 +121,12 @@ export const TagsContainer = styled.div`
 
     @media screen and (max-width: 1680px) and (min-width: 1121px) {
         width: 100%;
+    }
+
+    @media screen and (max-width: 760px) {
+        flex-wrap: wrap;
+        column-gap: 12px;
+        row-gap: 12px;
     }
 `;
 
@@ -141,6 +174,19 @@ export const ActionWrapper = styled.div`
 
         & > div:last-child {
             margin-top: 62px;
+        }
+    }
+
+    @media screen and (max-width: 760px) {
+        padding: 0;
+        width: 100%;
+
+        & > div:first-child {
+            height: fit-content;
+        }
+
+        & > div:last-child {
+            margin-top: 24px;
         }
     }
 `;

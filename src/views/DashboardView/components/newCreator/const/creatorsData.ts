@@ -2,7 +2,8 @@ import { SocialLinks } from "../../../../../models/SocialsLinks/SocialsLinks";
 
 import profileIMG from "../../../../../assets/profile/avatar.png";
 
-type Creator = {
+export type Creator = {
+    id: number;
     avatarIMG: string;
     firstName: string;
     lastName: string;
@@ -14,6 +15,7 @@ type Creator = {
 
 export const NEW_CREATORS: Creator[] = [
     {
+        id: 1,
         avatarIMG: profileIMG,
         firstName: "Mark",
         lastName: "Yakotaki",
@@ -28,6 +30,7 @@ export const NEW_CREATORS: Creator[] = [
             "Our platform provides full support for the user in achieving his nutritional goals, starting with generating a diet and ending with maintaining his motivation. Thanks to the application of a modern model of artificial intelligence, each user is considered individually and our most important goal is to ensure the highest level of satisfaction with the proposed meals. . Thanks to the application of a modern model of artificial intelligence.",
     },
     {
+        id: 2,
         avatarIMG: profileIMG,
         firstName: "Mark",
         lastName: "Yakotaki",
@@ -42,6 +45,7 @@ export const NEW_CREATORS: Creator[] = [
             "Our platform provides full support for the user in achieving his nutritional goals, starting with generating a diet and ending with maintaining his motivation. Thanks to the application of a modern model of artificial intelligence, each user is considered individually and our most important goal is to ensure the highest level of satisfaction with the proposed meals. . Thanks to the application of a modern model of artificial intelligence.",
     },
     {
+        id: 3,
         avatarIMG: profileIMG,
         firstName: "Mark",
         lastName: "Yakotaki",

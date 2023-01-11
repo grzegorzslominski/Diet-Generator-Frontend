@@ -1,22 +1,41 @@
-    export type NavItem = {
+import { NAVIGATION } from "../../../navigation/paths";
+
+export type NavItem = {
     label: string;
     routing?: string;
-    login?: boolean;
-    register?: boolean;
     external?: boolean;
+    access: "authorized" | "unauthorized" | "all";
 };
 
 export const NAV_ITEMS: NavItem[] = [
     {
-        label: "How it Works",
-        routing: "/",
+        label: "Home",
+        routing: NAVIGATION.home,
+        access: "all",
+    },
+    {
+        label: "Dashboard",
+        routing: NAVIGATION.dashboard,
+        access: "authorized",
+    },
+    {
+        label: "Forum",
+        routing: NAVIGATION.forum,
+        access: "all",
     },
     {
         label: "Sign In",
-        login: true,
+        routing: NAVIGATION.home,
+        access: "unauthorized",
     },
     {
         label: "Sign Up",
-        register: true,
+        routing: NAVIGATION.home,
+        access: "unauthorized",
+    },
+    {
+        label: "Logout",
+        routing: NAVIGATION.home,
+        access: "authorized",
     },
 ];

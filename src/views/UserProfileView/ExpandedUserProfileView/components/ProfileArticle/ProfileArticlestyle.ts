@@ -32,7 +32,7 @@ export const Container = styled.div`
     }
 
     @media screen and (max-width: 480px) {
-        width: 212px;
+        width: 222px;
 
         img {
             width: 212px;

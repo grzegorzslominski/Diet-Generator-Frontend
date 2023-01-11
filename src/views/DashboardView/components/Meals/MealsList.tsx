@@ -29,10 +29,10 @@ const MealsList = ({ title, version = "basic" }: MealsListProps) => {
                     widthElement={270}
                     version='arrows'
                     gap={35}
-                    buttonPosition={{ horizontal: -35, vertical: 230 }}
+                    buttonPosition={{ horizontal: -30, vertical: 230 }}
                 >
-                    {MEALS_DATA.map((meal: MealI) => (
-                        <MealItem key={meal.name} {...meal} version={version} />
+                    {MEALS_DATA.map((meal: MealI, index) => (
+                        <MealItem key={`meal.name-${index}`} {...meal} version={version} />
                     ))}
                 </Carousel>
             </S.MealsContainer>

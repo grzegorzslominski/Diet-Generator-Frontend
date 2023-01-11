@@ -2,12 +2,7 @@ export type BasicUserProfileValidation = {
     firstName: string;
     lastName: string;
     email: string;
-    avatar: string;
-    details: UserDetailsValidation;
-    [key: string]: string | UserDetailsValidation;
-};
-
-type UserDetailsValidation = {
+    profilePicturePath: string;
     gender: string;
     weight: string;
     height: string;
@@ -19,13 +14,11 @@ export const BASIC_USER_PROFILE_VALIDATION_DATA: BasicUserProfileValidation = {
     firstName: "",
     lastName: "",
     email: "",
-    avatar: "",
-    details: {
-        gender: "",
-        weight: "",
-        height: "",
-        age: "",
-    },
+    profilePicturePath: "",
+    gender: "",
+    weight: "",
+    height: "",
+    age: "",
 };
 
 export type UserNewMeal = {
@@ -42,7 +35,7 @@ export type UserNewMeal = {
     fat: string;
     proteins: string;
     carbs: string;
-}
+};
 export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
     mealName: "",
     servings: 0,
@@ -56,5 +49,5 @@ export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
     calories: "",
     fat: "",
     proteins: "",
-    carbs: ""
-}
+    carbs: "",
+};

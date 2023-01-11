@@ -4,10 +4,9 @@ import { ReactComponent as FoodieLogo } from "../../assets/foodie.svg";
 
 export const Container = styled.div`
     position: sticky;
-    height: 5%;
     top: 0;
     left: 0;
-    padding: 16px 32px 16px 32px;
+    padding: 16px 48px 16px 32px;
     display: flex;
     justify-content: space-between;
     width: 100%;

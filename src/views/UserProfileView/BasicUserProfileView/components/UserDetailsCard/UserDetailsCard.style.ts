@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Content = styled.div`
     display: flex;
@@ -18,7 +18,11 @@ export const Content = styled.div`
     }
 `;
 
-export const TopSection = styled.div`
+type TopSectionProps = {
+    profileIMG: boolean;
+};
+
+export const TopSection = styled.div<TopSectionProps>`
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -28,6 +32,13 @@ export const TopSection = styled.div`
         width: 100%;
         height: 239px;
         max-height: 239px;
+        object-fit: contain;
+        object-position: center;
+        ${({ profileIMG, theme }) =>
+            !profileIMG &&
+            css`
+                border: 2px dashed ${theme.colors.mainBlack}};
+            `}
     }
 
     @media screen and (max-width: 1220px) and (min-width: 821px) {

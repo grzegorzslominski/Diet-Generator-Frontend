@@ -13,6 +13,8 @@ export default function useAuth() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         firstAuth();
     }, []);
@@ -27,9 +29,9 @@ export default function useAuth() {
 
     const authorizeUser = () => {
         const localAuthToken = localStorage.getItem("authToken");
-        const localAuthCookie = document.cookie;
 
-        if (!localAuthToken && !localAuthCookie.includes("session")) {
+        if (!localAuthToken) {
+            setIsLoading(false);
             return;
         }
         return loginUser();
@@ -49,14 +51,21 @@ export default function useAuth() {
             .catch((err: AxiosError) => {
                 if (err.response?.status === 401) {
                     localStorage.removeItem("authToken");
-                    document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     dispatch(setUser(null));
                     navigate(NAVIGATION.home);
                 }
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
 
         return userData;
     };
 
-    return { authorizeUser };
+    const logoutUser = () => {
+        localStorage.removeItem("authToken");
+        dispatch(setUser(null));
+    };
+
+    return { authorizeUser, logoutUser, isLoading };
 }
