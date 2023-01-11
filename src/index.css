@@ -28,7 +28,6 @@ body {
 
 * {
     scrollbar-width: auto;
-    scrollbar-color: #63717e #0f1a2c;
     box-sizing: border-box;
 }
 
@@ -37,11 +36,11 @@ body {
 }
 
 *::-webkit-scrollbar-track {
-    background: #0f1a2c;
+    background: #999595;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #373c41;
-    border-radius: 12px;
+    background-color: #363635;
+    border-radius: 6px;
     border: 0px solid #6a3939;
 }

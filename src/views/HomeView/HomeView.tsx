@@ -1,16 +1,20 @@
-import HeroSection from "./components/HeroSection/HeroSection";
-import Advantages from "./components/Advantages/Advantages";
+import { TStore } from "../../redux/store/store";
+import { useSelector } from "react-redux";
+
 import HowItsWorking from "./components/HowItsWorking/HowItsWorking";
+import HeroSection from "./components/HeroSection/HeroSection";
 import HowItsLook from "./components/HowItsLook/HowItsLook";
-import Login from "../AuthViews/Login/Login";
+import Advantages from "./components/Advantages/Advantages";
 import Register from "../AuthViews/Register/Register";
+import Login from "../AuthViews/Login/Login";
 
 import * as S from "./HomeView.style";
 
-import { useSelector } from "react-redux";
-import { TStore } from "../../redux/store/store";
+type HomeViewProps = {
+    authorizeUser: () => Promise<null> | undefined;
+};
 
-const HomeView = () => {
+const HomeView = ({ authorizeUser }: HomeViewProps) => {
     const authViewGlobalState = useSelector((state: TStore) => state?.authViewReducer);
 
     return (
@@ -19,7 +23,7 @@ const HomeView = () => {
             <Advantages />
             <HowItsLook />
             <HowItsWorking />
-            {authViewGlobalState.login && <Login />}
+            {authViewGlobalState.login && <Login authorizeUser={authorizeUser} />}
             {authViewGlobalState.register && <Register />}
         </S.Container>
     );

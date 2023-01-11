@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export type CarouselContainerProps = {
     buttonVersion: "arrows" | "dots";
-    height: string;
+    height?: any;
     displayOne?: boolean;
 };
 
@@ -12,11 +12,7 @@ export const CarouselContainer = styled.div<CarouselContainerProps>`
     display: flex;
     justify-content: ${({ buttonVersion }) =>
         buttonVersion === "arrows" ? "center" : "flex-start"};
-    height: ${({ height }) => height};
-
-    @media screen and (max-width: 520px) {
-        ${({ displayOne }) => (displayOne ? `max-width: calc(100vw - 50px);` : "")}
-    }
+    height: ${({ height }) => (height ? height : "auto")};
 `;
 
 export const CarouselInner = styled.div`
@@ -59,13 +55,15 @@ type IndicatorProps = {
 export const Indicators = styled.div<IndicatorProps>`
     ${({ buttonVersion }) =>
         buttonVersion === "dots" &&
-        `display: flex;
-    flex-direction: column;
-    width: 7px;
-    position: absolute;
-    gap: 10px;
-    right: -15px;
-    height: auto;`};
+        css`
+            display: flex;
+            flex-direction: column;
+            width: 7px;
+            position: absolute;
+            gap: 10px;
+            right: -15px;
+            height: auto;
+        `};
 
     top: calc(
         (100% - ${({ imgArrayLength }) => `${imgArrayLength * 7 + (imgArrayLength - 1) * 10}px`}) /
@@ -124,12 +122,8 @@ export const ArrowButton = styled.div<ArrowButtonProps>`
     :hover {
         cursor: pointer;
     }
-
-    @media screen and (max-width: 440px) {
-        svg {
-            width: 18px;
-            height: auto;
-        }
+    @media screen and (max-width: 560px) {
+        display: none;
     }
 `;
 

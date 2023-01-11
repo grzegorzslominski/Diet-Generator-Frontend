@@ -5,7 +5,7 @@ type ContainerProps = {
 };
 
 export const Container = styled.div<ContainerProps>`
-    position: fixed;
+    position: sticky;
     top: 82px;
     left: 0;
     width: 85px;
@@ -29,7 +29,12 @@ export const Container = styled.div<ContainerProps>`
 
     @media screen and (max-width: 560px) {
         width: 40px;
-        transform: ${({ isOpen }) => (isOpen ? "translateX(0px)" : "translateX(-40px)")};
+
+        ${({ isOpen }) =>
+            !isOpen &&
+            css`
+                width: 0px;
+            `};
     }
 `;
 
@@ -40,7 +45,7 @@ export const NavItemsContainer = styled.div`
     padding: 0 5px 0 5px;
 
     @media screen and (max-width: 860px) {
-        gap: 65px;
+        gap: 45px;
     }
 `;
 
@@ -71,7 +76,11 @@ export const NavItem = styled.div`
     }
 `;
 
-export const LogoutContanier = styled.div`
+type LogoutContainerProps = {
+    isOpen: boolean;
+};
+
+export const LogoutContainer = styled.div<LogoutContainerProps>`
     position: absolute;
     bottom: 50px;
     left: 50%;
@@ -89,6 +98,14 @@ export const LogoutContanier = styled.div`
         & > span:last-child {
             display: none;
         }
+    }
+
+    @media screen and (max-width: 560px) {
+        ${({ isOpen }) =>
+            !isOpen &&
+            css`
+                display: none;
+            `}
     }
 `;
 

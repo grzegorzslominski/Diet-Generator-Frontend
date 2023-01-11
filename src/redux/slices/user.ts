@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../models/User/User";
 
 const initialState = null as User;

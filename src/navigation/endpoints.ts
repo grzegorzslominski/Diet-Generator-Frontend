@@ -8,5 +8,5 @@ export enum ENDPOINTS_USER {
 }
 
 export enum ENDPOINTS_PROFILE {
-    editProfile = "/profile/edit",
+    editProfile = "/account/profile/info",
 }

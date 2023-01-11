@@ -1,24 +1,3 @@
-import avatar from "../../../../assets/profile/avatar.png";
-
-import { UserData } from "../../../../models/User/User";
-
-export const USER: UserData = {
-    id: 1,
-    firstName: "John",
-    lastName: "Test",
-    email: "johnTest@gmail.com",
-    profileType: "standard",
-    avatar: avatar,
-    details: {
-        weight: 78,
-        height: 182,
-        gender: "Male",
-        bmi: 32,
-        age: 28,
-        dailyCalories: 2300,
-    },
-};
-
 export type CharSetting = {
     header: string;
     setting: Setting[];
