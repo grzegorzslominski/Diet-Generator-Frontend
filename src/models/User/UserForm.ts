@@ -1,3 +1,5 @@
+import { UNITS } from "./User";
+
 export type BasicUserProfileValidation = {
     firstName: string;
     lastName: string;
@@ -35,7 +37,19 @@ export type UserNewMeal = {
     fat: string;
     proteins: string;
     carbs: string;
+    ingredients: Ingredient[]
+    [key: string]: string | number | boolean | Ingredient[];
+}
+
+export type Unit = 'ml' | 'g'
+
+export type Ingredient = {
+    name: string;
+    amount: number;
+    unit: Unit;
+    [key: string]: string | number | Unit;
 };
+
 export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
     mealName: "",
     servings: 0,
@@ -50,4 +64,12 @@ export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
     fat: "",
     proteins: "",
     carbs: "",
+    ingredients: [],
+}
+
+export const BASIC_NEW_INGREDIENT: Ingredient = {
+    name: "",
+    amount: 0,
+    unit: 'ml',
 };
+

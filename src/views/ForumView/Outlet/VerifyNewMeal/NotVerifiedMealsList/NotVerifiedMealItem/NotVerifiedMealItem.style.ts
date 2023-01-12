@@ -65,7 +65,6 @@ export const IconWrapper = styled.div`
     gap: 10px;
     & > svg {
         filter: brightness(0%);
-      cursor: pointer;
     }
 `;
 export const Footer = styled.div`
@@ -74,16 +73,9 @@ export const Footer = styled.div`
     padding: 0 10% 0 10%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
 `;
 
-export const FfirstItem = styled.div`
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100px;
-    justify-content: space-between;
-`;
 
 export const FsecondItem = styled.div`
     position: relative;

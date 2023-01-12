@@ -3,7 +3,7 @@ import { Outlet, useParams } from "react-router-dom";
 import { getForumPosts } from "../../PostsList/const/Posts";
 
 import PostsLists from "../../PostsList/PostsLists";
-import RightSection from "../RightSection/RightSection";
+import RightSection from "./RightSection/RightSection";
 
 import * as S from "./NewestPosts.style";
 

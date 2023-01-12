@@ -14,6 +14,47 @@ export interface BasicPostI {
 
 export interface FullPostI extends BasicPostI {
     postComments: CommentI[] | null;
+    likes: LikesI[] | null
+}
+
+export interface recipeVerifiedBasicI {
+    id: number;
+    title: string;
+    description: string | undefined;
+    timestamp: number;
+    author: ForumUserI;
+    userProfilePicture: string | null;
+    commentsCount: number;
+    likesCount: number;
+}
+
+
+export interface recipeViewI {
+    id: number;
+    servings: number;
+    title: string;
+    readyInMinutes: number;
+    image: string | undefined;
+    instructions: string;
+    vegetarian: boolean;
+    vegan: boolean;
+    glutenFree: boolean;
+    dairyFree: boolean;
+    veryHealthy: boolean;
+    verified: boolean;
+    calories: number;
+    carbs: number;
+    fat: number;
+    protein: number;
+
+
+}
+
+export interface recipeViewFullI extends recipeVerifiedBasicI{
+    recipeView: recipeViewI;
+    recipeComments: CommentI[] | null;
+    recipeLikes: LikesI[] | null;
+
 }
 
 export interface ForumUserI {
@@ -28,6 +69,24 @@ export interface CommentI {
     content: string;
     timestamp: number;
     user: ForumUserI;
+}
+
+export interface LikesI {
+    id: number;
+    timestamp: number;
+    author: ForumUserI;
+}
+
+export interface recipeNotVerifiedBasicI {
+    id: number;
+    title: string;
+    description: string;
+    timestamp: number;
+    author: ForumUserI;
+    userProfilePicture: string;
+    commentsCount: number;
+    likesCount: number;
+
 }
 
 // export const Posts: BasicPostI[] = [
@@ -128,6 +187,36 @@ export interface CommentI {
 //         ],
 //     },
 // ];
+export const getForumPostsMeals = async () => {
+    return await axiosFoodieInstance.get<recipeVerifiedBasicI[]>(`/forum/recipe/verified`).then((response) => {
+        if(response.status === 200){
+            return response.data
+        }
+    })
+}
+export const getForumFullMeal = async (postID: number | undefined) => {
+    return await axiosFoodieInstance.get<recipeViewFullI>(`/forum/recipe/${postID}`).then((response) => {
+        if (response.status === 200) {
+            return response.data;
+        }
+    });
+};
+
+export const getForumUnverifiedPostsMeals = async () => {
+    return await axiosFoodieInstance.get<recipeNotVerifiedBasicI[]>(`/forum/recipe/notVerified`).then((response) => {
+        if(response.status === 200){
+            return response.data
+        }
+    })
+}
+
+export const getForumUnverifiedPostMeal = async (postID: number | undefined) => {
+    return await axiosFoodieInstance.get<recipeViewFullI>(`/forum/recipe/${postID}`).then((response) => {
+        if(response.status === 200){
+            return response.data
+        }
+    })
+}
 
 export const getForumPosts = async () => {
     return await axiosFoodieInstance.get<BasicPostI[]>(`/forum/post`).then((response) => {
@@ -137,7 +226,7 @@ export const getForumPosts = async () => {
     });
 };
 
-export const getForumPost = async (postID: number) => {
+export const getForumPost = async (postID: number | undefined) => {
     return await axiosFoodieInstance.get<FullPostI>(`/forum/post/${postID}`).then((response) => {
         if (response.status === 200) {
             return response.data;

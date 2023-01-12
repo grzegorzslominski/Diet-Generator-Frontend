@@ -46,11 +46,12 @@ const AddNewPost = ({open,setIsOpen}: props) => {
       setIsLoading(true);
       const post = {
         title: newPost.title,
-        description: newPost.description
+        description: newPost.description,
+        imagePath: newPost.image
       };
 
       axiosFoodieInstance
-        .post("", post)
+        .post("/forum/post", post)
         .then((response) => {
           if (response.status === 201) {
             dispatch(
@@ -107,6 +108,13 @@ const AddNewPost = ({open,setIsOpen}: props) => {
             label='Description'
             value={newPost.description}
             error={errors.description}
+          />
+          <Input
+            placeholder='Add image'
+            onChange={handleChange("image")}
+            label='Image'
+            value={newPost.image}
+            error={errors.image}
           />
         </S.InputContainer>
 

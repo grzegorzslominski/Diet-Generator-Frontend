@@ -15,6 +15,7 @@ const PreferencesItems = ({handleChange}: GeneratorHandleChangeI) => {
       setSelectedGoal(current => [...current,id])
     }else {
       const updatedArray = array.filter(idx => idx !== id)
+      console.log(updatedArray)
       setSelectedGoal(updatedArray)
     }
   }
@@ -49,9 +50,9 @@ const PreferencesItems = ({handleChange}: GeneratorHandleChangeI) => {
             </S.Content>
           })
         }
-        <S.ButtonContainer>
-          <img src={downArrow} alt="" />
-        </S.ButtonContainer>
+        {/* <S.ButtonContainer> */}
+        {/*   <img src={downArrow} alt="" /> */}
+        {/* </S.ButtonContainer> */}
       </S.Container>
     </S.Wrapper>
   );

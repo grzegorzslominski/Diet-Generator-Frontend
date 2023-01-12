@@ -1,20 +1,29 @@
 import React from "react";
 import * as S from "./VerifyNewMeal.style";
-import PostsLists from "../../PostsList/PostsLists";
-import RightSection from "../RightSection/RightSection";
-import { Outlet } from "react-router-dom";
-import { Meals } from "../NewestMeals/const/Meals";
+import { Outlet, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import {  getForumUnverifiedPostsMeals } from "../../PostsList/const/Posts";
+import RightSectionVerifyMeal from "./RightSectionVerifyMeal/RightSectionVerifyMeal";
+import NotVerifiedMealsList from "./NotVerifiedMealsList/NotVerifiedMealsList";
 
 const VerifyNewMeal = () => {
-    return (
-        <S.Container>
-            {/* <S.Posts>
-              <PostsLists data={Meals} />
+  const { postID } = useParams();
+
+  const { data: basicPosts, isLoading, error } = useQuery(["getForumNotVerifiedMeals"], () => getForumUnverifiedPostsMeals());
+
+  return (
+    <S.Container>
+      {basicPosts ? (
+        <>
+          <S.Posts>
+            <NotVerifiedMealsList basicPosts={basicPosts} />
           </S.Posts>
-          <RightSection data={Meals}/> */}
-            <Outlet />
-        </S.Container>
-    );
+          <RightSectionVerifyMeal/>
+          <Outlet />
+        </>
+      ) : null}
+    </S.Container>
+  );
 };
 
 export default VerifyNewMeal;

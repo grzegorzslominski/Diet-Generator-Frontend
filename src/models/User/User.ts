@@ -81,6 +81,7 @@ export type UserComment = {
 export type NewPost = {
     title: string;
     description: string;
+    image: string;
 };
 
 export const getBasicUserProfile = async (userID: number) => {

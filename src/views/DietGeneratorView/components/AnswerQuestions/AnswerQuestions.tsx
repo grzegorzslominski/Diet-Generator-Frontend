@@ -15,7 +15,7 @@ const AnswerQuestions = ({data,handleChange}: GeneratorHandleChangeI) => {
         lineHeight='2.3rem'
         color={mainTheme.colors.mainBlack}
       >
-        Step 3: Answer questions
+        Step 4: Answer questions
       </Label>
       <Questions handleChange={handleChange} data={data}/>
     </S.Container>

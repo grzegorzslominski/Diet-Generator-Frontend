@@ -1,11 +1,13 @@
 import React from "react";
-import * as S from "./Preferences.style"
-import { mainTheme } from "../../../../themes/mainTheme";
 import Label from "../../../../components/UI/Label/Label";
-import PreferencesItems from "./PreferencesItems/PreferencesItems";
-import { GeneratorHandleChangeI } from "../../../../models/Generator/GeneratorI";
+import { mainTheme } from "../../../../themes/mainTheme";
 
-const Preferences = ({handleChange}: GeneratorHandleChangeI) => {
+import { GeneratorHandleChangeI } from "../../../../models/Generator/GeneratorI";
+import Excercise from "./Excercise/Excercise";
+
+import * as S from "./ChooseExcercise.style";
+
+const ChooseExcercise = ({handleChange}: GeneratorHandleChangeI) => {
   return (
     <S.Container>
       <Label
@@ -15,12 +17,11 @@ const Preferences = ({handleChange}: GeneratorHandleChangeI) => {
         lineHeight='2.3rem'
         color={mainTheme.colors.mainBlack}
       >
-        Step 3: Preferences
+        Step 2: How much you exercise?
       </Label>
-      <PreferencesItems handleChange={handleChange}/>
-
+      <Excercise handleChange={handleChange}/>
     </S.Container>
   );
 };
 
-export default Preferences;
+export default ChooseExcercise;

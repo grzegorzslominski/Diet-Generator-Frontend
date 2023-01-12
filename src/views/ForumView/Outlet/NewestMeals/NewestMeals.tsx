@@ -1,20 +1,30 @@
-import PostsLists from "../../PostsList/PostsLists";
-import RightSection from "../RightSection/RightSection";
+import { Outlet, useParams } from "react-router-dom";
 
-import { Meals } from "./const/Meals";
-import { Outlet } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getForumPostsMeals } from "../../PostsList/const/Posts";
 
 import * as S from "./NewestMeals.style";
+import MealsList from "./MealsLists/MealsList";
+import RightSectionMeals from "./RightSectionMeals/RightSectionMeals";
+
 
 const NewestMeals = () => {
+    const { postID } = useParams();
+
+    const { data: basicPosts, isLoading, error } = useQuery(["getForumPostsMeals"], () => getForumPostsMeals());
+
     return (
-        <S.Container>
-            {/* <S.Posts>
-              <PostsLists data={Meals} />
-          </S.Posts>
-          <RightSection data={Meals}/>
-          <Outlet/> */}
-        </S.Container>
+      <S.Container>
+          {basicPosts ? (
+            <>
+                <S.Posts>
+                    <MealsList basicPosts={basicPosts} />
+                </S.Posts>
+                <RightSectionMeals basicPosts={basicPosts} />
+                <Outlet />
+            </>
+          ) : null}
+      </S.Container>
     );
 };
 
