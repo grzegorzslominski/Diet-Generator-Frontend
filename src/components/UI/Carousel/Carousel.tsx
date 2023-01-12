@@ -13,13 +13,13 @@ const Carousel = ({
     widthElement,
     arrowsColor = "#989898",
     scrollAxie = "horizontal",
-    displayOne,
     buttonPosition = {
         horizontal: -25,
     },
     children,
 }: CarouselProps) => {
     const wrappperRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
 
     const [index, setIndex] = useState(0);
     const [displayChildrenCount, setDisplayChildrenCount] = useState(1);
@@ -70,12 +70,17 @@ const Carousel = ({
         } else return `translateX(-${(widthElement + gap) * activeIndex}px)`;
     };
 
+    console.log(contentRef.current?.childNodes[0].childNodes[0].parentElement?.clientHeight);
+
     return (
         <S.CarouselContainer
-            height='auto'
+            height={
+                version === "arrows"
+                    ? "auto"
+                    : `${contentRef.current?.childNodes[0].childNodes[0].parentElement?.clientHeight}px`
+            }
             buttonVersion={version}
             ref={wrappperRef}
-            displayOne={displayOne}
         >
             <S.CarouselInner>
                 <motion.div
@@ -87,6 +92,7 @@ const Carousel = ({
                     dragMomentum={false}
                 >
                     <S.Content
+                        ref={contentRef}
                         translateExp={translateExp(version, scrollAxie, widthElement, gap, index)}
                         gap={gap}
                         scrollAxie={scrollAxie}

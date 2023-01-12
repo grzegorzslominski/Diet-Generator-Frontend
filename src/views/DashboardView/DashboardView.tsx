@@ -1,10 +1,9 @@
-import { mainTheme } from "../../themes/mainTheme";
 import { NEWLY_ARTICLE } from "./const/dashboardArticleData";
+import { mainTheme } from "../../themes/mainTheme";
 
 import ProfileArticle from "../UserProfileView/ExpandedUserProfileView/components/ProfileArticle/ProfileArticle";
 import NewCreator from "./components/newCreator/NewCreator";
 import ViewBox from "../../components/UI/ViewBox/ViewBox";
-import LastWeightChanges from "./components/LastWeightChanges/LastWeightChanges";
 import MealsList from "./components/Meals/MealsList";
 import Label from "../../components/UI/Label/Label";
 import NewsBox from "./components/NewsBox/NewsBox";
@@ -19,7 +18,7 @@ const DashboardView = () => {
                     <NewsBox />
                     <NewCreator />
                 </S.TopSection>
-                <MealsList title='Top rated meals' />
+                {/* <MealsList title='Top rated meals' /> */}
                 <S.ArticleSection>
                     <Label
                         fontSize='24px'
@@ -31,7 +30,7 @@ const DashboardView = () => {
                     </Label>
                     <ProfileArticle {...NEWLY_ARTICLE} />
                 </S.ArticleSection>
-                <MealsList title='New meals from influencers' version='author' />
+                {/* <MealsList title='New meals from influencers' version='author' /> */}
             </S.Content>
         </ViewBox>
     );

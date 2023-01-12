@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { USER } from "./const/userData";
-
 import { getBasicUserProfile } from "../../../models/User/User";
 
 import UserStatisticsCard from "./components/UserStatisticsCard/UserStatisticsCard";
@@ -31,7 +29,7 @@ const BasicUserProfileView = () => {
         <ViewBox>
             <S.Container>
                 <S.ProfileDetailsContainer>
-                    <UserDetailsCard user={USER} className='details' />
+                    <UserDetailsCard className='details' />
                     <UserStatisticsCard className='statistics' />
                     <OwnMealsCard className='ownMeals' />
                     <CurrentDietCard className='currentDiet' />

@@ -23,14 +23,17 @@ import { mainTheme } from "../../../themes/mainTheme";
 
 import axiosFoodieInstance from "../../../axios/axiosFoodieInstance";
 
-import { UserSignIn } from "../../../models/User/User";
+import { User, UserSignIn } from "../../../models/User/User";
 
 import * as S from "../AuthViews.style";
 
-const Login = () => {
+type LoginProps = {
+    authorizeUser: () => Promise<null> | undefined;
+};
+
+const Login = ({ authorizeUser }: LoginProps) => {
     const dispatch = useDispatch();
     const { changeAutView, closeAuthViews } = useAuthViews();
-    const { authorizeUser } = useAuth();
 
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
@@ -72,8 +75,6 @@ const Login = () => {
                             localStorage.setItem("authToken", authToken.token);
                             closeAuthViews();
                             const user = await authorizeUser();
-                            console.log(user);
-
                             user && navigate(NAVIGATION.dashboard);
                         }
                     }

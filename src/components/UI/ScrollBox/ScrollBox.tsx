@@ -84,6 +84,7 @@ const ScrollBox = ({
 
     const handleScrollbarPosition = (element: HTMLDivElement) => {
         const scrollRatio = element.scrollTop / (element.scrollHeight - height);
+
         if (!scrolled && scrollRatio * height <= height - 11) {
             animation.start({
                 y: scrollRatio * height,

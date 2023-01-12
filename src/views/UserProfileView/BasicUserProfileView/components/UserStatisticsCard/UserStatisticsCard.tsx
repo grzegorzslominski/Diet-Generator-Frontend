@@ -6,7 +6,7 @@ import { mainTheme } from "../../../../../themes/mainTheme";
 import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPad";
 import Button from "../../../../../components/UI/Button/Button";
 import Label from "../../../../../components/UI/Label/Label";
-import ChartData from "../../../../DashboardView/components/LastWeightChanges/chart/ChartData";
+import Chart from "../../../../../components/Chart/Chart";
 
 import * as S from "./UserStatisticsCard.style";
 
@@ -66,7 +66,7 @@ const UserStatisticsCard = ({ className }: UserStatisticsCardProps) => {
                     ))}
                 </S.ChartSettingsContainer>
                 <S.ChartContainer>
-                    <ChartData />
+                    <Chart />
                 </S.ChartContainer>
             </S.Content>
         </BoxPad>

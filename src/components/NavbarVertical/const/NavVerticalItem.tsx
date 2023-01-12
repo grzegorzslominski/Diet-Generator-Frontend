@@ -9,8 +9,7 @@ import { NAVIGATION } from "../../../navigation/paths";
 
 export type NavItem = {
     label: string;
-    routing?: string;
-    external?: boolean;
+    routing: string;
     icon: ReactNode;
 };
 

@@ -4,12 +4,7 @@ export type BasicUserProfileValidation = {
     firstName: string;
     lastName: string;
     email: string;
-    avatar: string;
-    details: UserDetailsValidation;
-    [key: string]: string | UserDetailsValidation;
-};
-
-type UserDetailsValidation = {
+    profilePicturePath: string;
     gender: string;
     weight: string;
     height: string;
@@ -21,13 +16,11 @@ export const BASIC_USER_PROFILE_VALIDATION_DATA: BasicUserProfileValidation = {
     firstName: "",
     lastName: "",
     email: "",
-    avatar: "",
-    details: {
-        gender: "",
-        weight: "",
-        height: "",
-        age: "",
-    },
+    profilePicturePath: "",
+    gender: "",
+    weight: "",
+    height: "",
+    age: "",
 };
 
 export type UserNewMeal = {
@@ -46,9 +39,8 @@ export type UserNewMeal = {
     carbs: string;
     ingredients: Ingredient[]
     [key: string]: string | number | boolean | Ingredient[];
-
-
 }
+
 export type Unit = 'ml' | 'g'
 
 export type Ingredient = {
@@ -56,8 +48,8 @@ export type Ingredient = {
     amount: number;
     unit: Unit;
     [key: string]: string | number | Unit;
+};
 
-}
 export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
     mealName: "",
     servings: 0,
@@ -73,12 +65,11 @@ export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
     proteins: "",
     carbs: "",
     ingredients: [],
-
-
 }
 
 export const BASIC_NEW_INGREDIENT: Ingredient = {
     name: "",
     amount: 0,
     unit: 'ml',
-}
+};
+
