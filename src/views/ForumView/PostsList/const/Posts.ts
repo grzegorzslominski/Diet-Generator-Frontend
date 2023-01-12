@@ -14,6 +14,7 @@ export interface BasicPostI {
 
 export interface FullPostI extends BasicPostI {
     postComments: CommentI[] | null;
+    likes: LikesI[] | null
 }
 
 export interface recipeVerifiedBasicI {
@@ -25,12 +26,11 @@ export interface recipeVerifiedBasicI {
     userProfilePicture: string | null;
     commentsCount: number;
     likesCount: number;
-    recipeComments: CommentI[] | null;
-
 }
 
 
 export interface recipeViewI {
+    id: number;
     servings: number;
     title: string;
     readyInMinutes: number;
@@ -52,6 +52,9 @@ export interface recipeViewI {
 
 export interface recipeViewFullI extends recipeVerifiedBasicI{
     recipeView: recipeViewI;
+    recipeComments: CommentI[] | null;
+    recipeLikes: LikesI[] | null;
+
 }
 
 export interface ForumUserI {

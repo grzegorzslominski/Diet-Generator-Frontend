@@ -1,28 +1,30 @@
 import { useState, useEffect } from "react";
 
 import {mainTheme} from "../../../../../themes/mainTheme";
-// import { ReactComponent as Heart } from "../../../../../assets/icons/heart.svg";
-// import { ReactComponent as Comment } from "../../../../assets/icons/CommentIcon.svg";
+import { ReactComponent as Heart } from "../../../../../assets/icons/heart.svg";
+import { ReactComponent as Comment } from "../../../../../assets/icons/CommentIcon.svg";
 
 import Label from "../../../../../components/UI/Label/Label";
 import Button from "../../../../../components/UI/Button/Button";
 import ModalPortal from "../../../../../components/UI/ModalPortal/ModalPortal";
-import AddNewPost from "../../../AddNewPost/AddNewPost";
 
 import * as S from "./RightSectionMeals.style";
-import FullPostItem from "../../../PostsList/PostItem/FullPostItem/FullPostItem";
 import { useQuery } from "@tanstack/react-query";
-import { getForumFullMeal, getForumPost, recipeVerifiedBasicI } from "../../../PostsList/const/Posts";
+import { getForumFullMeal, recipeVerifiedBasicI } from "../../../PostsList/const/Posts";
 import FullVerifiedMealItem from "../MealsLists/SingleVerifiedMeal/FullVerifiedMeal/FullVerifiedMealItem";
+import { NAVIGATION } from "../../../../../navigation/paths";
+import { useNavigate } from "react-router-dom";
 
 interface RightSectionProps {
   basicPosts: recipeVerifiedBasicI[];
 }
 const RightSectionMeals = ({ basicPosts }: RightSectionProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenMostLikedPost, setIsOpenMostLikedPost] = useState<boolean>(false);
   const [mostLikedPost, setMostLikedPost] = useState<recipeVerifiedBasicI | undefined>();
   const [id, setId] = useState<number>()
+  const navigate = useNavigate();
+  const handleNavigate = () => navigate(NAVIGATION.newMeal)
+
 
   useEffect(() => {
     const mostLikedPost = basicPosts.reduce((prev, curr) =>
@@ -40,8 +42,6 @@ const RightSectionMeals = ({ basicPosts }: RightSectionProps) => {
     enabled: Boolean(id)
   })
 
-
-  const handleIsOpen = () => setIsOpen((curr) => !curr);
   const handleIsOpenMostLikedPost = () => setIsOpenMostLikedPost(curr => !curr)
   return (
     <S.Wrapper>
@@ -54,11 +54,11 @@ const RightSectionMeals = ({ basicPosts }: RightSectionProps) => {
           size='small'
           borderRadius='10px'
           fontSize='1rem'
-          onClick={handleIsOpen}
+          onClick={handleNavigate}
           background={mainTheme.gradients.buttonGradient}
         >
           <Label textAlign='center' color='white'>
-            Add new post
+            Add new meal
           </Label>
         </Button>
       </S.Container2>
@@ -86,11 +86,11 @@ const RightSectionMeals = ({ basicPosts }: RightSectionProps) => {
               </S.Description>
             </S.MiddleSection>
             <S.IconContainer>
-              {/* <Heart /> */}
+              <Heart />
               <Label textAlign='center' color={mainTheme.colors.mainBlack}>
                 {mostLikedPost.likesCount}
               </Label>
-              {/* <Comment /> */}
+              <Comment />
               <Label textAlign='center' color={mainTheme.colors.mainBlack}>
                 {mostLikedPost.commentsCount}
               </Label>
@@ -114,11 +114,6 @@ const RightSectionMeals = ({ basicPosts }: RightSectionProps) => {
           </>
         ) : null}
       </S.Container>
-      {isOpen ? (
-        <ModalPortal blurBackground={true} close={handleIsOpen}>
-          <AddNewPost open={isOpen} setIsOpen={handleIsOpen} />
-        </ModalPortal>
-      ) : null}
       {
         isOpenMostLikedPost && fullPost ? (
           <ModalPortal blurLevel='normal' blurBackground={true} close={handleIsOpenMostLikedPost}>

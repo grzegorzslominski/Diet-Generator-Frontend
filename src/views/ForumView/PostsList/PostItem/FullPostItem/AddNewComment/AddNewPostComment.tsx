@@ -11,7 +11,10 @@ import { ENDPOINTS_USER } from "../../../../../../navigation/endpoints";
 import { setNotification } from "../../../../../../redux/slices/notification";
 import { useDispatch } from "react-redux";
 
-const AddNewComment = () => {
+interface props {
+  id: number
+}
+const AddNewPostComment = ({id}: props) => {
     const [isLoading,setIsLoading] = useState<boolean>(false)
     const dispatch = useDispatch();
     const {
@@ -31,10 +34,10 @@ const AddNewComment = () => {
         onSubmit: () => {
             setIsLoading(true);
             const newComment = {
-                comment: userComment.comment
+                content: userComment.comment
             };
             axiosFoodieInstance
-              .post(ENDPOINTS_USER.register, newComment)
+              .post(`/forum/post/comment/${id}`, newComment)
               .then((response) => {
                   if (response.status === 201) {
                       dispatch(
@@ -87,6 +90,7 @@ const AddNewComment = () => {
                     size='extraSmall'
                     background={mainTheme.gradients.buttonGradient}
                     onClick={handleSubmit}
+                    isLoading={isLoading}
                 >
                     <Label
                         textAlign='center'
@@ -102,4 +106,4 @@ const AddNewComment = () => {
     );
 };
 
-export default AddNewComment;
+export default AddNewPostComment;

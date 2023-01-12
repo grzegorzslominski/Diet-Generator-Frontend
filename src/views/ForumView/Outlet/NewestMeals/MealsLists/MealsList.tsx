@@ -23,7 +23,7 @@ const MealsList = ({ basicPosts }: props) => {
             likesCount={item.likesCount}
             commentsCount={item.commentsCount}
             timestamp={item.timestamp}
-            recipeComments={item.recipeComments}/>
+            />
         );
       })}
     </S.Container>

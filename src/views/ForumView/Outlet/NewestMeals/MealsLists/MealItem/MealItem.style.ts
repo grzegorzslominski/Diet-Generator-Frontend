@@ -65,6 +65,8 @@ export const IconWrapper = styled.div`
     gap: 10px;
     & > svg {
         filter: brightness(0%);
+      cursor: pointer;
+
     }
 `;
 export const Footer = styled.div`

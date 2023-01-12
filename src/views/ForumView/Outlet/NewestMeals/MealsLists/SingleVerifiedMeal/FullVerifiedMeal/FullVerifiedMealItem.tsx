@@ -4,12 +4,15 @@ import Label from "../../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../../themes/mainTheme";
 import { ReactComponent as Comment } from "../../../../../../../assets/icons/CommentIcon.svg"
 import { ReactComponent as Heart } from "../../../../../../../assets/icons/heart.svg"
-import AddNewComment from "../../../../../PostsList/PostItem/FullPostItem/AddNewComment/AddNewComment";
 import CommentsList from "../../../../../PostsList/PostItem/FullPostItem/CommentsList/CommentsList";
 import ActionButton from "../../../../../../../components/UI/ActionButton/ActionButton";
 import {  recipeViewFullI } from "../../../../../PostsList/const/Posts";
 import CheckMark from "../../../../../../../assets/icons/checkMark.svg";
 import XIcon from "../../../../../../../assets/icons/XIcon.svg";
+import AddNewVerifiedComment from "./AddNewVerifiedComment/AddNewVerifiedComment";
+import axiosFoodieInstance from "../../../../../../../axios/axiosFoodieInstance";
+import { setNotification } from "../../../../../../../redux/slices/notification";
+import { useDispatch } from "react-redux";
 
 
 type FullPostItem = {
@@ -18,7 +21,37 @@ type FullPostItem = {
 };
 
 const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
-  console.log(recipe);
+  const dispatch = useDispatch();
+
+  const addLike = () => {
+    axiosFoodieInstance.get(`/forum/recipe/like/${recipe.recipeView.id}`)
+      .then((response) => {
+        if (response.status === 201) {
+          dispatch(
+            setNotification({
+              label: "Like post",
+              header: "Success",
+              message: "Like was added",
+              timeout: 5000,
+            }),
+          );
+        }
+      })
+      .catch((err) => {
+        const errorMessage = err.response.data?.message
+          ? err.response.data.message
+          : "Cannot add like";
+
+        dispatch(
+          setNotification({
+            label: "add like to post",
+            header: "Failed",
+            message: errorMessage,
+            timeout: 5000,
+          }),
+        );
+      })
+  }
   return (
     <S.Container>
       <S.Post>
@@ -241,21 +274,21 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
               </Label>
             </S.IconWrapper>
             <S.IconWrapper>
-              <Heart />
+              <Heart onClick={addLike}/>
               <Label
                 fontSize='1rem'
                 fontWeight='400'
                 color={mainTheme.colors.mainBlack}
                 textAlign='center'
               >
-                {recipe.likesCount}
+                {recipe.recipeLikes?.length}
               </Label>
             </S.IconWrapper>
           </S.FfirstItem>
         </S.Footer>
       </S.Post>
       <S.Comments>
-        <AddNewComment />
+        <AddNewVerifiedComment id={recipe.recipeView.id}/>
         <CommentsList comments={recipe.recipeComments} />
       </S.Comments>
       <S.ClosingContainer>

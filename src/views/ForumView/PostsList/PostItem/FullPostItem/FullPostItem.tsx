@@ -1,6 +1,6 @@
 import Label from "../../../../../components/UI/Label/Label";
 import CommentsList from "./CommentsList/CommentsList";
-import AddNewComment from "./AddNewComment/AddNewComment";
+import AddNewPostComment from "./AddNewComment/AddNewPostComment";
 import ActionButton from "../../../../../components/UI/ActionButton/ActionButton";
 
 import { ReactComponent as Comment } from "../../../../../assets/icons/CommentIcon.svg";
@@ -10,6 +10,9 @@ import { ReactComponent as Heart } from "../../../../../assets/icons/heart.svg";
 import { FullPostI } from "../../const/Posts";
 
 import * as S from "./FullPostItem.style";
+import { useDispatch } from "react-redux";
+import axiosFoodieInstance from "../../../../../axios/axiosFoodieInstance";
+import { setNotification } from "../../../../../redux/slices/notification";
 
 type FullPostItem = {
     post: FullPostI;
@@ -17,7 +20,37 @@ type FullPostItem = {
 };
 
 const FullPostItem = ({ post, close }: FullPostItem) => {
-    console.log(post.likesCount)
+    const dispatch = useDispatch();
+
+    const addLike = () => {
+        axiosFoodieInstance.get(`/forum/post/like/${post.id}`)
+          .then((response) => {
+              if (response.status === 201) {
+                  dispatch(
+                    setNotification({
+                        label: "Like post",
+                        header: "Success",
+                        message: "Like was added",
+                        timeout: 5000,
+                    }),
+                  );
+              }
+          })
+          .catch((err) => {
+              const errorMessage = err.response.data?.message
+                ? err.response.data.message
+                : "Cannot add like";
+
+              dispatch(
+                setNotification({
+                    label: "add like to post",
+                    header: "Failed",
+                    message: errorMessage,
+                    timeout: 5000,
+                }),
+              );
+          })
+    }
     return (
         <S.Container>
             <S.Post>
@@ -47,25 +80,25 @@ const FullPostItem = ({ post, close }: FullPostItem) => {
                                 color={mainTheme.colors.mainBlack}
                                 textAlign='center'
                             >
-                                {post.commentsCount}
+                                {post.postComments?.length}
                             </Label>
                         </S.IconWrapper>
                         <S.IconWrapper>
-                            <Heart />
+                            <Heart onClick={addLike} />
                             <Label
                                 fontSize='1rem'
                                 fontWeight='400'
                                 color={mainTheme.colors.mainBlack}
                                 textAlign='center'
                             >
-                                {post.likesCount}
+                                {post.likes?.length}
                             </Label>
                         </S.IconWrapper>
                     </S.FfirstItem>
                 </S.Footer>
             </S.Post>
             <S.Comments>
-                <AddNewComment />
+                <AddNewPostComment id={post.id}/>
                 <CommentsList comments={post.postComments} />
             </S.Comments>
             <S.ClosingContainer>

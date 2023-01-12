@@ -18,7 +18,7 @@ const VerifyNewMeal = () => {
           <S.Posts>
             <NotVerifiedMealsList basicPosts={basicPosts} />
           </S.Posts>
-          <RightSectionVerifyMeal basicPosts={basicPosts} />
+          <RightSectionVerifyMeal/>
           <Outlet />
         </>
       ) : null}

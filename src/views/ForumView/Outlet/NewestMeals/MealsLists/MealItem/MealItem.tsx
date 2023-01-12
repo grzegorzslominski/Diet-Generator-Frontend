@@ -7,6 +7,9 @@ import { ReactComponent as Comment } from "../../../../../../assets/icons/Commen
 import { ReactComponent as Heart } from "../../../../../../assets/icons/heart.svg";
 import Button from "../../../../../../components/UI/Button/Button";
 import SingleVerifiedMeal from "../SingleVerifiedMeal/SingleVerifiedMeal";
+import axiosFoodieInstance from "../../../../../../axios/axiosFoodieInstance";
+import { setNotification } from "../../../../../../redux/slices/notification";
+import { useDispatch } from "react-redux";
 
 const MealItem = ({
   id,
@@ -19,8 +22,38 @@ const MealItem = ({
   likesCount,
 }: recipeVerifiedBasicI) => {
   const [openModal, setOpenModal] = useState(false);
+  const dispatch = useDispatch();
 
   const handleChangeOpenModal = () => setOpenModal((prev) => !prev);
+  const addLike = () => {
+    axiosFoodieInstance.get(`/forum/recipe/like/${id}`)
+      .then((response) => {
+        if (response.status === 201) {
+          dispatch(
+            setNotification({
+              label: "Like post",
+              header: "Success",
+              message: "Like was added",
+              timeout: 5000,
+            }),
+          );
+        }
+      })
+      .catch((err) => {
+        const errorMessage = err.response.data?.message
+          ? err.response.data.message
+          : "Cannot add like";
+
+        dispatch(
+          setNotification({
+            label: "add like to post",
+            header: "Failed",
+            message: errorMessage,
+            timeout: 5000,
+          }),
+        );
+      })
+  }
 
   return (
     <S.Container>
@@ -74,7 +107,7 @@ const MealItem = ({
             </Label>
           </S.IconWrapper>
           <S.IconWrapper>
-            <Heart />
+            <Heart onClick={addLike}/>
             <Label
               fontSize='1rem'
               fontWeight='400'
