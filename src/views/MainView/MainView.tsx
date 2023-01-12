@@ -85,10 +85,9 @@ const MainView = () => {
                                         element={<NewestPosts />}
                                     />
                                     <Route
-                                        path={`${NAVIGATION.forumPosts}/:postID`}
-                                        element={<NewestPosts />}
+                                      path={NAVIGATION.forumMeals}
+                                      element={<NewestMeals />}
                                     />
-                                    <Route path={NAVIGATION.forumMeals} element={<NewestMeals />} />
                                     <Route
                                         path={NAVIGATION.forumNewlyAddedMeals}
                                         element={<VerifyNewMeal />}

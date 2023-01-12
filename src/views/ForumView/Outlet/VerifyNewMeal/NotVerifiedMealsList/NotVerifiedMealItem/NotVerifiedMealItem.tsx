@@ -1,18 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+    recipeNotVerifiedBasicI,
+} from "../../../../PostsList/const/Posts";
+import * as S from "./NotVerifiedMealItem.style";
+import Label from "../../../../../../components/UI/Label/Label";
+import { mainTheme } from "../../../../../../themes/mainTheme";
+import Button from "../../../../../../components/UI/Button/Button";
+import SingleNotVerifiedMeal from "./SingleNotVerifiedMeal/SingleNotVerifiedMeal";
 
-import { mainTheme } from "../../../../themes/mainTheme";
-import { ReactComponent as Heart } from "../../../../assets/icons/heart.svg";
-import { ReactComponent as Comment } from "../../../../assets/icons/CommentIcon.svg";
-
-import Label from "../../../../components/UI/Label/Label";
-import Button from "../../../../components/UI/Button/Button";
-
-import { BasicPostI } from "../const/Posts";
-
-import * as S from "./PostItem.style";
-import SinglePostItem from "../SinglePostItem/SinglePostItem";
-
-const PostItem = ({
+const MealItem = ({
     id,
     title,
     timestamp,
@@ -21,7 +17,7 @@ const PostItem = ({
     description,
     commentsCount,
     likesCount,
-}: BasicPostI) => {
+}: recipeNotVerifiedBasicI) => {
     const [openModal, setOpenModal] = useState(false);
 
     const handleChangeOpenModal = () => setOpenModal((prev) => !prev);
@@ -65,30 +61,6 @@ const PostItem = ({
                 </Label>
             </S.Description>
             <S.Footer>
-                <S.FfirstItem>
-                    <S.IconWrapper>
-                        <Comment />
-                        <Label
-                            fontSize='1rem'
-                            fontWeight='400'
-                            color={mainTheme.colors.mainBlack}
-                            textAlign='center'
-                        >
-                            {commentsCount}
-                        </Label>
-                    </S.IconWrapper>
-                    <S.IconWrapper>
-                        <Heart />
-                        <Label
-                            fontSize='1rem'
-                            fontWeight='400'
-                            color={mainTheme.colors.mainBlack}
-                            textAlign='center'
-                        >
-                            {likesCount}
-                        </Label>
-                    </S.IconWrapper>
-                </S.FfirstItem>
                 <S.FsecondItem>
                     <Button
                         width='80px'
@@ -109,9 +81,9 @@ const PostItem = ({
                     </Button>
                 </S.FsecondItem>
             </S.Footer>
-            {openModal ? <SinglePostItem id={id} close={handleChangeOpenModal} /> : null}
+            {openModal ? <SingleNotVerifiedMeal id={id} close={handleChangeOpenModal} /> : null}
         </S.Container>
     );
 };
 
-export default PostItem;
+export default MealItem;

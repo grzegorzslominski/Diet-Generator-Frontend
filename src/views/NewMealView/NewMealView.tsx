@@ -11,12 +11,11 @@ import TextArea from "../../components/UI/TextArea/TextArea";
 import Button from "../../components/UI/Button/Button";
 import Select from "../../components/UI/Select/Select";
 import SelectOption from "../../components/UI/Select/SelectOption";
-import { USER_PROFILE_NEW_MEAL, UserNewMeal } from "../../models/User/UserForm";
+import { BASIC_NEW_INGREDIENT, Ingredient, USER_PROFILE_NEW_MEAL, UserNewMeal } from "../../models/User/UserForm";
 
 const NewMealView = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [vegan, setVegan] = useState<boolean>(false);
-    const [vegetarian, setVegetarian] = useState<boolean>(false);
     const [glutenFree, setGlutenFree] = useState<boolean>(false);
     const [dairyFree, setDairyFree] = useState<boolean>(false);
     const [veryHealthy, setVeryHealthy] = useState<boolean>(false);
@@ -25,17 +24,26 @@ const NewMealView = () => {
     const [newMeal, setNewMeal] = useState<UserNewMeal>(
       USER_PROFILE_NEW_MEAL,
     )
-
-    const handleOnChange = (property: string, value: any) => {
+    const handleAddNewIngredient = () => {
         const currentMeal: UserNewMeal = JSON.parse(JSON.stringify(newMeal));
+        currentMeal.ingredients.push(BASIC_NEW_INGREDIENT)
 
-        if(property === "mealName" || property === "instructions" || property === "fat" || property === "carbs" || property === "proteins" || property === "calories"){
-            currentMeal[property] = value
-        }else if(property === "readyInMinutes" || property === "servings"){
-            currentMeal[property] = parseInt(value)
-        }
         setNewMeal(currentMeal)
-        console.log(newMeal)
+
+    }
+
+    const handleOnChange = (property: string, value: any, index?: number) => {
+        const currentMeal: UserNewMeal = JSON.parse(JSON.stringify(newMeal));
+        if(index !== undefined){
+            currentMeal.ingredients[index][property] = value;
+            console.log(currentMeal.ingredients[index][property]);
+        }else {
+            currentMeal[property] = value
+        }
+
+
+        setNewMeal(currentMeal)
+        // console.log(newMeal)
     }
     const handleTestChange = (value: string) => {
         setTestValue(value);
@@ -72,6 +80,7 @@ const NewMealView = () => {
                         placeholder='amount of time to prepare'
                         onChange={(e) => handleOnChange("readyInMinutes",e.target.value)}
                         label='ready in minutes'
+                        type='number'
                         value={newMeal.readyInMinutes}
                       />
                       <Input
@@ -90,7 +99,7 @@ const NewMealView = () => {
                   />
               </S.InputContainer>
               <S.Table>
-                  <S.TableItem isOpen={vegetarian} onClick={() => setVegetarian((prev) => !prev)}>
+                  <S.TableItem isOpen={newMeal.vegetarian} onClick={() => handleOnChange("vegetarian", !newMeal.vegetarian)}>
                       <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
@@ -100,7 +109,7 @@ const NewMealView = () => {
                       >
                           Vegetarian
                       </Label>
-                      {vegetarian ? (
+                      {newMeal.vegetarian ? (
                         <img src={CheckMark} alt='checkMark' />
                       ) : (
                         <img src={XIcon} alt='checkMark' />
@@ -276,6 +285,51 @@ const NewMealView = () => {
                       </Select>
                   </S.InputRowForUnits>
               </S.InputContainer>
+              <Button
+                width='12rem'
+                styleType='gradientFull'
+                onClick={handleAddNewIngredient}
+                borderRadius='15px'
+                fontSize='1rem'
+                size='small'
+              >Add new ingredient
+              </Button>
+              {
+                  newMeal.ingredients.map((ingredient: Ingredient, index) => {
+                      return  <S.InputRowForUnits key={index}>
+                          <Input
+                            placeholder='ingredient'
+                            onChange={(e) => handleOnChange("name",e.target.value,index)}
+                            label='Ingredients'
+                            value={newMeal.ingredients[index].name}
+                          />
+                          <Input
+                            placeholder='amount'
+                            onChange={(e) => handleOnChange("amount",e.target.value,index)}
+                            label='Amount'
+                            value={newMeal.ingredients[index].amount}
+                          />
+                          <Select
+                            borderRadius='0'
+                            onChange={(value: string) =>handleOnChange("unit",value,index)}
+                            value={newMeal.ingredients[index].unit}
+                            width='90%'
+                            label='Unit'
+                          >
+                              {UNITS.map((unit: string) => (
+                                <SelectOption
+                                  key={unit}
+                                  onChange={(value: string) =>handleOnChange("unit",value,index)}
+                                  value={newMeal.ingredients[index].unit}
+                                >
+                                    {newMeal.ingredients[index].unit}
+                                </SelectOption>
+                              ))}
+                          </Select>
+
+                      </S.InputRowForUnits>
+                  })
+              }
               <Button
                 isLoading={isLoading}
                 width='12rem'

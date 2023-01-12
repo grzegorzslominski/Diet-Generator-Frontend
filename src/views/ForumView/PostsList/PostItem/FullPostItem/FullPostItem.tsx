@@ -17,6 +17,7 @@ type FullPostItem = {
 };
 
 const FullPostItem = ({ post, close }: FullPostItem) => {
+    console.log(post.likesCount)
     return (
         <S.Container>
             <S.Post>

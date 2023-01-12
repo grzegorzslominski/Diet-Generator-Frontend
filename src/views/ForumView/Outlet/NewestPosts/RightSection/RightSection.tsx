@@ -1,33 +1,47 @@
 import { useState, useEffect } from "react";
 
-import { BasicPostI } from "../../PostsList/const/Posts";
-import { mainTheme } from "../../../../themes/mainTheme";
-import { ReactComponent as Heart } from "../../../../assets/icons/heart.svg";
-import { ReactComponent as Comment } from "../../../../assets/icons/CommentIcon.svg";
+import { BasicPostI, getForumPost } from "../../../PostsList/const/Posts";
+import { mainTheme } from "../../../../../themes/mainTheme";
+import { ReactComponent as Heart } from "../../../../../assets/icons/heart.svg";
+import { ReactComponent as Comment } from "../../../../../assets/icons/CommentIcon.svg";
 
-import Label from "../../../../components/UI/Label/Label";
-import Button from "../../../../components/UI/Button/Button";
-import ModalPortal from "../../../../components/UI/ModalPortal/ModalPortal";
-import AddNewPost from "../../AddNewPost/AddNewPost";
+import Label from "../../../../../components/UI/Label/Label";
+import Button from "../../../../../components/UI/Button/Button";
+import ModalPortal from "../../../../../components/UI/ModalPortal/ModalPortal";
+import AddNewPost from "../../../AddNewPost/AddNewPost";
 
 import * as S from "./RightSection.style";
+import FullPostItem from "../../../PostsList/PostItem/FullPostItem/FullPostItem";
+import { useQuery } from "@tanstack/react-query";
 
 interface RightSectionProps {
     basicPosts: BasicPostI[];
 }
 const RightSection = ({ basicPosts }: RightSectionProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpenMostLikedPost, setIsOpenMostLikedPost] = useState<boolean>(false);
     const [mostLikedPost, setMostLikedPost] = useState<BasicPostI | undefined>();
+    const [id, setId] = useState<number>()
 
     useEffect(() => {
         const mostLikedPost = basicPosts.reduce((prev, curr) =>
             prev.likesCount > curr.likesCount ? prev : curr,
         );
         setMostLikedPost(mostLikedPost);
-    }, [basicPosts]);
+            setId(mostLikedPost.id)
+    }, [basicPosts,id]);
+
+    const {
+            data: fullPost,
+            isLoading,
+            error,
+        } = useQuery([`forumPost-${id}`, id], () => getForumPost(id), {
+          enabled: Boolean(id)
+      })
+
 
     const handleIsOpen = () => setIsOpen((curr) => !curr);
-
+    const handleIsOpenMostLikedPost = () => setIsOpenMostLikedPost(curr => !curr)
     return (
         <S.Wrapper>
             <S.Container2>
@@ -88,7 +102,7 @@ const RightSection = ({ basicPosts }: RightSectionProps) => {
                                 size='small'
                                 borderRadius='10px'
                                 fontSize='1rem'
-                                onClick={() => {}}
+                                onClick={() => handleIsOpenMostLikedPost()}
                                 background={mainTheme.gradients.buttonGradient}
                             >
                                 <Label textAlign='center' color='white'>
@@ -104,6 +118,12 @@ const RightSection = ({ basicPosts }: RightSectionProps) => {
                     <AddNewPost open={isOpen} setIsOpen={handleIsOpen} />
                 </ModalPortal>
             ) : null}
+            {
+                isOpenMostLikedPost && fullPost ? (
+                  <ModalPortal blurLevel='normal' blurBackground={true} close={handleIsOpenMostLikedPost}>
+                      <FullPostItem post={fullPost} close={handleIsOpenMostLikedPost} />
+                  </ModalPortal>
+                ) : null}
         </S.Wrapper>
     );
 };

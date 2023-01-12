@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./AddNewComment.style";
-import Input from "../../../../../../components/UI/Input/Input";
 import { UserComment } from "../../../../../../models/User/User";
 import { useForm } from "../../../../../../hooks/useForm";
 import Label from "../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../themes/mainTheme";
 import Button from "../../../../../../components/UI/Button/Button";
+import TextArea from "../../../../../../components/UI/TextArea/TextArea";
+import axiosFoodieInstance from "../../../../../../axios/axiosFoodieInstance";
+import { ENDPOINTS_USER } from "../../../../../../navigation/endpoints";
+import { setNotification } from "../../../../../../redux/slices/notification";
+import { useDispatch } from "react-redux";
 
 const AddNewComment = () => {
+    const [isLoading,setIsLoading] = useState<boolean>(false)
+    const dispatch = useDispatch();
     const {
         handleSubmit,
         handleChange,
@@ -22,18 +28,56 @@ const AddNewComment = () => {
                 },
             },
         },
-        onSubmit: () => {},
+        onSubmit: () => {
+            setIsLoading(true);
+            const newComment = {
+                comment: userComment.comment
+            };
+            axiosFoodieInstance
+              .post(ENDPOINTS_USER.register, newComment)
+              .then((response) => {
+                  if (response.status === 201) {
+                      dispatch(
+                        setNotification({
+                            label: "Comment post",
+                            header: "Success",
+                            message: "Comment was created",
+                            timeout: 5000,
+                        }),
+                      );
+                  }
+              })
+              .catch((err) => {
+                  const errorMessage = err.response.data?.message
+                    ? err.response.data.message
+                    : "Cannot add comment";
+
+                  dispatch(
+                    setNotification({
+                        label: "Comment post",
+                        header: "Failed",
+                        message: errorMessage,
+                        timeout: 5000,
+                    }),
+                  );
+              })
+              .finally(() => {
+                  setIsLoading(false);
+              });
+        },
     });
     return (
         <S.Container>
             <Label textAlign='center' fontSize='1rem' color={mainTheme.colors.mainBlack}>
                 Add new comment
             </Label>
-            <Input
-                placeholder='What are your thoughts?'
-                onChange={handleChange("comment")}
-                value={userComment.comment}
-                error={errors.comment}
+            <TextArea
+              onChange={handleChange("comment")}
+              label='Comment'
+              placeholder='What are your thoughts?'
+              value={userComment.comment}
+              error={errors.comment}
+              width='100%'
             />
             <S.ButtonContainer>
                 <Button
@@ -42,7 +86,7 @@ const AddNewComment = () => {
                     fontSize='0.8rem'
                     size='extraSmall'
                     background={mainTheme.gradients.buttonGradient}
-                    onClick={() => console.log()}
+                    onClick={handleSubmit}
                 >
                     <Label
                         textAlign='center'

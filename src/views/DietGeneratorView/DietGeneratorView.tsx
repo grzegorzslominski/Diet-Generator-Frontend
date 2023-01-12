@@ -14,6 +14,7 @@ import AnswerQuestions from "./components/AnswerQuestions/AnswerQuestions";
 import Button from "../../components/UI/Button/Button";
 
 import * as S from "./DietGeneratorView.style";
+import ChooseExcercise from "./components/ChooseExcercise/ChooseExcercise";
 
 const DietGeneratorView = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,17 +40,17 @@ const DietGeneratorView = () => {
         }
 
         setIsData(currentData);
+        console.log(data)
     };
 
     const handleForm = () => {
         if (data.goal === "") {
             return false;
         }
-        if (data.questions.length < 13) {
-            return false;
+        if(data.exercise === ""){
+          return false
         }
-
-        return true;
+        return data.questions.length >= 13;
     };
 
     const onSubmit = () => {
@@ -92,6 +93,7 @@ const DietGeneratorView = () => {
         <S.Container>
             <GenerateYourOwnDiet />
             <ChooseYourGoal handleChange={handleChange} />
+            <ChooseExcercise handleChange={handleChange} />
             <Preferences handleChange={handleChange} />
             <AnswerQuestions data={data} handleChange={handleChange} />
             <Button

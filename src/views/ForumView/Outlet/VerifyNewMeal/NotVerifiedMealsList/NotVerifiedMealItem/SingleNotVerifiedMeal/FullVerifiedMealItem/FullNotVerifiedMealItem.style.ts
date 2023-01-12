@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import mainBackgroudn from "../../../../../assets/mainBackground.png"
+import mainBackgroudn from "../../../../../../../../assets/mainBackground.png"
 
 export const Container = styled.div`
   width: 1000px;
@@ -14,8 +14,8 @@ export const Container = styled.div`
   align-items: center;
   padding: 25px;
   overflow-y: auto;
-  
-  
+
+
   @media screen and (max-width: 1050px){
     width: 600px;
     transform: translateX(-10%) translateY(-10%);
@@ -36,7 +36,7 @@ export const Header = styled.div`
   padding: 10px;
   justify-content: center;
   gap: 15px;
-  
+
   img {
     width: 40px;
   }
@@ -68,7 +68,11 @@ export const Footer = styled.div`
   padding: 0 10% 0 10%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  
+  span {
+    text-align: center;
+  }
 
 `
 
@@ -88,7 +92,7 @@ export const FfirstItem = styled.div`
   align-items: center;
   width: 100px;
   justify-content: space-between;
-  
+
 `
 
 export const ClosingContainer = styled.div`
