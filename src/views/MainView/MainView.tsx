@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
@@ -33,6 +33,7 @@ import * as S from "./MainView.style";
 const MainView = () => {
     const location = useLocation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { authorizeUser, isLoading } = useAuth();
 
     const user = useSelector((state: TStore) => state?.userReducer);
@@ -48,12 +49,11 @@ const MainView = () => {
     };
 
     const checkVerticalNavbarVisibility = (): boolean => {
-        // return (
-        //     location.pathname !== NAVIGATION.home &&
-        //     !location.pathname.includes(NAVIGATION.forum) &&
-        //     Boolean(user)
-        // );
-        return true;
+        return (
+            location.pathname !== NAVIGATION.home &&
+            !location.pathname.includes(NAVIGATION.forum) &&
+            Boolean(user)
+        );
     };
 
     return (
@@ -76,7 +76,7 @@ const MainView = () => {
                                 verticalMenuIsOpen={verticalMenuIsOpen}
                             >
                                 <Routes>
-                                    {true && (
+                                    {user && (
                                         <>
                                             <Route
                                                 path={NAVIGATION.dashboard}
@@ -137,7 +137,7 @@ const MainView = () => {
                                     <Route
                                         path={NAVIGATION.default}
                                         element={
-                                            !user ? (
+                                            user ? (
                                                 <DashboardView />
                                             ) : (
                                                 <HomeView authorizeUser={authorizeUser} />

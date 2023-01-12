@@ -70,8 +70,6 @@ const Carousel = ({
         } else return `translateX(-${(widthElement + gap) * activeIndex}px)`;
     };
 
-    console.log(contentRef.current?.childNodes[0].childNodes[0].parentElement?.clientHeight);
-
     return (
         <S.CarouselContainer
             height={
