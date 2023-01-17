@@ -1,3 +1,6 @@
+import { useMemo } from "react";
+import { Line } from "react-chartjs-2";
+
 import {
     CategoryScale,
     Chart as ChartJS,
@@ -5,15 +8,14 @@ import {
     LinearScale,
     LineElement,
     PointElement,
-    Title,
     Tooltip,
 } from "chart.js";
-import { faker } from "@faker-js/faker";
-import { Line } from "react-chartjs-2";
+
+import { ChartData, USER_STATS_DATASETS_PRESET } from "../../models/User/UserStatistics";
 
 import * as S from "./Chart.style";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 export const options = {
     responsive: true,
@@ -22,46 +24,30 @@ export const options = {
             position: "bottom" as const,
             borderRadius: 50,
         },
-        title: {
-            display: false,
-            text: "Chart.js Line Chart",
-        },
     },
 };
 
-const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-];
-
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: "Them",
-            data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            borderColor: "#2295F9",
-            backgroundColor: "#0780EF",
-        },
-        {
-            label: "Us",
-            data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            backgroundColor: "#00144A",
-            borderColor: "#384181",
-        },
-    ],
+export const prepareData = (chartData: ChartData) => {
+    return {
+        labels: chartData.labels,
+        datasets: chartData.data.map((dataset, index) => {
+            return {
+                label: USER_STATS_DATASETS_PRESET[index].label,
+                data: dataset,
+                borderColor: USER_STATS_DATASETS_PRESET[index].borderColor,
+                backgroundColor: USER_STATS_DATASETS_PRESET[index].backgroundColor,
+            };
+        }),
+    };
 };
-const Chart = () => {
+
+type ChartProps = {
+    chartData: ChartData;
+};
+
+const Chart = ({ chartData }: ChartProps) => {
+    const data = useMemo(() => prepareData(chartData), [chartData]);
+
     return (
         <S.ChartContainer>
             <Line options={options} data={data} />

@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const ContentWrapper = styled.div`
+    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+`;
+
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -48,7 +53,7 @@ export const ProfileAvatar = styled.div<ProfileAvatarProps>`
         width: 140px;
         border-radius: 8px;
         position: absolute;
-        top: 70px;
+        top: 27px;
         left: 24px;
     }
 
@@ -71,7 +76,7 @@ export const RightSection = styled.div`
 
     @media screen and (max-width: 760px) {
         align-items: flex-end;
-        margin-top: -102px;
+        margin-top: -165px;
     }
 `;
 
@@ -91,11 +96,15 @@ export const TitleWrapper = styled.div`
 
 export const Description = styled.div`
     display: flex;
-    height: 120px;
-    max-height: 120px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    height: 130px;
+    max-height: 130px;
+
     width: calc(100% - 24px);
+
+    span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 
     @media screen and (max-width: 1680px) and (min-width: 1121px) {
         height: 130px;
@@ -105,10 +114,13 @@ export const Description = styled.div`
         span {
             width: 190px;
             max-width: 190px;
+            height: 130px;
+            max-height: 130px;
         }
     }
 
     @media screen and (max-width: 760px) {
+        margin-top: 50px;
         height: auto;
         max-height: auto;
         width: 100%;
@@ -167,13 +179,14 @@ export const ActionWrapper = styled.div`
     @media screen and (max-width: 1680px) and (min-width: 1121px) {
         padding: 0;
         width: 100%;
+        height: fit-content;
 
         & > div:first-child {
             height: fit-content;
         }
 
         & > div:last-child {
-            margin-top: 62px;
+            margin-top: 64px;
         }
     }
 

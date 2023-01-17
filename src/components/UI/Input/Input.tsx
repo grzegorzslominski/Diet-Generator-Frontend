@@ -104,7 +104,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     </Label>
                 )}
 
-                <S.InputContainer width={width} icon={Boolean(icon)} size={size}>
+                <S.InputContainer width={width} icon={Boolean(icon)} size={size} type={type}>
                     {icon ? icon : null}
                     {type !== "date" && (
                         <S.StyledInput
@@ -126,14 +126,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     {type === "date" && onChange && (
                         <SingleDatePicker
                             placeholder=''
-                            openDirection='up'
                             displayFormat='DD/MM/YYYY'
                             isOutsideRange={(date: Moment) => {
                                 return allDatesRange
                                     ? false
                                     : disabledDate
-                                    ? moment(date).diff(disabledDate) < 0 || moment().diff(date) > 0
-                                    : moment().diff(date) > 0 &&
+                                    ? moment(date).diff(disabledDate) > 0 || moment().diff(date) < 0
+                                    : moment().diff(date) < 0 &&
                                       moment().format("DD/MM/YYYY").toString() !==
                                           moment(date).format("DD/MM/YYYY").toString();
                             }}

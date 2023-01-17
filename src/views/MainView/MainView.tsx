@@ -1,6 +1,6 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThemeProvider } from "styled-components";
 
 import { mainTheme } from "../../themes/mainTheme";
@@ -33,7 +33,6 @@ import * as S from "./MainView.style";
 const MainView = () => {
     const location = useLocation();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { authorizeUser, isLoading } = useAuth();
 
     const user = useSelector((state: TStore) => state?.userReducer);

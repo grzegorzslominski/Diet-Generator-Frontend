@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    position: relative;
+    gap: 12px;
     width: 352px;
 
     @media screen and (max-width: 1220px) and (min-width: 821px) {
@@ -27,19 +28,6 @@ export const TopSection = styled.div<TopSectionProps>`
     display: flex;
     flex-direction: column;
     gap: 24px;
-    & > img {
-        border-radius: 15px;
-        width: 100%;
-        height: 239px;
-        max-height: 239px;
-        object-fit: contain;
-        object-position: center;
-        ${({ profileIMG, theme }) =>
-            !profileIMG &&
-            css`
-                border: 2px dashed ${theme.colors.mainBlack}};
-            `}
-    }
 
     @media screen and (max-width: 1220px) and (min-width: 821px) {
         width: 250px;
@@ -51,12 +39,23 @@ export const TopSection = styled.div<TopSectionProps>`
             max-height: 170px;
         }
     }
+`;
+
+export const UserAvatarContainer = styled.div`
+    border-radius: 15px;
+    width: 100%;
+    height: 239px;
+    max-height: 239px;
+
+    @media screen and (max-width: 1220px) and (min-width: 821px) {
+        width: 100%;
+        height: auto;
+        max-height: 170px;
+    }
 
     @media screen and (max-width: 820px) {
-        & > img {
-            height: auto;
-            max-height: 185px;
-        }
+        height: auto;
+        max-height: 185px;
     }
 `;
 
@@ -80,9 +79,19 @@ export const CardName = styled.div`
 export const DataContanier = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 32px;
-    row-gap: 28px;
+    grid-template-rows: repeat(3, 60px);
+    gap: 6px 32px;
     padding-top: 16px;
+
+    @media screen and (max-width: 1220px) {
+        padding-top: 0;
+        gap: 6px 48px;
+        justify-content: space-between;
+        & > * {
+            width: 100%;
+            height: fit-content;
+        }
+    }
 `;
 
 export const BodyDetails = styled.div`
@@ -92,15 +101,36 @@ export const BodyDetails = styled.div`
     grid-column: 1 / 3;
 `;
 
+export const BottomSection = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    width: 100%;
+
+    @media screen and (max-width: 1220px) {
+        padding-top: 12px;
+    }
+
+    @media screen and (max-width: 820px) {
+        padding-top: 0;
+        flex-direction: column;
+        gap: 24px;
+        align-items: flex-end;
+    }
+`;
+
 export const ExtraDetailsContainer = styled.div`
     display: flex;
     gap: 24px;
-    padding-top: 25px;
 
     @media screen and (max-width: 1220px) and (min-width: 821px) {
+        gap: 45px;
+    }
+
+    @media screen and (max-width: 1220px) {
         padding-top: 0;
         width: 100%;
-        gap: 38px;
     }
 `;
 
