@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import mainBackgroudn from "../../assets/mainBackground.png";
+import { mainTheme } from "../../themes/mainTheme";
 
 export const Container = styled.div`
     display: flex;
@@ -13,10 +14,6 @@ export const Container = styled.div`
     justify-content: center;
 `;
 
-export const ItemContainer = styled.div`
-
-`
-
 export const Border = styled.div`
   background: #FFFFFF;
   box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
@@ -29,6 +26,7 @@ export const Border = styled.div`
   align-items: center;
   padding: 50px;
   justify-content: space-evenly;
+  gap: 20px;
 `
 
 export const InputContainer = styled.div`
@@ -36,19 +34,15 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
-
+  gap: 20px;
 `
 
 export const InputRow = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  gap: 25px;
-`
-
-export const InputRowForUnits = styled(InputRow)`
-  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(2,auto);
+  column-gap: 30px;
+  row-gap: 20px;
 `
 
 export const Table = styled.div`
@@ -77,4 +71,37 @@ export const TableItem = styled.div<prop>`
     ` }
 
   }
+`
+
+export const ProductsContainer = styled.div`
+  width: 80%;
+  border: 1px solid ${mainTheme.colors.secondaryColor};
+  padding: 24px;
+  border-radius: 5px;
+
+
+`
+
+export const ProductsList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5,120px);
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+`
+
+export const productItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: 1px solid ${mainTheme.colors.secondaryColor};
+  
+  cursor: pointer;
+
+
+  :hover {
+    
+  }
+
 `

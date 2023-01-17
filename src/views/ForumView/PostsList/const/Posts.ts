@@ -34,7 +34,7 @@ export interface recipeViewI {
     servings: number;
     title: string;
     readyInMinutes: number;
-    image: string | undefined;
+    imagePath: string | undefined;
     instructions: string;
     vegetarian: boolean;
     vegan: boolean;
@@ -46,6 +46,7 @@ export interface recipeViewI {
     carbs: number;
     fat: number;
     protein: number;
+    ingredients: ingredientsI[];
 
 
 }
@@ -62,6 +63,13 @@ export interface ForumUserI {
     firstName: string | null;
     lastName: string | null;
     userProfilePicture: string | null;
+}
+
+export interface ingredientsI {
+    id: number;
+    name: string;
+    amount: number;
+    unit: string;
 }
 
 export interface CommentI {

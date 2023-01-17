@@ -15,7 +15,6 @@ const SingleVerifiedMeal = ({ id, close }: SinglePostItemProps) => {
     isLoading,
     error,
   } = useQuery([`forumRecipeVerified-${id}`, id], () => getForumFullMeal(id));
-  console.log(fullPost);
 
   return fullPost ? (
     <ModalPortal blurLevel='normal' blurBackground={true} close={close}>

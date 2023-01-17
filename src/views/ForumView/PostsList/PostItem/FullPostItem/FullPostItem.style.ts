@@ -19,14 +19,11 @@ export const Container = styled.div`
   @media screen and (max-width: 1050px){
     width: 600px;
     transform: translateX(-10%) translateY(-10%);
-
   }
-
   @media screen and (max-width: 700px){
     width: 375px;
     transform: translateX(-20%) translateY(-20%);
   }
-
 `
 
 export const Header = styled.div`
@@ -43,7 +40,6 @@ export const Header = styled.div`
   @media screen and (max-width: 700px){
     flex-direction: column;
   }
-
 `
 
 export const Post = styled.div`
@@ -69,7 +65,6 @@ export const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
 `
 
 export const IconWrapper = styled.div`
@@ -104,7 +99,6 @@ export const Table = styled.div`
   width: 80%;
   justify-content: space-evenly;
   align-items: center;
-
 `
 
 export const Servings = styled.div`
@@ -128,7 +122,6 @@ export const TableItem = styled.div<prop>`
     ` : css`
       filter: invert(18%) sepia(94%) saturate(6357%) hue-rotate(2deg) brightness(91%) contrast(125%);
     ` }
-
   }
 `
 

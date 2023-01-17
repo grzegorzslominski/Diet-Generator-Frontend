@@ -37,7 +37,7 @@ const AddNewPostComment = ({id}: props) => {
                 content: userComment.comment
             };
             axiosFoodieInstance
-              .post(`/forum/post/comment/${id}`, newComment)
+              .post(`${ENDPOINTS_USER.userAddPostComment}/${id}`, newComment)
               .then((response) => {
                   if (response.status === 201) {
                       dispatch(

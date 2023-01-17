@@ -1,4 +1,6 @@
 import { UNITS } from "./User";
+import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+import { recipeVerifiedBasicI } from "../../views/ForumView/PostsList/const/Posts";
 
 export type BasicUserProfileValidation = {
     firstName: string;
@@ -32,23 +34,19 @@ export type UserNewMeal = {
     vegetarian: boolean;
     vegan: boolean;
     glutenFree: boolean;
+    dairyFree: boolean;
     veryHealthy: boolean;
     calories: string;
     fat: string;
     proteins: string;
     carbs: string;
-    ingredients: Ingredient[]
-    [key: string]: string | number | boolean | Ingredient[];
+    products: productType[];
+    [key: string]: string | number | boolean | productType[];
 }
 
 export type Unit = 'ml' | 'g'
 
-export type Ingredient = {
-    name: string;
-    amount: number;
-    unit: Unit;
-    [key: string]: string | number | Unit;
-};
+export type productType = { id: string; name: string }
 
 export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
     mealName: "",
@@ -60,16 +58,21 @@ export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
     vegan: false,
     glutenFree: false,
     veryHealthy: false,
+    dairyFree: false,
     calories: "",
     fat: "",
     proteins: "",
     carbs: "",
-    ingredients: [],
+    products: [],
 }
 
-export const BASIC_NEW_INGREDIENT: Ingredient = {
-    name: "",
-    amount: 0,
-    unit: 'ml',
-};
+export const getDietProducts = async () => {
+    return await axiosFoodieInstance.get<productType[]>(`/diet/products`).then((response) => {
+        if(response.status === 200){
+            return response.data
+        }
+    })
+}
+
+
 

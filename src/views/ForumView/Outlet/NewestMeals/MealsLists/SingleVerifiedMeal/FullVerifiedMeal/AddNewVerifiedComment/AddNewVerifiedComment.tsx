@@ -37,7 +37,7 @@ const AddNewVerifiedComment = ({id}: props) => {
         content: userComment.comment
       };
       axiosFoodieInstance
-        .post(`/forum/recipe/comment/${id}`, newComment)
+        .post(`${ENDPOINTS_USER}/${id}`, newComment)
         .then((response) => {
           if (response.status === 201) {
             dispatch(
