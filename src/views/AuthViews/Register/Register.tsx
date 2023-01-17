@@ -19,7 +19,7 @@ import Input from "../../../components/UI/Input/Input";
 import Button from "../../../components/UI/Button/Button";
 import ModalPortal from "../../../components/UI/ModalPortal/ModalPortal";
 
-import { UserSignUp } from "../../../models/User/User";
+import { UserSignUp } from "../../../models/User/AuthUser";
 
 import * as S from "../AuthViews.style";
 

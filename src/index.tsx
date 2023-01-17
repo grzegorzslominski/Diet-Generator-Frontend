@@ -30,8 +30,11 @@ const getApiPath = async () => {
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
+            //   refetchOnMount: false,
             refetchOnWindowFocus: false,
             refetchOnReconnect: false,
+            staleTime: 1000 * 60 * 5,
+            cacheTime: 1000 * 60 * 15,
             retry: false,
         },
     },

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { mainTheme } from "../../../themes/mainTheme";
 
 import { ScrollProps, ContentProps, ContainerProps, CircleProps } from "./ScrollBox.type";
 
@@ -24,8 +23,8 @@ export const Content = styled.div<ContentProps>`
     ::-webkit-scrollbar {
         width: 0px;
     }
-    width: ${({ scrollDistance, scrollPosition }) =>
-        scrollPosition === "inside" ? `calc(100% - ${scrollDistance}px)` : "100%"};
+    width: ${({ scrollDistance, scrollPosition, hiddenScroll }) =>
+        scrollPosition === "inside" && !hiddenScroll ? `calc(100% - ${scrollDistance}px)` : "100%"};
 `;
 
 export const Scroll = styled.div<ScrollProps>`
@@ -39,7 +38,7 @@ export const Scroll = styled.div<ScrollProps>`
     ::after {
         content: "";
         height: ${({ height }) => `${height}px`};
-        background-color: ${mainTheme.colors.grey};
+        background-color: ${({ theme }) => theme.colors.grey};
         width: 2px;
         position: absolute;
         top: 0;
@@ -58,7 +57,7 @@ export const Circle = styled.div<CircleProps>`
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background: ${mainTheme.colors.secondaryColor};
+    background: ${({ theme }) => theme.colors.secondaryColor};
 
     ${({ hidden }) => (hidden ? `display: none` : "display: flex")}
 

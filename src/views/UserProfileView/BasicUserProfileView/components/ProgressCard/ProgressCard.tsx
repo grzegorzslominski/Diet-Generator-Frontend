@@ -1,9 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+
+import { getUserWeightStats } from "../../../../../models/User/UserStatistics";
+import { mainTheme } from "../../../../../themes/mainTheme";
 
 import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPad";
 import Label from "../../../../../components/UI/Label/Label";
-
-import { mainTheme } from "../../../../../themes/mainTheme";
 import AddWeightModal from "./components/AddWeightModal";
 
 import * as S from "./ProgressCard.style";
@@ -12,6 +14,12 @@ type ProgressCardProps = ClassNameProp & {};
 
 const ProgressCard = ({ className }: ProgressCardProps) => {
     const [openAddWeightModal, setOpenAddWeightModal] = useState<boolean>(false);
+
+    const {
+        data: userWeightStats,
+        isLoading: dataIsLoading,
+        error,
+    } = useQuery(["weightStats"], getUserWeightStats);
 
     const handleOpenAddWeightModal = (open: boolean) => {
         setOpenAddWeightModal(open);
@@ -89,7 +97,13 @@ const ProgressCard = ({ className }: ProgressCardProps) => {
                     </S.GoalRange>
                 </S.Container>
             </BoxPad>
-            {openAddWeightModal && <AddWeightModal close={() => handleOpenAddWeightModal(false)} />}
+            {openAddWeightModal && (
+                <AddWeightModal
+                    weightStats={userWeightStats}
+                    weightStatsIsLoading={dataIsLoading}
+                    close={() => handleOpenAddWeightModal(false)}
+                />
+            )}
         </>
     );
 };

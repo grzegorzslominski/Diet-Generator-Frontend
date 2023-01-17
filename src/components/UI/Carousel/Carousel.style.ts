@@ -2,8 +2,6 @@ import styled, { css } from "styled-components";
 
 export type CarouselContainerProps = {
     buttonVersion: "arrows" | "dots";
-    height?: any;
-    displayOne?: boolean;
 };
 
 export const CarouselContainer = styled.div<CarouselContainerProps>`
@@ -12,7 +10,7 @@ export const CarouselContainer = styled.div<CarouselContainerProps>`
     display: flex;
     justify-content: ${({ buttonVersion }) =>
         buttonVersion === "arrows" ? "center" : "flex-start"};
-    height: ${({ height }) => (height ? height : "auto")};
+    height: auto;
 `;
 
 export const CarouselInner = styled.div`
@@ -30,6 +28,7 @@ type ContentProps = {
     gap: number;
     scrollAxie?: "vertical" | "horizontal";
     buttonVersion: "arrows" | "dots";
+    maxHeight?: string;
 };
 
 export const Content = styled.div<ContentProps>`
@@ -41,34 +40,15 @@ export const Content = styled.div<ContentProps>`
         scrollAxie === "vertical" && buttonVersion === "dots" ? "column" : "row"};
     gap: 0 ${({ gap }) => `${gap}px`};
     height: 100%;
+    ${({ maxHeight }) =>
+        maxHeight &&
+        css`
+            max-height: ${maxHeight};
+        `}
 
     & > * {
         cursor: grab;
     }
-`;
-
-type IndicatorProps = {
-    buttonVersion: "arrows" | "dots";
-    imgArrayLength: number;
-};
-
-export const Indicators = styled.div<IndicatorProps>`
-    ${({ buttonVersion }) =>
-        buttonVersion === "dots" &&
-        css`
-            display: flex;
-            flex-direction: column;
-            width: 7px;
-            position: absolute;
-            gap: 10px;
-            right: -15px;
-            height: auto;
-        `};
-
-    top: calc(
-        (100% - ${({ imgArrayLength }) => `${imgArrayLength * 7 + (imgArrayLength - 1) * 10}px`}) /
-            2
-    );
 `;
 
 type ArrowButtonProps = {
@@ -129,11 +109,13 @@ export const ArrowButton = styled.div<ArrowButtonProps>`
 
 export const DotsContainer = styled.div`
     position: absolute;
+    top: calc(50%);
+    right: -24px;
+    transform: translateY(-50%);
     display: flex;
+    flex-direction: column;
+    height: fit-content;
     gap: 12px;
-    bottom: 10px;
-    top: calc(100% + 20px);
-    right: 127px;
 `;
 
 type DotButtonProps = {
@@ -141,24 +123,15 @@ type DotButtonProps = {
 };
 
 export const DotButton = styled.div<DotButtonProps>`
-    background: #1a1d20;
+    background: ${({ theme, active }) =>
+        active ? theme.gradients.buttonGradient : theme.colors.grey};
     border-radius: 50%;
-    width: 12px;
-    height: 12px;
-    padding: 0;
-    opacity: ${({ active }) => (active ? 1 : 0.3)};
-
-    &:hover {
-        cursor: pointer;
-    }
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
 
     @media screen and (max-width: 840px) {
         width: 16px;
         height: 16px;
-    }
-
-    @media screen and (max-width: 480px) {
-        transform: translateX(-50%);
-        left: 50%;
     }
 `;

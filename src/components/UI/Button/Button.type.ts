@@ -7,7 +7,7 @@ export type ButtonContainerProps = {
 
 export type ButtonProps = {
     onClick: any;
-    styleType: ButtonStyleType;
+    styleType?: ButtonStyleType;
     borderRadius?: string;
     borderWidth?: string;
     isLoading?: boolean;

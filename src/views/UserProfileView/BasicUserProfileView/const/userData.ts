@@ -1,37 +1,3 @@
-export type CharSetting = {
-    header: string;
-    setting: Setting[];
-    settingType: ChartSettingType;
-};
-
-export type ChartSettingType = "type" | "length";
-
-export type Setting = {
-    value: string;
-    label: string;
-};
-
-export const USER_STATISTICS_CHART_SETTING: CharSetting[] = [
-    {
-        header: "Time:",
-        setting: [
-            { value: "7", label: "7 day" },
-            { value: "30", label: "30 day" },
-            { value: "90", label: "90 day" },
-            { value: "all", label: "All" },
-        ],
-        settingType: "length",
-    },
-    {
-        header: "Type:",
-        setting: [
-            { value: "weight", label: "Weight" },
-            { value: "bmi", label: "BMI" },
-        ],
-        settingType: "type",
-    },
-];
-
 export type Meal = {
     readonly id: number;
     name: string;

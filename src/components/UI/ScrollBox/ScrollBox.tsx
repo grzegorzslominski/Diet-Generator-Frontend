@@ -16,7 +16,7 @@ const ScrollBox = ({
     const scrollContentRef = useRef<HTMLDivElement>(null);
 
     const [scrollDistanceValue, setScrollDistanceValue] = useState(scrollDistance);
-    const [hiddenScroll, setHiddenScroll] = useState(false);
+    const [hiddenScroll, setHiddenScroll] = useState(true);
     const [scrolled, setScrolled] = useState(false);
 
     const animation = useAnimation();
@@ -109,34 +109,37 @@ const ScrollBox = ({
                         handleScrollbarPosition(scrollContentRef.current);
                     }
                 }}
+                hiddenScroll={hiddenScroll}
             >
                 {children}
             </S.Content>
-            <S.Scroll
-                height={height}
-                ref={scrollbarRef}
-                hidden={hiddenScroll}
-                scrollDistance={scrollDistanceValue}
-                scrollPosition={scrollPosition}
-            >
-                <motion.div
-                    drag={"y"}
-                    dragMomentum={false}
-                    dragElastic={0}
-                    dragConstraints={scrollbarRef}
-                    animate={animation}
-                    transition={{ type: "Inertia" }}
-                    onDragStart={() => setScrolled(true)}
-                    onDrag={(event, info) => {
-                        if (scrollContentRef.current) {
-                            handleScrollContentPosition(scrollContentRef.current, info.point.y);
-                        }
-                    }}
-                    onDragEnd={() => setScrolled(false)}
+            {!hiddenScroll && (
+                <S.Scroll
+                    height={height}
+                    ref={scrollbarRef}
+                    hidden={hiddenScroll}
+                    scrollDistance={scrollDistanceValue}
+                    scrollPosition={scrollPosition}
                 >
-                    <S.Circle hidden={hiddenScroll} />
-                </motion.div>
-            </S.Scroll>
+                    <motion.div
+                        drag={"y"}
+                        dragMomentum={false}
+                        dragElastic={0}
+                        dragConstraints={scrollbarRef}
+                        animate={animation}
+                        transition={{ type: "Inertia" }}
+                        onDragStart={() => setScrolled(true)}
+                        onDrag={(event, info) => {
+                            if (scrollContentRef.current) {
+                                handleScrollContentPosition(scrollContentRef.current, info.point.y);
+                            }
+                        }}
+                        onDragEnd={() => setScrolled(false)}
+                    >
+                        <S.Circle hidden={hiddenScroll} />
+                    </motion.div>
+                </S.Scroll>
+            )}
         </S.Container>
     );
 };

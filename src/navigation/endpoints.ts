@@ -1,14 +1,18 @@
 export enum ENDPOINTS_USER {
+    generator = "/diet/generator",
     login = "/authenticate",
     register = "/account/register",
-    generator = "/diet/generator",
-    userStats = "/account/stats",
-    userProfile = "/account/profile",
+    userAddPostComment = "/forum/post/comment",
     userInfo = "/account/profile/info",
-    userAddPostComment = "/forum/post/comment"
+    userStats = "/account/stats",
 }
 
-
 export enum ENDPOINTS_PROFILE {
-    editProfile = "/account/profile/info",
+    userProfile = "/account/profile",
+    weightStats = "/account/profile/info/weights",
+}
+
+export enum ENDPOINTS_IMAGE_UPLOAD {
+    uploadUserAvatar = "image/upload/profile",
+    removeUserAvater = "image/delete/profile",
 }

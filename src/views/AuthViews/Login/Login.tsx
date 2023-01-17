@@ -1,29 +1,27 @@
-import { useState } from "react";
-import { useForm } from "../../../hooks/useForm";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
+
 import { setNotification } from "../../../redux/slices/notification";
 import { useAuthViews } from "../../../hooks/useAuthViews";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
+import { useForm } from "../../../hooks/useForm";
 
-import { ReactComponent as UserIcon } from "../../../assets/icons/user.svg";
 import { ReactComponent as PasswordIcon } from "../../../assets/icons/password.svg";
+import { ReactComponent as UserIcon } from "../../../assets/icons/user.svg";
+import axiosFoodieInstance from "../../../axios/axiosFoodieInstance";
 import { ENDPOINTS_USER } from "../../../navigation/endpoints";
 import { NAVIGATION } from "../../../navigation/paths";
 
-import Label from "../../../components/UI/Label/Label";
-import AuthPad from "../components/AuthPad/AuthPad";
-import Input from "../../../components/UI/Input/Input";
-import Button from "../../../components/UI/Button/Button";
 import ExternalAuthProvidres from "../components/ExternalAuthProvidres/ExternalAuthProvidres";
 import GradientLabel from "../../../components/UI/GradientLabel/GradientLabel";
 import ModalPortal from "../../../components/UI/ModalPortal/ModalPortal";
+import Button from "../../../components/UI/Button/Button";
+import Label from "../../../components/UI/Label/Label";
+import Input from "../../../components/UI/Input/Input";
+import AuthPad from "../components/AuthPad/AuthPad";
 
 import { mainTheme } from "../../../themes/mainTheme";
-
-import axiosFoodieInstance from "../../../axios/axiosFoodieInstance";
-
-import { User, UserSignIn } from "../../../models/User/User";
+import { UserSignIn } from "../../../models/User/AuthUser";
 
 import * as S from "../AuthViews.style";
 

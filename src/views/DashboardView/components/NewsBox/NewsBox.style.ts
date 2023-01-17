@@ -37,7 +37,7 @@ export const NewsSection = styled.div`
 export const NotesContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 36px;
 `;
 
 export const NoteContainer = styled.div`
