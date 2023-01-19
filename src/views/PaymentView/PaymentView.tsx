@@ -1,26 +1,41 @@
-import GradientLabel from "../../components/UI/GradientLabel/GradientLabel";
-import ViewBox from "../../components/UI/ViewBox/ViewBox";
-import BoxPad from "../../components/UI/BoxPad/BoxPad";
-import Label from "../../components/UI/Label/Label";
-
 import { BASIC_ACCOUNT_ADVANTAGES, PREMIUM_ACCOUNT_ADVANTAGES } from "./const/accountTypeData";
 import { ReactComponent as PremiumIcon } from "../../assets/icons/premium-gradient.svg";
 import { ReactComponent as MoneyIcon } from "../../assets/icons/money.svg";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { mainTheme } from "../../themes/mainTheme";
+import { useEffect, useState } from "react";
 
-import * as S from "./PremiumView.style";
+import GradientLabel from "../../components/UI/GradientLabel/GradientLabel";
+import ViewBox from "../../components/UI/ViewBox/ViewBox";
+import BoxPad from "../../components/UI/BoxPad/BoxPad";
 import Button from "../../components/UI/Button/Button";
+import Label from "../../components/UI/Label/Label";
 
-const PremiumView = () => {
+import * as S from "./PaymentView.style";
+
+const PaymentView = () => {
+    const [{ options }, dispatch] = usePayPalScriptReducer();
+    const [showPaymentSection, setShowPaymentSection] = useState(true);
+
+    // useEffect(() => {
+    //     dispatch({
+    //         type: "resetOptions",
+    //         value: {
+    //             ...options,
+    //             intent: "subscription",
+    //         },
+    //     });
+    // }, [type]);
+
     return (
         <ViewBox>
             <S.Container>
                 <S.PadsContainer>
-                    <BoxPad width='300px'>
+                    <BoxPad width='100%'>
                         <S.PadContent>
                             <S.Header>
                                 <Label
-                                    fontSize='18px'
+                                    fontSize='20px'
                                     fontWeight='600'
                                     lineHeight='32px'
                                     color={mainTheme.colors.mainBlack}
@@ -62,17 +77,17 @@ const PremiumView = () => {
                                     </Label>
                                     <MoneyIcon />
                                 </S.Header>
-                                <Label fontSize='22px' color={mainTheme.colors.mainBlack}>
+                                <Label fontSize='24px' color={mainTheme.colors.mainBlack}>
                                     FREE
                                 </Label>
                             </S.CostContanier>
                         </S.PadContent>
                     </BoxPad>
-                    <BoxPad width='300px'>
+                    <BoxPad width='100%'>
                         <S.PadContent>
                             <S.Header iconSize='30px'>
                                 <GradientLabel>
-                                    <Label fontSize='18px' fontWeight='600' lineHeight='32px'>
+                                    <Label fontSize='20px' fontWeight='600' lineHeight='32px'>
                                         Premium account
                                     </Label>
                                 </GradientLabel>
@@ -118,19 +133,63 @@ const PremiumView = () => {
                             <S.ActionButton>
                                 <Button
                                     styleType='gradientFull'
-                                    onClick={() => {}}
+                                    onClick={() => setShowPaymentSection((prev) => !prev)}
                                     width='100px'
                                     size='small'
                                 >
-                                    Buy
+                                    Buy now
                                 </Button>
                             </S.ActionButton>
                         </S.PadContent>
                     </BoxPad>
                 </S.PadsContainer>
+                {showPaymentSection && (
+                    <S.PaymentSection>
+                        <PayPalButtons
+                            createSubscription={(data, actions) => {
+                                return actions.subscription
+                                    .create({
+                                        plan_id: "P-5H470394E7317452BMOLZMYQ",
+                                    })
+                                    .then((orderId) => {
+                                        // Your code here after create the order
+
+                                        return orderId;
+                                    });
+                            }}
+                            onApprove={async (data, actions) => {
+                                const order = await actions.order?.capture();
+                                console.log("order", order);
+                            }}
+                            style={{
+                                label: "subscribe",
+                            }}
+                        />
+                    </S.PaymentSection>
+                )}
             </S.Container>
         </ViewBox>
     );
 };
 
-export default PremiumView;
+export default PaymentView;
+
+// onApprove={(data, actions) => {
+//     console.log(actions.order);
+
+//     if (actions.order) {
+//         return actions.order.capture().then((details) => {
+//             console.log(details);
+
+//             if (details.payer.name)
+//                 alert(
+//                     "Transaction completed by " +
+//                         details.payer.name.given_name,
+//                 );
+//         });
+//     } else {
+//         return new Promise(() => {
+//             setTimeout(() => console.log("timeout"), 1000);
+//         }).then(() => console.log("timeout then"));
+//     }
+// }}

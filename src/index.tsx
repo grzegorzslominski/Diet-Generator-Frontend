@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import React from "react";
 
 import axiosFoodieInstance from "./axios/axiosFoodieInstance";
@@ -30,7 +31,7 @@ const getApiPath = async () => {
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            //   refetchOnMount: false,
+            refetchOnMount: false,
             refetchOnWindowFocus: false,
             refetchOnReconnect: false,
             staleTime: 1000 * 60 * 5,
@@ -48,7 +49,17 @@ root.render(
         <BrowserRouter>
             <Provider store={store}>
                 <QueryClientProvider client={queryClient}>
-                    <MainView />
+                    <PayPalScriptProvider
+                        options={{
+                            "client-id":
+                                "ARmk2ZR1YkM6uHxsqnE4IC3DqaSazz7MFO2lJsA3eKl4vFbgDqBsbpHZefq2FWzkGskDq77CVrrebypy",
+                            components: "buttons",
+                            intent: "subscription",
+                            vault: true,
+                        }}
+                    >
+                        <MainView />
+                    </PayPalScriptProvider>
                 </QueryClientProvider>
             </Provider>
         </BrowserRouter>

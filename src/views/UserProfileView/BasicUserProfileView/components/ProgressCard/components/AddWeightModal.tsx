@@ -4,19 +4,21 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 
 import {
-    getAllWeightRecordsIDByDay,
-    parseUserWeightStats,
-} from "../../UserStatisticsCard/helpers/userStatistics";
-import {
     NEW_WEIGHT_DATA,
     NEW_WEIGHT_VALIDATION_DATA,
     UserWeightRecord,
 } from "../../../../../../models/User/UserStatistics";
-import { setNotification } from "../../../../../../redux/slices/notification";
+import {
+    getAllWeightRecordsIDByDay,
+    parseUserWeightStats,
+} from "../../../../../../helpers/statistics";
 import { ENDPOINTS_PROFILE, ENDPOINTS_USER } from "../../../../../../navigation/endpoints";
+import { ReactComponent as RemoveIcon } from "../../../../../../assets/icons/XIcon.svg";
+import { setNotification } from "../../../../../../redux/slices/notification";
 import { parseUnixTime } from "../../../../../AuthViews/helpers/date";
 import { mainTheme } from "../../../../../../themes/mainTheme";
-import { ReactComponent as RemoveIcon } from "../../../../../../assets/icons/XIcon.svg";
+import { getUserData } from "../../../../../../models/User/User";
+import { setUser } from "../../../../../../redux/slices/user";
 
 import ModalPortal from "../../../../../../components/UI/ModalPortal/ModalPortal";
 import axiosFoodieInstance from "../../../../../../axios/axiosFoodieInstance";
@@ -28,8 +30,6 @@ import Label from "../../../../../../components/UI/Label/Label";
 import Input from "../../../../../../components/UI/Input/Input";
 
 import * as S from "./AddWeightModal.style";
-import { getUserData } from "../../../../../../models/User/User";
-import { setUser } from "../../../../../../redux/slices/user";
 
 type AddWeightModal = {
     weightStats?: UserWeightRecord[];
