@@ -40,7 +40,6 @@ const DietGeneratorView = () => {
         }
 
         setIsData(currentData);
-        console.log(data)
     };
 
     const handleForm = () => {

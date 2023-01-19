@@ -196,9 +196,9 @@ export interface recipeNotVerifiedBasicI {
 //     },
 // ];
 export const getForumPostsMeals = async () => {
-    return await axiosFoodieInstance.get<recipeVerifiedBasicI[]>(`/forum/recipe/verified`).then((response) => {
+    return await axiosFoodieInstance.get<recipeVerifiedBasicI[][]>(`/forum/recipe/verified`).then((response) => {
         if(response.status === 200){
-            return response.data
+            return response.data[0].concat(response.data[1])
         }
     })
 }
@@ -211,9 +211,9 @@ export const getForumFullMeal = async (postID: number | undefined) => {
 };
 
 export const getForumUnverifiedPostsMeals = async () => {
-    return await axiosFoodieInstance.get<recipeNotVerifiedBasicI[]>(`/forum/recipe/notVerified`).then((response) => {
+    return await axiosFoodieInstance.get<recipeNotVerifiedBasicI[][]>(`/forum/recipe/notVerified`).then((response) => {
         if(response.status === 200){
-            return response.data
+            return response.data[0].concat(response.data[1])
         }
     })
 }
@@ -227,9 +227,9 @@ export const getForumUnverifiedPostMeal = async (postID: number | undefined) => 
 }
 
 export const getForumPosts = async () => {
-    return await axiosFoodieInstance.get<BasicPostI[]>(`/forum/post`).then((response) => {
+    return await axiosFoodieInstance.get<BasicPostI[][]>(`/forum/post`).then((response) => {
         if (response.status === 200) {
-            return response.data;
+            return response.data[0].concat(response.data[1]);
         }
     });
 };

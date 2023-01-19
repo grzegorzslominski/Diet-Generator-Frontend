@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import Label from "../../components/UI/Label/Label";
@@ -9,12 +9,19 @@ import { mainTheme } from "../../themes/mainTheme";
 import CheckMark from "../../assets/icons/checkMark.svg";
 import XIcon from "../../assets/icons/XIcon.svg";
 
-
 import * as S from "./NewMealView.style";
 
-
-import { getDietProducts, USER_PROFILE_NEW_MEAL, UserNewMeal } from "../../models/User/UserForm";
+import {
+    getDietProducts,
+    ingredientType,
+    Unit,
+    UNITS,
+    USER_PROFILE_NEW_MEAL,
+    UserNewMeal,
+} from "../../models/User/UserForm";
 import ScrollBox from "../../components/UI/ScrollBox/ScrollBox";
+import SelectOption from "../../components/UI/Select/SelectOption";
+import Select from "../../components/UI/Select/Select";
 
 const NewMealView = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -23,22 +30,54 @@ const NewMealView = () => {
     const {
         data: products,
         isLoading,
-        error
+        error,
     } = useQuery(["getAllProducts"], () => getDietProducts());
+    const [searchValue, setSearchValue] = useState<string | null>(null);
+    const [filteredResults, setFilteredResults] = useState<ingredientType[] | undefined>();
 
+    useEffect(() => {
+        if (products && searchValue) {
+            const currentFilteredResults = products.filter((product) =>
+                product.name.includes(searchValue),
+            );
+            setFilteredResults(currentFilteredResults);
+        }
+    }, [searchValue]);
 
+    useEffect(() => {
+        if (products) {
+            setFilteredResults(products);
+        }
+    }, [products]);
 
-    const handleOnChange = (property: string, value: any) => {
+    const handleResults = (value: string) => {
+        setSearchValue(value);
+    };
+    const handleOnChange = (property: string, value: any, index?: number) => {
         const currentMeal: UserNewMeal = JSON.parse(JSON.stringify(newMeal));
-        if(property === 'products'){
-            currentMeal.products.push(value)
-        }else {
+        if (property === "ingredients") {
+            const id = currentMeal[property].findIndex(
+                (obj: ingredientType) => obj.id === value.id,
+            );
+            id === -1 ? currentMeal[property].push({
+                ...value, unit: "g"
+            }) : currentMeal[property].splice(id, 1);
+        } else if (index !== undefined) {
+            currentMeal.ingredients[index][property] = value;
+        } else {
             currentMeal[property] = value;
         }
-
         setNewMeal(currentMeal);
-        console.log(newMeal);
     };
+
+    // const dataValidation = (): boolean => {
+    //     let validationPassed = true;
+    //     const currentValidation
+    //
+    //     return validationPassed;
+    // }
+
+    console.log(newMeal);
 
     return (
         <S.Container>
@@ -217,27 +256,90 @@ const NewMealView = () => {
                         />
                     </S.InputRow>
                 </S.InputContainer>
+                <S.SearchContainer>
+                    <S.Search>
+                        <Input
+                            placeholder='results'
+                            onChange={(e) => handleResults(e.target.value)}
+                            label='Search'
+                            value={searchValue}
+                        />
+                    </S.Search>
+                </S.SearchContainer>
                 <S.ProductsContainer>
                     <ScrollBox scrollDistance={40} height={280} mobileScrollDistance={30}>
                         <S.ProductsList>
-                        {
-                           products ? products.map(product => {
-                                return <S.productItem key={product.name} onClick={() => handleOnChange("products",product)}>
-                                    <Label
-                                      fontSize='0.8rem'
-                                      textAlign='center'
-                                      fontWeight='400'
-                                      fontFamily='Lato'
-                                      color={mainTheme.colors.secondaryColor}
-                                    >
-                                        {product.name}
-                                    </Label>
-                                </S.productItem>
-                            }) : null
-                        }
+                            {filteredResults &&
+                                filteredResults.map((product) => {
+                                    return (
+                                        <S.productItem
+                                            key={product.name}
+                                            isOpen={newMeal.ingredients
+                                                .map((item) => item.name)
+                                                .includes(product.name)}
+                                            onClick={() => handleOnChange("ingredients", product)}
+                                        >
+                                            <Label
+                                                fontSize='0.8rem'
+                                                textAlign='center'
+                                                fontWeight='400'
+                                                fontFamily='Lato'
+                                                color={mainTheme.colors.secondaryColor}
+                                            >
+                                                {product.name}
+                                            </Label>
+                                        </S.productItem>
+                                    );
+                                })}
                         </S.ProductsList>
                     </ScrollBox>
                 </S.ProductsContainer>
+                {newMeal.ingredients.map((product, index) => {
+                    return (
+                        <S.InputContainer key={product.id}>
+                            <Label
+                                fontSize='1rem'
+                                textAlign='center'
+                                fontWeight='700'
+                                fontFamily='Lato'
+                                color={mainTheme.colors.mainBlack}
+                            >
+                                {product.name}
+                            </Label>
+                            <S.InputRow>
+                                <Input
+                                    placeholder='Amount'
+                                    onChange={(e) =>
+                                        handleOnChange("amount", e.target.value, index)
+                                    }
+                                    label='Amount'
+                                    type='number'
+                                    value={newMeal.ingredients[index].amount}
+                                />
+                                <Select
+                                    borderRadius='0'
+                                    onChange={(unit: string) => handleOnChange("unit", unit, index)}
+                                    value={newMeal.ingredients[index].unit}
+                                    width='100%'
+                                    label='Unit'
+                                    size='medium'
+                                >
+                                    {UNITS.map((unit: Unit) => (
+                                        <SelectOption
+                                            key={unit}
+                                            onChange={(unit: string) =>
+                                                handleOnChange("unit", unit, index)
+                                            }
+                                            value={unit}
+                                        >
+                                            {unit}
+                                        </SelectOption>
+                                    ))}
+                                </Select>
+                            </S.InputRow>
+                        </S.InputContainer>
+                    );
+                })}
                 <Button
                     isLoading={loading}
                     width='12rem'

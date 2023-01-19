@@ -90,18 +90,28 @@ export const ProductsList = styled.div`
   gap: 20px;
 `
 
-export const productItem = styled.div`
+export const productItem = styled.div<prop>`
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border: 1px solid ${mainTheme.colors.secondaryColor};
   
   cursor: pointer;
 
+  ${({isOpen}) => isOpen ? css `
+    border: 1px solid green;
+  ` : css`
+    border: 1px solid ${mainTheme.colors.secondaryColor};
+  `}
 
-  :hover {
-    
-  }
 
+`
+
+export const SearchContainer = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+`
+export const Search = styled.div`
+  width: 30%;
 `

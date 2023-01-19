@@ -46,7 +46,6 @@ export type NewMeal = {
     ingredients: NewMealIngredient[];
 };
 
-export const UNITS: string[] = ["g", "ml"];
 
 export type NewMealIngredient = {
     name: string;
