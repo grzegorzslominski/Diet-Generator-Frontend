@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 import { setNotification } from "../../../../../../redux/slices/notification";
+import { ENDPOINTS_USER } from "../../../../../../navigation/endpoints";
 import { mainTheme } from "../../../../../../themes/mainTheme";
 import { useForm } from "../../../../../../hooks/useForm";
 
@@ -40,23 +41,34 @@ const AddNewPostComment = ({ id }: AddNewPostCommentProps) => {
                 content: userComment.comment,
             };
             axiosFoodieInstance
-              .post(`${ENDPOINTS_USER.userAddPostComment}/${id}`, newComment)
-              .then((response) => {
-                  if (response.status === 201) {
-                      dispatch(
+                .post(`${ENDPOINTS_USER.userAddPostComment}/${id}`, newComment)
+                .then((response) => {
+                    if (response.status === 201)
+                        dispatch(
+                            setNotification({
+                                label: "Comment post",
+                                header: "Succes",
+                                message: "Comment was added",
+                                timeout: 5000,
+                            }),
+                        );
+                })
+                .catch((error) =>
+                    dispatch(
                         setNotification({
                             label: "Comment post",
                             header: "Failed",
-                            message: errorMessage,
+                            message: error,
                             timeout: 5000,
                         }),
-                    );
-                })
+                    ),
+                )
                 .finally(() => {
                     setIsLoading(false);
                 });
         },
     });
+
     return (
         <S.Container>
             <Label textAlign='center' fontSize='1rem' color={mainTheme.colors.mainBlack}>

@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import {
-    getDietProducts,
-    ingredientType,
     Unit,
     UNITS,
     USER_PROFILE_NEW_MEAL,
     UserNewMeal,
-} from "../../models/User/UserForm";
+    IngredientType,
+    getDietProducts,
+} from "../../models/Meal/NewMeal";
+
 import { mainTheme } from "../../themes/mainTheme";
 
 import SelectOption from "../../components/UI/Select/SelectOption";
@@ -32,12 +33,13 @@ const NewMealView = () => {
         isLoading,
         error,
     } = useQuery(["getAllProducts"], () => getDietProducts());
+
     const [searchValue, setSearchValue] = useState<string | null>(null);
-    const [filteredResults, setFilteredResults] = useState<ingredientType[] | undefined>();
+    const [filteredResults, setFilteredResults] = useState<IngredientType[]>();
 
     useEffect(() => {
         if (products && searchValue) {
-            const currentFilteredResults = products.filter((product) =>
+            const currentFilteredResults = products.filter((product: IngredientType) =>
                 product.name.includes(searchValue),
             );
             setFilteredResults(currentFilteredResults);
@@ -56,12 +58,17 @@ const NewMealView = () => {
     const handleOnChange = (property: string, value: any, index?: number) => {
         const currentMeal: UserNewMeal = JSON.parse(JSON.stringify(newMeal));
         if (property === "ingredients") {
-            const id = currentMeal[property].findIndex(
-                (obj: ingredientType) => obj.id === value.id,
+            const findedIndex = currentMeal[property].findIndex(
+                (ingridient) => ingridient.id === value.id,
             );
-            id === -1 ? currentMeal[property].push({
-                ...value, unit: "g"
-            }) : currentMeal[property].splice(id, 1);
+            if (findedIndex === -1) {
+                currentMeal[property].push({
+                    ...value,
+                    unit: "g",
+                });
+            } else {
+                currentMeal[property].splice(findedIndex, 1);
+            }
         } else if (index !== undefined) {
             currentMeal.ingredients[index][property] = value;
         } else {
@@ -76,8 +83,6 @@ const NewMealView = () => {
     //
     //     return validationPassed;
     // }
-
-    console.log(newMeal);
 
     return (
         <S.Container>
@@ -186,7 +191,7 @@ const NewMealView = () => {
                         )}
                     </S.TableItem>
                     <S.TableItem
-                        isOpen={newMeal.dairyFree}
+                        isOpen={Boolean(newMeal.dairyFree)}
                         onClick={() => handleOnChange("dairyFree", !newMeal.dairyFree)}
                     >
                         <Label
@@ -324,7 +329,7 @@ const NewMealView = () => {
                                     label='Unit'
                                     size='medium'
                                 >
-                                    {UNITS.map((unit: Unit) => (
+                                    {UNITS.map((unit: string) => (
                                         <SelectOption
                                             key={unit}
                                             onChange={(unit: string) =>
@@ -335,6 +340,7 @@ const NewMealView = () => {
                                             {unit}
                                         </SelectOption>
                                     ))}
+
                                 </Select>
                             </S.InputRow>
                         </S.InputContainer>

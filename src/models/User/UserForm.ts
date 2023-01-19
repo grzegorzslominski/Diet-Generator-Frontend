@@ -18,5 +18,3 @@ export const BASIC_USER_PROFILE_VALIDATION_DATA: BasicUserProfileValidation = {
     height: "",
     age: "",
 };
-
-

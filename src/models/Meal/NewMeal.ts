@@ -1,3 +1,7 @@
+import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+import { ENDPOINTS_MEALS } from "../../navigation/endpoints";
+import { User } from "../User/User";
+
 export type NewMeal = {
     mealName: string;
     servings: number;
@@ -81,4 +85,20 @@ export const BASIC_NEW_INGREDIENT: Ingredient = {
     name: "",
     amount: 0,
     unit: "ml",
+};
+
+export type IngredientType = {
+    id: number;
+    name: string;
+    unit: Unit;
+};
+
+export const getDietProducts = async () => {
+    return await axiosFoodieInstance
+        .get<IngredientType[]>(ENDPOINTS_MEALS.products)
+        .then((response) => {
+            if (response.status === 200 || response.status === 201) {
+                return response.data;
+            }
+        });
 };
