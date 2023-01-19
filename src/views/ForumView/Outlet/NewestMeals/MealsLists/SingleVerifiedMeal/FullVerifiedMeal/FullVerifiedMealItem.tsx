@@ -1,12 +1,12 @@
 import React from "react";
-import * as S from "../../../../../PostsList/PostItem/FullPostItem/FullPostItem.style";
+import * as S from "./FullVerifiedMealItem.style";
 import Label from "../../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../../themes/mainTheme";
 import { ReactComponent as Comment } from "../../../../../../../assets/icons/CommentIcon.svg"
 import { ReactComponent as Heart } from "../../../../../../../assets/icons/heart.svg"
 import CommentsList from "../../../../../PostsList/PostItem/FullPostItem/CommentsList/CommentsList";
 import ActionButton from "../../../../../../../components/UI/ActionButton/ActionButton";
-import {  recipeViewFullI } from "../../../../../PostsList/const/Posts";
+import { ingredientsI, recipeViewFullI } from "../../../../../PostsList/const/Posts";
 import CheckMark from "../../../../../../../assets/icons/checkMark.svg";
 import XIcon from "../../../../../../../assets/icons/XIcon.svg";
 import AddNewVerifiedComment from "./AddNewVerifiedComment/AddNewVerifiedComment";
@@ -22,6 +22,7 @@ type FullPostItem = {
 
 const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
   const dispatch = useDispatch();
+  console.log(recipe.recipeView.ingredients)
 
   const addLike = () => {
     axiosFoodieInstance.get(`/forum/recipe/like/${recipe.recipeView.id}`)
@@ -75,6 +76,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
           color={mainTheme.colors.mainBlack}>
           {recipe.recipeView.title}
         </Label>
+        <img src={recipe.recipeView.imagePath} alt="meal image" />
         <Label textAlign='center'>{recipe.recipeView.instructions}</Label>
         <S.Table>
           <S.TableItem isOpen={recipe.recipeView.vegetarian}>
@@ -260,6 +262,49 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
             </Label>
           </S.TableUnits>
         </S.Table>
+        <S.LabelContainer>
+        <Label
+          textAlign='center'
+          fontFamily='Montserrat'
+          fontWeight='600'
+          fontSize=' 0.8rem'
+          lineHeight='1rem'
+          color={mainTheme.colors.mainBlack}
+        >
+          Ingredients:
+        </Label>
+        </S.LabelContainer>
+        {
+          recipe.recipeView.ingredients.map((ingredient: ingredientsI) => {
+            return <S.Ingredient key={ingredient.name}>
+              <Label
+                fontFamily='Montserrat'
+                fontWeight='600'
+                fontSize=' 0.8rem'
+                lineHeight='1rem'
+              >
+                name: {ingredient.name}
+              </Label>
+              <Label
+                fontFamily='Montserrat'
+                fontWeight='600'
+                fontSize=' 0.8rem'
+                lineHeight='1rem'
+              >
+                Amount: {ingredient.amount}
+              </Label>
+              <Label
+                fontFamily='Montserrat'
+                fontWeight='600'
+                fontSize=' 0.8rem'
+                lineHeight='1rem'
+              >
+                Unit: {ingredient.unit ? ingredient.unit : "grams"}
+              </Label>
+            </S.Ingredient>
+
+          })
+        }
         <S.Footer>
           <S.FfirstItem>
             <S.IconWrapper>

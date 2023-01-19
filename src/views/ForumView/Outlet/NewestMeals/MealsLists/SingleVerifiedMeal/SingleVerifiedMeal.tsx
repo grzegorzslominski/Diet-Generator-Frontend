@@ -9,11 +9,12 @@ interface SinglePostItemProps {
     close: () => void;
 }
 const SingleVerifiedMeal = ({ id, close }: SinglePostItemProps) => {
-    const {
-        data: fullPost,
-        isLoading,
-        error,
-    } = useQuery([`forumRecipeVerified-${id}`, id], () => getForumFullMeal(id));
+
+  const {
+    data: fullPost,
+    isLoading,
+    error,
+  } = useQuery([`forumRecipeVerified-${id}`, id], () => getForumFullMeal(id));
 
     return fullPost ? (
         <ModalPortal blurLevel='normal' blurBackground={true} close={close}>

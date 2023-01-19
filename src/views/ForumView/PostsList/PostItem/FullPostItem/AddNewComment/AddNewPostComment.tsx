@@ -40,25 +40,10 @@ const AddNewPostComment = ({ id }: AddNewPostCommentProps) => {
                 content: userComment.comment,
             };
             axiosFoodieInstance
-                .post(`/forum/post/comment/${id}`, newComment)
-                .then((response) => {
-                    if (response.status === 201) {
-                        dispatch(
-                            setNotification({
-                                label: "Comment post",
-                                header: "Success",
-                                message: "Comment was created",
-                                timeout: 5000,
-                            }),
-                        );
-                    }
-                })
-                .catch((err) => {
-                    const errorMessage = err.response.data?.message
-                        ? err.response.data.message
-                        : "Cannot add comment";
-
-                    dispatch(
+              .post(`${ENDPOINTS_USER.userAddPostComment}/${id}`, newComment)
+              .then((response) => {
+                  if (response.status === 201) {
+                      dispatch(
                         setNotification({
                             label: "Comment post",
                             header: "Failed",

@@ -34,29 +34,31 @@ const AddNewVerifiedComment = ({ id }: AddNewVerifiedCommentProps) => {
                 },
             },
         },
-        onSubmit: () => {
-            setIsLoading(true);
-            const newComment = {
-                content: userComment.comment,
-            };
-            axiosFoodieInstance
-                .post(`/forum/recipe/comment/${id}`, newComment)
-                .then((response) => {
-                    if (response.status === 201) {
-                        dispatch(
-                            setNotification({
-                                label: "Comment post",
-                                header: "Success",
-                                message: "Comment was created",
-                                timeout: 5000,
-                            }),
-                        );
-                    }
-                })
-                .catch((err) => {
-                    const errorMessage = err.response.data?.message
-                        ? err.response.data.message
-                        : "Cannot add comment";
+      },
+    },
+    onSubmit: () => {
+      setIsLoading(true);
+      const newComment = {
+        content: userComment.comment
+      };
+      axiosFoodieInstance
+        .post(`${ENDPOINTS_USER}/${id}`, newComment)
+        .then((response) => {
+          if (response.status === 201) {
+            dispatch(
+              setNotification({
+                label: "Comment post",
+                header: "Success",
+                message: "Comment was created",
+                timeout: 5000,
+              }),
+            );
+          }
+        })
+        .catch((err) => {
+          const errorMessage = err.response.data?.message
+            ? err.response.data.message
+            : "Cannot add comment";
 
                     dispatch(
                         setNotification({

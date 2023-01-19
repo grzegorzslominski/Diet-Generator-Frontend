@@ -4,7 +4,10 @@ export enum ENDPOINTS_USER {
     register = "/account/register",
     userAddPostComment = "/forum/post/comment",
     userInfo = "/account/profile/info",
+    userAddPostComment = "/forum/post/comment",
+    userAddMealComment = "/forum/recipe/comment"
     userStats = "/account/stats",
+
 }
 
 export enum ENDPOINTS_PROFILE {
