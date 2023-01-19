@@ -29,9 +29,11 @@ export const Container = styled.div<InputContainerProps>`
 export const InputContainer = styled.div<InputContainerProps>`
     display: flex;
     align-items: center;
-    border-bottom: 1px solid;
-    border-color: ${({ disabled }) => (disabled ? "#B0B0B0" : "#d9d9d9")};
-
+    ${({ type, disabled }) =>
+        type !== "date" &&
+        css`
+            border-bottom: 1px solid ${disabled ? "#B0B0B0" : "#d9d9d9"};
+        `}
     svg {
         height: 15px;
         width: auto;

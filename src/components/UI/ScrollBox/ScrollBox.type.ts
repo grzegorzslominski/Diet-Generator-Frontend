@@ -17,6 +17,7 @@ export type ContentProps = {
     height: number;
     scrollDistance: number;
     scrollPosition?: "outside" | "inside";
+    hiddenScroll: boolean;
 };
 
 export type ScrollProps = {

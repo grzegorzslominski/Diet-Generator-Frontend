@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThemeProvider } from "styled-components";
 
 import { mainTheme } from "../../themes/mainTheme";
@@ -20,7 +20,7 @@ import HomeView from "../HomeView/HomeView";
 import BasicUserProfileView from "../UserProfileView/BasicUserProfileView/BasicUserProfileView";
 import NavbarVertical from "../../components/NavbarVertical/NavbarVertical";
 import ExpandedUserProfileView from "../UserProfileView/ExpandedUserProfileView/ExpandedUserProfileView";
-import PremiumView from "../PremiumView/PremiumView";
+import PaymentView from "../PaymentView/PaymentView";
 import ForumView from "../ForumView/ForumView";
 import NewestPosts from "../ForumView/Outlet/NewestPosts/NewestPosts";
 import NewestMeals from "../ForumView/Outlet/NewestMeals/NewestMeals";
@@ -48,12 +48,11 @@ const MainView = () => {
     };
 
     const checkVerticalNavbarVisibility = (): boolean => {
-        // return (
-        //     location.pathname !== NAVIGATION.home &&
-        //     !location.pathname.includes(NAVIGATION.forum) &&
-        //     Boolean(user)
-        // );
-        return true;
+        return (
+            location.pathname !== NAVIGATION.home &&
+            !location.pathname.includes(NAVIGATION.forum) &&
+            Boolean(user)
+        );
     };
 
     return (
@@ -76,7 +75,7 @@ const MainView = () => {
                                 verticalMenuIsOpen={verticalMenuIsOpen}
                             >
                                 <Routes>
-                                    {true && (
+                                    {user && (
                                         <>
                                             <Route
                                                 path={NAVIGATION.dashboard}
@@ -104,7 +103,7 @@ const MainView = () => {
                                             />
                                             <Route
                                                 path={NAVIGATION.premium}
-                                                element={<PremiumView />}
+                                                element={<PaymentView />}
                                             />
                                             <Route
                                                 path={NAVIGATION.newMeal}
@@ -137,7 +136,7 @@ const MainView = () => {
                                     <Route
                                         path={NAVIGATION.default}
                                         element={
-                                            !user ? (
+                                            user ? (
                                                 <DashboardView />
                                             ) : (
                                                 <HomeView authorizeUser={authorizeUser} />

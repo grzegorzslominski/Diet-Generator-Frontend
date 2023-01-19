@@ -5,17 +5,11 @@ export type CarouselProps = {
     version: "arrows" | "dots";
     gap: number;
     widthElement: number;
+    maxHeight?: string;
     scrollAxie?: "vertical" | "horizontal";
     buttonPosition?: ButtonPositionProps;
     displayOne?: boolean;
-    maxChildren?: number;
     arrowsColor?: string;
-    responsiveBreakpoints?: {
-        fourElement: number;
-        threeElement: number;
-        twoElement: number;
-        oneElement?: number;
-    };
 };
 
 export type ButtonPositionProps = {

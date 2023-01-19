@@ -18,7 +18,7 @@ const DashboardView = () => {
                     <NewsBox />
                     <NewCreator />
                 </S.TopSection>
-                {/* <MealsList title='Top rated meals' /> */}
+                <MealsList title='Top rated meals' />
                 <S.ArticleSection>
                     <Label
                         fontSize='24px'
@@ -30,7 +30,7 @@ const DashboardView = () => {
                     </Label>
                     <ProfileArticle {...NEWLY_ARTICLE} />
                 </S.ArticleSection>
-                {/* <MealsList title='New meals from influencers' version='author' /> */}
+                <MealsList title='New meals from influencers' version='author' />
             </S.Content>
         </ViewBox>
     );

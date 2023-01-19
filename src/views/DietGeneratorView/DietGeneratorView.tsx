@@ -46,8 +46,8 @@ const DietGeneratorView = () => {
         if (data.goal === "") {
             return false;
         }
-        if(data.exercise === ""){
-          return false
+        if (data.exercise === "") {
+            return false;
         }
         return data.questions.length >= 13;
     };
@@ -72,7 +72,6 @@ const DietGeneratorView = () => {
                 const errorMessage = err.response.data?.message
                     ? err.response.data.message
                     : "Cannot create diet";
-
 
                 dispatch(
                     setNotification({

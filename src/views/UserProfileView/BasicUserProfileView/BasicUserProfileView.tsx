@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
-import { getBasicUserProfile } from "../../../models/User/User";
+import { getUserBasicProfile } from "../../../models/Profile/BasicProfile";
 
 import UserStatisticsCard from "./components/UserStatisticsCard/UserStatisticsCard";
 import CurrentDietCard from "./components/CurrentDietCard/CurrentDietCard";
@@ -14,32 +15,37 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import ViewBox from "../../../components/UI/ViewBox/ViewBox";
 import SurveyCard from "./components/SurveyCard/SurveyCard";
 
+import { TStore } from "../../../redux/store/store";
+
 import * as S from "./BasicUserProfileView.style";
 
 const BasicUserProfileView = () => {
-    const userID = 1;
+    const user = useSelector((state: TStore) => state?.userReducer);
 
-    const {
-        data: basicUserProfileData,
-        isLoading,
-        error,
-    } = useQuery(["basicUserProfile", userID], () => getBasicUserProfile(userID));
+    const { data: basicProfileData } = useQuery(["userBasicProfile"], getUserBasicProfile);
 
     return (
         <ViewBox>
-            <S.Container>
-                <S.ProfileDetailsContainer>
-                    <UserDetailsCard className='details' />
-                    <UserStatisticsCard className='statistics' />
-                    <OwnMealsCard className='ownMeals' />
-                    <CurrentDietCard className='currentDiet' />
-                    <ProgressCard className='progress' />
-                    <SurveyCard className='survey' />
-                    <ExclusionsCard className='exclusion' />
-                    <PremiumCard className='premium' />
-                </S.ProfileDetailsContainer>
-                <CreatorCard />
-            </S.Container>
+            {!user || !basicProfileData ? (
+                <Spinner color='secondary' size='big' />
+            ) : (
+                <S.Container>
+                    <S.ProfileDetailsContainer>
+                        <UserDetailsCard className='details' user={user} />
+                        <UserStatisticsCard
+                            className='statistics'
+                            userStats={basicProfileData.userStats}
+                        />
+                        <OwnMealsCard className='ownMeals' />
+                        <CurrentDietCard className='currentDiet' />
+                        <ProgressCard className='progress' />
+                        <SurveyCard className='survey' />
+                        <ExclusionsCard className='exclusion' />
+                        <PremiumCard className='premium' />
+                    </S.ProfileDetailsContainer>
+                    <CreatorCard />
+                </S.Container>
+            )}
         </ViewBox>
     );
 };

@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import Label from "../../components/UI/Label/Label";
-import Button from "../../components/UI/Button/Button";
-import Input from "../../components/UI/Input/Input";
-import TextArea from "../../components/UI/TextArea/TextArea";
-import { mainTheme } from "../../themes/mainTheme";
-import CheckMark from "../../assets/icons/checkMark.svg";
-import XIcon from "../../assets/icons/XIcon.svg";
-
-import * as S from "./NewMealView.style";
-
 import {
     getDietProducts,
     ingredientType,
@@ -19,9 +9,19 @@ import {
     USER_PROFILE_NEW_MEAL,
     UserNewMeal,
 } from "../../models/User/UserForm";
-import ScrollBox from "../../components/UI/ScrollBox/ScrollBox";
+import { mainTheme } from "../../themes/mainTheme";
+
 import SelectOption from "../../components/UI/Select/SelectOption";
+import ScrollBox from "../../components/UI/ScrollBox/ScrollBox";
+import TextArea from "../../components/UI/TextArea/TextArea";
+import CheckMark from "../../assets/icons/checkMark.svg";
+import Button from "../../components/UI/Button/Button";
 import Select from "../../components/UI/Select/Select";
+import Input from "../../components/UI/Input/Input";
+import Label from "../../components/UI/Label/Label";
+import XIcon from "../../assets/icons/XIcon.svg";
+
+import * as S from "./NewMealView.style";
 
 const NewMealView = () => {
     const [loading, setLoading] = useState<boolean>(false);

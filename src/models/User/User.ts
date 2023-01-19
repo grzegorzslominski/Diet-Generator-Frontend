@@ -1,94 +1,58 @@
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+import { ENDPOINTS_USER } from "../../navigation/endpoints";
 
 export type UserData = {
-    readonly id?: number;
+    readonly id: number;
     firstName: string | null;
     lastName: string | null;
     email: string;
     profileType?: ProfileType;
-    profilePicturePath?: string;
+    profileImagePath?: string;
     weight?: number;
     height?: number;
-    gender: GenderType | null;
+    gender: GenderTypeValue | null;
     bmi: number;
     age?: number;
-    kCal: number;
+    kCal?: number;
+    timestamp: number;
     [key: string]: number | string | ProfileType | undefined | null;
 };
 
-export const GENDERS: GenderType[] = ["female", "male"];
+export type UserFormData = UserData & {
+    profileImagePath: UploadItem;
+};
 
-export type GenderType = "male" | "female";
+export type GenderType = {
+    value: GenderTypeValue;
+    label: string;
+};
 
-export type User = UserData | null;
+export type GenderTypeValue = "FEMALE" | "MALE";
+
+export const GENDERS: GenderType[] = [
+    { value: "FEMALE", label: "Female" },
+    { value: "MALE", label: "Male" },
+];
 
 export type ProfileType = "standard" | "influencer" | "dietician";
 
-export type UserSignIn = {
-    email: string;
-    password: string;
+export type User = UserData | null;
+
+export type UploadItem = {
+    type: string;
+    url: string;
+    file: any;
+} | null;
+
+export type UploadResponse = {
+    url: string;
 };
 
-export type NewMeal = {
-    mealName: string;
-    servings: number;
-    readyInMinutes: number;
-    image: string;
-    instructions: string;
-    vegetarian: boolean;
-    vegan: boolean;
-    glutenFree: boolean;
-    veryHealthy: boolean;
-    calories: string;
-    fat: string;
-    protein: string;
-    carbs: string;
-    ingredients: NewMealIngredient[];
-};
-
-
-export type NewMealIngredient = {
-    name: string;
-    amount: number;
-    unit: string;
-};
-
-export type UserSignInResponse = {
-    user: User;
-    authToken: string;
-};
-
-export type UserSignUp = {
-    email: string;
-    password: string;
-    confirmPassword: string;
-};
-
-export type UserSignUpRequest = {
-    email: string;
-    password: string;
-};
-
-export type UserSignUpResponse = {
-    encodedData: string;
-};
-
-export type UserComment = {
-    comment: string;
-};
-
-export type NewPost = {
-    title: string;
-    description: string;
-    image: string;
-};
-
-export const getBasicUserProfile = async (userID: number) => {
-    return await axiosFoodieInstance
-        .get<UserData[]>(`account/profile/${userID}`)
-        .then((response) => {
-            if (response.status === 200) {
-                return response.data;
-            }
-        });
+export const getUserData = async () => {
+    return await axiosFoodieInstance.get(ENDPOINTS_USER.userInfo).then((response) => {
+        if (response.status === 200) {
+            const userData: User = response.data;
+            return userData;
+        }
+    });
 };

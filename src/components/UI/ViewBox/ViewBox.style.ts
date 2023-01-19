@@ -6,6 +6,7 @@ type ContainerProps = {
 };
 
 export const Container = styled.div<ContainerProps>`
+    height: 100%;
     width: calc(100% - 80px);
     max-width: ${({ maxWidth }) => maxWidth};
     display: flex;

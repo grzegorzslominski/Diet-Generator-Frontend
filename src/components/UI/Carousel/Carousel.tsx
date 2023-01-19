@@ -11,6 +11,7 @@ const Carousel = ({
     version,
     gap,
     widthElement,
+    maxHeight,
     arrowsColor = "#989898",
     scrollAxie = "horizontal",
     buttonPosition = {
@@ -19,9 +20,8 @@ const Carousel = ({
     children,
 }: CarouselProps) => {
     const wrappperRef = useRef<HTMLDivElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
 
-    const [index, setIndex] = useState(0);
+    const [activeElementIndex, setActiveElementIndex] = useState(0);
     const [displayChildrenCount, setDisplayChildrenCount] = useState(1);
 
     useEffect(() => {
@@ -33,27 +33,40 @@ const Carousel = ({
     }, [wrappperRef.current]);
 
     const handleUpdateIndex = (type: "-" | "+", actualIndex: number, shiftIndex: number) => {
-        let currentIndex = index;
+        let currentIndex = activeElementIndex;
         if (type === "-") {
-            if (actualIndex - shiftIndex < 0) currentIndex = 0;
-            else currentIndex = actualIndex - shiftIndex;
+            if (version === "arrows") {
+                if (actualIndex - shiftIndex < 0) currentIndex = 0;
+                else currentIndex = actualIndex - shiftIndex;
+            } else {
+                if (actualIndex - shiftIndex > -1) {
+                    currentIndex = actualIndex - shiftIndex;
+                }
+            }
         } else {
-            if (actualIndex + shiftIndex > children.length - displayChildrenCount)
-                currentIndex = children.length - displayChildrenCount;
-            else currentIndex = actualIndex + shiftIndex;
+            if (version === "arrows") {
+                if (actualIndex + shiftIndex > children.length - displayChildrenCount)
+                    currentIndex = children.length - displayChildrenCount;
+                else currentIndex = actualIndex + shiftIndex;
+            } else {
+                if (actualIndex + shiftIndex < children.length) {
+                    currentIndex = actualIndex + shiftIndex;
+                }
+            }
         }
-        setIndex(currentIndex);
+
+        setActiveElementIndex(currentIndex);
     };
 
     const handleConstrains = (offsetX: number, offsetY: number) => {
         if (version === "arrows") {
             handleUpdateIndex(
                 offsetX < 0 ? "+" : "-",
-                index,
+                activeElementIndex,
                 Math.abs(Math.ceil(Math.abs(offsetX) / widthElement)),
             );
         } else {
-            handleUpdateIndex(offsetY < 0 ? "+" : "-", index, 1);
+            handleUpdateIndex(offsetY < 0 ? "+" : "-", activeElementIndex, 1);
         }
     };
 
@@ -70,18 +83,8 @@ const Carousel = ({
         } else return `translateX(-${(widthElement + gap) * activeIndex}px)`;
     };
 
-    console.log(contentRef.current?.childNodes[0].childNodes[0].parentElement?.clientHeight);
-
     return (
-        <S.CarouselContainer
-            height={
-                version === "arrows"
-                    ? "auto"
-                    : `${contentRef.current?.childNodes[0].childNodes[0].parentElement?.clientHeight}px`
-            }
-            buttonVersion={version}
-            ref={wrappperRef}
-        >
+        <S.CarouselContainer buttonVersion={version} ref={wrappperRef}>
             <S.CarouselInner>
                 <motion.div
                     drag={scrollAxie === "horizontal" ? "x" : "y"}
@@ -92,21 +95,27 @@ const Carousel = ({
                     dragMomentum={false}
                 >
                     <S.Content
-                        ref={contentRef}
-                        translateExp={translateExp(version, scrollAxie, widthElement, gap, index)}
+                        translateExp={translateExp(
+                            version,
+                            scrollAxie,
+                            widthElement,
+                            gap,
+                            activeElementIndex,
+                        )}
                         gap={gap}
+                        maxHeight={maxHeight}
                         scrollAxie={scrollAxie}
                         buttonVersion={version}
                     >
                         {children}
                     </S.Content>
                 </motion.div>
-                <S.Indicators buttonVersion={version} imgArrayLength={children.length}>
+                <div>
                     {version === "arrows" ? (
                         <>
                             <S.ArrowButton
                                 arrowsColor={arrowsColor}
-                                onClick={() => handleUpdateIndex("-", index, 1)}
+                                onClick={() => handleUpdateIndex("-", activeElementIndex, 1)}
                                 position='left'
                                 buttonPosition={
                                     buttonPosition?.leftButton
@@ -126,7 +135,7 @@ const Carousel = ({
                             </S.ArrowButton>
                             <S.ArrowButton
                                 arrowsColor={arrowsColor}
-                                onClick={() => handleUpdateIndex("+", index, 1)}
+                                onClick={() => handleUpdateIndex("+", activeElementIndex, 1)}
                                 position='right'
                                 buttonPosition={
                                     buttonPosition?.rightButton
@@ -146,18 +155,18 @@ const Carousel = ({
                             </S.ArrowButton>
                         </>
                     ) : null}
-                </S.Indicators>
+                </div>
                 {version === "dots" ? (
                     <S.DotsContainer>
-                        {children.map((child, childIndex) => {
+                        {children.map((child, index) => {
                             return (
                                 <S.DotButton
                                     key={index}
-                                    active={childIndex === index}
+                                    active={index === activeElementIndex}
                                     onClick={() => {
-                                        setIndex(childIndex);
+                                        setActiveElementIndex(index);
                                     }}
-                                ></S.DotButton>
+                                />
                             );
                         })}
                     </S.DotsContainer>

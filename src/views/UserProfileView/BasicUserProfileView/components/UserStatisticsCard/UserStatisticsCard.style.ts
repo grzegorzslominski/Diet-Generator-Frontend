@@ -31,7 +31,7 @@ export const ChartSettingsContainer = styled.div`
 
     @media screen and (max-width: 820px) {
         top: 8px;
-        right: -12px;
+        left: -4px;
         flex-direction: row;
     }
 `;
@@ -47,6 +47,10 @@ export const CharSetting = styled.div`
         align-items: flex-start;
         justify-content: flex-start;
         gap: 8px;
+
+        & > span:first-child {
+            padding-left: 4px;
+        }
     }
 `;
 
@@ -56,9 +60,7 @@ export const ChartSettingButtonsContainer = styled.div`
     gap: 12px;
 
     @media screen and (max-width: 820px) {
-        display: grid;
-        grid-template-columns: repeat(2, 64px);
-        gap: 8px;
+        justify-content: flex-starts;
     }
 `;
 

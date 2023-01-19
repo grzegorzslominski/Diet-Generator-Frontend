@@ -1,21 +1,24 @@
-import React, { useState } from "react";
-import * as S from "./AddNewComment.style";
-import { UserComment } from "../../../../../../models/User/User";
-import { useForm } from "../../../../../../hooks/useForm";
-import Label from "../../../../../../components/UI/Label/Label";
-import { mainTheme } from "../../../../../../themes/mainTheme";
-import Button from "../../../../../../components/UI/Button/Button";
-import TextArea from "../../../../../../components/UI/TextArea/TextArea";
-import axiosFoodieInstance from "../../../../../../axios/axiosFoodieInstance";
-import { ENDPOINTS_USER } from "../../../../../../navigation/endpoints";
-import { setNotification } from "../../../../../../redux/slices/notification";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
-interface props {
-  id: number
+import { setNotification } from "../../../../../../redux/slices/notification";
+import { mainTheme } from "../../../../../../themes/mainTheme";
+import { useForm } from "../../../../../../hooks/useForm";
+
+import axiosFoodieInstance from "../../../../../../axios/axiosFoodieInstance";
+import TextArea from "../../../../../../components/UI/TextArea/TextArea";
+import Button from "../../../../../../components/UI/Button/Button";
+import Label from "../../../../../../components/UI/Label/Label";
+
+import { UserComment } from "../../../../../../models/Meal/NewMeal";
+
+import * as S from "./AddNewComment.style";
+
+interface AddNewPostCommentProps {
+    id: number;
 }
-const AddNewPostComment = ({id}: props) => {
-    const [isLoading,setIsLoading] = useState<boolean>(false)
+const AddNewPostComment = ({ id }: AddNewPostCommentProps) => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const dispatch = useDispatch();
     const {
         handleSubmit,
@@ -34,7 +37,7 @@ const AddNewPostComment = ({id}: props) => {
         onSubmit: () => {
             setIsLoading(true);
             const newComment = {
-                content: userComment.comment
+                content: userComment.comment,
             };
             axiosFoodieInstance
               .post(`${ENDPOINTS_USER.userAddPostComment}/${id}`, newComment)
@@ -43,30 +46,15 @@ const AddNewPostComment = ({id}: props) => {
                       dispatch(
                         setNotification({
                             label: "Comment post",
-                            header: "Success",
-                            message: "Comment was created",
+                            header: "Failed",
+                            message: errorMessage,
                             timeout: 5000,
                         }),
-                      );
-                  }
-              })
-              .catch((err) => {
-                  const errorMessage = err.response.data?.message
-                    ? err.response.data.message
-                    : "Cannot add comment";
-
-                  dispatch(
-                    setNotification({
-                        label: "Comment post",
-                        header: "Failed",
-                        message: errorMessage,
-                        timeout: 5000,
-                    }),
-                  );
-              })
-              .finally(() => {
-                  setIsLoading(false);
-              });
+                    );
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
         },
     });
     return (
@@ -75,12 +63,12 @@ const AddNewPostComment = ({id}: props) => {
                 Add new comment
             </Label>
             <TextArea
-              onChange={handleChange("comment")}
-              label='Comment'
-              placeholder='What are your thoughts?'
-              value={userComment.comment}
-              error={errors.comment}
-              width='100%'
+                onChange={handleChange("comment")}
+                label='Comment'
+                placeholder='What are your thoughts?'
+                value={userComment.comment}
+                error={errors.comment}
+                width='100%'
             />
             <S.ButtonContainer>
                 <Button

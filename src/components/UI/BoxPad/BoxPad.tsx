@@ -17,6 +17,7 @@ type BoxPadType = ClassNameProp & {
     header?: string;
     gradientHeader?: boolean;
     width?: string;
+    boxShadow?: boolean;
 };
 
 const BoxPad = ({
@@ -28,6 +29,7 @@ const BoxPad = ({
     gradientHeader = false,
     width = "fit-content",
     className = "",
+    boxShadow = true,
 }: BoxPadType) => {
     return (
         <S.Contanier
@@ -36,6 +38,7 @@ const BoxPad = ({
             gap={gap}
             width={width}
             className={className ? className : ""}
+            boxShadow={boxShadow}
         >
             {header && gradientHeader ? (
                 <GradientLabel>

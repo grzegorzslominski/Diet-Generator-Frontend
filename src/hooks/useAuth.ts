@@ -32,6 +32,7 @@ export default function useAuth() {
 
         if (!localAuthToken) {
             setIsLoading(false);
+            dispatch(setUser(null));
             return;
         }
         return loginUser();
