@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
-import { parseUserStats } from "./helpers/userStatistics";
+import { parseUserStats } from "../../../../../helpers/statistics";
 
 import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPad";
 import Spinner from "../../../../../components/UI/Spinner/Spinner";

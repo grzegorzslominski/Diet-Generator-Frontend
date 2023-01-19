@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+`;
 
 export const PadsContainer = styled.div`
-    display: flex;
-    gap: 48px;
+    display: grid;
+    grid-template-columns: repeat(2, 400px);
+    column-gap: 64px;
 `;
 
 export const PadContent = styled.div`
@@ -12,6 +18,7 @@ export const PadContent = styled.div`
     flex-direction: column;
     gap: 36px;
     height: 350px;
+    padding: 6px;
 `;
 
 type HeaderProps = {
@@ -22,6 +29,8 @@ type HeaderProps = {
 export const Header = styled.div<HeaderProps>`
     display: flex;
     gap: ${({ gap }) => (gap ? gap : "24px")};
+    width: 100%;
+    justify-content: center;
 
     svg {
         height: ${({ iconSize }) => (iconSize ? iconSize : null)};
@@ -50,4 +59,10 @@ export const CostContanier = styled.div`
 export const ActionButton = styled.div`
     display: flex;
     justify-content: flex-end;
+`;
+
+export const PaymentSection = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;

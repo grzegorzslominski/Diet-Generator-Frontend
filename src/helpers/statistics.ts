@@ -1,12 +1,7 @@
-import { parseUnixTime } from "../../../../../AuthViews/helpers/date";
-import {
-    ChartPeriod,
-    ChartData,
-    UserStats,
-    UserWeightRecord,
-} from "../../../../../../models/User/UserStatistics";
-import { UserData } from "../../../../../../models/User/User";
 import moment from "moment";
+import { UserData } from "../models/User/User";
+import { ChartData, ChartPeriod, UserStats, UserWeightRecord } from "../models/User/UserStatistics";
+import { parseUnixTime } from "../views/AuthViews/helpers/date";
 
 export const parseUserStats = (userStats: UserStats, timePeriod: ChartPeriod): ChartData => {
     const userStatsSortedByDate = userStats.sort((a, b) => a.timestamp - (b.timestamp + 1));

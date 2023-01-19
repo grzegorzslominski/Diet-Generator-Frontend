@@ -20,7 +20,7 @@ import HomeView from "../HomeView/HomeView";
 import BasicUserProfileView from "../UserProfileView/BasicUserProfileView/BasicUserProfileView";
 import NavbarVertical from "../../components/NavbarVertical/NavbarVertical";
 import ExpandedUserProfileView from "../UserProfileView/ExpandedUserProfileView/ExpandedUserProfileView";
-import PremiumView from "../PremiumView/PremiumView";
+import PaymentView from "../PaymentView/PaymentView";
 import ForumView from "../ForumView/ForumView";
 import NewestPosts from "../ForumView/Outlet/NewestPosts/NewestPosts";
 import NewestMeals from "../ForumView/Outlet/NewestMeals/NewestMeals";
@@ -103,7 +103,7 @@ const MainView = () => {
                                             />
                                             <Route
                                                 path={NAVIGATION.premium}
-                                                element={<PremiumView />}
+                                                element={<PaymentView />}
                                             />
                                             <Route
                                                 path={NAVIGATION.newMeal}
