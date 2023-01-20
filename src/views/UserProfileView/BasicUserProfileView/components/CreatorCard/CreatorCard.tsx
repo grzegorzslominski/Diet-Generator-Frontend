@@ -1,12 +1,23 @@
+import { useState } from "react";
+
 import { mainTheme } from "../../../../../themes/mainTheme";
 
+import CreatorFormModal from "./components/CreatorFormModal/CreatorFormModal";
 import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
-import Label from "../../../../../components/UI/Label/Label";
 import Button from "../../../../../components/UI/Button/Button";
+import Label from "../../../../../components/UI/Label/Label";
+
+import { UserData } from "../../../../../models/User/User";
 
 import * as S from "./CreatorCard.stylet";
 
-const CreatorCard = () => {
+type CreatorCardType = {
+    user: UserData;
+};
+
+const CreatorCard = ({ user }: CreatorCardType) => {
+    const [openCreatorFormModal, setOpenCreatorFormModal] = useState(false);
+
     return (
         <BoxPad header='Creator account' width='100%'>
             <S.Content>
@@ -15,10 +26,17 @@ const CreatorCard = () => {
                     or nutrition? If so, contact our team to extend your account with additional
                     functionalities to reach our users.
                 </Label>
-                <Button styleType='gradientFull' onClick={() => {}} width='150px'>
+                <Button
+                    styleType='gradientFull'
+                    onClick={() => setOpenCreatorFormModal(true)}
+                    width='150px'
+                >
                     Become a foodie
                 </Button>
             </S.Content>
+            {openCreatorFormModal && (
+                <CreatorFormModal user={user} onClose={() => setOpenCreatorFormModal(false)} />
+            )}
         </BoxPad>
     );
 };

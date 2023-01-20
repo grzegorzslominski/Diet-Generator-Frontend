@@ -1,3 +1,5 @@
+import { UserData } from "./User";
+
 export type BasicUserProfileValidation = {
     firstName: string;
     lastName: string;

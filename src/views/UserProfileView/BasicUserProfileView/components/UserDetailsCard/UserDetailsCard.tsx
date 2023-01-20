@@ -209,7 +209,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
                                 url={userDetails.profileImagePath?.url}
                                 type={userDetails.profileImagePath?.type}
                                 onChange={userAvatarOnChangePrehandler}
-                                removeItem={() => handleOnChange("profileImagePath", null)}
+                                onRemove={() => handleOnChange("profileImagePath", null)}
                                 accept={{
                                     "image/jpeg": [".jpeg", ".png"],
                                     "image/png": [".jpeg", ".png"],

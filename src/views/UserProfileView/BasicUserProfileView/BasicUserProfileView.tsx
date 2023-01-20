@@ -43,7 +43,7 @@ const BasicUserProfileView = () => {
                         <ExclusionsCard className='exclusion' />
                         <PremiumCard className='premium' />
                     </S.ProfileDetailsContainer>
-                    <CreatorCard />
+                    <CreatorCard user={user} />
                 </S.Container>
             )}
         </ViewBox>

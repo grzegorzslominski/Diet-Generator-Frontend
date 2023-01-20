@@ -42,7 +42,7 @@ const MobileMenu = ({ close }: MobileMenuProps) => {
     };
 
     return (
-        <ModalPortal blurBackground>
+        <ModalPortal blurBackground close={() => {}}>
             <S.Container>
                 <S.CloseButtonContanier>
                     <ActionButton type='remove' onClick={close} />
