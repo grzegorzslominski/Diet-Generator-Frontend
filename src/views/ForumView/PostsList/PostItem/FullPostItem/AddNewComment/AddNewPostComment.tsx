@@ -11,7 +11,7 @@ import TextArea from "../../../../../../components/UI/TextArea/TextArea";
 import Button from "../../../../../../components/UI/Button/Button";
 import Label from "../../../../../../components/UI/Label/Label";
 
-import { UserComment } from "../../../../../../models/Meal/NewMeal";
+import { UserComment } from "../../../../../../models/Meal/Recipe";
 
 import * as S from "./AddNewComment.style";
 

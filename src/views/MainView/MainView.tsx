@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 
 import { mainTheme } from "../../themes/mainTheme";
@@ -25,7 +25,7 @@ import ForumView from "../ForumView/ForumView";
 import NewestPosts from "../ForumView/Outlet/NewestPosts/NewestPosts";
 import NewestMeals from "../ForumView/Outlet/NewestMeals/NewestMeals";
 import VerifyNewMeal from "../ForumView/Outlet/VerifyNewMeal/VerifyNewMeal";
-import NewMealView from "../NewMealView/NewMealView";
+import RecipeView from "../RecipeView/RecipeView";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 import * as S from "./MainView.style";
@@ -106,8 +106,12 @@ const MainView = () => {
                                                 element={<PaymentView />}
                                             />
                                             <Route
-                                                path={NAVIGATION.newMeal}
-                                                element={<NewMealView />}
+                                                path={`${NAVIGATION.recipe}`}
+                                                element={<RecipeView />}
+                                            />
+                                            <Route
+                                                path={`${NAVIGATION.recipe}/?mealID`}
+                                                element={<RecipeView />}
                                             />
                                         </>
                                     )}

@@ -5,18 +5,18 @@ import { mainTheme } from "../../../../../../../themes/mainTheme";
 import NutriensBarChart from "../../../../../../../components/NutriensBarChart/NutriensBarChart";
 import ActionButton from "../../../../../../../components/UI/ActionButton/ActionButton";
 import Label from "../../../../../../../components/UI/Label/Label";
+import RecipeInfoModal from "./RecipeInfoModal/RecipeInfoModal";
 
-import { UserRecipe } from "../../../../../../../models/Profile/BasicProfile";
+import { Recipe } from "../../../../../../../models/Meal/Recipe";
 
-import * as S from "./OwnMeal.style";
-import MealInfoModal from "./MealInfoModal/MealInfoModal";
+import * as S from "./OwnRecipe.style";
 
-type OwnMealProps = {
-    userRecipe: UserRecipe;
+type OwnRecipeProps = {
+    userRecipe: Recipe;
 };
 
-const OwnMeal = ({ userRecipe }: OwnMealProps) => {
-    const [openMealInfoModal, setOpenMealInfoModal] = useState(false);
+const OwnRecipe = ({ userRecipe }: OwnRecipeProps) => {
+    const [openRecipeModal, setOpenRecipeInfoModal] = useState(false);
 
     return (
         <S.Container>
@@ -30,7 +30,11 @@ const OwnMeal = ({ userRecipe }: OwnMealProps) => {
                 >
                     {userRecipe.title}
                 </Label>
-                <ActionButton type='info' onClick={() => setOpenMealInfoModal(true)} size='small' />
+                <ActionButton
+                    type='info'
+                    onClick={() => setOpenRecipeInfoModal(true)}
+                    size='small'
+                />
             </S.TopSection>
             <S.MealValuesSection>
                 <NutriensBarChart
@@ -47,11 +51,14 @@ const OwnMeal = ({ userRecipe }: OwnMealProps) => {
                     </Label>
                 </S.CaloriesValueContainer>
             </S.MealValuesSection>
-            {openMealInfoModal && (
-                <MealInfoModal userRecipe={userRecipe} close={() => setOpenMealInfoModal(false)} />
+            {openRecipeModal && (
+                <RecipeInfoModal
+                    userRecipe={userRecipe}
+                    close={() => setOpenRecipeInfoModal(false)}
+                />
             )}
         </S.Container>
     );
 };
 
-export default OwnMeal;
+export default OwnRecipe;

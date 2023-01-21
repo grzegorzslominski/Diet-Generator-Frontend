@@ -9,7 +9,7 @@ import ExclusionsModal from "./ExclusionsModal/ExclusionsModal";
 import Button from "../../../../../components/UI/Button/Button";
 import Label from "../../../../../components/UI/Label/Label";
 
-import { ExcludedProducts, getProducts } from "../../../../../models/Profile/BasicProfile";
+import { ExcludedProducts, getProducts } from "../../../../../models/Meal/Exclusions";
 
 import * as S from "./ExclusionsCard.style";
 
@@ -74,14 +74,14 @@ const ExclusionsCard = ({ className, excludedProducts }: ExclusionsCardProps) =>
                     Manage exclusions
                 </Button>
 
-                {openExclusionsModal && (
+                {/* {openExclusionsModal && (
                     <ExclusionsModal
                         exclusions={excludedProducts?.listOfExcludedProducts}
                         products={products}
                         productsIsLoading={isLoading}
                         close={() => setOpenExclusionsModal(false)}
                     />
-                )}
+                )} */}
             </S.Container>
         </BoxPad>
     );

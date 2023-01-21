@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import * as S from "./ForumView.style";
-import Label from "../../components/UI/Label/Label";
-import { mainTheme } from "../../themes/mainTheme";
-import { NAV_ITEMS, NavbarForumI } from "./const/NavbarForum";
 import { Outlet, useNavigate } from "react-router-dom";
+
+import { mainTheme } from "../../themes/mainTheme";
+import { NAV_ITEMS, NavbarForum } from "./const/NavbarForum";
+
+import Label from "../../components/UI/Label/Label";
+
+import * as S from "./ForumView.style";
+
 const ForumView = () => {
     const navigate = useNavigate();
 
-    const navigationHandler = (item: NavbarForumI) => {
+    const navigationHandler = (item: NavbarForum) => {
         if (item.routing) {
             if (item.external) {
                 window.open(item.routing, "_self");

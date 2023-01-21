@@ -42,7 +42,7 @@ export const Scroll = styled.div<ScrollProps>`
         width: 2px;
         position: absolute;
         top: 0;
-        right: 5px;
+        right: 6px;
         ${({ hidden }) => (hidden ? `display: none` : "display: flex")}
     }
 

@@ -10,7 +10,7 @@ import * as S from "./NewestPosts.style";
 const NewestPosts = () => {
     const { postID } = useParams();
 
-    const { data: basicPosts, isLoading, error } = useQuery(["forumPosts"], () => getForumPosts());
+    const { data: basicPosts} = useQuery(["forumPosts"], () => getForumPosts());
 
     return (
         <S.Container>

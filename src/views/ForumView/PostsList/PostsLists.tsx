@@ -7,6 +7,7 @@ import * as S from "./PostsList.style";
 interface props {
     basicPosts: BasicPostI[];
 }
+
 const PostsLists = ({ basicPosts }: props) => {
     return (
         <S.Container>

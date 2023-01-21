@@ -3,7 +3,7 @@ import { NUTRIENS_BAR_PRESET } from "./const/const";
 import NutrienBar from "./components/NutrienBar/NutrienBar";
 import Label from "../UI/Label/Label";
 
-import { RecipeNutriens } from "../../models/Profile/BasicProfile";
+import { RecipeNutriens } from "../../models/Meal/Recipe";
 
 import * as S from "./NutriensBarChart.style";
 

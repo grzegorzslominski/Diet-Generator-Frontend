@@ -16,16 +16,14 @@ import {
     RecipeNutrionsType,
     RecipeType,
     RECIPE_TYPE_PRESET,
-    UserRecipe,
+    Recipe,
     USER_RECIPE_NUTRIONS,
     USER_RECIPE_TYPE,
-} from "../../../../../../../../models/Profile/BasicProfile";
+} from "../../../../../../../../models/Meal/Recipe";
 
-import * as S from "./MealInfoModal.style";
-import ScrollBox from "../../../../../../../../components/UI/ScrollBox/ScrollBox";
-
+import * as S from "./RecipeInfoModal.style";
 type MealInfoModalProps = {
-    userRecipe: UserRecipe;
+    userRecipe: Recipe;
     close: () => void;
 };
 

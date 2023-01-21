@@ -23,7 +23,8 @@ export enum ENDPOINTS_IMAGE_UPLOAD {
 export enum ENDPOINTS_MEALS {
     products = "/diet/products",
     addMeal = "/recipe/add",
-    excludedProducts = "/diet/excludedProducts"
+    excludedProducts = "/diet/excludedProducts",
+    ownRecipes = "/recipes",
 }
 
 export enum ENDPOINTS_EXPANDE_USER_PROFILE {

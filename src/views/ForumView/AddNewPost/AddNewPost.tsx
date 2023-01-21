@@ -11,7 +11,7 @@ import Button from "../../../components/UI/Button/Button";
 import Label from "../../../components/UI/Label/Label";
 import Input from "../../../components/UI/Input/Input";
 
-import { NewPost } from "../../../models/Meal/NewMeal";
+import { Post } from "../../../models/Forum/Post";
 
 import * as S from "./AddNewPost.style";
 
@@ -29,7 +29,7 @@ const AddNewPost = ({ open, setIsOpen }: AddNewPostProps) => {
         handleChange,
         data: newPost,
         errors,
-    } = useForm<NewPost>({
+    } = useForm<Post>({
         validations: {
             title: {
                 required: {
@@ -49,7 +49,7 @@ const AddNewPost = ({ open, setIsOpen }: AddNewPostProps) => {
             const post = {
                 title: newPost.title,
                 description: newPost.description,
-                imagePath: newPost.image,
+                imagePath: newPost.postImagePath,
             };
 
             axiosFoodieInstance
@@ -109,10 +109,10 @@ const AddNewPost = ({ open, setIsOpen }: AddNewPostProps) => {
                     />
                     <Input
                         placeholder='Add image'
-                        onChange={handleChange("image")}
+                        onChange={handleChange("postImagePath")}
                         label='Image'
-                        value={newPost.image}
-                        error={errors.image}
+                        value={newPost.postImagePath}
+                        error={errors.postImagePath}
                     />
                 </S.InputContainer>
 

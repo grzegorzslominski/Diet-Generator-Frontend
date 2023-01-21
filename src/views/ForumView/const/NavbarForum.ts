@@ -1,11 +1,11 @@
 import { NAVIGATION } from "../../../navigation/paths";
-export type NavbarForumI = {
+export type NavbarForum = {
     label: string;
     routing?: string;
     external?: boolean;
 };
 
-export const NAV_ITEMS: NavbarForumI[] = [
+export const NAV_ITEMS: NavbarForum[] = [
     {
         label: "Newest posts",
         routing: NAVIGATION.forumPosts,

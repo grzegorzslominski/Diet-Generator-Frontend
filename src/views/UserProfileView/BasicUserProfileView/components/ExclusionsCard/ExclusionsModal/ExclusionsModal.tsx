@@ -1,15 +1,13 @@
-import { useState } from "react";
-
 import { mainTheme } from "../../../../../../themes/mainTheme";
 
 import ModalPortal from "../../../../../../components/UI/ModalPortal/ModalPortal";
+import ScrollBox from "../../../../../../components/UI/ScrollBox/ScrollBox";
 import BoxPad from "../../../../../../components/UI/BoxPad/BoxPad";
 import Label from "../../../../../../components/UI/Label/Label";
 
-import { ExcludedProducts, Product } from "../../../../../../models/Profile/BasicProfile";
+import { Product } from "../../../../../../models/Meal/Exclusions";
 
 import * as S from "./ExclusionsModal.style";
-import ScrollBox from "../../../../../../components/UI/ScrollBox/ScrollBox";
 
 type ExclusionsModalProps = {
     exclusions?: Product[];

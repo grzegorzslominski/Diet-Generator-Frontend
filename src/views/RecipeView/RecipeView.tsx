@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
-import {
-    UNITS,
-    USER_PROFILE_NEW_MEAL,
-    UserNewMeal,
-    IngredientType,
-    getDietProducts, UserNewMealValidation, USER_MEAL_VALIDATION_DATA
-} from "../../models/Meal/NewMeal";
-
+import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+import { ENDPOINTS_MEALS } from "../../navigation/endpoints";
+import { setNotification } from "../../redux/slices/notification";
+import { getProducts, Product } from "../../models/Meal/Exclusions";
 import { mainTheme } from "../../themes/mainTheme";
 
 import SelectOption from "../../components/UI/Select/SelectOption";
@@ -21,137 +18,137 @@ import Input from "../../components/UI/Input/Input";
 import Label from "../../components/UI/Label/Label";
 import XIcon from "../../assets/icons/XIcon.svg";
 
-import * as S from "./NewMealView.style";
-import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
-import { ENDPOINTS_MEALS } from "../../navigation/endpoints";
-import { setNotification } from "../../redux/slices/notification";
-import { useDispatch } from "react-redux";
+import { UNITS, Ingredient, Recipe } from "../../models/Meal/Recipe";
+import {
+    NEW_RECIPE_DATA,
+    RecipeValidation,
+    RECIPE_VALIDATION_DATA,
+} from "../../models/Meal/RecipeForm";
 
-const NewMealView = () => {
-    const [loading, setLoading] = useState<boolean>(false);
+import * as S from "./RecipeView.style";
+
+const RecipeView = () => {
     const dispatch = useDispatch();
-    const [newMeal, setNewMeal] = useState<UserNewMeal>(USER_PROFILE_NEW_MEAL);
-    const {
-        data: products,
-        isLoading,
-        error,
-    } = useQuery(["getAllProducts"], () => getDietProducts());
 
+    const { data: products } = useQuery(["products"], () => getProducts());
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const [recipe, setRecipe] = useState<Recipe>(JSON.parse(JSON.stringify(NEW_RECIPE_DATA)));
     const [searchValue, setSearchValue] = useState<string | null>(null);
-    const [filteredResults, setFilteredResults] = useState<IngredientType[]>();
-    const [userMealValidation, setUserMealValidation] = useState<UserNewMealValidation>(
-      USER_MEAL_VALIDATION_DATA
-    )
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>();
+    const [recipeValidation, setRecipeValidation] = useState<RecipeValidation>(
+        JSON.parse(JSON.stringify(RECIPE_VALIDATION_DATA)),
+    );
 
     useEffect(() => {
         if (products && searchValue) {
-            const currentFilteredResults = products.filter((product: IngredientType) =>
+            const currentFilteredProducts = products.filter((product: Product) =>
                 product.name.includes(searchValue),
             );
-            setFilteredResults(currentFilteredResults);
+            setFilteredProducts(currentFilteredProducts);
         }
     }, [searchValue]);
 
     useEffect(() => {
         if (products) {
-            setFilteredResults(products);
+            setFilteredProducts(products);
         }
     }, [products]);
 
-    const handleResults = (value: string) => {
-        setSearchValue(value);
+    const handleResults = (e: any) => {
+        setSearchValue(e.targer.value);
     };
 
     const handleOnChange = (property: string, value: any, index?: number) => {
-        const currentMeal: UserNewMeal = JSON.parse(JSON.stringify(newMeal));
+        const currentRecipe: Recipe = JSON.parse(JSON.stringify(recipe));
         if (property === "ingredients") {
-            const findedIndex = currentMeal[property].findIndex(
+            const findedIndex = currentRecipe["ingredients"].findIndex(
                 (ingridient) => ingridient.id === value.id,
             );
             if (findedIndex === -1) {
-                currentMeal[property].push({
-                    ...value,
+                currentRecipe["ingredients"].push({
+                    name: value.name,
+                    amount: 0,
                     unit: "g",
                 });
             } else {
-                currentMeal[property].splice(findedIndex, 1);
+                currentRecipe["ingredients"].splice(findedIndex, 1);
             }
         } else if (index !== undefined) {
-            currentMeal.ingredients[index][property] = value;
+            currentRecipe.ingredients[index][property] = value;
         } else {
-            currentMeal[property] = value;
+            currentRecipe[property] = value;
         }
-        setNewMeal(currentMeal);
+        setRecipe(currentRecipe);
     };
 
     const dataValidation = (): boolean => {
         let validationPassed = true;
-        const currentValidation: UserNewMealValidation = JSON.parse(
-          JSON.stringify(USER_MEAL_VALIDATION_DATA),
+        const currentValidation: RecipeValidation = JSON.parse(
+            JSON.stringify(RECIPE_VALIDATION_DATA),
         );
-        const currentMeal: UserNewMeal = JSON.parse(JSON.stringify(newMeal))
+        const currentRecipe: Recipe = JSON.parse(JSON.stringify(recipe));
         Object.keys(currentValidation).forEach((key: string) => {
-            if(key === "ingredients"){
-                currentMeal[key].forEach((product: IngredientType, index: number) => {
-                    if(!product.amount){
-                        currentValidation['ingredients'][index] = "This field is required"
+            if (key === "ingredients") {
+                currentRecipe[key].forEach((product: Ingredient, index: number) => {
+                    if (!product.amount) {
+                        currentValidation["ingredients"][index] = "This field is required";
                         validationPassed = false;
                     }
-                })
-            }else if(key === 'isIngredient' && !currentMeal['ingredients'].length){
-                currentValidation.isIngredient = "Minimum 1 ingredient"
+                });
+            } else if (key === "isIngredient" && !currentRecipe["ingredients"].length) {
+                currentValidation.isIngredient = "Minimum 1 ingredient";
                 validationPassed = false;
-            }
-            else if (!currentMeal[key] && key !== 'isIngredient') {
+            } else if (!currentRecipe[key] && key !== "isIngredient") {
                 currentValidation[key] = "This field is required";
                 validationPassed = false;
             }
-        })
+        });
 
-        setUserMealValidation(currentValidation)
+        setRecipeValidation(currentValidation);
         return validationPassed;
-    }
+    };
 
     const handleSubmit = async () => {
-        setLoading(true)
+        setLoading(true);
         const validationPassed = dataValidation();
 
-        if(validationPassed){
-            newMeal['ingredients'].forEach((ingredient) => {
-                delete ingredient.id
-            })
+        if (validationPassed) {
+            recipe["ingredients"].forEach((ingredient) => {
+                delete ingredient.id;
+            });
             await axiosFoodieInstance
-              .post(`${ENDPOINTS_MEALS.addMeal}`, newMeal)
-              .then((response) => {
-                  if (response.status === 201) {
-                      setNewMeal(USER_PROFILE_NEW_MEAL)
-                      dispatch(
+                .post(`${ENDPOINTS_MEALS.addMeal}`, recipe)
+                .then((response) => {
+                    if (response.status === 201) {
+                        setRecipe(JSON.parse(JSON.stringify(NEW_RECIPE_DATA)));
+                        dispatch(
+                            setNotification({
+                                label: "Add new meal",
+                                header: "Success",
+                                message: "New meal was created",
+                                timeout: 5000,
+                            }),
+                        );
+                    }
+                })
+                .catch((err) => {
+                    const errorMessage = err.response.data?.message
+                        ? err.response.data.message
+                        : "Cannot add new meal";
+
+                    dispatch(
                         setNotification({
-                            label: "Add new meal",
-                            header: "Success",
-                            message: "New meal was created",
+                            label: "Recipe",
+                            header: "Failed",
+                            message: errorMessage,
                             timeout: 5000,
                         }),
-                      );
-                  }
-              })
-              .catch((err) => {
-                  const errorMessage = err.response.data?.message
-                    ? err.response.data.message
-                    : "Cannot add new meal";
-
-                  dispatch(
-                    setNotification({
-                        label: "new meal",
-                        header: "Failed",
-                        message: errorMessage,
-                        timeout: 5000,
-                    }),
-                  );
-              })
+                    );
+                });
         }
         setLoading(false);
-    }
+    };
 
     return (
         <S.Container>
@@ -170,48 +167,46 @@ const NewMealView = () => {
                             placeholder='Type title'
                             onChange={(e) => handleOnChange("title", e.target.value)}
                             label='Meal name'
-                            value={newMeal.title}
-                            error={userMealValidation.title}
+                            value={recipe.title}
+                            error={recipeValidation.title}
                         />
                         <Input
                             placeholder='Type title'
                             onChange={(e) => handleOnChange("servings", e.target.value)}
                             label='servings'
                             type='number'
-                            value={newMeal.servings}
-                            error={userMealValidation.servings}
+                            value={recipe.servings}
+                            error={recipeValidation.servings}
                         />
                         <Input
                             placeholder='amount of time to prepare'
                             onChange={(e) => handleOnChange("readyInMinutes", e.target.value)}
                             label='ready in minutes'
                             type='number'
-                            value={newMeal.readyInMinutes}
-                            error={userMealValidation.readyInMinutes}
-
+                            value={recipe.readyInMinutes}
+                            error={recipeValidation.readyInMinutes}
                         />
                         <Input
                             placeholder='Type title'
                             onChange={(e) => handleOnChange("imagePath", e.target.value)}
                             label='image'
-                            value={newMeal.imagePath}
-                            error={userMealValidation.imagePath}
-
+                            value={recipe.imagePath}
+                            error={recipeValidation.imagePath}
                         />
                     </S.InputRow>
                     <TextArea
                         onChange={(e) => handleOnChange("instructions", e.target.value)}
                         label='description'
                         placeholder='give instructions'
-                        value={newMeal.instructions}
+                        value={recipe.instructions}
                         width='100%'
-                        error={userMealValidation.instructions}
+                        error={recipeValidation.instructions}
                     />
                 </S.InputContainer>
                 <S.Table>
                     <S.TableItem
-                        isOpen={newMeal.vegetarian}
-                        onClick={() => handleOnChange("vegetarian", !newMeal.vegetarian)}
+                        isOpen={recipe.vegetarian}
+                        onClick={() => handleOnChange("vegetarian", !recipe.vegetarian)}
                     >
                         <Label
                             fontFamily='Montserrat'
@@ -222,15 +217,15 @@ const NewMealView = () => {
                         >
                             Vegetarian
                         </Label>
-                        {newMeal.vegetarian ? (
+                        {recipe.vegetarian ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='checkMark' />
                         )}
                     </S.TableItem>
                     <S.TableItem
-                        isOpen={newMeal.vegan}
-                        onClick={() => handleOnChange("vegan", !newMeal.vegan)}
+                        isOpen={recipe.vegan}
+                        onClick={() => handleOnChange("vegan", !recipe.vegan)}
                     >
                         <Label
                             fontFamily='Montserrat'
@@ -241,15 +236,15 @@ const NewMealView = () => {
                         >
                             Vegan
                         </Label>
-                        {newMeal.vegan ? (
+                        {recipe.vegan ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='checkMark' />
                         )}
                     </S.TableItem>
                     <S.TableItem
-                        isOpen={newMeal.glutenFree}
-                        onClick={() => handleOnChange("glutenFree", !newMeal.glutenFree)}
+                        isOpen={recipe.glutenFree}
+                        onClick={() => handleOnChange("glutenFree", !recipe.glutenFree)}
                     >
                         <Label
                             fontFamily='Montserrat'
@@ -260,15 +255,15 @@ const NewMealView = () => {
                         >
                             Gluten free
                         </Label>
-                        {newMeal.glutenFree ? (
+                        {recipe.glutenFree ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='checkMark' />
                         )}
                     </S.TableItem>
                     <S.TableItem
-                        isOpen={Boolean(newMeal.dairyFree)}
-                        onClick={() => handleOnChange("dairyFree", !newMeal.dairyFree)}
+                        isOpen={Boolean(recipe.dairyFree)}
+                        onClick={() => handleOnChange("dairyFree", !recipe.dairyFree)}
                     >
                         <Label
                             fontFamily='Montserrat'
@@ -279,15 +274,15 @@ const NewMealView = () => {
                         >
                             Dairy free
                         </Label>
-                        {newMeal.dairyFree ? (
+                        {recipe.dairyFree ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='checkMark' />
                         )}
                     </S.TableItem>
                     <S.TableItem
-                        isOpen={newMeal.veryHealthy}
-                        onClick={() => handleOnChange("veryHealthy", !newMeal.veryHealthy)}
+                        isOpen={recipe.veryHealthy}
+                        onClick={() => handleOnChange("veryHealthy", !recipe.veryHealthy)}
                     >
                         <Label
                             fontFamily='Montserrat'
@@ -298,7 +293,7 @@ const NewMealView = () => {
                         >
                             Very healthy
                         </Label>
-                        {newMeal.veryHealthy ? (
+                        {recipe.veryHealthy ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='checkMark' />
@@ -312,36 +307,32 @@ const NewMealView = () => {
                             onChange={(e) => handleOnChange("calories", e.target.value)}
                             label='Calories'
                             type='number'
-                            value={newMeal.calories}
-                            error={userMealValidation.calories}
-
+                            value={recipe.calories}
+                            error={recipeValidation.calories}
                         />
                         <Input
                             placeholder='Fat'
                             onChange={(e) => handleOnChange("fat", e.target.value)}
                             label='Fat in grams'
                             type='number'
-                            value={newMeal.fat}
-                            error={userMealValidation.fat}
-
+                            value={recipe.fat}
+                            error={recipeValidation.fat}
                         />
                         <Input
                             placeholder='Proteins'
                             onChange={(e) => handleOnChange("proteins", e.target.value)}
                             label='Proteins in grams'
                             type='number'
-                            value={newMeal.proteins}
-                            error={userMealValidation.proteins}
-
+                            value={recipe.proteins}
+                            error={recipeValidation.proteins}
                         />
                         <Input
                             placeholder='Carbs'
                             onChange={(e) => handleOnChange("carbs", e.target.value)}
                             label='Carbs  in grams'
                             type='number'
-                            value={newMeal.carbs}
-                            error={userMealValidation.carbs}
-
+                            value={recipe.carbs}
+                            error={recipeValidation.carbs}
                         />
                     </S.InputRow>
                 </S.InputContainer>
@@ -358,12 +349,12 @@ const NewMealView = () => {
                 <S.ProductsContainer>
                     <ScrollBox scrollDistance={40} height={280} mobileScrollDistance={30}>
                         <S.ProductsList>
-                            {filteredResults &&
-                                filteredResults.map((product) => {
+                            {filteredProducts &&
+                                filteredProducts.map((product) => {
                                     return (
                                         <S.productItem
                                             key={product.name}
-                                            isOpen={newMeal.ingredients
+                                            isOpen={recipe.ingredients
                                                 .map((item) => item.name)
                                                 .includes(product.name)}
                                             onClick={() => handleOnChange("ingredients", product)}
@@ -383,9 +374,9 @@ const NewMealView = () => {
                         </S.ProductsList>
                     </ScrollBox>
                 </S.ProductsContainer>
-                {newMeal.ingredients.map((product, index) => {
+                {recipe.ingredients.map((ingredient, index) => {
                     return (
-                        <S.InputContainer key={product.id}>
+                        <S.InputContainer key={ingredient.name}>
                             <Label
                                 fontSize='1rem'
                                 textAlign='center'
@@ -393,9 +384,9 @@ const NewMealView = () => {
                                 fontFamily='Lato'
                                 color={mainTheme.colors.mainBlack}
                             >
-                                {product.name}
+                                {ingredient.name}
                             </Label>
-                            <S.InputRow key={product.name}>
+                            <S.InputRow>
                                 <Input
                                     placeholder='Amount'
                                     onChange={(e) =>
@@ -403,14 +394,13 @@ const NewMealView = () => {
                                     }
                                     label='Amount'
                                     type='number'
-                                    value={newMeal.ingredients[index].amount}
-                                    error={userMealValidation.ingredients[index]}
-
+                                    value={recipe.ingredients[index].amount}
+                                    error={recipeValidation.ingredients[index]}
                                 />
                                 <Select
                                     borderRadius='0'
                                     onChange={(unit: string) => handleOnChange("unit", unit, index)}
-                                    value={newMeal.ingredients[index].unit}
+                                    value={recipe.ingredients[index].unit}
                                     width='100%'
                                     label='Unit'
                                     size='medium'
@@ -426,22 +416,22 @@ const NewMealView = () => {
                                             {unit}
                                         </SelectOption>
                                     ))}
-
                                 </Select>
                             </S.InputRow>
                         </S.InputContainer>
                     );
                 })}
-                {userMealValidation.isIngredient && !newMeal.ingredients.length &&
-                  <Label
-                  fontSize='1rem'
-                  textAlign='center'
-                  fontWeight='700'
-                  fontFamily='Lato'
-                  color={mainTheme.colors.error}
-                >
-                    {userMealValidation.isIngredient}
-                </Label>}
+                {recipeValidation.isIngredient && !recipe.ingredients.length && (
+                    <Label
+                        fontSize='1rem'
+                        textAlign='center'
+                        fontWeight='700'
+                        fontFamily='Lato'
+                        color={mainTheme.colors.error}
+                    >
+                        {recipeValidation.isIngredient}
+                    </Label>
+                )}
                 <Button
                     isLoading={loading}
                     width='12rem'
@@ -458,4 +448,4 @@ const NewMealView = () => {
     );
 };
 
-export default NewMealView;
+export default RecipeView;

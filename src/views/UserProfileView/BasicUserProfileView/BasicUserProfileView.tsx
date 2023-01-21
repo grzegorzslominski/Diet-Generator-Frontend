@@ -7,7 +7,7 @@ import UserStatisticsCard from "./components/UserStatisticsCard/UserStatisticsCa
 import CurrentDietCard from "./components/CurrentDietCard/CurrentDietCard";
 import UserDetailsCard from "./components/UserDetailsCard/UserDetailsCard";
 import ExclusionsCard from "./components/ExclusionsCard/ExclusionsCard";
-import OwnMealsCard from "./components/OwnMealsCard/OwnMealsCard";
+import OwnRecipesCard from "./components/OwnRecipesCard/OwnRecipesCard";
 import ProgressCard from "./components/ProgressCard/ProgressCard";
 import PremiumCard from "./components/PremiumCard/PremiumCard";
 import CreatorCard from "./components/CreatorCard/CreatorCard";
@@ -36,7 +36,7 @@ const BasicUserProfileView = () => {
                             className='statistics'
                             userStats={basicProfileData.userStats}
                         />
-                        <OwnMealsCard
+                        <OwnRecipesCard
                             className='ownMeals'
                             userRecipes={basicProfileData.userRecipes}
                         />

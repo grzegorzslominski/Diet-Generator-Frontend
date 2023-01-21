@@ -7,21 +7,28 @@ import RedirectButton from "../../../../../components/UI/RedirectButton/Redirect
 import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPad";
 import Button from "../../../../../components/UI/Button/Button";
 import Label from "../../../../../components/UI/Label/Label";
-import OwnMeal from "./components/OwnMeal/OwnMeal";
+import OwnRecipe from "./components/OwnRecipe/OwnRecipe";
 
-import { UserRecipe } from "../../../../../models/Profile/BasicProfile";
+import { Recipe } from "../../../../../models/Meal/Recipe";
 
-import * as S from "./OwnMealsCard.style";
+import * as S from "./OwnRecipesCard.style";
 
-type OwnMealsCardProps = ClassNameProp & {
-    userRecipes?: UserRecipe[];
+type OwnRecipesCardProps = ClassNameProp & {
+    userRecipes?: Recipe[];
 };
 
-const fitUserRecipes = (userRecipes: UserRecipe[]) => {
-    return userRecipes.sort((a, b) => b.timestamp - a.timestamp).slice(0, 3);
+const fitUserRecipes = (userRecipes: Recipe[]) => {
+    return userRecipes
+        .sort((a, b) => {
+            if (b.timestamp && a.timestamp) {
+                return b.timestamp - a.timestamp;
+            }
+            return -1;
+        })
+        .slice(0, 3);
 };
 
-const OwnMealsCard = ({ className, userRecipes }: OwnMealsCardProps) => {
+const OwnRecipesCard = ({ className, userRecipes }: OwnRecipesCardProps) => {
     const navigate = useNavigate();
 
     return (
@@ -31,12 +38,12 @@ const OwnMealsCard = ({ className, userRecipes }: OwnMealsCardProps) => {
                     <>
                         <S.Meals>
                             {fitUserRecipes(userRecipes).map((userRecipe) => (
-                                <OwnMeal userRecipe={userRecipe} key={userRecipe.id} />
+                                <OwnRecipe userRecipe={userRecipe} key={userRecipe.id} />
                             ))}
                         </S.Meals>
                         <RedirectButton
                             label='See all'
-                            onClick={() => navigate(NAVIGATION.ownMeals)}
+                            onClick={() => navigate(NAVIGATION.recipe)}
                         />
                     </>
                 ) : (
@@ -58,4 +65,4 @@ const OwnMealsCard = ({ className, userRecipes }: OwnMealsCardProps) => {
     );
 };
 
-export default OwnMealsCard;
+export default OwnRecipesCard;

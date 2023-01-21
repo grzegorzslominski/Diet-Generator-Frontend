@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { setNotification } from "../../../../../../../../redux/slices/notification";
 import { ENDPOINTS_USER } from "../../../../../../../../navigation/endpoints";
-import { UserComment } from "../../../../../../../../models/Meal/NewMeal";
+import { UserComment } from "../../../../../../../../models/Meal/Recipe";
 import { mainTheme } from "../../../../../../../../themes/mainTheme";
 import { useForm } from "../../../../../../../../hooks/useForm";
 
