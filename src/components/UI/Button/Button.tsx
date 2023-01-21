@@ -21,9 +21,10 @@ const Button = ({
     disabled,
     gradient,
     width = "100%",
+    tabIndex,
 }: ButtonProps) => {
     return (
-        <S.ButtonContainer width={width} size={size}>
+        <S.ButtonContainer width={width} size={size} tabIndex={tabIndex}>
             <S.StyledButton
                 size={size}
                 borderRadius={borderRadius}

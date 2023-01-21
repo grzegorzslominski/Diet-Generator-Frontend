@@ -8,7 +8,7 @@ interface SignUpModalProps {
     position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
     blurBackground?: boolean;
     blurLevel?: "normal" | "strong";
-    close?: () => void;
+    close: () => void;
 }
 const ModalPortal = ({
     children,

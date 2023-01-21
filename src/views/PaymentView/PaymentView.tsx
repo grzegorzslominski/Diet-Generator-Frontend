@@ -14,18 +14,7 @@ import Label from "../../components/UI/Label/Label";
 import * as S from "./PaymentView.style";
 
 const PaymentView = () => {
-    const [{ options }, dispatch] = usePayPalScriptReducer();
     const [showPaymentSection, setShowPaymentSection] = useState(true);
-
-    // useEffect(() => {
-    //     dispatch({
-    //         type: "resetOptions",
-    //         value: {
-    //             ...options,
-    //             intent: "subscription",
-    //         },
-    //     });
-    // }, [type]);
 
     return (
         <ViewBox>
@@ -146,8 +135,8 @@ const PaymentView = () => {
                 {showPaymentSection && (
                     <S.PaymentSection>
                         <PayPalButtons
-                            createSubscription={(data, actions) => {
-                                return actions.subscription
+                            createSubscription={async (data, actions) => {
+                                return await actions.subscription
                                     .create({
                                         plan_id: "P-5H470394E7317452BMOLZMYQ",
                                     })
@@ -159,7 +148,7 @@ const PaymentView = () => {
                             }}
                             onApprove={async (data, actions) => {
                                 const order = await actions.order?.capture();
-                                console.log("order", order);
+                                console.log(actions.subscription?.get());
                             }}
                             style={{
                                 label: "subscribe",

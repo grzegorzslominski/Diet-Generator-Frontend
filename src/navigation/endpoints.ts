@@ -15,11 +15,18 @@ export enum ENDPOINTS_PROFILE {
 
 export enum ENDPOINTS_IMAGE_UPLOAD {
     uploadUserAvatar = "image/upload/profile",
-    removeUserAvater = "image/delete/profile",
+    deleteUserAvatar = "image/delete/profile",
+    uploadExtrasBackground = "image/upload/background",
+    deleteExtrasBackground = "image/delete/background",
 }
 
 export enum ENDPOINTS_MEALS {
     products = "/diet/products",
     addMeal = "/recipe/add",
     excludedProducts = "/diet/excludedProducts"
+}
+
+export enum ENDPOINTS_EXPANDE_USER_PROFILE {
+    getProfile = "/account/profile",
+    postProfile = "account/profile/expanded",
 }

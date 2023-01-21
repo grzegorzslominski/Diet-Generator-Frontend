@@ -148,11 +148,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
                 {(internalValidationError || error) && (
                     <S.ErrorContainer labelIndent={labelIndent}>
-                        <Label
-                            fontWeight='700'
-                            fontSize={size === "normal" ? "15px" : "11px"}
-                            color='#FF0000'
-                        >
+                        <Label fontSize={size === "normal" ? "15px" : "11px"} color='#FF0000'>
                             {internalValidationError || error}
                         </Label>
                     </S.ErrorContainer>

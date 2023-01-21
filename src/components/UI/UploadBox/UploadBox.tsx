@@ -16,7 +16,7 @@ type UploadBoxProps = {
     accept?: any;
     disable?: boolean;
     onChange: (files: any) => void;
-    removeItem: () => void;
+    onRemove: () => void;
 };
 
 const UploadBox = ({
@@ -28,7 +28,7 @@ const UploadBox = ({
     displayError = true,
     disable = true,
     onChange,
-    removeItem,
+    onRemove,
 }: UploadBoxProps) => {
     const onDrop = useCallback(
         (files: any) => {
@@ -76,7 +76,7 @@ const UploadBox = ({
                     </GradientLabel>
                 )}
                 {url && !disable && (
-                    <S.Close onClick={removeItem}>
+                    <S.Close onClick={onRemove}>
                         <Label fontSize='26px' color={mainTheme.colors.error}>
                             +
                         </Label>

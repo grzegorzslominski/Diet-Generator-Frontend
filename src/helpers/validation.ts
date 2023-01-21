@@ -1,6 +1,7 @@
 export const emailRegex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export const validEmail = (value: string, regexPatern: RegExp = emailRegex): boolean => {
-    return !RegExp(regexPatern).test(value);
+export const validEmail = (value?: string, regexPatern: RegExp = emailRegex): boolean => {
+    if (!value) return false;
+    return RegExp(regexPatern).test(value);
 };

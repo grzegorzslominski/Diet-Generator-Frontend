@@ -20,5 +20,6 @@ export type ButtonProps = {
     width?: string;
     gradient?: string;
     color?: string;
+    tabIndex?: number;
 };
 type ButtonStyleType = "gradientFull" | "gradientEmpty" | "primaryFull" | "primaryEmpty";
