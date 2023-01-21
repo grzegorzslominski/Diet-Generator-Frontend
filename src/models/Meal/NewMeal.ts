@@ -25,6 +25,7 @@ export type NewMealIngredient = {
     name: string;
     amount: number;
     unit: string;
+    [key: string]: number | string;
 };
 
 export type UserComment = {
@@ -38,59 +39,85 @@ export type NewPost = {
 };
 
 export type UserNewMeal = {
-    mealName: string;
+    title: string;
     servings: number;
     readyInMinutes: number;
-    image: string;
+    imagePath: string;
     instructions: string;
     vegetarian: boolean;
     vegan: boolean;
     glutenFree: boolean;
     veryHealthy: boolean;
+    calories: number;
+    fat: number;
+    proteins: number;
+    carbs: number;
+    ingredients: IngredientType[];
+    [key: string]: string | number | boolean | IngredientType[];
+};
+
+export type UserNewMealValidation = {
+    title: string;
+    servings: string;
+    readyInMinutes: string;
+    imagePath: string;
+    instructions: string;
     calories: string;
     fat: string;
     proteins: string;
     carbs: string;
-    ingredients: Ingredient[];
-    [key: string]: string | number | boolean | Ingredient[];
-};
+    ingredients: string[];
+    isIngredient: string;
+    [key: string]: string | string[];
+}
+
+export const USER_MEAL_VALIDATION_DATA: UserNewMealValidation = {
+    title: "",
+    servings: "",
+    readyInMinutes: "",
+    imagePath: "",
+    instructions: "",
+    calories: "",
+    fat: "",
+    proteins: "",
+    carbs: "",
+    isIngredient: "",
+    ingredients: [],
+}
 
 export type Unit = "ml" | "g";
 
-export type Ingredient = {
-    name: string;
-    amount: number;
-    unit: Unit;
-    [key: string]: string | number | Unit;
-};
-
 export const USER_PROFILE_NEW_MEAL: UserNewMeal = {
-    mealName: "",
+    title: "",
     servings: 0,
     readyInMinutes: 0,
-    image: "",
+    imagePath: "",
     instructions: "",
     vegetarian: false,
     vegan: false,
     glutenFree: false,
     veryHealthy: false,
-    calories: "",
-    fat: "",
-    proteins: "",
-    carbs: "",
+    dairyFree: false,
+    calories: 0,
+    fat: 0,
+    proteins: 0,
+    carbs: 0,
     ingredients: [],
 };
 
-export const BASIC_NEW_INGREDIENT: Ingredient = {
-    name: "",
-    amount: 0,
-    unit: "ml",
-};
+// export const BASIC_NEW_INGREDIENT: IngredientType = {
+//     id: 1,
+//     name: "",
+//     amount: 0,
+//     unit: "ml",
+// };
 
 export type IngredientType = {
-    id: number;
     name: string;
+    amount: number;
     unit: Unit;
+    [key: string]: string | number | Unit ;
+
 };
 
 export const getDietProducts = async () => {
