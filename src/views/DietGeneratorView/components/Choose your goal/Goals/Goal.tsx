@@ -29,7 +29,7 @@ const Goal = ({ handleChange }: GeneratorHandleChangeI) => {
                                     color='white'
                                     textAlign='center'
                                 >
-                                    {item.name}
+                                    {item.name === 'MUSCLE' ? item.name.toLowerCase() + " gain" : item.name.toLowerCase() + " weight"}
                                 </Label>
                             </S.Border>
                         </S.Content>

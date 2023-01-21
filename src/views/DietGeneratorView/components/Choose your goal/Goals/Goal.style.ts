@@ -72,6 +72,7 @@ export const Content = styled.div<prop>`
 
   &>svg {
     height: 60px;
+    width: 60px;
   }
   border: solid 1px lightgray;
   padding: 10px 10px 10px 10px;

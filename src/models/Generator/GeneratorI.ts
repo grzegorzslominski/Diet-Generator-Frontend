@@ -1,21 +1,31 @@
+import { ProductType } from "../../views/DietGeneratorView/components/Choose your goal/Goals/const/data";
+
 export interface GeneratorI {
     goal: goalType;
     exercise: exerciseType;
-    exclusions: exclusionType[];
-    questions: questionType[]
+    exclusions: ProductType[];
+    vegan: boolean;
+    vegetarian: boolean
+    glutenFree: boolean;
+    veryHealthy: boolean;
+    dairyFree: boolean;
 }
 
 
 export type questionType = {id: number, value: number}
 export type exclusionType = {id: number, value: string}
-export type goalType = "loose weight" | "maintain weight" | "gain weight" | "gain muscle" | "";
-export type exerciseType = "no exercise" | "average exercise" | "a lot of exercise" | "";
+export type goalType = "LOSE" | "MAINTAIN" | "GAIN" | "MUSCLE" | "";
+export type exerciseType = "LOW" | "AVERAGE" | "HEAVY" | "";
 
 export const BASIC_GENERATOR_DATA:GeneratorI = {
     goal: "",
     exercise: "",
     exclusions: [],
-    questions: []
+    vegan: false,
+    vegetarian: false,
+    glutenFree: false,
+    veryHealthy: false,
+    dairyFree: false,
 }
 
 export interface GeneratorHandleChangeI{

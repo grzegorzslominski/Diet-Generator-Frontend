@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import {
-    Unit,
     UNITS,
     USER_PROFILE_NEW_MEAL,
     UserNewMeal,
     IngredientType,
-    getDietProducts,
+    getDietProducts, UserNewMealValidation, USER_MEAL_VALIDATION_DATA
 } from "../../models/Meal/NewMeal";
 
 import { mainTheme } from "../../themes/mainTheme";
@@ -23,10 +22,14 @@ import Label from "../../components/UI/Label/Label";
 import XIcon from "../../assets/icons/XIcon.svg";
 
 import * as S from "./NewMealView.style";
+import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+import { ENDPOINTS_MEALS } from "../../navigation/endpoints";
+import { setNotification } from "../../redux/slices/notification";
+import { useDispatch } from "react-redux";
 
 const NewMealView = () => {
     const [loading, setLoading] = useState<boolean>(false);
-
+    const dispatch = useDispatch();
     const [newMeal, setNewMeal] = useState<UserNewMeal>(USER_PROFILE_NEW_MEAL);
     const {
         data: products,
@@ -36,6 +39,9 @@ const NewMealView = () => {
 
     const [searchValue, setSearchValue] = useState<string | null>(null);
     const [filteredResults, setFilteredResults] = useState<IngredientType[]>();
+    const [userMealValidation, setUserMealValidation] = useState<UserNewMealValidation>(
+      USER_MEAL_VALIDATION_DATA
+    )
 
     useEffect(() => {
         if (products && searchValue) {
@@ -55,6 +61,7 @@ const NewMealView = () => {
     const handleResults = (value: string) => {
         setSearchValue(value);
     };
+
     const handleOnChange = (property: string, value: any, index?: number) => {
         const currentMeal: UserNewMeal = JSON.parse(JSON.stringify(newMeal));
         if (property === "ingredients") {
@@ -77,12 +84,74 @@ const NewMealView = () => {
         setNewMeal(currentMeal);
     };
 
-    // const dataValidation = (): boolean => {
-    //     let validationPassed = true;
-    //     const currentValidation
-    //
-    //     return validationPassed;
-    // }
+    const dataValidation = (): boolean => {
+        let validationPassed = true;
+        const currentValidation: UserNewMealValidation = JSON.parse(
+          JSON.stringify(USER_MEAL_VALIDATION_DATA),
+        );
+        const currentMeal: UserNewMeal = JSON.parse(JSON.stringify(newMeal))
+        Object.keys(currentValidation).forEach((key: string) => {
+            if(key === "ingredients"){
+                currentMeal[key].forEach((product: IngredientType, index: number) => {
+                    if(!product.amount){
+                        currentValidation['ingredients'][index] = "This field is required"
+                        validationPassed = false;
+                    }
+                })
+            }else if(key === 'isIngredient' && !currentMeal['ingredients'].length){
+                currentValidation.isIngredient = "Minimum 1 ingredient"
+                validationPassed = false;
+            }
+            else if (!currentMeal[key] && key !== 'isIngredient') {
+                currentValidation[key] = "This field is required";
+                validationPassed = false;
+            }
+        })
+
+        setUserMealValidation(currentValidation)
+        return validationPassed;
+    }
+
+    const handleSubmit = async () => {
+        setLoading(true)
+        const validationPassed = dataValidation();
+
+        if(validationPassed){
+            newMeal['ingredients'].forEach((ingredient) => {
+                delete ingredient.id
+            })
+            await axiosFoodieInstance
+              .post(`${ENDPOINTS_MEALS.addMeal}`, newMeal)
+              .then((response) => {
+                  if (response.status === 201) {
+                      setNewMeal(USER_PROFILE_NEW_MEAL)
+                      dispatch(
+                        setNotification({
+                            label: "Add new meal",
+                            header: "Success",
+                            message: "New meal was created",
+                            timeout: 5000,
+                        }),
+                      );
+                  }
+              })
+              .catch((err) => {
+                  const errorMessage = err.response.data?.message
+                    ? err.response.data.message
+                    : "Cannot add new meal";
+
+                  dispatch(
+                    setNotification({
+                        label: "new meal",
+                        header: "Failed",
+                        message: errorMessage,
+                        timeout: 5000,
+                    }),
+                  );
+              })
+        }
+        setLoading(false);
+    }
 
     return (
         <S.Container>
@@ -99,9 +168,10 @@ const NewMealView = () => {
                     <S.InputRow>
                         <Input
                             placeholder='Type title'
-                            onChange={(e) => handleOnChange("mealName", e.target.value)}
+                            onChange={(e) => handleOnChange("title", e.target.value)}
                             label='Meal name'
-                            value={newMeal.mealName}
+                            value={newMeal.title}
+                            error={userMealValidation.title}
                         />
                         <Input
                             placeholder='Type title'
@@ -109,6 +179,7 @@ const NewMealView = () => {
                             label='servings'
                             type='number'
                             value={newMeal.servings}
+                            error={userMealValidation.servings}
                         />
                         <Input
                             placeholder='amount of time to prepare'
@@ -116,12 +187,16 @@ const NewMealView = () => {
                             label='ready in minutes'
                             type='number'
                             value={newMeal.readyInMinutes}
+                            error={userMealValidation.readyInMinutes}
+
                         />
                         <Input
                             placeholder='Type title'
-                            onChange={(e) => handleOnChange("image", e.target.value)}
+                            onChange={(e) => handleOnChange("imagePath", e.target.value)}
                             label='image'
-                            value={newMeal.image}
+                            value={newMeal.imagePath}
+                            error={userMealValidation.imagePath}
+
                         />
                     </S.InputRow>
                     <TextArea
@@ -130,6 +205,7 @@ const NewMealView = () => {
                         placeholder='give instructions'
                         value={newMeal.instructions}
                         width='100%'
+                        error={userMealValidation.instructions}
                     />
                 </S.InputContainer>
                 <S.Table>
@@ -237,6 +313,8 @@ const NewMealView = () => {
                             label='Calories'
                             type='number'
                             value={newMeal.calories}
+                            error={userMealValidation.calories}
+
                         />
                         <Input
                             placeholder='Fat'
@@ -244,6 +322,8 @@ const NewMealView = () => {
                             label='Fat in grams'
                             type='number'
                             value={newMeal.fat}
+                            error={userMealValidation.fat}
+
                         />
                         <Input
                             placeholder='Proteins'
@@ -251,6 +331,8 @@ const NewMealView = () => {
                             label='Proteins in grams'
                             type='number'
                             value={newMeal.proteins}
+                            error={userMealValidation.proteins}
+
                         />
                         <Input
                             placeholder='Carbs'
@@ -258,6 +340,8 @@ const NewMealView = () => {
                             label='Carbs  in grams'
                             type='number'
                             value={newMeal.carbs}
+                            error={userMealValidation.carbs}
+
                         />
                     </S.InputRow>
                 </S.InputContainer>
@@ -311,7 +395,7 @@ const NewMealView = () => {
                             >
                                 {product.name}
                             </Label>
-                            <S.InputRow>
+                            <S.InputRow key={product.name}>
                                 <Input
                                     placeholder='Amount'
                                     onChange={(e) =>
@@ -320,6 +404,8 @@ const NewMealView = () => {
                                     label='Amount'
                                     type='number'
                                     value={newMeal.ingredients[index].amount}
+                                    error={userMealValidation.ingredients[index]}
+
                                 />
                                 <Select
                                     borderRadius='0'
@@ -346,11 +432,21 @@ const NewMealView = () => {
                         </S.InputContainer>
                     );
                 })}
+                {userMealValidation.isIngredient && !newMeal.ingredients.length &&
+                  <Label
+                  fontSize='1rem'
+                  textAlign='center'
+                  fontWeight='700'
+                  fontFamily='Lato'
+                  color={mainTheme.colors.error}
+                >
+                    {userMealValidation.isIngredient}
+                </Label>}
                 <Button
                     isLoading={loading}
                     width='12rem'
                     styleType='gradientFull'
-                    onClick={() => {}}
+                    onClick={handleSubmit}
                     borderRadius='15px'
                     fontSize='1rem'
                     size='small'

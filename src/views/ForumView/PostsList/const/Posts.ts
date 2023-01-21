@@ -196,7 +196,8 @@ export interface recipeNotVerifiedBasicI {
 //     },
 // ];
 export const getForumPostsMeals = async () => {
-    return await axiosFoodieInstance.get<recipeVerifiedBasicI[][]>(`/forum/recipe/verified`).then((response) => {
+    return await axiosFoodieInstance.get<recipeVerifiedBasicI[][]>(`/forum/recipe/verified`)
+      .then((response) => {
         if(response.status === 200){
             return response.data[0].concat(response.data[1])
         }

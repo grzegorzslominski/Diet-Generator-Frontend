@@ -32,7 +32,7 @@ const Excercise = ({ handleChange }: GeneratorHandleChangeI) => {
                   color='white'
                   textAlign='center'
                 >
-                  {item.name}
+                  {item.name.toLowerCase() + " excercise"}
                 </Label>
               </S.Border>
             </S.Content>

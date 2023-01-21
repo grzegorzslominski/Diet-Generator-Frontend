@@ -1,5 +1,5 @@
 export enum ENDPOINTS_USER {
-    generator = "/diet/generator",
+    generator = "/diet/generate",
     login = "/authenticate",
     register = "/account/register",
     userInfo = "/account/profile/info",
@@ -20,4 +20,6 @@ export enum ENDPOINTS_IMAGE_UPLOAD {
 
 export enum ENDPOINTS_MEALS {
     products = "/diet/products",
+    addMeal = "/recipe/add",
+    excludedProducts = "/diet/excludedProducts"
 }
