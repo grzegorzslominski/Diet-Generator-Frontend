@@ -2,13 +2,12 @@ import { AxiosError } from "axios";
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
 import { ENDPOINTS_EXPANDE_USER_PROFILE } from "../../navigation/endpoints";
 import { SocialLinks } from "../SocialsLinks/SocialsLinks";
-import { UploadItem, UserData } from "./User";
 
-export type ExpandedUser = UserData & {
-    title: string;
+export type UserExtras = {
+    profession: string;
     socials: SocialLinks;
-    about: string;
-    backgroundIMG: string | UploadItem;
+    about_me: string;
+    background_image: string;
 };
 
 const getExpandedUserProfile = async (userID: number) => {

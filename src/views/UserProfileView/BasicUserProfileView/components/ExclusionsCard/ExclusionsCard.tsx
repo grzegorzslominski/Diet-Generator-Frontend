@@ -1,18 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
-import { NAVIGATION } from "../../../../../navigation/paths";
 
 import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPad";
+import ExclusionsModal from "./ExclusionsModal/ExclusionsModal";
 import Button from "../../../../../components/UI/Button/Button";
 import Label from "../../../../../components/UI/Label/Label";
 
+import { ExcludedProducts, getProducts } from "../../../../../models/Profile/BasicProfile";
+
 import * as S from "./ExclusionsCard.style";
 
-type ExclusionsCardProps = ClassNameProp & {};
+type ExclusionsCardProps = ClassNameProp & {
+    excludedProducts?: ExcludedProducts;
+};
 
-const ExclusionsCard = ({ className }: ExclusionsCardProps) => {
+const ExclusionsCard = ({ className, excludedProducts }: ExclusionsCardProps) => {
     const navigate = useNavigate();
+    const { data: products, isLoading } = useQuery(["productsList"], getProducts);
+    const [openExclusionsModal, setOpenExclusionsModal] = useState(false);
 
     return (
         <BoxPad header='Excluded products' padding='24px 24px 21px 24px' className={className}>
@@ -58,13 +66,22 @@ const ExclusionsCard = ({ className }: ExclusionsCardProps) => {
                 <Button
                     styleType='primaryFull'
                     size='extraSmall'
-                    onClick={() => navigate(NAVIGATION.exclusions)}
+                    onClick={() => setOpenExclusionsModal(true)}
                     width='140px'
                     borderRadius='10px'
                     fontSize='12px'
                 >
                     Manage exclusions
                 </Button>
+
+                {openExclusionsModal && (
+                    <ExclusionsModal
+                        exclusions={excludedProducts?.listOfExcludedProducts}
+                        products={products}
+                        productsIsLoading={isLoading}
+                        close={() => setOpenExclusionsModal(false)}
+                    />
+                )}
             </S.Container>
         </BoxPad>
     );

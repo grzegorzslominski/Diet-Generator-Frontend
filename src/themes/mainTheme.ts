@@ -7,6 +7,7 @@ type MainThemeProps = {
         grey: string;
         inputText: string;
         error: string;
+        green: string;
     };
     gradients: {
         mainGradient: string;
@@ -28,6 +29,7 @@ export const mainTheme: MainThemeProps = {
         grey: "#999595",
         inputText: "#363635",
         error: "#FF0000",
+        green: "#00ff00",
     },
     gradients: {
         mainGradient: "linear-gradient(90deg, #4E4B77 0%, #6D5E9D 40%, #F44B42 70%, #F05840 100%)",

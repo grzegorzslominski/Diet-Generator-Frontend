@@ -1,7 +1,7 @@
 type NutrienBarPresetType = {
-    f: NutrienPresetType;
-    c: NutrienPresetType;
-    p: NutrienPresetType;
+    fat: NutrienPresetType;
+    carbs: NutrienPresetType;
+    protein: NutrienPresetType;
     [key: string]: NutrienPresetType;
 };
 
@@ -11,7 +11,7 @@ type NutrienPresetType = {
 };
 
 export const NUTRIENS_BAR_PRESET: NutrienBarPresetType = {
-    f: { name: "Fat", color: "#FFC50C" },
-    p: { name: "Proteins", color: "#38662F" },
-    c: { name: "Carbs", color: "#EF5940" },
+    fat: { name: "Fat", color: "#FFC50C" },
+    protein: { name: "Proteins", color: "#38662F" },
+    carbs: { name: "Carbs", color: "#EF5940" },
 };

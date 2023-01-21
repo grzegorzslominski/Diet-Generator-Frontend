@@ -59,16 +59,19 @@ export const ProfileDetailsContainer = styled.div`
     }
 
     .ownMeals {
-        grid-column: 61;
+        grid-column: 61 / 76;
+        height: 100%;
+        width: 100%;
+        grid-row: 1 / 43;
 
         @media screen and (max-width: 1600px) {
-            grid-column: 1;
-            grid-row: 89;
+            grid-column: 1 / 43;
+            grid-row: 89 / 109;
         }
 
         @media screen and (max-width: 1220px) {
-            grid-column: 1;
-            grid-row: 85;
+            grid-column: span;
+            grid-row: 85 / 105;
         }
     }
 

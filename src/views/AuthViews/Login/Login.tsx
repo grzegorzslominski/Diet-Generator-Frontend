@@ -128,6 +128,7 @@ const Login = ({ authorizeUser }: LoginProps) => {
                         borderRadius='15px'
                         fontSize='1rem'
                         size='small'
+                        tabIndex={3}
                     >
                         Sign In
                     </Button>

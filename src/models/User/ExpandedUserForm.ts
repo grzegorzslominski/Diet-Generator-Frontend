@@ -1,42 +1,43 @@
 import { SocialLinks } from "../SocialsLinks/SocialsLinks";
 import { UploadItem } from "./User";
 
-export type ExpandedUserForm = {
-    title: string;
+export type UserExtrasForm = {
+    profession: string;
     socials: SocialLinks;
-    about: string;
-    backgroundIMG: UploadItem;
+    about_me: string;
+    background_image: UploadItem;
     [key: string]: string | SocialLinks | UploadItem;
 };
 
-export const EXPANDED_USER_FORM_DATA: ExpandedUserForm = {
-    title: "",
+export const USER_EXTRAS_FORM_DATA: UserExtrasForm = {
+    profession: "",
     socials: {
         facebook: "",
         instagram: "",
         telegram: "",
         twitter: "",
         youtube: "",
+        discord: "",
     },
-    about: "",
-    backgroundIMG: {
+    about_me: "",
+    background_image: {
         type: "image/png",
         url: "",
         file: null,
     },
 };
 
-export type ExpandedUserFormValidation = {
-    title: string;
+export type UserExtrasFormValidation = {
+    profession: string;
     socials: string;
-    about: string;
-    backgroundIMG: string;
+    about_me: string;
+    background_image: string;
     [key: string]: string;
 };
 
-export const EXPANDED_USER_FORM_VALIDATION_DATA: ExpandedUserFormValidation = {
-    title: "",
+export const USER_EXTRAS_FORM_VALIDATION_DATA: UserExtrasFormValidation = {
+    profession: "",
     socials: "",
-    about: "",
-    backgroundIMG: "",
+    about_me: "",
+    background_image: "",
 };

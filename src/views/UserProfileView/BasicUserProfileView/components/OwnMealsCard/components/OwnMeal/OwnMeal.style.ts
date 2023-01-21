@@ -4,6 +4,7 @@ import { mainTheme } from "../../../../../../../themes/mainTheme";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 3px;
 
     width: 252px;
     border: solid 1px ${mainTheme.colors.secondaryColor};

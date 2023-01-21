@@ -36,14 +36,20 @@ const BasicUserProfileView = () => {
                             className='statistics'
                             userStats={basicProfileData.userStats}
                         />
-                        <OwnMealsCard className='ownMeals' />
+                        <OwnMealsCard
+                            className='ownMeals'
+                            userRecipes={basicProfileData.userRecipes}
+                        />
                         <CurrentDietCard className='currentDiet' />
                         <ProgressCard className='progress' />
                         <SurveyCard className='survey' />
-                        <ExclusionsCard className='exclusion' />
+                        <ExclusionsCard
+                            className='exclusion'
+                            excludedProducts={basicProfileData.excludedProductsList}
+                        />
                         <PremiumCard className='premium' />
                     </S.ProfileDetailsContainer>
-                    <CreatorCard user={user} />
+                    <CreatorCard user={user} userExtras={basicProfileData.userExtras} />
                 </S.Container>
             )}
         </ViewBox>

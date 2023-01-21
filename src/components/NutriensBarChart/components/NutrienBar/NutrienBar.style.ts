@@ -10,7 +10,7 @@ export const Container = styled.div`
 export const MainContent = styled.div`
     display: flex;
     gap: 4px;
-    height: 35px;
+    height: 32px;
     align-items: flex-end;
 `;
 
@@ -21,7 +21,7 @@ type BarProps = {
 
 export const Bar = styled.div<BarProps>`
     height: 100%;
-    width: 10px;
+    width: 8px;
     position: relative;
 
     ::after {

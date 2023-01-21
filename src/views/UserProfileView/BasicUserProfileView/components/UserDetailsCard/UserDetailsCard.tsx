@@ -2,12 +2,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+import { ENDPOINTS_IMAGE_UPLOAD, ENDPOINTS_USER } from "../../../../../navigation/endpoints";
 import { setNotification } from "../../../../../redux/slices/notification";
 import axiosFoodieInstance from "../../../../../axios/axiosFoodieInstance";
-import { ENDPOINTS_IMAGE_UPLOAD, ENDPOINTS_USER } from "../../../../../navigation/endpoints";
 import { validEmail } from "../../../../../helpers/validation";
 
-import addPhotoIMG from "../../../../../assets/add-photo.png";
+import { removeImageFile, uploadImageFile } from "../../../../../helpers/uploadFile";
 import { mainTheme } from "../../../../../themes/mainTheme";
 import { setUser } from "../../../../../redux/slices/user";
 
@@ -35,7 +35,6 @@ import {
 } from "../../../../../models/User/User";
 
 import * as S from "./UserDetailsCard.style";
-import { removeImageFile, uploadImageFile } from "../../../../../helpers/uploadFile";
 
 type UserDetailsCardProps = {
     className?: string;
@@ -78,7 +77,6 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
                 file: files[0],
             };
             handleOnChange("profileImagePath", userAvatar);
-            //  setNewAchievementValidation({ ...newAchievementValidation, logo: "" });
         }
     };
 
@@ -102,7 +100,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
             if (!currentUserDetails[key]) {
                 currentValidation[key] = "This field is required";
                 validationPassed = false;
-            } else if (key === "email" && validEmail(currentUserDetails[key])) {
+            } else if (key === "email" && !validEmail(currentUserDetails[key])) {
                 currentValidation[key] = "Incorrect email address";
                 validationPassed = false;
             }
@@ -117,9 +115,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
             user?.profileImagePath &&
             (!newUplodedImageURL || user.profileImagePath !== newUplodedImageURL)
         ) {
-            console.log("removing");
-
-            await removeImageFile(ENDPOINTS_IMAGE_UPLOAD.removeUserAvater);
+            await removeImageFile(ENDPOINTS_IMAGE_UPLOAD.deleteUserAvatar);
         }
     };
 
@@ -154,7 +150,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
             dataToSend.profileImagePath = uploadedAvatarURL;
         }
 
-        await checkRemoveOldUserAvatar(dataToSend.profileImagePath);
+        checkRemoveOldUserAvatar(dataToSend.profileImagePath);
 
         await axiosFoodieInstance
             .post(ENDPOINTS_USER.userInfo, dataToSend)

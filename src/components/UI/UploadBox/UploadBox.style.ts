@@ -61,7 +61,7 @@ export const ErrorContainer = styled.div`
     max-width: 80%;
     display: flex;
     position: absolute;
-    bottom: -40px;
+    bottom: -24px;
     left: 0;
 
     span {

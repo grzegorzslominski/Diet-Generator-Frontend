@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
 
-import CreatorFormModal from "./components/CreatorFormModal/CreatorFormModal";
+import CreatorFormModal from "./CreatorFormModal/CreatorFormModal";
 import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
 import Button from "../../../../../components/UI/Button/Button";
 import Label from "../../../../../components/UI/Label/Label";
@@ -10,12 +10,14 @@ import Label from "../../../../../components/UI/Label/Label";
 import { UserData } from "../../../../../models/User/User";
 
 import * as S from "./CreatorCard.stylet";
+import { UserExtras } from "../../../../../models/User/ExpandedUser";
 
 type CreatorCardType = {
     user: UserData;
+    userExtras: UserExtras | null | undefined;
 };
 
-const CreatorCard = ({ user }: CreatorCardType) => {
+const CreatorCard = ({ user, userExtras }: CreatorCardType) => {
     const [openCreatorFormModal, setOpenCreatorFormModal] = useState(false);
 
     return (
@@ -35,7 +37,11 @@ const CreatorCard = ({ user }: CreatorCardType) => {
                 </Button>
             </S.Content>
             {openCreatorFormModal && (
-                <CreatorFormModal user={user} onClose={() => setOpenCreatorFormModal(false)} />
+                <CreatorFormModal
+                    userExtras={userExtras}
+                    user={user}
+                    onClose={() => setOpenCreatorFormModal(false)}
+                />
             )}
         </BoxPad>
     );
