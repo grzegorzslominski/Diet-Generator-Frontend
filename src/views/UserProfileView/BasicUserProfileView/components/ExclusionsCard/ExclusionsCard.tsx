@@ -18,8 +18,7 @@ type ExclusionsCardProps = ClassNameProp & {
 };
 
 const ExclusionsCard = ({ className, excludedProducts }: ExclusionsCardProps) => {
-    const navigate = useNavigate();
-    const { data: products, isLoading } = useQuery(["productsList"], getProducts);
+
     const [openExclusionsModal, setOpenExclusionsModal] = useState(false);
 
     return (
@@ -74,14 +73,12 @@ const ExclusionsCard = ({ className, excludedProducts }: ExclusionsCardProps) =>
                     Manage exclusions
                 </Button>
 
-                {/* {openExclusionsModal && (
+                {openExclusionsModal && (
                     <ExclusionsModal
                         exclusions={excludedProducts?.listOfExcludedProducts}
-                        products={products}
-                        productsIsLoading={isLoading}
                         close={() => setOpenExclusionsModal(false)}
                     />
-                )} */}
+                )}
             </S.Container>
         </BoxPad>
     );
