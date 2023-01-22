@@ -44,7 +44,7 @@ export const CustomSelect = styled.div<CustomSelectProps>`
     position: relative;
     display: flex;
     padding: 6px 0 2px 0;
-    height: ${({ size }) => (size === "medium" ? "42px" : size === "small" ? "30px" : "auto")};
+    height: ${({ size }) => (size === "medium" ? "42px" : size === "small" ? "21px" : "auto")};
     ${({ border }) => (border ? `border: ${border} ;` : "")};
     width: 100%;
     min-height: 23px;

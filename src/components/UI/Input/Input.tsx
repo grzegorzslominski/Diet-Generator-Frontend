@@ -37,6 +37,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id = "",
             width = "100%",
             size = "normal",
+            showErrorMessage = true,
         },
         ref,
     ) => {
@@ -96,7 +97,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 {label && (
                     <Label
                         fontFamily='Lato'
-                        fontWeight='800'
+                        fontWeight='600'
                         fontSize={size === "normal" ? "15px" : "11px"}
                         color={mainTheme.colors.inputText}
                     >
@@ -104,7 +105,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     </Label>
                 )}
 
-                <S.InputContainer width={width} icon={Boolean(icon)} size={size} type={type}>
+                <S.InputContainer
+                    width={width}
+                    icon={Boolean(icon)}
+                    size={size}
+                    type={type}
+                    showErrorMessage={Boolean(showErrorMessage)}
+                    error={error}
+                >
                     {icon ? icon : null}
                     {type !== "date" && (
                         <S.StyledInput
@@ -146,7 +154,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     )}
                 </S.InputContainer>
 
-                {(internalValidationError || error) && (
+                {(internalValidationError || error) && showErrorMessage && (
                     <S.ErrorContainer labelIndent={labelIndent}>
                         <Label fontSize={size === "normal" ? "15px" : "11px"} color='#FF0000'>
                             {internalValidationError || error}

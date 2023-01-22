@@ -25,3 +25,4 @@ const prepareRecipeInstrucion = (instrucion: string | undefined) => {
 };
 
 export { makeFirstLatterUppercase, prepareRecipeInstrucion };
+

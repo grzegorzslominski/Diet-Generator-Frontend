@@ -1,27 +1,19 @@
 import { useNavigate } from "react-router-dom";
 
-import { ReactComponent as CheckIcon } from "../../../../../../../../assets/icons/checkMark.svg";
-import { ReactComponent as XIcon } from "../../../../../../../../assets/icons/XIcon.svg";
-import { makeFirstLatterUppercase } from "../../../../../../../../helpers/textParse";
 import { NAVIGATION } from "../../../../../../../../navigation/paths";
 import { mainTheme } from "../../../../../../../../themes/mainTheme";
 import noPhoto from "../../../../../../../../assets/no-photo.png";
 
+import RecipeProperyTable from "../../../../../../../../components/RecipeProperyTable/RecipeProperyTable";
 import ModalPortal from "../../../../../../../../components/UI/ModalPortal/ModalPortal";
 import Button from "../../../../../../../../components/UI/Button/Button";
 import BoxPad from "../../../../../../../../components/UI/BoxPad/BoxPad";
 import Label from "../../../../../../../../components/UI/Label/Label";
 
-import {
-    RecipeNutrionsType,
-    RecipeType,
-    RECIPE_TYPE_PRESET,
-    Recipe,
-    USER_RECIPE_NUTRIONS,
-    USER_RECIPE_TYPE,
-} from "../../../../../../../../models/Meal/Recipe";
+import { Recipe } from "../../../../../../../../models/Meal/Recipe";
 
 import * as S from "./RecipeInfoModal.style";
+
 type MealInfoModalProps = {
     userRecipe: Recipe;
     close: () => void;
@@ -47,57 +39,7 @@ const MealInfoModal = ({ userRecipe, close }: MealInfoModalProps) => {
                             mealPhoto={userRecipe.imagePath ? userRecipe.imagePath : noPhoto}
                         />
                         <S.TopSectionInfo>
-                            <S.TableInfo>
-                                <S.TableCol>
-                                    <>
-                                        <S.ColItem>
-                                            <Label fontSize='14px'>Kcal</Label>
-                                            <Label fontSize='14px' textAlign='end'>
-                                                {userRecipe.calories} kcal
-                                            </Label>
-                                        </S.ColItem>
-                                        {USER_RECIPE_NUTRIONS.map((nutrien: RecipeNutrionsType) => {
-                                            return (
-                                                <S.ColItem key={nutrien}>
-                                                    <Label fontSize='14px'>
-                                                        {makeFirstLatterUppercase(nutrien)}
-                                                    </Label>
-                                                    <Label fontSize='14px' textAlign='end'>
-                                                        {userRecipe[nutrien]} g
-                                                    </Label>
-                                                </S.ColItem>
-                                            );
-                                        })}
-                                        <S.ColItem>
-                                            <Label fontSize='14px'>Servings:</Label>
-                                            <Label fontSize='14px' textAlign='end'>
-                                                {userRecipe.servings}
-                                            </Label>
-                                        </S.ColItem>
-                                    </>
-                                </S.TableCol>
-                                <S.TableCol>
-                                    <>
-                                        {USER_RECIPE_TYPE.map((recipeType: RecipeType) => {
-                                            return (
-                                                <S.ColItem
-                                                    key={recipeType}
-                                                    compatibleType={userRecipe[recipeType]}
-                                                >
-                                                    <Label fontSize='14px'>
-                                                        {RECIPE_TYPE_PRESET[recipeType]}
-                                                    </Label>
-                                                    {userRecipe[recipeType] ? (
-                                                        <CheckIcon />
-                                                    ) : (
-                                                        <XIcon />
-                                                    )}
-                                                </S.ColItem>
-                                            );
-                                        })}
-                                    </>
-                                </S.TableCol>
-                            </S.TableInfo>
+                            <RecipeProperyTable {...userRecipe} />
                             <Label
                                 fontSize='15px'
                                 lineHeight='16px'
@@ -118,7 +60,7 @@ const MealInfoModal = ({ userRecipe, close }: MealInfoModalProps) => {
                         <Button
                             size='small'
                             width='125px'
-                            onClick={() => navigate(NAVIGATION.newMeal)}
+                            onClick={() => navigate(`${NAVIGATION.recipes}/${userRecipe.id}`)}
                         >
                             Edit meal
                         </Button>

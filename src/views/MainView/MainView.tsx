@@ -106,12 +106,12 @@ const MainView = () => {
                                                 element={<PaymentView />}
                                             />
                                             <Route
-                                                path={`${NAVIGATION.recipe}`}
-                                                element={<RecipeView />}
+                                                path={`${NAVIGATION.recipes}`}
+                                                element={<RecipeView userID={user.id} />}
                                             />
                                             <Route
-                                                path={`${NAVIGATION.recipe}/?mealID`}
-                                                element={<RecipeView />}
+                                                path={`${NAVIGATION.recipes}/:recipeID`}
+                                                element={<RecipeView userID={user.id} />}
                                             />
                                         </>
                                     )}

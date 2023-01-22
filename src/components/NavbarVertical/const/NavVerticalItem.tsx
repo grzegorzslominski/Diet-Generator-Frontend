@@ -30,8 +30,8 @@ export const NAV_ITEMS: NavItem[] = [
         icon: <DietIcon />,
     },
     {
-        label: "My meals",
-        routing: NAVIGATION.myMeals,
+        label: "My recipes",
+        routing: NAVIGATION.recipes,
         icon: <MyMealsIcon />,
     },
     {

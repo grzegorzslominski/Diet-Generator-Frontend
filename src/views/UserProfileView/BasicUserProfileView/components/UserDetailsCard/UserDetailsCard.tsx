@@ -76,6 +76,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
                 type: files[0].type,
                 file: files[0],
             };
+
             handleOnChange("profileImagePath", userAvatar);
         }
     };
@@ -128,6 +129,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
 
         if (userDetails?.profileImagePath?.file) {
             let uploadedAvatarURL = "";
+
             const { imageURL, err: avatarUploadError } = await uploadImageFile(
                 ENDPOINTS_IMAGE_UPLOAD.uploadUserAvatar,
                 "image",
@@ -196,10 +198,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
         <BoxPad className={className}>
             {userDetails && (
                 <S.Content>
-                    <S.TopSection
-                        // profileIMG={Boolean(userDetails.profileImagePath)}
-                        profileIMG={false}
-                    >
+                    <S.TopSection profileIMG={Boolean(userDetails.profileImagePath)}>
                         <S.UserAvatarContainer>
                             <UploadBox
                                 url={userDetails.profileImagePath?.url}
