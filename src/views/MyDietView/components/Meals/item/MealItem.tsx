@@ -8,13 +8,19 @@ import MyDietChart from "../chart/MyDietChart";
 import DayMealList from "./dayMeal/DayMealList";
 import Label from "../../../../../components/UI/Label/Label";
 
-import { mealItemI } from "../const/mealItemData";
-
 import * as S from "./MealItem.style";
+import { DaysForWeekDietI } from "../const/meal";
+import { parseUnixTime2,parseUnitTimeToDay } from "../../../../AuthViews/helpers/date";
 
-const MealItem = (props: mealItemI) => {
+interface props {
+    daysForWeekDietI: DaysForWeekDietI;
+    timestamp: number
+    index: number;
+}
+const MealItem = (props: props) => {
     const [open, setIsOpen] = useState(false);
     const handleIsOpen = () => setIsOpen((prev) => !prev);
+
     return (
         <S.Wrapper>
             <S.Container>
@@ -27,7 +33,7 @@ const MealItem = (props: mealItemI) => {
                         textAlign='center'
                         color={mainTheme.colors.mainBlack}
                     >
-                        {props.date}
+                        {parseUnixTime2(props.timestamp,props.index)}
                     </Label>
                     <Label
                         fontFamily='Montserrat'
@@ -36,7 +42,7 @@ const MealItem = (props: mealItemI) => {
                         lineHeight='1.25rem'
                         textAlign='center'
                     >
-                        {props.day}
+                        {parseUnitTimeToDay(props.timestamp,props.index)}
                     </Label>
 
                     <S.Border>
@@ -64,9 +70,9 @@ const MealItem = (props: mealItemI) => {
                         Meals
                     </Label>
                     <S.UlStyled>
-                        {props.meals.map((item) => {
+                        {props.daysForWeekDietI.recipesForToday && props.daysForWeekDietI.recipesForToday.slice(0,5).map((item) => {
                             return (
-                                <S.LiStyled key={item}>
+                                <S.LiStyled key={item.id}>
                                     <Label
                                         fontFamily='Montserrat'
                                         fontWeight='600'
@@ -75,7 +81,7 @@ const MealItem = (props: mealItemI) => {
                                         textAlign='center'
                                         color={mainTheme.colors.mainBlack}
                                     >
-                                        {item}
+                                        {item.title}
                                     </Label>
                                 </S.LiStyled>
                             );
@@ -93,7 +99,7 @@ const MealItem = (props: mealItemI) => {
                             color='#4E4C75'
                             textAlign='center'
                         >
-                            {props.kcal}
+                            {props.daysForWeekDietI.todaysCalories}
                         </Label>
                         <S.KcalContainer>
                             <Label
@@ -108,20 +114,17 @@ const MealItem = (props: mealItemI) => {
                             </Label>
                         </S.KcalContainer>
                     </S.LabelContainer>
-                    <MyDietChart />
+                    <MyDietChart
+                      fat={props.daysForWeekDietI.todaysFat}
+                      carbs={props.daysForWeekDietI.todaysCarbs}
+                      proteins={props.daysForWeekDietI.todaysProtein}
+                    />
                 </S.RightSection>
                 {open ? <S.Line /> : null}
             </S.Container>
-            {open && props.mealDays ? (
+            {open && props.daysForWeekDietI.recipesForToday ? (
                 <DayMealList
-                    mealDays={props.mealDays}
-                    date={props.date}
-                    day={props.day}
-                    meals={props.meals}
-                    kcal={props.kcal}
-                    fat={props.fat}
-                    carbs={props.carbs}
-                    proteins={props.proteins}
+                  recipeIngredients={props.daysForWeekDietI.recipesForToday}
                 />
             ) : null}
         </S.Wrapper>

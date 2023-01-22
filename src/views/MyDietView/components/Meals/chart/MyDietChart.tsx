@@ -38,22 +38,28 @@ export const options = {
 
 const labels = ['Fat','Carbs','Proteins'];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: ['rgba(255, 99, 132, 0.5)','rgba(53, 162, 235, 0.5)']
-    },
-  ]
+export const data = (a: number,b:number,c:number) => {
+  return {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: [a,b,c],
+        backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)']
+      },
+    ]
+  }
 };
 
-
-const MyDietChart = () => {
+interface props {
+  proteins: number;
+  fat: number,
+  carbs: number
+}
+const MyDietChart = ({proteins,fat,carbs}:props) => {
   return (
     <S.Container>
-      <Bar options={options} data={data} />
+      <Bar options={options} data={data(fat,carbs,proteins)} />
     </S.Container>
   );
 };

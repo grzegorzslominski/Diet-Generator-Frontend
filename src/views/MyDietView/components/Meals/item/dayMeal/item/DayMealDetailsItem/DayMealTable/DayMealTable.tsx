@@ -1,5 +1,4 @@
 import React from "react";
-import { mealDayI } from "../../../../../const/mealItemData";
 import * as S from "./DayMealTable.style";
 import Label from "../../../../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../../../../themes/mainTheme";
@@ -7,17 +6,17 @@ import CheckMark from "../../../../../../../../../assets/icons/checkMark.svg";
 import XIcon from "../../../../../../../../../assets/icons/XIcon.svg";
 
 interface props {
-    vegetarian: string;
-    glutenFree: string;
-    dairyFre: string;
-    veryHealthy: string;
-    vegan: string;
+    vegetarian: boolean;
+    glutenFree: boolean;
+    dairyFre: boolean;
+    veryHealthy: boolean;
+    vegan: boolean;
 }
 const DayMealTable = (props: props) => {
     return (
         <S.Container>
             <S.Table>
-                <S.TableItem isOpen={props.vegetarian === "true" ? true : false}>
+                <S.TableItem isOpen={props.vegetarian}>
                     <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
@@ -33,7 +32,7 @@ const DayMealTable = (props: props) => {
                         <img src={XIcon} alt='XIcon' />
                     )}
                 </S.TableItem>
-                <S.TableItem isOpen={props.vegan === "true" ? true : false}>
+                <S.TableItem isOpen={props.vegan}>
                     <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
@@ -43,13 +42,13 @@ const DayMealTable = (props: props) => {
                     >
                         Vegan
                     </Label>
-                    {props.vegan === "true" ? (
+                    {props.vegan ? (
                         <img src={CheckMark} alt='checkMark' />
                     ) : (
                         <img src={XIcon} alt='XIcon' />
                     )}
                 </S.TableItem>
-                <S.TableItem isOpen={props.glutenFree === "true" ? true : false}>
+                <S.TableItem isOpen={props.glutenFree}>
                     <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
@@ -59,13 +58,13 @@ const DayMealTable = (props: props) => {
                     >
                         Gluten free
                     </Label>
-                    {props.glutenFree === "true" ? (
+                    {props.glutenFree ? (
                         <img src={CheckMark} alt='checkMark' />
                     ) : (
                         <img src={XIcon} alt='XIcon' />
                     )}
                 </S.TableItem>
-                <S.TableItem isOpen={props.dairyFre === "true" ? true : false}>
+                <S.TableItem isOpen={props.dairyFre}>
                     <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
@@ -75,13 +74,13 @@ const DayMealTable = (props: props) => {
                     >
                         Dairy free
                     </Label>
-                    {props.dairyFre === "true" ? (
+                    {props.dairyFre ? (
                         <img src={CheckMark} alt='checkMark' />
                     ) : (
                         <img src={XIcon} alt='XIcon' />
                     )}
                 </S.TableItem>
-                <S.TableItem isOpen={props.veryHealthy === "true" ? true : false}>
+                <S.TableItem isOpen={props.veryHealthy}>
                     <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
@@ -91,7 +90,7 @@ const DayMealTable = (props: props) => {
                     >
                         Healthy
                     </Label>
-                    {props.veryHealthy === "true" ? (
+                    {props.veryHealthy ? (
                         <img src={CheckMark} alt='checkMark' />
                     ) : (
                         <img src={XIcon} alt='XIcon' />

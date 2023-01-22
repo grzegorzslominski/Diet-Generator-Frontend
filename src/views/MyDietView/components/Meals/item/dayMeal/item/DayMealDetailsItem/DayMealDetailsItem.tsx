@@ -8,25 +8,55 @@ import { ReactComponent as Like } from "../../../../../../../../assets/icons/lik
 import { ReactComponent as Dislike } from "../../../../../../../../assets/icons/dislikeIcon.svg";
 import { ReactComponent as Heart } from "../../../../../../../../assets/icons/heart.svg";
 import ActionButton from "../../../../../../../../components/UI/ActionButton/ActionButton";
+import { IngredientsI, RecipeIngredientsI } from "../../../../const/meal";
+import { prepareRecipeInstrucion } from "../../../../../../../../helpers/textParse";
 
-interface props {
-    close: () => void;
-    name: string;
-    image: string;
-    category: string;
-    calories: string;
-    proteins: string;
-    carbs: string;
-    fat: string;
-    basicIngredients: string[];
-    properties?: propObject[];
+// interface props {
+//     close: () => void;
+//     name: string;
+//     image: string;
+//     category: string;
+//     calories: string;
+//     proteins: string;
+//     carbs: string;
+//     fat: string;
+//     basicIngredients: string[];
+//     properties?: propObject[];
+// }
+
+type prop = {
+    close: () => void
 }
-const DayMealDetailsItem = (props: props) => {
+
+type prop2 = {
+    id: number;
+    title: string;
+    servings: number;
+    readyInMinutes: number;
+    imagePath: string;
+    instructions: string;
+    vegetarian: boolean;
+    vegan: boolean;
+    glutenFree: boolean;
+    dairyFree: boolean;
+    veryHealthy: boolean;
+    verified: boolean;
+    calories: number;
+    carbs: number;
+    fat: number;
+    protein: number;
+    recipesIngredients: IngredientsI[]
+    close: () => void
+
+}
+
+type prop3 = prop & prop2
+const DayMealDetailsItem = (props: prop2) => {
     return (
         <S.Container>
             <S.Header>
                 <S.ImageContainer>
-                    <img src={props.image} alt='' />
+                    <img src={props.imagePath} alt='' />
                 </S.ImageContainer>
                 <Label
                     fontFamily='Montserrat'
@@ -36,32 +66,18 @@ const DayMealDetailsItem = (props: props) => {
                     textAlign='center'
                     color={mainTheme.colors.mainBlack}
                 >
-                    {props.name}
-                </Label>
-                <Label
-                    fontFamily='Montserrat'
-                    fontWeight='600'
-                    fontSize='0.5rem'
-                    lineHeight='1rem'
-                    color={mainTheme.colors.mainBlack}
-                >
-                    {props.category}
+                    {props.title}
                 </Label>
             </S.Header>
             <S.Table>
                 <S.TableItem>
-                    {props.properties?.map((item) => {
-                        return (
                             <DayMealTable
-                                key={item.dairyFree}
-                                vegetarian={item.vegetarian}
-                                vegan={item.vegan}
-                                veryHealthy={item.veryHealthy}
-                                glutenFree={item.glutenFree}
-                                dairyFre={item.dairyFree}
+                                vegetarian={props.vegetarian}
+                                vegan={props.vegan}
+                                veryHealthy={props.veryHealthy}
+                                glutenFree={props.glutenFree}
+                                dairyFre={props.dairyFree}
                             />
-                        );
-                    })}
                 </S.TableItem>
             </S.Table>
             <Label
@@ -71,7 +87,7 @@ const DayMealDetailsItem = (props: props) => {
                 lineHeight='1rem'
                 color={mainTheme.colors.mainBlack}
             >
-                Ready in minutes: 30
+                Ready in minutes: {props.readyInMinutes}
             </Label>
             <S.Row>
                 <Label
@@ -95,9 +111,9 @@ const DayMealDetailsItem = (props: props) => {
             </S.Row>
             <S.Content>
                 <S.Items>
-                    {props.basicIngredients.map((item) => {
+                    {props.recipesIngredients.map((item,index: number) => {
                         return (
-                            <S.Item key={item}>
+                            <S.Item key={index}>
                                 <Label
                                     fontFamily='Montserrat'
                                     fontWeight='600'
@@ -105,7 +121,7 @@ const DayMealDetailsItem = (props: props) => {
                                     lineHeight='1rem'
                                     color={mainTheme.colors.mainBlack}
                                 >
-                                    {item}
+                                    {item.name}
                                 </Label>
                             </S.Item>
                         );
@@ -146,7 +162,7 @@ const DayMealDetailsItem = (props: props) => {
                         lineHeight='1rem'
                         color={mainTheme.colors.mainBlack}
                     >
-                        Proteins: {props.proteins}
+                        Proteins: {props.protein}
                     </Label>
                 </S.ContentItem>
             </S.Content>
@@ -167,20 +183,9 @@ const DayMealDetailsItem = (props: props) => {
                     lineHeight='1rem'
                     color={mainTheme.colors.mainBlack}
                 >
-                    In a large pan with lid heat olive oil over medium high heat. Add onions and
-                    cook for 1 minute. Add garlic and cook until onions are translucent and garlic
-                    is fragrant.Add quinoa to pan, stir to combine. Slowly add in broth and bring to
-                    a boil.Cover and reduce heat to low, cook for 15 minutes.In the last 2-3 minutes
-                    of cooking add in broccolini on top of the quinoa (do not stir) and
-                    cover.Uncover and toss broccolini and quinoa together.Season to taste with salt
-                    and pepper.Add walnuts and serve hot.
+                    {prepareRecipeInstrucion(props.instructions)}
                 </Label>
             </S.Description>
-            <S.IconTable>
-                <Like />
-                <Dislike />
-                <Heart />
-            </S.IconTable>
             <S.ClosingContainer>
                 <ActionButton type='remove' onClick={props.close} />
             </S.ClosingContainer>

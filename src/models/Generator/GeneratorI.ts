@@ -4,6 +4,7 @@ export interface GeneratorI {
     goal: goalType;
     exercise: exerciseType;
     exclusions: ProductType[];
+    mealsPerDay: number;
     vegan: boolean;
     vegetarian: boolean
     glutenFree: boolean;
@@ -21,6 +22,7 @@ export const BASIC_GENERATOR_DATA:GeneratorI = {
     goal: "",
     exercise: "",
     exclusions: [],
+    mealsPerDay: 3,
     vegan: false,
     vegetarian: false,
     glutenFree: false,

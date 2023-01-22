@@ -6,7 +6,6 @@ import * as S from "./MyDietView.style";
 const MyDietView = () => {
     return (
         <S.Container>
-            <DisplayedDays />
             <MealItemList />
         </S.Container>
     );
