@@ -18,7 +18,7 @@ const ACTIONS_ITEMS: ActionItem = {
     remove: {
         component: (
             <Label
-                color={mainTheme.colors.mainBlack}
+                color={mainTheme.colors.error}
                 fontSize='18px'
                 lineHeight='18px'
                 fontWeight='700'
@@ -87,7 +87,12 @@ type ActionButtonProps = {
 
 const ActionButton = ({ onClick, type, size = "normal" }: ActionButtonProps) => {
     return (
-        <S.Container onClick={onClick} size={ACTIONS_ITEMS[type].size[size]} sizeType={size}>
+        <S.Container
+            onClick={onClick}
+            size={ACTIONS_ITEMS[type].size[size]}
+            sizeType={size}
+            type={type}
+        >
             {ACTIONS_ITEMS[type].component}
         </S.Container>
     );

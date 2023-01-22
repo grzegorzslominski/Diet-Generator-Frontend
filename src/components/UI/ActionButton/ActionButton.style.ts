@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { mainTheme } from "../../../themes/mainTheme";
 
 type ContainerProps = {
+    type: "edit" | "remove" | "info" | "add" | "confirm";
     sizeType: "normal" | "small";
     size: string;
 };
@@ -27,7 +28,8 @@ export const Container = styled.div<ContainerProps>`
               `}
 
     border-radius: 50%;
-    border: 2px solid ${mainTheme.colors.mainBlack};
+    border: 2px solid
+        ${({ theme, type }) => (type !== "remove" ? theme.colors.mainBlack : theme.colors.error)};
     padding: 0 0 1px 1px;
 
     img {

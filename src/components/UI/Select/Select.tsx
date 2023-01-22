@@ -69,7 +69,7 @@ const Select = ({
     const [isFocus, setIsFocus] = useState<boolean>(false);
     const [openSelect, setOpenSelect] = useState(false);
     const [optionsPosition, setOptionsPosition] = useState<"bottom" | "top">(
-      position ? position : "bottom",
+        position ? position : "bottom",
     );
     const [remainingMultiselectCount, setRemainingMultiselectCount] = useState(0);
 
@@ -117,8 +117,8 @@ const Select = ({
             const selectTopPosition = ref.current?.getBoundingClientRect().top;
 
             if (
-              selectTopPosition + optionsMaxHeight >
-              document.body.scrollHeight - pageBottomPadding
+                selectTopPosition + optionsMaxHeight >
+                document.body.scrollHeight - pageBottomPadding
             ) {
                 setOptionsPosition("top");
             } else {
@@ -174,12 +174,12 @@ const Select = ({
             );
             if (foundValueChildren) {
                 return i > remainingMultiselectCount - 1
-                  ? ""
-                  : value.length === 1
+                    ? ""
+                    : value.length === 1
                     ? foundValueChildren.props.children
                     : i < remainingMultiselectCount - 1
-                      ? foundValueChildren.props.children + ", "
-                      : foundValueChildren.props.children;
+                    ? foundValueChildren.props.children + ", "
+                    : foundValueChildren.props.children;
             }
         });
 
@@ -211,15 +211,15 @@ const Select = ({
 
     const handleShowAddOption = (searchValue: string): boolean => {
         const matchingValues = React.Children.map<React.ReactNode, React.ReactNode>(
-          children,
-          (child) => {
-              if (
-                React.isValidElement(child) &&
-                child.props.children.toLowerCase() === searchValue.toLowerCase()
-              ) {
-                  return true;
-              }
-          },
+            children,
+            (child) => {
+                if (
+                    React.isValidElement(child) &&
+                    child.props.children.toLowerCase() === searchValue.toLowerCase()
+                ) {
+                    return true;
+                }
+            },
         );
         return !matchingValues?.length;
     };
@@ -235,7 +235,8 @@ const Select = ({
                 <>
                     <Label
                         error={error}
-                        fontWeight='700'
+                        fontWeight='600'
+                        fontFamily='Lato'
                         fontSize='11px'
                         color={mainTheme.colors.inputText}
                     >

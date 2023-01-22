@@ -43,7 +43,7 @@ const OwnRecipesCard = ({ className, userRecipes }: OwnRecipesCardProps) => {
                         </S.Meals>
                         <RedirectButton
                             label='See all'
-                            onClick={() => navigate(NAVIGATION.recipe)}
+                            onClick={() => navigate(NAVIGATION.recipes)}
                         />
                     </>
                 ) : (
