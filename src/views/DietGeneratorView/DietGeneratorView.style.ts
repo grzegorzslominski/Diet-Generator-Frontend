@@ -138,6 +138,11 @@ export const ProductsWrapper = styled.div`
   }
 `
 
+
+export const InputContainer = styled.div`
+  width: 33%;
+  transition: none;
+`
 export const ProductsVegan = styled(ProductsWrapper)`
   flex-direction: row;
   
@@ -149,6 +154,11 @@ export const ProductsVegan = styled(ProductsWrapper)`
     padding: 20px;
     align-items: center;
     align-content: center;
+  }
+  
+  & > svg {
+    width: 100px;
+    height: 100px;
   }
   @media screen and (max-width: 750px) {
 

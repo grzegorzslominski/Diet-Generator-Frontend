@@ -6,6 +6,7 @@ import { setNotification } from "../../redux/slices/notification";
 import { BASIC_GENERATOR_DATA, GeneratorI } from "../../models/Generator/GeneratorI";
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
 import { ENDPOINTS_USER } from "../../navigation/endpoints";
+import {ReactComponent as MealPerDay} from "../../assets/dietGenerator/images/mealPerDay.svg"
 
 import GenerateYourOwnDiet from "./components/GenerateYourOwnDiet/GenerateYourOwnDiet";
 import ChooseYourGoal from "./components/Choose your goal/ChooseYourGoal";
@@ -110,6 +111,9 @@ const DietGeneratorView = () => {
         if (data.exercise === "") {
           validationPassed = false;
         }
+        if(data.mealsPerDay > 5 || data.mealsPerDay < 3){
+          validationPassed = false;
+        }
         if(data.veryHealthy && data.glutenFree && data.dairyFree && data.vegetarian && data.vegan){
           validationPassed = false;
         }
@@ -128,6 +132,7 @@ const DietGeneratorView = () => {
         const currentData = {
           dietGoal: data.goal,
           physicalActivity: data.exercise,
+          mealsPerDay: data.mealsPerDay,
           vegan: data.vegan,
           vegetarian: data.vegetarian,
           glutenFree: data.glutenFree,
@@ -173,6 +178,34 @@ const DietGeneratorView = () => {
             <GenerateYourOwnDiet />
             <ChooseYourGoal handleChange={handleChange} />
             <ChooseExcercise handleChange={handleChange} />
+          <S.ContainerVegan>
+            <Label
+              fontSize='1.5rem'
+              fontFamily='Lato'
+              fontWeight='700'
+              lineHeight='2.3rem'
+              color={mainTheme.colors.mainBlack}
+            >
+              {'Step 3: How many meals per day ?'}
+            </Label>
+            <S.ProductsVegan>
+              <S.InputContainer>
+              <Input
+                value={data.mealsPerDay}
+                placeholder='meals per day'
+                label='Meals per day'
+                type='number'
+                onChange={(e) => handleChange("mealsPerDay", e.target.value)}
+
+              />
+              </S.InputContainer>
+              <MealPerDay/>
+              <Label>
+                {'By default it\'s 3 but you can choose between 3-5'}
+              </Label>
+            </S.ProductsVegan>
+
+          </S.ContainerVegan>
             <S.ContainerVegan>
               <Label
                 fontSize='1.5rem'
@@ -181,7 +214,7 @@ const DietGeneratorView = () => {
                 lineHeight='2.3rem'
                 color={mainTheme.colors.mainBlack}
               >
-                {'Step 3: What kind of diet would you like ?'}
+                {'Step 4: What kind of diet would you like ?'}
               </Label>
               <S.ProductsVegan>
                 <S.Content selected={data.vegan} onClick={() => handleChange("vegan",!data.vegan)}>
@@ -269,7 +302,7 @@ const DietGeneratorView = () => {
               lineHeight='2.3rem'
               color={mainTheme.colors.mainBlack}
             >
-                {'Step 4: Choose exclusions'}
+                {'Step 5: Choose exclusions'}
             </Label>
             <S.ProductsWrapper>
             <S.SearchContainer>

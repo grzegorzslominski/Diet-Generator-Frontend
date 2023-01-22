@@ -38,12 +38,16 @@ export const TableItem = styled.div`
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 20px 10px 20px 10px;
   align-items: center;
+  height: 150px;
+  overflow: scroll;
+  overflow-x: hidden;
 `
 
 export const Items = styled.ul`
   all: unset;
+  padding-top: 10px;
 `
 
 export const Item = styled.li`
@@ -74,6 +78,7 @@ export const Description = styled.div`
   overflow: hidden;
   padding: 10px 0 10px 0;
   gap:10px;
+  overflow-y: scroll;
 `
 
 export const IconTable = styled.div`

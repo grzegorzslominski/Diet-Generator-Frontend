@@ -11,15 +11,19 @@ import { ReactComponent as Like } from "../../../../../../../assets/icons/likeIc
 import { ReactComponent as Dislike } from "../../../../../../../assets/icons/dislikeIcon.svg";
 import ModalPortal from "../../../../../../../components/UI/ModalPortal/ModalPortal";
 import DayMealDetailsItem from "./DayMealDetailsItem/DayMealDetailsItem";
+import { RecipeIngredientsI } from "../../../const/meal";
 
-const DayMealItem = (props: mealDayI) => {
+const DayMealItem = ({
+  id,title,servings,readyInMinutes,imagePath,instructions,vegetarian,
+  vegan,glutenFree,dairyFree,veryHealthy,verified,calories,carbs,fat,protein,
+  recipesIngredients
+                     }: RecipeIngredientsI) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-
     const handleIsOpen = () => setIsOpen((current) => !current);
     return (
         <S.Container>
             <S.Content>
-                <img src={props.image} alt='image' />
+                <img src={imagePath} alt='image' />
                 <S.SecondItem>
                     <S.LabelsContainer>
                         <Label
@@ -29,16 +33,7 @@ const DayMealItem = (props: mealDayI) => {
                             lineHeight='1.5rem'
                             color={mainTheme.colors.mainBlack}
                         >
-                            {props.name}
-                        </Label>
-                        <Label
-                            fontFamily='Montserrat'
-                            fontWeight='500'
-                            fontSize='0.5rem'
-                            lineHeight='0.6rem'
-                            color='white'
-                        >
-                            {props.category}
+                            {title}
                         </Label>
                     </S.LabelsContainer>
                     <S.SecondItemsContent>
@@ -61,7 +56,7 @@ const DayMealItem = (props: mealDayI) => {
                                 textAlign='center'
                                 color={mainTheme.colors.mainBlack}
                             >
-                                {props.calories}
+                                {calories}
                             </Label>
                             <S.FooterCalories />
                         </S.SecondSingleItem>
@@ -84,7 +79,7 @@ const DayMealItem = (props: mealDayI) => {
                                 textAlign='center'
                                 color={mainTheme.colors.mainBlack}
                             >
-                                {props.proteins}
+                                {protein}
                             </Label>
                             <S.FooterProteins />
                         </S.SecondSingleItem>
@@ -107,7 +102,7 @@ const DayMealItem = (props: mealDayI) => {
                                 textAlign='center'
                                 color={mainTheme.colors.mainBlack}
                             >
-                                {props.carbs}
+                                {carbs}
                             </Label>
                             <S.FooterCarbs />
                         </S.SecondSingleItem>
@@ -130,14 +125,18 @@ const DayMealItem = (props: mealDayI) => {
                                 textAlign='center'
                                 color={mainTheme.colors.mainBlack}
                             >
-                                {props.fat}
+                                {fat}
                             </Label>
                             <S.FooterFat />
                         </S.SecondSingleItem>
                     </S.SecondItemsContent>
                 </S.SecondItem>
                 <S.ThirdAndForthContent>
-                    <PieChart />
+                    <PieChart
+                      proteins={protein}
+                      carbs={carbs}
+                      fat={fat}
+                    />
                     <S.ThirdItemContainer>
                         <Label
                             fontFamily='Montserrat'
@@ -149,9 +148,9 @@ const DayMealItem = (props: mealDayI) => {
                             Basic ingredients:
                         </Label>
                         <S.ThirdItemUl>
-                            {props.basicIngredients.map((item) => {
+                            {recipesIngredients.slice(0,3).map((item,index:number) => {
                                 return (
-                                    <S.ThirdItemLi key={item}>
+                                    <S.ThirdItemLi key={index}>
                                         <Label
                                             fontFamily='Montserrat'
                                             fontWeight='500'
@@ -159,7 +158,7 @@ const DayMealItem = (props: mealDayI) => {
                                             lineHeight='0.9rem'
                                             color='white'
                                         >
-                                            {item}
+                                            {item.name}
                                         </Label>
                                     </S.ThirdItemLi>
                                 );
@@ -172,26 +171,30 @@ const DayMealItem = (props: mealDayI) => {
                         <Heart />
                         <Info onClick={handleIsOpen} />
                     </S.FourthContainerItem>
-                    <S.FourthContainerItem>
-                        <Like />
-                        <Dislike />
-                    </S.FourthContainerItem>
                 </S.FourthContainer>
             </S.Content>
             {isOpen ? (
                 <ModalPortal close={handleIsOpen}>
                     <DayMealDetailsItem
                         close={() => setIsOpen(false)}
-                        key={props.name}
-                        image={props.image}
-                        name={props.name}
-                        category={props.category}
-                        calories={props.calories}
-                        proteins={props.proteins}
-                        carbs={props.proteins}
-                        fat={props.fat}
-                        basicIngredients={props.basicIngredients}
-                        properties={props.properties}
+                        key={id}
+                        id={id}
+                        title={title}
+                        servings={servings}
+                        readyInMinutes={readyInMinutes}
+                        imagePath={imagePath}
+                        instructions={instructions}
+                        vegetarian={vegetarian}
+                        vegan={vegan}
+                        glutenFree={glutenFree}
+                        dairyFree={dairyFree}
+                        veryHealthy={veryHealthy}
+                        verified={verified}
+                        calories={calories}
+                        carbs={carbs}
+                        fat={fat}
+                        protein={protein}
+                        recipesIngredients={recipesIngredients}
                     />
                 </ModalPortal>
             ) : null}
