@@ -79,7 +79,7 @@ const SearchProducts = ({ selectedProducts, returnType, onChange }: SearchProduc
                     fontWeight='600'
                     color={mainTheme.colors.mainBlack}
                 >
-                    Add ingredients
+                    {returnType === "ingredients" ? "Add ingredients" : "Add exclusions"}
                 </Label>
                 <Input
                     placeholder='search product'

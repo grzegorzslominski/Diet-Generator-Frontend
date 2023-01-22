@@ -28,6 +28,11 @@ export const ProductsList = styled.div`
     grid-template-columns: repeat(4, 100px);
     width: 100%;
     gap: 20px;
+
+    @media screen and (max-width: 1200px) {
+        grid-template-columns: repeat(3, 95px);
+        gap: 20px 12px;
+    }
 `;
 
 type ProductItemProps = {
@@ -46,11 +51,10 @@ export const ProductItem = styled.div<ProductItemProps>`
     cursor: pointer;
 
     ${({ selected }) =>
-        selected
-            ? css`
-                  background-color: rgb(37, 150, 190, 0.15);
-              `
-            : css``}
+        selected &&
+        css`
+            background-color: rgb(37, 150, 190, 0.15);
+        `}
 `;
 
 export const SearchContainer = styled.div`
