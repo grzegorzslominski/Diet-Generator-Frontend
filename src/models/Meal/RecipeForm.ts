@@ -1,8 +1,34 @@
-import { Recipe } from "./Recipe";
+import { UploadItem } from "./../User/User";
+import { Ingredient } from "./Recipe";
 
-export const NEW_RECIPE_DATA: Recipe = {
+export type RecipeForm = {
+    id?: number;
+    timestamp?: number;
+    calories: number;
+    title: string;
+    verifed: boolean;
+    readyInMinutes: number;
+    servings: number;
+    instructions?: string;
+    glutenFree: boolean;
+    dairyFree: boolean;
+    vegetarian: boolean;
+    vegan: boolean;
+    veryHealthy: boolean;
+    verified: boolean;
+    kcal: number;
+    fat: number;
+    protein: number;
+    carbs: number;
+    created_at: number;
+    ingredients: Ingredient[];
+    imagePath: UploadItem;
+    [key: string]: number | string | boolean | Ingredient[] | UploadItem | null | undefined;
+};
+
+export const NEW_RECIPE_DATA: RecipeForm = {
     calories: 0,
-    imagePath: null,
+    imagePath: { type: "image/png", url: "", file: null },
     title: "",
     verifed: false,
     readyInMinutes: 0,
@@ -26,7 +52,6 @@ export type RecipeValidation = {
     title: string;
     servings: string;
     readyInMinutes: string;
-    imagePath: string;
     instructions: string;
     calories: string;
     fat: string;
@@ -49,4 +74,17 @@ export const RECIPE_VALIDATION_DATA: RecipeValidation = {
     carbs: "",
     isIngredient: "",
     ingredients: [],
+};
+
+type RecipeInputs = {
+    [key: string]: string;
+};
+
+export const RECIPE_INPUT_PRESET: RecipeInputs = {
+    servings: "Servings",
+    readyInMinutes: "Time",
+    calories: "Calories",
+    fat: "Fat",
+    proteins: "proteins",
+    carbs: "carbs",
 };

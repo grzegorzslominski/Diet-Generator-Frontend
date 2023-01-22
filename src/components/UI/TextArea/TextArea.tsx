@@ -43,7 +43,7 @@ const TextArea = ({
             {label && (
                 <S.Row labelIndent={labelIndent}>
                     <Label
-                        fontWeight='700'
+                        fontWeight='600'
                         fontSize={size === "normal" ? "14px" : "12px"}
                         color={mainTheme.colors.mainBlack}
                     >

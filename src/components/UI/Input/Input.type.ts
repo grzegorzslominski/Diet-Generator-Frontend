@@ -9,6 +9,8 @@ export type InputContainerProps = {
     type?: string;
     icon: boolean;
     size: "small" | "normal";
+    showErrorMessage?: boolean;
+    error?: string;
 };
 
 export type InputProps = {
@@ -29,6 +31,7 @@ export type InputProps = {
     regex?: RegExp;
     value: any;
     icon?: React.ReactNode;
+    showErrorMessage?: boolean;
     clearError?: () => void;
     id?: string;
     onKeyDown?: (e: any) => void;

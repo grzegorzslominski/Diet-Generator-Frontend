@@ -18,13 +18,18 @@ export enum ENDPOINTS_IMAGE_UPLOAD {
     deleteUserAvatar = "image/delete/profile",
     uploadExtrasBackground = "image/upload/background",
     deleteExtrasBackground = "image/delete/background",
+    uploadRecipeImage = "image/upload/recipe",
+    deleteRecipeImage = "image/delete/recipe",
 }
 
 export enum ENDPOINTS_MEALS {
     products = "/diet/products",
+    getRecipe = "recipe",
     addMeal = "/recipe/add",
     excludedProducts = "/diet/excludedProducts",
-    ownRecipes = "/recipes",
+    userRecipes = "/recipe/user",
+    removeUserRecipe = "recipe/delete",
+    editUserRecipe = "recipe/update",
 }
 
 export enum ENDPOINTS_EXPANDE_USER_PROFILE {

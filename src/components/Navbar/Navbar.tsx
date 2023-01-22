@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import useAuth from "../../hooks/useAuth";
 
 import { NavItem, NAV_ITEMS } from "./const/NavItems";
+import { NAVIGATION } from "../../navigation/paths";
 import { mainTheme } from "../../themes/mainTheme";
 
 import MobileMenu from "./const/MobileMenu/MobileMenu";
@@ -14,7 +15,6 @@ import Label from "../UI/Label/Label";
 import { TStore } from "../../redux/store/store";
 
 import * as S from "./Navbar.style";
-import { NAVIGATION } from "../../navigation/paths";
 
 const Navbar = () => {
     const navigate = useNavigate();

@@ -1,3 +1,6 @@
+import { ENDPOINTS_MEALS, ENDPOINTS_USER } from "./../../navigation/endpoints";
+import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+
 export const UNITS: string[] = ["g", "ml"];
 
 export type UserComment = {
@@ -37,10 +40,11 @@ export type RecipeNutriens = {
 };
 
 export type Ingredient = {
+    id?: number;
     name: string;
     amount: number;
     unit: Unit;
-    [key: string]: string | number | Unit;
+    [key: string]: string | number | Unit | undefined;
 };
 
 export type RecipeNutrionsType = "fat" | "protein" | "carbs";
@@ -56,7 +60,11 @@ export const USER_RECIPE_TYPE: RecipeType[] = [
     "veryHealthy",
 ];
 
-export const RECIPE_TYPE_PRESET = {
+type RecipeTypePreset = {
+    [key: string]: string;
+};
+
+export const RECIPE_TYPE_PRESET: RecipeTypePreset = {
     vegetarian: "Vegetarian",
     vegan: "Vegan",
     glutenFree: "Gluten free",
@@ -65,3 +73,26 @@ export const RECIPE_TYPE_PRESET = {
 };
 
 export type Unit = "ml" | "g";
+
+export const getUserRecipes = async (userID: number) => {
+    return await axiosFoodieInstance
+        .get<Recipe[]>(`${ENDPOINTS_MEALS.userRecipes}/${userID}`)
+        .then((response) => {
+            if (response.status === 200) {
+                return response.data;
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+export const getRecipe = async (recipeID: number) => {
+    return await axiosFoodieInstance
+        .get<Recipe>(`${ENDPOINTS_MEALS.getRecipe}/${recipeID}`)
+        .then((response) => {
+            if (response.status === 200) {
+                return response.data;
+            }
+        });
+};

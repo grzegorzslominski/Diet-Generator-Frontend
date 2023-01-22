@@ -1,7 +1,7 @@
+import { UploadItem } from "./../models/User/User";
 import axiosFoodieInstance from "../axios/axiosFoodieInstance";
-import { UploadResponse } from "../models/User/User";
 
-export const uploadImageFile = async (endpoint: string, uploadKey: string, file: any) => {
+const uploadImageFile = async (endpoint: string, uploadKey: string, file: any) => {
     let err = "";
     let imageURL = "";
 
@@ -24,7 +24,7 @@ export const uploadImageFile = async (endpoint: string, uploadKey: string, file:
     return { imageURL, err };
 };
 
-export const removeImageFile = async (endpoint: string) => {
+const removeImageFile = async (endpoint: string) => {
     let err = "";
     let statusCode;
 
@@ -43,3 +43,17 @@ export const removeImageFile = async (endpoint: string) => {
 
     return { statusCode, err };
 };
+
+const parseImageToEdit = (object: any, imageProperty: string) => {
+    const initFile = JSON.parse(JSON.stringify(INIT_FILE));
+    const currentObject = JSON.parse(JSON.stringify(object));
+
+    initFile.url = object[imageProperty];
+    currentObject[imageProperty] = initFile;
+
+    return currentObject;
+};
+
+const INIT_FILE: UploadItem = { type: "image/png", url: "", file: null };
+
+export { uploadImageFile, removeImageFile, parseImageToEdit, INIT_FILE };

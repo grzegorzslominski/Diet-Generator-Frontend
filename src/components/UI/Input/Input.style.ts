@@ -29,13 +29,21 @@ export const Container = styled.div<InputContainerProps>`
 export const InputContainer = styled.div<InputContainerProps>`
     display: flex;
     align-items: center;
-    ${({ type, disabled }) =>
+    gap: 6px;
+    padding: 0 3px;
+    ${({ type, disabled, showErrorMessage, theme, error }) =>
         type !== "date" &&
         css`
-            border-bottom: 1px solid ${disabled ? "#B0B0B0" : "#d9d9d9"};
+            border-bottom: 1px solid
+                ${!showErrorMessage && error
+                    ? theme.colors.error
+                    : disabled
+                    ? "#B0B0B0"
+                    : "#d9d9d9"};
         `}
     svg {
-        height: 15px;
+        margin-top: 4px;
+        height: 17px;
         width: auto;
     }
 
@@ -45,12 +53,7 @@ export const InputContainer = styled.div<InputContainerProps>`
         text-align: left;
         font-family: "Montserrat", sans-serif;
         box-sizing: border-box;
-        padding: ${({ icon, size }) =>
-            icon && size === "normal"
-                ? "6px 24px"
-                : icon && size !== "normal"
-                ? "6px 24px 0px 24px"
-                : "6px  0px 2px  0px"};
+        padding: 6px 0px 2px 0px;
         font-size: ${({ size }) => (size === "normal" ? "15px" : "12px")};
         font-weight: 600;
         color: ${mainTheme.colors.grey};
@@ -59,18 +62,21 @@ export const InputContainer = styled.div<InputContainerProps>`
 
         ::placeholder {
             font-size: 12px;
+            line-height: 12px;
             color: ${mainTheme.colors.grey};
             font-weight: 400;
         }
 
         :-ms-input-placeholder {
             font-size: 12px;
+            line-height: 12px;
             color: ${mainTheme.colors.grey};
             font-weight: 400;
         }
 
         ::-ms-input-placeholder {
             font-size: 12px;
+            line-height: 12px;
             color: ${mainTheme.colors.grey};
             font-weight: 400;
         }

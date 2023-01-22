@@ -1,19 +1,12 @@
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
 import { ENDPOINTS_MEALS } from "../../navigation/endpoints";
-import { Unit } from "./Recipe";
-
-export type Ingredient = {
-    name: string;
-    amount: number;
-    unit: Unit;
-};
 
 export type ExcludedProducts = {
     listOfExcludedProducts: Product[];
 };
 
 export type Product = {
-    id: number;
+    id?: number;
     name: string;
 };
 
