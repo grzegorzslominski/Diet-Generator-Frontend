@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./FullNotVerifiedMealItem.style";
 import Label from "../../../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../../../themes/mainTheme";
@@ -9,6 +9,10 @@ import { recipeViewFullI } from "../../../../../../PostsList/const/Posts";
 import CheckMark from "../../../../../../../../assets/icons/checkMark.svg";
 import XIcon from "../../../../../../../../assets/icons/XIcon.svg";
 import Button from "../../../../../../../../components/UI/Button/Button";
+import { useDispatch } from "react-redux";
+import axiosFoodieInstance from "../../../../../../../../axios/axiosFoodieInstance";
+import { ENDPOINTS_FORUM } from "../../../../../../../../navigation/endpoints";
+import { setNotification } from "../../../../../../../../redux/slices/notification";
 
 type FullPostItem = {
     recipe: recipeViewFullI;
@@ -16,6 +20,43 @@ type FullPostItem = {
 };
 
 const FullNotVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
+    const dispatch = useDispatch();
+    const [isLoading,setIsLoading] = useState(false);
+    const verifyNotVerifiedMeal = () => {
+        setIsLoading(true);
+
+        axiosFoodieInstance
+          .get(`${ENDPOINTS_FORUM.verifyMeal}/${recipe.recipeView.id}`)
+          .then((response) => {
+              if(response.status === 200){
+                  dispatch(
+                    setNotification({
+                        label: "unverified meal",
+                        header: "Success",
+                        message: "meal was verified",
+                        timeout: 5000,
+                    }),
+                  );
+              }
+          })
+          .catch((err) => {
+              const errorMessage = err.response.data?.message
+                ? err.response.data.message
+                : "Cannot verify meal";
+
+              dispatch(
+                setNotification({
+                    label: "unverified meal",
+                    header: "Failed",
+                    message: errorMessage,
+                    timeout: 5000,
+                }),
+              );
+          })
+          .finally(() => {
+              setIsLoading(false);
+          });
+    }
     return (
         <S.Container>
             <S.Post>
@@ -232,7 +273,8 @@ const FullNotVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         fontSize='0.8rem'
                         size='small'
                         background={mainTheme.gradients.buttonGradient}
-                        onClick={() => {}}
+                        onClick={verifyNotVerifiedMeal}
+                        isLoading={isLoading}
                     >
                         <Label
                             textAlign='center'

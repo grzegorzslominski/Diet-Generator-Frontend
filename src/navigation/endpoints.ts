@@ -43,3 +43,7 @@ export enum ENDPOINTS_SUBSCRIPTION {
     creatSubscription = "account/subscription/create",
     cancelSubscription = "account/subscription/create",
 }
+
+export enum ENDPOINTS_FORUM {
+    verifyMeal = "/recipe/verify"
+}
