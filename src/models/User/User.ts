@@ -13,7 +13,7 @@ export type UserData = {
     gender: GenderTypeValue | null;
     bmi: number;
     age?: number;
-    kCal?: number;
+    calories?: number;
     timestamp: number;
     [key: string]: number | string | ProfileType | undefined | null;
 };

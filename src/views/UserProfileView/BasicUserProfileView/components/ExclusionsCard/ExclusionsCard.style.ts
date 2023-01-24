@@ -5,17 +5,23 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: flex-end;
     gap: 18px;
+    min-height: 82px;
+    max-height: 82px;
+    justify-content: space-between;
 
     @media screen and (max-width: 1220px) and (min-width: 821px) {
-        gap: 0;
+        min-height: 106px;
+        max-height: 106px;
     }
 `;
 
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     width: 352px;
+    height: 42px;
+    justify-content: space-between;
 
     @media screen and (max-width: 1220px) and (min-width: 821px) {
         width: 232px;

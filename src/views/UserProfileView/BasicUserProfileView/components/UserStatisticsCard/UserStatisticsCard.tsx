@@ -7,7 +7,7 @@ import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPa
 import Spinner from "../../../../../components/UI/Spinner/Spinner";
 import Button from "../../../../../components/UI/Button/Button";
 import Label from "../../../../../components/UI/Label/Label";
-import Chart from "../../../../../components/Chart/Chart";
+import Chart from "../../../../../components/Charts/LineChart/LineChart";
 
 import {
     ChartPeriod,

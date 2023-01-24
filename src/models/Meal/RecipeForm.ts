@@ -16,7 +16,6 @@ export type RecipeForm = {
     vegan: boolean;
     veryHealthy: boolean;
     verified: boolean;
-    kcal: number;
     fat: number;
     protein: number;
     carbs: number;
@@ -45,7 +44,6 @@ export const NEW_RECIPE_DATA: RecipeForm = {
     fat: 0,
     protein: 0,
     carbs: 0,
-    kcal: 0,
 };
 
 export type RecipeValidation = {

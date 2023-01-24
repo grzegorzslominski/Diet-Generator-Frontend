@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
@@ -6,6 +7,11 @@ import {
     ENDPOINTS_IMAGE_UPLOAD,
 } from "../../../../../../navigation/endpoints";
 import { INIT_SOCIAL_LINKS, SocialLinks } from "../../../../../../models/SocialsLinks/SocialsLinks";
+import {
+    parseImageToEdit,
+    removeImageFile,
+    uploadImageFile,
+} from "../../../../../../helpers/uploadFile";
 import axiosFoodieInstance from "../../../../../../axios/axiosFoodieInstance";
 import { setNotification } from "../../../../../../redux/slices/notification";
 import { validEmail } from "../../../../../../helpers/validation";
@@ -21,12 +27,12 @@ import {
     USER_EXTRAS_FORM_VALIDATION_DATA,
     UserExtrasForm,
     UserExtrasFormValidation,
+    ExtrasForm,
 } from "../../../../../../models/User/ExpandedUserForm";
 import { UserExtras } from "../../../../../../models/User/ExpandedUser";
 import { UserData } from "../../../../../../models/User/User";
 
 import * as S from "./CreatorFormModal.style";
-import { removeImageFile, uploadImageFile } from "../../../../../../helpers/uploadFile";
 
 type CreatorFormModalProps = {
     user: UserData;
@@ -36,6 +42,7 @@ type CreatorFormModalProps = {
 
 export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModalProps) => {
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
 
     const [isLoading, setIsLoading] = useState(false);
     const [currentUserExtras, setCurrentUserExtras] = useState<UserExtrasForm>(
@@ -46,15 +53,17 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
     );
     useEffect(() => {
         if (userExtras) {
-            setCurrentUserExtras({
-                ...userExtras,
-                background_image: {
-                    file: null,
-                    url: userExtras.background_image,
-                    type: 'image/png"',
-                },
-                socials: INIT_SOCIAL_LINKS,
-            });
+            const currentExtras = JSON.parse(JSON.stringify(userExtras));
+            const parsedExtras: ExtrasForm = parseImageToEdit(
+                currentExtras.userExtras,
+                "backgroundImagePath",
+            );
+            currentExtras.userExtras = parsedExtras;
+            if (!currentExtras.socials) {
+                currentExtras.social = JSON.parse(JSON.stringify(INIT_SOCIAL_LINKS));
+            }
+
+            setCurrentUserExtras(currentExtras as UserExtrasForm);
         }
     }, [userExtras]);
 
@@ -62,13 +71,13 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
         const currentUserExtrasValidation: UserExtrasFormValidation = JSON.parse(
             JSON.stringify(userExtrasValidation),
         );
-        const userExtrasCopy: UserExtrasForm = JSON.parse(JSON.stringify(currentUserExtras));
+        const userExtrasCopy: UserExtrasForm = currentUserExtras;
         if (socialKey) {
             currentUserExtrasValidation["socials"] = "";
             userExtrasCopy.socials[socialKey] = value;
         } else {
             currentUserExtrasValidation[property] = "";
-            userExtrasCopy[property] = value;
+            userExtrasCopy.userExtras[property] = value;
         }
         setUserExtrasValidation(currentUserExtrasValidation);
         setCurrentUserExtras(userExtrasCopy);
@@ -82,15 +91,13 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                 type: files[0].type,
                 file: files[0],
             };
-            onChangePrehandler("background_image", backgroundImage);
+            onChangePrehandler("backgroundImagePath", backgroundImage);
         }
     };
 
     const validateForm = (): boolean => {
         let validationPassed = true;
-
         const extrasUserCopy: UserExtrasForm = JSON.parse(JSON.stringify(currentUserExtras));
-
         const currentUserExtrasValidation: UserExtrasFormValidation = JSON.parse(
             JSON.stringify(userExtrasValidation),
         );
@@ -102,15 +109,15 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                     currentUserExtrasValidation[key] = "Invalid url or no url added";
                     validationPassed = false;
                 }
-            } else if (key === "background_image") {
+            } else if (key === "backgroundImagePath") {
                 if (
-                    !extrasUserCopy["background_image"]?.url &&
-                    !extrasUserCopy.background_image?.file
+                    !extrasUserCopy.userExtras["backgroundImagePath"]?.url &&
+                    !extrasUserCopy.userExtras.backgroundImagePath?.file
                 ) {
                     currentUserExtrasValidation[key] = "Background image is required";
                     validationPassed = false;
                 }
-            } else if (extrasUserCopy[key] === "") {
+            } else if (extrasUserCopy.userExtras[key] === "") {
                 currentUserExtrasValidation[key] = "This field is required";
                 validationPassed = false;
             }
@@ -136,8 +143,8 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
 
     const checkRemoveOldUserAvatar = async (newUplodedImageURL: string | undefined | null) => {
         if (
-            user?.profileImagePath &&
-            (!newUplodedImageURL || user.profileImagePath !== newUplodedImageURL)
+            userExtras?.backgroundImagePath &&
+            userExtras.userExtras?.backgroundImagePath !== newUplodedImageURL
         ) {
             await removeImageFile(ENDPOINTS_IMAGE_UPLOAD.deleteExtrasBackground);
         }
@@ -147,12 +154,13 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
         setIsLoading(true);
         const validationPassed = validateForm();
         if (validationPassed) {
-            const dataToSend = JSON.parse(JSON.stringify(currentUserExtras));
-            if (currentUserExtras.background_image?.file) {
+            const dataToSend: any = currentUserExtras;
+
+            if (currentUserExtras.userExtras.backgroundImagePath?.file) {
                 const { imageURL, err: backgroundUploadError } = await uploadImageFile(
                     ENDPOINTS_IMAGE_UPLOAD.uploadExtrasBackground,
                     "image",
-                    currentUserExtras.background_image?.file,
+                    currentUserExtras.userExtras.backgroundImagePath?.file,
                 );
 
                 if (backgroundUploadError) {
@@ -164,17 +172,29 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                             timeout: 5000,
                         }),
                     );
-                } else {
-                    dataToSend.profileImagePath = imageURL;
                 }
+
+                dataToSend.userExtras.backgroundImagePath = imageURL;
+            }
+            if (dataToSend?.userExtras) {
+                checkRemoveOldUserAvatar(dataToSend.userExtras.backgroundImagePath);
             }
 
-            checkRemoveOldUserAvatar(dataToSend.background_image);
+            const requestConfig = {
+                url: ENDPOINTS_EXPANDE_USER_PROFILE.extrasProfile,
+                method: dataToSend.userExtras.id ? "put" : "post",
+                data: {
+                    ...dataToSend.userExtras,
+                    ...dataToSend.socials,
+                },
+            };
 
-            axiosFoodieInstance
-                .post(ENDPOINTS_EXPANDE_USER_PROFILE.postProfile, dataToSend)
+            axiosFoodieInstance(requestConfig)
                 .then((response) => {
-                    if (response.status === 201) {
+                    if (response.status === 200) {
+                        queryClient.invalidateQueries(["userBasicProfile"], {
+                            refetchType: "all",
+                        });
                         dispatch(
                             setNotification({
                                 label: "Creator account",
@@ -185,7 +205,16 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                         );
                     }
                 })
-                .catch((err) => {});
+                .catch((err) => {
+                    dispatch(
+                        setNotification({
+                            label: "Creator account",
+                            header: "Failed",
+                            message: "Failed to update creator profile, please try again later",
+                            timeout: 5000,
+                        }),
+                    );
+                });
         }
         setIsLoading(false);
     };

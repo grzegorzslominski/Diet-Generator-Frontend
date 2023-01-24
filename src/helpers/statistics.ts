@@ -1,9 +1,17 @@
+import { RECIPE_NUTRIONS_PRESET } from "./../models/Meal/Recipe";
 import moment from "moment";
+import { RecipeNutriens } from "../models/Meal/Recipe";
 import { UserData } from "../models/User/User";
-import { ChartData, ChartPeriod, UserStats, UserWeightRecord } from "../models/User/UserStatistics";
+import {
+    ChartData,
+    ChartPeriod,
+    UserStats,
+    UserWeightRecord,
+    NutriensChartData,
+} from "../models/User/UserStatistics";
 import { parseUnixTime } from "../views/AuthViews/helpers/date";
 
-export const parseUserStats = (userStats: UserStats, timePeriod: ChartPeriod): ChartData => {
+const parseUserStats = (userStats: UserStats, timePeriod: ChartPeriod): ChartData => {
     const userStatsSortedByDate = userStats.sort((a, b) => a.timestamp - (b.timestamp + 1));
 
     const chartValues = userStatsSortedByDate.reduce(
@@ -59,7 +67,21 @@ const reduceChartDataToPeriodTime = (
     }
 };
 
-export const parseUserWeightStats = (userWeightStats: UserWeightRecord[]): UserWeightRecord[] => {
+const prepareRecipeNutriensToChart = (nutriens: RecipeNutriens) => {
+    return Object.keys(nutriens).reduce(
+        (prev: NutriensChartData, curr: string) => {
+            prev.labels.push(RECIPE_NUTRIONS_PRESET[curr]);
+            prev.data.push(nutriens[curr]);
+            return prev;
+        },
+        {
+            labels: [],
+            data: [],
+        },
+    );
+};
+
+const parseUserWeightStats = (userWeightStats: UserWeightRecord[]): UserWeightRecord[] => {
     return userWeightStats
         .sort((a, b) => b.timestamp - a.timestamp)
         .reduce((prev: UserWeightRecord[], curr: UserWeightRecord) => {
@@ -81,11 +103,18 @@ export const parseUserWeightStats = (userWeightStats: UserWeightRecord[]): UserW
         }, []);
 };
 
-export const getAllWeightRecordsIDByDay = (userWeightStats: UserWeightRecord[], date: string) => {
+const getAllWeightRecordsIDByDay = (userWeightStats: UserWeightRecord[], date: string) => {
     return userWeightStats.reduce((prev: number[], cuur: UserWeightRecord) => {
         if (parseUnixTime(cuur.timestamp) === date) {
             prev.push(cuur.id);
         }
         return prev;
     }, []);
+};
+
+export {
+    parseUserStats,
+    prepareRecipeNutriensToChart,
+    parseUserWeightStats,
+    getAllWeightRecordsIDByDay,
 };

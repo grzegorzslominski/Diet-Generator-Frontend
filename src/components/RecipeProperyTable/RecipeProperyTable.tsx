@@ -23,7 +23,7 @@ const RecipeProperyTable = (recipe: Recipe) => {
                 <>
                     <S.ColItem>
                         <Label fontSize='12px' color={mainTheme.colors.mainBlack}>
-                            Kcal
+                            Calories
                         </Label>
                         <Label fontSize='14px' textAlign='end' color={mainTheme.colors.mainBlack}>
                             {recipe.calories} kcal

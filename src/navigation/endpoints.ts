@@ -34,5 +34,12 @@ export enum ENDPOINTS_MEALS {
 
 export enum ENDPOINTS_EXPANDE_USER_PROFILE {
     getProfile = "/account/profile",
-    postProfile = "account/profile/expanded",
+    extrasProfile = "account/profile/extras",
+    followUser = "forum/follow",
+}
+
+export enum ENDPOINTS_SUBSCRIPTION {
+    getSubscripton = "account/subscription",
+    creatSubscription = "account/subscription/create",
+    cancelSubscription = "account/subscription/create",
 }

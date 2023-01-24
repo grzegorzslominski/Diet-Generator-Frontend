@@ -4,6 +4,9 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 572px;
+    min-height: 81px;
+    justify-content: space-between;
+    gap: 2px;
 
     @media screen and (max-width: 1600px) and (min-width: 1281px) {
         width: 672px;

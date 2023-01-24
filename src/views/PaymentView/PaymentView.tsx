@@ -1,9 +1,9 @@
 import { BASIC_ACCOUNT_ADVANTAGES, PREMIUM_ACCOUNT_ADVANTAGES } from "./const/accountTypeData";
 import { ReactComponent as PremiumIcon } from "../../assets/icons/premium-gradient.svg";
 import { ReactComponent as MoneyIcon } from "../../assets/icons/money.svg";
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 import { mainTheme } from "../../themes/mainTheme";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import GradientLabel from "../../components/UI/GradientLabel/GradientLabel";
 import ViewBox from "../../components/UI/ViewBox/ViewBox";

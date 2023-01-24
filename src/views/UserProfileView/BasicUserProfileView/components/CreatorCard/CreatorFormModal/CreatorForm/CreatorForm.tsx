@@ -32,7 +32,7 @@ const CreatorForm = ({
             <Input
                 placeholder='fitness couch'
                 size='small'
-                value={userExtras.profession}
+                value={userExtras.userExtras.profession}
                 label='Profession'
                 error={userExtrasValidation.profession}
                 onChange={(e) => onChange("profession", e.target.value)}
@@ -40,7 +40,7 @@ const CreatorForm = ({
             />
             <TextArea
                 label='About you'
-                value={userExtras.about_me}
+                value={userExtras.userExtras?.about_me}
                 error={userExtrasValidation.about_me}
                 onChange={(e) => onChange("about_me", e.target.value)}
                 width='100%'
@@ -79,11 +79,12 @@ const CreatorForm = ({
                     Profile background image
                 </Label>
                 <UploadBox
-                    url={userExtras.background_image?.url}
+                    url={userExtras.userExtras.backgroundImagePath?.url}
                     type='image/png'
                     onChange={(file) => onBackgroundChange(file)}
-                    onRemove={() => onChange("background_image", null)}
+                    onRemove={() => onChange("backgroundImagePath", null)}
                     error={userExtrasValidation.background_image}
+                    disable={false}
                 />
             </S.UploadBoxWrapper>
         </S.Container>
