@@ -1,4 +1,3 @@
-import { NEWLY_ARTICLE } from "./const/dashboardArticleData";
 import { mainTheme } from "../../themes/mainTheme";
 
 import ProfileArticle from "../UserProfileView/ExpandedUserProfileView/components/ProfileArticle/ProfileArticle";
@@ -28,7 +27,7 @@ const DashboardView = () => {
                     >
                         Newly added article
                     </Label>
-                    <ProfileArticle {...NEWLY_ARTICLE} />
+                    {/* <ProfileArticle {...NEWLY_ARTICLE} /> */}
                 </S.ArticleSection>
                 <MealsList title='New meals from influencers' version='author' />
             </S.Content>

@@ -8,9 +8,9 @@ import Button from "../../../../../components/UI/Button/Button";
 import Label from "../../../../../components/UI/Label/Label";
 
 import { UserData } from "../../../../../models/User/User";
+import { UserExtras } from "../../../../../models/User/ExpandedUser";
 
 import * as S from "./CreatorCard.stylet";
-import { UserExtras } from "../../../../../models/User/ExpandedUser";
 
 type CreatorCardType = {
     user: UserData;

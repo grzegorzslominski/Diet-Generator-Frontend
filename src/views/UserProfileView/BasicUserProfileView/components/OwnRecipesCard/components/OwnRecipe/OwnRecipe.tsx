@@ -44,7 +44,7 @@ const OwnRecipe = ({ userRecipe }: OwnRecipeProps) => {
                 />
                 <S.CaloriesValueContainer>
                     <Label fontSize='16px' fontWeight='500' color={mainTheme.colors.mainBlack}>
-                        {userRecipe.kcal}
+                        {userRecipe.calories}
                     </Label>
                     <Label fontSize='12px' fontWeight='600' color={mainTheme.colors.mainBlack}>
                         kcal

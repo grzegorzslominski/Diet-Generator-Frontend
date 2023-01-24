@@ -11,9 +11,9 @@ import {
     Tooltip,
 } from "chart.js";
 
-import { ChartData, USER_STATS_DATASETS_PRESET } from "../../models/User/UserStatistics";
+import { ChartData, USER_STATS_DATASETS_PRESET } from "../../../models/User/UserStatistics";
 
-import * as S from "./Chart.style";
+import * as S from "./LineChart.style";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -45,7 +45,7 @@ type ChartProps = {
     chartData: ChartData;
 };
 
-const Chart = ({ chartData }: ChartProps) => {
+const LineChart = ({ chartData }: ChartProps) => {
     const data = useMemo(() => prepareData(chartData), [chartData]);
 
     return (
@@ -55,4 +55,4 @@ const Chart = ({ chartData }: ChartProps) => {
     );
 };
 
-export default Chart;
+export default LineChart;

@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -25,6 +26,7 @@ type ExclusionsModalProps = {
 
 const ExclusionsModal = ({ exclusions, close }: ExclusionsModalProps) => {
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
     const [isLoading, setIsLoading] = useState(false);
     const [currentExclusions, setCurrentExclusions] = useState<Product[]>([]);
 
@@ -48,11 +50,13 @@ const ExclusionsModal = ({ exclusions, close }: ExclusionsModalProps) => {
     const saveExclusions = async () => {
         setIsLoading(true);
 
-        const currentExclusionsCopy = JSON.parse(JSON.stringify(currentExclusions));
+        const currentExclusionsCopy = JSON.parse(JSON.stringify(currentExclusions)).map(
+            (exclusion: Product) => exclusion.id,
+        );
         await axiosFoodieInstance
             .post(ENDPOINTS_MEALS.excludedProducts, currentExclusionsCopy)
             .then((response) => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     dispatch(
                         setNotification({
                             label: "Exclusions",
@@ -62,6 +66,9 @@ const ExclusionsModal = ({ exclusions, close }: ExclusionsModalProps) => {
                         }),
                     );
                     close();
+                    queryClient.invalidateQueries(["userBasicProfile"], {
+                        refetchType: "all",
+                    });
                 }
             })
             .catch((err: AxiosError) => {

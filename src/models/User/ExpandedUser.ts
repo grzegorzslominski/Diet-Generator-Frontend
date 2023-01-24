@@ -1,24 +1,91 @@
+import { SocialLinks } from "./../SocialsLinks/SocialsLinks";
 import { AxiosError } from "axios";
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
 import { ENDPOINTS_EXPANDE_USER_PROFILE } from "../../navigation/endpoints";
-import { SocialLinks } from "../SocialsLinks/SocialsLinks";
+import { Post } from "../Forum/Post";
+import { Ingredient, Recipe } from "../Meal/Recipe";
 
-export type UserExtras = {
-    profession: string;
+export type PublicUserProfile = {
+    followingList: Follower[];
     socials: SocialLinks;
-    about_me: string;
-    background_image: string;
+    user: PublicUser;
+    userExtras: Extras;
+    userImagePath: string;
+    userPosts: Post[];
+    userRecipes: PublishedRecipe[];
+    [key: string]:
+        | Follower[]
+        | SocialLinks
+        | PublicUser
+        | Extras
+        | string
+        | Post[]
+        | PublishedRecipe[];
 };
 
-const getExpandedUserProfile = async (userID: number) => {
-    await axiosFoodieInstance
-        .get(`${ENDPOINTS_EXPANDE_USER_PROFILE.getProfile}/${userID}`)
+export type Follower = {
+    id: number;
+    follower: {
+        id: number;
+    };
+};
+
+export type PublicUser = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    subscribed: boolean;
+};
+
+export type UserExtras = {
+    userExtras?: Extras | null;
+    socials?: SocialLinks;
+    [key: string]: Extras | SocialLinks | undefined | null;
+};
+
+export type Extras = {
+    id?: number;
+    profession: string;
+    about_me: string;
+    backgroundImagePath: string;
+    [key: string]: number | string | undefined;
+};
+
+export type PublishedRecipe = Recipe & {
+    recipeLikes: Like[];
+    recipesIngredients: Ingredient[];
+    [key: string]: any;
+};
+
+type Like = {
+    id: number;
+    timestamp: number;
+    author: PublicUser;
+};
+
+export type FollowProfileStatus = {
+    follow: boolean;
+    followersCount: number;
+};
+
+export const getExpandedUserProfile = async (userID?: string) => {
+    if (!userID) return;
+    return await axiosFoodieInstance
+        .get<PublicUserProfile>(`${ENDPOINTS_EXPANDE_USER_PROFILE.getProfile}/${userID}`)
         .then((response) => {
             if (response.status === 200) {
                 return response.data;
             }
+        });
+};
+
+export const changeFollowingUserStatus = async (userID: number) => {
+    return await axiosFoodieInstance
+        .get(`${ENDPOINTS_EXPANDE_USER_PROFILE.followUser}/${userID}`)
+        .then((response) => {
+            return response.status;
         })
-        .catch((error: AxiosError) => {
-            return error;
+        .catch((err: AxiosError) => {
+            return err;
         });
 };

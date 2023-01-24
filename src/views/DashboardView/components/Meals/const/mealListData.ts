@@ -8,7 +8,7 @@ export interface MealI {
     basicIngredients: string[];
     description?: string;
     mealAuthor?: MealAuthor;
-    kcal: number;
+    calories: number;
     c: string;
     p: string;
     f: string;
@@ -32,7 +32,7 @@ export const MEALS_DATA: MealI[] = [
             name: "Lucy Beckham",
             avatarIMG: profileIMG,
         },
-        kcal: 511,
+        calories: 511,
         c: "12g",
         p: "12g",
         f: "12g",
@@ -48,7 +48,7 @@ export const MEALS_DATA: MealI[] = [
             name: "Lucy Beckham",
             avatarIMG: profileIMG,
         },
-        kcal: 511,
+        calories: 511,
         c: "12g",
         p: "12g",
         f: "12g",
@@ -64,7 +64,7 @@ export const MEALS_DATA: MealI[] = [
             name: "Lucy Beckham",
             avatarIMG: profileIMG,
         },
-        kcal: 511,
+        calories: 511,
         c: "12g",
         p: "12g",
         f: "12g",
@@ -80,7 +80,7 @@ export const MEALS_DATA: MealI[] = [
             name: "Lucy Beckham",
             avatarIMG: profileIMG,
         },
-        kcal: 511,
+        calories: 511,
         c: "12g",
         p: "12g",
         f: "12g",
@@ -96,7 +96,7 @@ export const MEALS_DATA: MealI[] = [
             name: "Lucy Beckham",
             avatarIMG: profileIMG,
         },
-        kcal: 511,
+        calories: 511,
         c: "12g",
         p: "12g",
         f: "12g",

@@ -20,4 +20,5 @@ export type PostAuthor = {
     id: number;
     firstName: string | null;
     lastName: string | null;
+    subscribed?: boolean;
 };

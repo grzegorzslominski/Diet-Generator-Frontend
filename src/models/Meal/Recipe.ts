@@ -23,7 +23,6 @@ export type Recipe = {
     vegan: boolean;
     veryHealthy: boolean;
     verified: boolean;
-    kcal: number;
     fat: number;
     protein: number;
     carbs: number;
@@ -62,6 +61,16 @@ export const USER_RECIPE_TYPE: RecipeType[] = [
 
 type RecipeTypePreset = {
     [key: string]: string;
+};
+
+type RecipeNutriensPreset = {
+    [key: string]: string;
+};
+
+export const RECIPE_NUTRIONS_PRESET: RecipeNutriensPreset = {
+    fat: "Fat",
+    carbs: "Carb",
+    protein: "Protein",
 };
 
 export const RECIPE_TYPE_PRESET: RecipeTypePreset = {

@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
@@ -18,7 +16,6 @@ type ExclusionsCardProps = ClassNameProp & {
 };
 
 const ExclusionsCard = ({ className, excludedProducts }: ExclusionsCardProps) => {
-
     const [openExclusionsModal, setOpenExclusionsModal] = useState(false);
 
     return (
@@ -31,15 +28,20 @@ const ExclusionsCard = ({ className, excludedProducts }: ExclusionsCardProps) =>
                             fontSize='13px'
                             fontWeight='600'
                             width='240px'
+                            lineHeight='13px'
                         >
                             Last excluded product:
                         </Label>
                         <Label
                             color={mainTheme.colors.secondaryColor}
-                            fontSize='15px'
+                            fontSize='12px'
                             fontWeight='600'
+                            lineHeight='13px'
+                            textAlign='center'
                         >
-                            rice noodles
+                            {excludedProducts?.listOfExcludedProducts.length
+                                ? excludedProducts?.listOfExcludedProducts[0].name
+                                : "-"}
                         </Label>
                     </S.ExclusionDetail>
 
@@ -49,15 +51,17 @@ const ExclusionsCard = ({ className, excludedProducts }: ExclusionsCardProps) =>
                             fontSize='13px'
                             fontWeight='600'
                             width='240px'
+                            lineHeight='13px'
                         >
                             Number of excluded products:
                         </Label>
                         <Label
                             color={mainTheme.colors.secondaryColor}
-                            fontSize='15px'
+                            lineHeight='13px'
+                            fontSize='13px'
                             fontWeight='600'
                         >
-                            14
+                            {excludedProducts?.listOfExcludedProducts.length}
                         </Label>
                     </S.ExclusionDetail>
                 </S.Content>

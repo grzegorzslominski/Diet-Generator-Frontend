@@ -9,7 +9,7 @@ import { RecipeIngredientsI } from "../../const/meal";
 //     date: string;
 //     day: string;
 //     meals: string[];
-//     kcal: string;
+//     calories: string;
 //     fat: string;
 //     carbs: string;
 //     proteins: string;
@@ -42,7 +42,8 @@ const DayMealList = (props: props) => {
                         instructions={item.instructions}
                         readyInMinutes={item.readyInMinutes}
                         servings={item.servings}
-                     recipesIngredients={item.recipesIngredients}/>
+                        recipesIngredients={item.recipesIngredients}
+                    />
                 );
             })}
         </S.Container>

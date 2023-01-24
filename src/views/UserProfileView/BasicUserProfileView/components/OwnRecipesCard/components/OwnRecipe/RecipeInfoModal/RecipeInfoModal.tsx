@@ -13,6 +13,7 @@ import Label from "../../../../../../../../components/UI/Label/Label";
 import { Recipe } from "../../../../../../../../models/Meal/Recipe";
 
 import * as S from "./RecipeInfoModal.style";
+import { prepareRecipeInstrucion } from "../../../../../../../../helpers/textParse";
 
 type MealInfoModalProps = {
     userRecipe: Recipe;
@@ -54,7 +55,9 @@ const MealInfoModal = ({ userRecipe, close }: MealInfoModalProps) => {
                         <Label fontSize='16px' color={mainTheme.colors.inputText}>
                             Method of preparation
                         </Label>
-                        <Label fontSize='14px'>{userRecipe.instructions}</Label>
+                        <Label fontSize='14px'>
+                            {prepareRecipeInstrucion(userRecipe.instructions)}
+                        </Label>
                     </S.Instrucions>
                     <S.ActionContainer>
                         <Button

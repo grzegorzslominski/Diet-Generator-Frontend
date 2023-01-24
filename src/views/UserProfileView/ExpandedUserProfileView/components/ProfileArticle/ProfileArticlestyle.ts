@@ -15,10 +15,9 @@ export const Container = styled.div`
 
     @media screen and (max-width: 1220px) {
         flex-direction: column;
-        width: 527px;
 
         img {
-            width: 512px;
+            width: 100%;
             max-height: 250px;
         }
     }
@@ -32,10 +31,7 @@ export const Container = styled.div`
     }
 
     @media screen and (max-width: 480px) {
-        width: 222px;
-
         img {
-            width: 212px;
             border-radius: 4px;
         }
     }
@@ -45,7 +41,8 @@ export const ContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 36px;
+    gap: 32px;
+    width: 100%;
 `;
 
 export const Content = styled.div`
@@ -54,7 +51,30 @@ export const Content = styled.div`
     gap: 18px;
 `;
 
+export const AuthorBox = styled.div`
+    display: flex;
+    padding-bottom: 2px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+
+    & > img {
+        height: 50px;
+        max-height: 50px;
+        width: 50px;
+        border-radius: 50%;
+    }
+`;
+
 export const ActionContainer = styled.div`
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+    position: relative;
+    & > div:last-child {
+        position: absolute;
+        bottom: -4px;
+        right: 4px;
+    }
 `;

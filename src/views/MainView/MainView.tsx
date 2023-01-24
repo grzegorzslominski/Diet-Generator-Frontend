@@ -94,12 +94,14 @@ const MainView = () => {
                                                 element={<DashboardView />}
                                             />
                                             <Route
-                                                path={NAVIGATION.basicUserProfile}
+                                                path={NAVIGATION.profile}
                                                 element={<BasicUserProfileView />}
                                             />
                                             <Route
-                                                path={NAVIGATION.expandedUserProfile}
-                                                element={<ExpandedUserProfileView />}
+                                                path={`${NAVIGATION.profile}/:userID`}
+                                                element={
+                                                    <ExpandedUserProfileView loggedUserID={user.id} />
+                                                }
                                             />
                                             <Route
                                                 path={NAVIGATION.premium}

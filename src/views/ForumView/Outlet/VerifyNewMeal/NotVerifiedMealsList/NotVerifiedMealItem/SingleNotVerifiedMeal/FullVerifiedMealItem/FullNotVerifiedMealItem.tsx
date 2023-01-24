@@ -161,7 +161,7 @@ const FullNotVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                             lineHeight='1rem'
                             color={mainTheme.colors.mainBlack}
                         >
-                            {recipe.recipeView.calories} kcal
+                            {recipe.recipeView.calories} calories
                         </Label>
                     </S.TableUnits>
                     <S.TableUnits>

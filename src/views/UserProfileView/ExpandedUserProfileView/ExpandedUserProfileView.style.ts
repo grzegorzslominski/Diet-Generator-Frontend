@@ -175,12 +175,27 @@ export const UserNameContanier = styled.div`
 
 export const UserFollowers = styled.div`
     display: flex;
+    align-items: center;
     gap: 12px;
     padding-top: 18px;
+    span {
+        min-width: 20px;
+    }
+
     svg {
-        width: 10px;
+        transition: all 1s;
+        width: 25px;
         height: auto;
-        fill: ${mainTheme.colors.inputText};
+        fill: ${mainTheme.colors.secondaryColor};
+        path {
+            stroke: 2px;
+            fill: ${mainTheme.colors.secondaryColor};
+        }
+
+        :hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
     }
     @media screen and (max-width: 1220px) {
         padding-top: 12px;
@@ -213,4 +228,10 @@ export const MealsContainer = styled.div`
     @media screen and (max-width: 820px) {
         width: 270px;
     }
+`;
+
+export const EmptyContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;

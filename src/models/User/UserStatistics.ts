@@ -9,6 +9,11 @@ export type ChartData = {
     data: StatsData[];
 };
 
+export type NutriensChartData = {
+    labels: string[];
+    data: number[];
+};
+
 export type StatsData = number[];
 
 export type ChartPeriod = 7 | 30 | 90 | "all";

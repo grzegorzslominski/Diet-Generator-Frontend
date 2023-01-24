@@ -4,7 +4,7 @@ export interface mealItemI {
     date: string;
     day: string;
     meals: string[];
-    kcal: string;
+    calories: string;
     fat: string;
     carbs: string;
     proteins: string;
@@ -42,7 +42,7 @@ export const MEALItem: mealItemI[] = [
             "tuna salad",
             "sandwich",
         ],
-        kcal: "421",
+        calories: "421",
         fat: "55g",
         carbs: "125g",
         proteins: "51g",
@@ -98,7 +98,7 @@ export const MEALItem: mealItemI[] = [
             "tuna salad",
             "sandwich",
         ],
-        kcal: "421",
+        calories: "421",
         fat: "55g",
         carbs: "125g",
         proteins: "51g",
@@ -113,7 +113,7 @@ export const MEALItem: mealItemI[] = [
             "tuna salad",
             "sandwich",
         ],
-        kcal: "421",
+        calories: "421",
         fat: "55g",
         carbs: "125g",
         proteins: "51g",

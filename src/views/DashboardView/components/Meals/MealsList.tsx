@@ -3,7 +3,7 @@ import { MEALS_DATA, MealI } from "./const/mealListData";
 
 import Carousel from "../../../../components/UI/Carousel/Carousel";
 import Label from "../../../../components/UI/Label/Label";
-import MealItem from "./item/MealItem";
+import MealItem from "../../../../components/RecipeBox/RecipeBox";
 
 import * as S from "./MealList.style";
 
@@ -25,7 +25,7 @@ const MealsList = ({ title, version = "basic" }: MealsListProps) => {
             </Label>
 
             <S.MealsContainer>
-                <Carousel
+                {/* <Carousel
                     widthElement={270}
                     version='arrows'
                     gap={35}
@@ -34,7 +34,7 @@ const MealsList = ({ title, version = "basic" }: MealsListProps) => {
                     {MEALS_DATA.map((meal: MealI, index) => (
                         <MealItem key={`meal.name-${index}`} {...meal} version={version} />
                     ))}
-                </Carousel>
+                </Carousel> */}
             </S.MealsContainer>
         </S.Container>
     );

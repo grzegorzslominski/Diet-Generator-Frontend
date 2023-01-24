@@ -47,9 +47,24 @@ const BasicUserProfileView = () => {
                             className='exclusion'
                             excludedProducts={basicProfileData.excludedProductsList}
                         />
-                        <PremiumCard className='premium' />
+                        <PremiumCard
+                            className='premium'
+                            userSubscriptions={
+                                basicProfileData.userSubscriptions.length
+                                    ? basicProfileData.userSubscriptions[
+                                          basicProfileData.userSubscriptions.length - 1
+                                      ]
+                                    : null
+                            }
+                        />
                     </S.ProfileDetailsContainer>
-                    <CreatorCard user={user} userExtras={basicProfileData.userExtras} />
+                    <CreatorCard
+                        user={user}
+                        userExtras={{
+                            userExtras: basicProfileData.userExtras,
+                            socials: basicProfileData.socials,
+                        }}
+                    />
                 </S.Container>
             )}
         </ViewBox>

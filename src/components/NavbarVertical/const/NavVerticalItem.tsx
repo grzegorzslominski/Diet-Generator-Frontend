@@ -21,7 +21,7 @@ export const NAV_ITEMS: NavItem[] = [
     },
     {
         label: "Profile",
-        routing: NAVIGATION.basicUserProfile,
+        routing: NAVIGATION.profile,
         icon: <ProfileIcon />,
     },
     {

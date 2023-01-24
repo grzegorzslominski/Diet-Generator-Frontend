@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import noPhoto from "../../../../../assets/no-photo.png";
+import noPhoto from "../../assets/no-photo.png";
 
 export const Wrapper = styled.div`
     padding-top: 60px;
@@ -25,6 +25,13 @@ export const TopSection = styled.div`
     position: relative;
     padding: 12px 0 0 8px;
 
+    & > div:first-child {
+        border-color: ${({ theme }) => theme.colors.checked};
+        * {
+            color: ${({ theme }) => theme.colors.checked};
+        }
+    }
+
     & > svg {
         width: 22px;
         height: auto;
@@ -39,7 +46,7 @@ export const MealImage = styled.div<MealImageProps>`
     height: 125px;
     width: 125px;
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid ${({ theme }) => theme.colors.checked};
     position: absolute;
     left: 50%;
     top: -75px;
@@ -62,7 +69,7 @@ export const RateBox = styled.div<RateBoxProps>`
     ${({ rate }) =>
         rate &&
         css`
-            border: solid white 2px;
+            border: solid ${({ theme }) => theme.colors.checked} 2px;
             border-radius: 8px;
         `}
 `;
@@ -74,19 +81,20 @@ type MiddleSectionProps = {
 export const MiddleSection = styled.div<MiddleSectionProps>`
     display: flex;
     flex-direction: column;
-    gap: ${({ version }) => (version === "basic" ? "20px" : "12px")};
-    min-height: 115px;
-    max-height: 115px;
+    gap: 16px;
+    height: 160px;
 `;
 
 export const BasicIngredients = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 6px;
+    overflow: hidden;
 `;
 
 export const IngredientsList = styled.ul`
     display: grid;
-    grid-template-columns: repeat(3, minmax(45px, 45px));
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 30px;
     margin: 0;
     padding: 0 0 0 20px;
