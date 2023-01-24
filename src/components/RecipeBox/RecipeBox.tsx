@@ -13,10 +13,11 @@ import ActionButton from "../UI/ActionButton/ActionButton";
 import { useMemo, useState } from "react";
 import RecipeInfoModal from "../../views/UserProfileView/BasicUserProfileView/components/OwnRecipesCard/components/OwnRecipe/RecipeInfoModal/RecipeInfoModal";
 import { prepareRecipeNutriensToChart } from "../../helpers/statistics";
+import { IngredientI, RecipeViewI } from "../../views/DashboardView/models/Dashboard";
 
 type RecipeBoxProps = {
     version?: "basic" | "author";
-    recipe: PublishedRecipe;
+    recipe: RecipeViewI;
 };
 
 const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
@@ -71,7 +72,7 @@ const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
                                 Basic ingredients
                             </Label>
                             <S.IngredientsList>
-                                {recipe.recipesIngredients.map((ingredient: Ingredient) => {
+                                {recipe.ingredients.map((ingredient: IngredientI) => {
                                     return (
                                         <li key={ingredient.id}>
                                             <Label
@@ -138,7 +139,7 @@ const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
                                     fontSize='14px'
                                     color='#E6CB6E;'
                                 >
-                                    {`${recipe[nutrionKey]} g`}
+                                    {/* {`${recipe[nutrionKey]} g`} */}
                                 </Label>
                             </S.NutrionItem>
                         ))}

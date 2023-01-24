@@ -14,9 +14,10 @@ import { Recipe } from "../../../../../../../../models/Meal/Recipe";
 
 import * as S from "./RecipeInfoModal.style";
 import { prepareRecipeInstrucion } from "../../../../../../../../helpers/textParse";
+import { RecipeViewI } from "../../../../../../../DashboardView/models/Dashboard";
 
 type MealInfoModalProps = {
-    userRecipe: Recipe;
+    userRecipe: RecipeViewI;
     close: () => void;
 };
 
@@ -60,7 +61,7 @@ const MealInfoModal = ({ userRecipe, close }: MealInfoModalProps) => {
                         </Label>
                     </S.Instrucions>
                     <S.ActionContainer>
-                        <Button
+                        <Button 
                             size='small'
                             width='125px'
                             onClick={() => navigate(`${NAVIGATION.recipes}/${userRecipe.id}`)}

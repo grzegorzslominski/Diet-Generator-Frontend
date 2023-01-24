@@ -15,8 +15,9 @@ import {
 
 import * as S from "./RecipeProperyTable.style";
 import { mainTheme } from "../../themes/mainTheme";
+import { RecipeViewI } from "../../views/DashboardView/models/Dashboard";
 
-const RecipeProperyTable = (recipe: Recipe) => {
+const RecipeProperyTable = (recipe: RecipeViewI) => {
     return (
         <S.TableInfo>
             <S.TableCol>

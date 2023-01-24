@@ -140,8 +140,11 @@ export const FourthContainer = styled.div`
 export const FourthContainerItem = styled.div`
   display: flex;
   gap: 1rem;
+  align-items: center;
   &>svg {
     cursor: pointer;
+    height: 20px;
+    width: 20px;
   }
 `
 

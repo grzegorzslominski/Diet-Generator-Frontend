@@ -47,3 +47,7 @@ export enum ENDPOINTS_SUBSCRIPTION {
 export enum ENDPOINTS_FORUM {
     verifyMeal = "/recipe/verify"
 }
+
+export enum ENDPOINTS_DASHBOARD {
+    dashboard = "/dashboard"
+}

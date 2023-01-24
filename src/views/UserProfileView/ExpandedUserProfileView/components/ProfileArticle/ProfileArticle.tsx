@@ -10,13 +10,18 @@ import { Post, PostAuthor } from "../../../../../models/Forum/Post";
 import * as S from "./ProfileArticlestyle";
 import { useNavigate } from "react-router-dom";
 import { NAVIGATION } from "../../../../../navigation/paths";
+import { newPostsI } from "../../../../DashboardView/models/Dashboard";
 
 type ProfileArticleProps = {
     post: Post;
     author: PostAuthor;
 };
 
-const ProfileArticle = ({ post, author }: ProfileArticleProps) => {
+// interface props {
+//     post: newPostsI
+// }
+
+const ProfileArticle = ({ post,author }: ProfileArticleProps) => {
     const navigate = useNavigate();
 
     return (

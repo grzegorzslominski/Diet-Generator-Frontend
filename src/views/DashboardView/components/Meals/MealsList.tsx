@@ -6,12 +6,14 @@ import Label from "../../../../components/UI/Label/Label";
 import MealItem from "../../../../components/RecipeBox/RecipeBox";
 
 import * as S from "./MealList.style";
+import { RecipeViewI } from "../../models/Dashboard";
 
 type MealsListProps = {
     title: string;
     version?: "basic" | "author";
+    creatorRecipes: RecipeViewI[]
 };
-const MealsList = ({ title, version = "basic" }: MealsListProps) => {
+const MealsList = ({ title, version = "basic", creatorRecipes }: MealsListProps) => {
     return (
         <S.Container>
             <Label
@@ -25,16 +27,16 @@ const MealsList = ({ title, version = "basic" }: MealsListProps) => {
             </Label>
 
             <S.MealsContainer>
-                {/* <Carousel
+                <Carousel
                     widthElement={270}
                     version='arrows'
                     gap={35}
                     buttonPosition={{ horizontal: -30, vertical: 230 }}
                 >
-                    {MEALS_DATA.map((meal: MealI, index) => (
-                        <MealItem key={`meal.name-${index}`} {...meal} version={version} />
+                    {creatorRecipes.map((meal: RecipeViewI, index) => (
+                        <MealItem recipe={meal} key={`meal.name-${index}`} version={version} />
                     ))}
-                </Carousel> */}
+                </Carousel>
             </S.MealsContainer>
         </S.Container>
     );

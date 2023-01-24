@@ -152,6 +152,7 @@ const ExpandedUserProfileView = ({ loggedUserID }: ExpandedUserProfileViewProps)
                         <ProfileSection title='Creator meals' padding='0 12px'>
                             {userProfile?.userRecipes && userProfile.userRecipes.length ? (
                                 <S.MealsContainer>
+                                    //TODO
                                     <Carousel
                                         widthElement={270}
                                         version='arrows'
