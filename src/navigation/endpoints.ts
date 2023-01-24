@@ -36,3 +36,7 @@ export enum ENDPOINTS_EXPANDE_USER_PROFILE {
     getProfile = "/account/profile",
     postProfile = "account/profile/expanded",
 }
+
+export enum ENDPOINTS_FORUM {
+    verifyMeal = "/recipe/verify"
+}
