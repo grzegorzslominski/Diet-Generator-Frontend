@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+
 import { mainTheme } from "../../../../themes/mainTheme";
 import { ReactComponent as CheckIcon } from "../../../../assets/icons/checkMark.svg";
 import { ReactComponent as XIcon } from "../../../../assets/icons/XIcon.svg";
@@ -21,7 +23,6 @@ import { Ingredient, RECIPE_TYPE_PRESET, Unit, UNITS } from "../../../../models/
 import { Product } from "../../../../models/Meal/Exclusions";
 
 import * as S from "./RecipeFormContent.style";
-import { forwardRef } from "react";
 
 type RecipeFormContent = {
     recipe: RecipeForm;
@@ -97,7 +98,7 @@ const RecipeFormContent = forwardRef<HTMLDivElement, RecipeFormContent>(
                     label='Instruction of preparing'
                     value={recipe.instructions}
                     width='100%'
-                    height='80px'
+                    height='100px'
                     limit={500}
                     error={recipeValidation.instructions}
                 />
@@ -118,8 +119,8 @@ const RecipeFormContent = forwardRef<HTMLDivElement, RecipeFormContent>(
                         >
                             Added ingredients
                         </Label>
-                        <S.IngredientsList emptyList={Boolean(!recipe.ingredients.length)}>
-                            {recipe.ingredients.length ? (
+                        <S.IngredientsList emptyList={Boolean(!recipe.ingredients?.length)}>
+                            {recipe.ingredients?.length ? (
                                 <ScrollBox height={260} scrollDistance={20}>
                                     <S.IngredientsItemsWrapper>
                                         {recipe.ingredients.map((ingredient, index) => (
@@ -128,6 +129,7 @@ const RecipeFormContent = forwardRef<HTMLDivElement, RecipeFormContent>(
                                                     fontSize='14px'
                                                     color={mainTheme.colors.mainBlack}
                                                     fontWeight='500'
+                                                    error={recipeValidation.ingredients[index]}
                                                 >
                                                     {ingredient.name}
                                                 </Label>
@@ -140,6 +142,8 @@ const RecipeFormContent = forwardRef<HTMLDivElement, RecipeFormContent>(
                                                     value={ingredient.amount}
                                                     size='small'
                                                     width='80px'
+                                                    error={recipeValidation.ingredients[index]}
+                                                    showErrorMessage={false}
                                                 />
                                                 <Select
                                                     borderRadius='0'

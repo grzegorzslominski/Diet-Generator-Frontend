@@ -82,7 +82,13 @@ export const MiddleSection = styled.div<MiddleSectionProps>`
     display: flex;
     flex-direction: column;
     gap: 16px;
-    height: 155px;
+    height: 150px;
+    & > span:first-child {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 40px;
+    }
 `;
 
 export const BasicIngredients = styled.div`
@@ -115,7 +121,7 @@ export const TextContent = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     width: 220px;
-    max-height: 115px;
+    max-height: 105px;
 `;
 
 export const BottomSection = styled.div`

@@ -1,6 +1,9 @@
 import { useDispatch } from "react-redux";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
+import { prepareRecipeInstrucion } from "../../../../helpers/textParse";
+import axiosFoodieInstance from "../../../../axios/axiosFoodieInstance";
+import { ENDPOINTS_MEALS } from "../../../../navigation/endpoints";
 import noPhoto from "../../../../assets/no-photo.png";
 import { getUserRecipes, Recipe } from "../../../../models/Meal/Recipe";
 import { mainTheme } from "../../../../themes/mainTheme";
@@ -13,10 +16,6 @@ import RecipeProperyTable from "../../../../components/RecipeProperyTable/Recipe
 import ActionButton from "../../../../components/UI/ActionButton/ActionButton";
 
 import * as S from "./RecipesList.style";
-import { prepareRecipeInstrucion } from "../../../../helpers/textParse";
-
-import axiosFoodieInstance from "../../../../axios/axiosFoodieInstance";
-import { ENDPOINTS_MEALS } from "../../../../navigation/endpoints";
 
 type RecipesListProps = {
     userID: number;
@@ -34,7 +33,7 @@ const RecipesList = ({ userID, onEditRecipe }: RecipesListProps) => {
         axiosFoodieInstance
             .delete(`${ENDPOINTS_MEALS.removeUserRecipe}/${recipeID}`)
             .then((response) => {
-                if (response.status === 200 || response.status === 201) {
+                if (response.status === 202) {
                     queryClient.invalidateQueries(["userRecipes"], {
                         refetchType: "all",
                     });

@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { mainTheme } from "../../themes/mainTheme";
 import noPhoto from "../../assets/no-photo.png";
 import { prepareRecipeNutriensToChart } from "../../helpers/statistics";
+import { prepareRecipeInstrucion } from "../../helpers/textParse";
 
 import RecipeInfoModal from "../../views/UserProfileView/BasicUserProfileView/components/OwnRecipesCard/components/OwnRecipe/RecipeInfoModal/RecipeInfoModal";
 import GradientLabel from "../UI/GradientLabel/GradientLabel";
@@ -49,7 +50,6 @@ const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
                             fontFamily='Montserrat'
                             fontWeight='500'
                             fontSize='16px'
-                            lineHeight='1rem'
                             color={mainTheme.colors.checked}
                         >
                             {recipe.recipeLikes.length ? recipe.recipeLikes.length : "NEW"}
@@ -60,7 +60,7 @@ const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
                     <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
-                        fontSize='22px'
+                        fontSize='18px'
                         textAlign='center'
                         color={mainTheme.colors.mainBlack}
                     >
@@ -72,20 +72,21 @@ const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
                                 Basic ingredients
                             </Label>
                             <S.IngredientsList>
-                                {recipe.recipesIngredients.map((ingredient: Ingredient) => {
-                                    return (
-                                        <li key={ingredient.id}>
-                                            <Label
-                                                fontWeight='300'
-                                                fontSize='12px'
-                                                lineHeight='10px'
-                                                color='white'
-                                                whiteSpace='no-wrap'
-                                            >
-                                                {ingredient.name}
-                                            </Label>
-                                        </li>
-                                    );
+                                {recipe.recipesIngredients.map((ingredient: Ingredient, index) => {
+                                    if (index < 6)
+                                        return (
+                                            <li key={ingredient.id}>
+                                                <Label
+                                                    fontWeight='300'
+                                                    fontSize='12px'
+                                                    lineHeight='10px'
+                                                    color='white'
+                                                    whiteSpace='no-wrap'
+                                                >
+                                                    {ingredient.name}
+                                                </Label>
+                                            </li>
+                                        );
                                 })}
                             </S.IngredientsList>
                         </S.BasicIngredients>
@@ -97,7 +98,7 @@ const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
                                 textAlign='center'
                                 color='white'
                             >
-                                {recipe.instructions}
+                                {prepareRecipeInstrucion(recipe.instructions)}
                             </Label>
                         </S.TextContent>
                     )}

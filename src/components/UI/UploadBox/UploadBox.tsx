@@ -42,6 +42,7 @@ const UploadBox = ({
         multiple: false,
         noClick: url ? true : false,
         accept: accept,
+        disabled: disable,
     });
 
     return (
