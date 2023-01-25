@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
-import * as S from "./DayMealItem.style";
-import Label from "../../../../../../../components/UI/Label/Label";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import { mainTheme } from "../../../../../../../themes/mainTheme";
-import PieChart from "./chart/PieChart";
 import { ReactComponent as HeartEmptyIcon } from "../../../../../../../assets/icons/heart-empty.svg";
 import { ReactComponent as HeartFullIcon } from "../../../../../../../assets/icons/heart-full.svg";
 import { ReactComponent as Info } from "../../../../../../../assets/icons/infoIcon.svg";
-import ModalPortal from "../../../../../../../components/UI/ModalPortal/ModalPortal";
-import DayMealDetailsItem from "./DayMealDetailsItem/DayMealDetailsItem";
 import { RecipeIngredientsI } from "../../../const/meal";
 import axiosFoodieInstance from "../../../../../../../axios/axiosFoodieInstance";
-import { useDispatch } from "react-redux";
 import { setNotification } from "../../../../../../../redux/slices/notification";
-import { useQueryClient } from "@tanstack/react-query";
+
+import ModalPortal from "../../../../../../../components/UI/ModalPortal/ModalPortal";
+import Label from "../../../../../../../components/UI/Label/Label";
+import DayMealDetailsItem from "./DayMealDetailsItem/DayMealDetailsItem";
+import PieChart from "./chart/PieChart";
+
+import * as S from "./DayMealItem.style";
 
 const DayMealItem = ({
     id,
@@ -42,13 +45,16 @@ const DayMealItem = ({
     const queryClient = useQueryClient();
 
     useEffect(() => {
-      setIsLike(recipeLikes)
-    },[recipeLikes])
+        setIsLike(recipeLikes);
+    }, [recipeLikes]);
     const addLike = () => {
         axiosFoodieInstance
             .get(`/forum/recipe/like/${id}`)
             .then((response) => {
                 if (response.status === 200) {
+                    queryClient.invalidateQueries(["getAllDiet"], {
+                        refetchType: "all",
+                    });
                     dispatch(
                         setNotification({
                             label: "Like post",
@@ -71,28 +77,9 @@ const DayMealItem = ({
                         message: errorMessage,
                         timeout: 5000,
                     }),
-                  );
-                queryClient.invalidateQueries(["getAllDiet"], {
-                  refetchType: "all",
-                });
-              }
-          })
-          .catch((err) => {
-              const errorMessage = err.response.data?.message
-                ? err.response.data.message
-                : "Cannot add like";
-
-              dispatch(
-                setNotification({
-                    label: "add like to post",
-                    header: "Failed",
-                    message: errorMessage,
-                    timeout: 5000,
-                }),
-              );
-          });
-    }
-
+                );
+            });
+    };
 
     return (
         <S.Container>

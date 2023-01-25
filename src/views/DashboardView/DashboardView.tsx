@@ -6,7 +6,7 @@ import { getDashboardData } from "../../models/Dashboard/Dashboard";
 import ProfileArticle from "../UserProfileView/ExpandedUserProfileView/components/ProfileArticle/ProfileArticle";
 import ViewBox from "../../components/UI/ViewBox/ViewBox";
 import MealsList from "./components/Meals/MealsList";
-import NewCreator from "./components/newCreator/NewCreator";
+import NewCreator from "./components/NewCreator/NewCreator";
 import Label from "../../components/UI/Label/Label";
 import NewsBox from "./components/NewsBox/NewsBox";
 import Spinner from "../../components/UI/Spinner/Spinner";
