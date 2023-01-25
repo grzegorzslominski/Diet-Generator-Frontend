@@ -1,4 +1,5 @@
 import axiosFoodieInstance from "../../../../../axios/axiosFoodieInstance";
+import { ForumUserI } from "../../../../ForumView/PostsList/const/Posts";
 
 export interface MealI {
   id: number;
@@ -44,8 +45,15 @@ export interface RecipeIngredientsI {
   fat: number;
   protein: number;
   recipesIngredients: IngredientsI[]
+  recipeLikes: LikesI[] | null
+  loggedUserID: number;
 }
 
+export interface LikesI {
+  id: number;
+  timestamp: number;
+  user: ForumUserI
+}
 export interface IngredientsI {
   id: number;
   name: string;

@@ -5,24 +5,25 @@ import { mealItemI, mealDayI, MEALItem } from "./const/mealItemData";
 import { useQuery } from "@tanstack/react-query";
 import { DaysForWeekDietI, getDiet } from "./const/meal";
 
-const MealItemList = () => {
-    const {
-        data: diet,
-        isLoading,
-        error
-    } = useQuery(["getAllDiet"], () => getDiet())
+type MyDietViewProps = {
+    loggedUserID: number;
+};
+const MealItemList = ({ loggedUserID }: MyDietViewProps) => {
+    const { data: diet, isLoading, error } = useQuery(["getAllDiet"], () => getDiet());
     return (
         <S.Container>
-            {diet && diet.daysForWeekDiet.map((item: DaysForWeekDietI,index: number) => {
-                return (
-                    <MealItem
-                      key={index}
-                     daysForWeekDietI={item}
-                     timestamp={diet.timestamp}
-                      index={index}
-                    />
-                );
-            })}
+            {diet &&
+                diet.daysForWeekDiet.map((item: DaysForWeekDietI, index: number) => {
+                    return (
+                        <MealItem
+                            key={index}
+                            daysForWeekDietI={item}
+                            timestamp={diet.timestamp}
+                            index={index}
+                            loggedUserID={loggedUserID}
+                        />
+                    );
+                })}
         </S.Container>
     );
 };

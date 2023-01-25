@@ -142,6 +142,9 @@ export const FourthContainerItem = styled.div`
   gap: 1rem;
   &>svg {
     cursor: pointer;
+    height: 20px;
+    width: 20px;
+    
   }
 `
 
