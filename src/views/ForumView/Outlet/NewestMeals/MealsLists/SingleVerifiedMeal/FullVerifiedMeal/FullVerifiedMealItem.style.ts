@@ -79,6 +79,8 @@ export const IconWrapper = styled.div`
   & > svg {
     filter: brightness(0%);
     cursor: pointer;
+    width: 20px;
+    height: 20px;
   }
 `
 

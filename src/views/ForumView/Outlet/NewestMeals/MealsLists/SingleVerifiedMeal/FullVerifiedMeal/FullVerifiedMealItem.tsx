@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Label from "../../../../../../../components/UI/Label/Label";
 import CommentsList from "../../../../../PostsList/PostItem/FullPostItem/CommentsList/CommentsList";
@@ -18,6 +18,9 @@ import axiosFoodieInstance from "../../../../../../../axios/axiosFoodieInstance"
 import { setNotification } from "../../../../../../../redux/slices/notification";
 
 import * as S from "./FullVerifiedMealItem.style";
+import { useQueryClient } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { TStore } from "../../../../../../../redux/store/store";
 
 type FullPostItem = {
     recipe: recipeViewFullI;
@@ -26,12 +29,18 @@ type FullPostItem = {
 
 const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
+    const [isLike, setIsLike] = useState(recipe.recipeLikes);
+    const user = useSelector((state: TStore) => state?.userReducer);
+    useEffect(() => {
+        setIsLike(recipe.recipeLikes);
+    }, [recipe.recipeLikes]);
 
     const addLike = () => {
         axiosFoodieInstance
             .get(`/forum/recipe/like/${recipe.recipeView.id}`)
             .then((response) => {
-                if (response.status === 201) {
+                if (response.status === 201 || response.status === 200) {
                     dispatch(
                         setNotification({
                             label: "Like post",
@@ -40,6 +49,12 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                             timeout: 5000,
                         }),
                     );
+                    queryClient.invalidateQueries([`forumRecipeVerified-${recipe.recipeView.id}`, recipe.recipeView.id], {
+                        refetchType: "all",
+                    });
+                    queryClient.invalidateQueries(["getForumPostsMeals"], {
+                        refetchType: "all",
+                    });
                 }
             })
             .catch((err) => {
@@ -323,7 +338,11 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                             </Label>
                         </S.IconWrapper>
                         <S.IconWrapper>
-                            <HeartEmptyIcon onClick={addLike} />
+                            {isLike && user && isLike.find((item) => item.user.id === user.id) ? (
+                              <HeartFullIcon onClick={addLike} />
+                            ) : (
+                              <HeartEmptyIcon onClick={addLike} />
+                            )}
                             <Label
                                 fontSize='1rem'
                                 fontWeight='400'

@@ -15,8 +15,11 @@ export type UserData = {
     age?: number;
     calories?: number;
     timestamp: number;
-    [key: string]: number | string | ProfileType | undefined | null;
+    authorities?: AuthorityType[];
+    [key: string]: number | string | ProfileType | undefined | null | AuthorityType[];
 };
+export type AuthorityType = 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_DIETITIAN' | 'ROLE_INFLUENCER'
+
 
 export type UserFormData = UserData & {
     profileImagePath: UploadItem;
