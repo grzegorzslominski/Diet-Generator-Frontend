@@ -26,7 +26,7 @@ type RecipesListProps = {
 const RecipesList = ({ userID, onEditRecipe }: RecipesListProps) => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
-    const { data: userRecipes, isLoading } = useQuery([`userRecipes`, userID], () =>
+    const { data: userRecipes, isLoading } = useQuery(["userRecipes", userID], () =>
         getUserRecipes(userID),
     );
 

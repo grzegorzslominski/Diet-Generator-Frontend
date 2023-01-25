@@ -5,11 +5,13 @@ import { mealItemI, mealDayI, MEALItem } from "./const/mealItemData";
 import { useQuery } from "@tanstack/react-query";
 import { DaysForWeekDietI, getDiet } from "./const/meal";
 
+
 type MyDietViewProps = {
     loggedUserID: number;
 };
 const MealItemList = ({ loggedUserID }: MyDietViewProps) => {
     const { data: diet, isLoading, error } = useQuery(["getAllDiet"], () => getDiet());
+
     return (
         <S.Container>
             {diet &&

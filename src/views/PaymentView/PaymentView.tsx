@@ -3,6 +3,9 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
+import { calculatePremiumRemainingTime, parseUnixTime } from "../AuthViews/helpers/date";
+import { getUserData } from "../../models/User/User";
+import { setUser } from "../../redux/slices/user";
 import { setNotification } from "../../redux/slices/notification";
 import {
     BASIC_ACCOUNT_ADVANTAGES,
@@ -30,9 +33,6 @@ import {
 } from "../../models/Subscription/Subscription";
 
 import * as S from "./PaymentView.style";
-import { calculatePremiumRemainingTime, parseUnixTime } from "../AuthViews/helpers/date";
-import { getUserData } from "../../models/User/User";
-import { setUser } from "../../redux/slices/user";
 
 const PaymentView = () => {
     const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const PaymentView = () => {
     const [cancelIsLoading, setCancelIsLoading] = useState(false);
 
     useEffect(() => {
-        if (subInfo && subInfo.length > -1) {
+        if (subInfo && subInfo.length > 0) {
             const lastSub = JSON.parse(JSON.stringify(subInfo[subInfo.length - 1]));
             setNewestSub(lastSub);
         }

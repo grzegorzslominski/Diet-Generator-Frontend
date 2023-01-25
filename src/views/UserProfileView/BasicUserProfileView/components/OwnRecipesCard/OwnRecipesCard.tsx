@@ -54,7 +54,7 @@ const OwnRecipesCard = ({ className, userRecipes }: OwnRecipesCardProps) => {
                         <Button
                             width='100px'
                             size='small'
-                            onClick={() => navigate(NAVIGATION.newMeal)}
+                            onClick={() => navigate(NAVIGATION.recipes)}
                         >
                             Add meal
                         </Button>

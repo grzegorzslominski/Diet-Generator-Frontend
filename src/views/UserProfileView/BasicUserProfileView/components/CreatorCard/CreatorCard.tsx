@@ -14,7 +14,7 @@ import * as S from "./CreatorCard.stylet";
 
 type CreatorCardType = {
     user: UserData;
-    userExtras: UserExtras | null | undefined;
+    userExtras?: UserExtras | null;
 };
 
 const CreatorCard = ({ user, userExtras }: CreatorCardType) => {
