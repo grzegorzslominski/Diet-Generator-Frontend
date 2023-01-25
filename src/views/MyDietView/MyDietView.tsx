@@ -3,10 +3,13 @@ import MealItemList from "./components/Meals/MealItemList";
 
 import * as S from "./MyDietView.style";
 
-const MyDietView = () => {
+type MyDietViewProps = {
+  loggedUserID: number;
+}
+const MyDietView = ({loggedUserID}: MyDietViewProps) => {
     return (
         <S.Container>
-            <MealItemList />
+            <MealItemList loggedUserID={loggedUserID}/>
         </S.Container>
     );
 };

@@ -17,6 +17,7 @@ import { RecipeIngredientsI } from "../../const/meal";
 
 interface props {
     recipeIngredients: RecipeIngredientsI[];
+    loggedUserID:number;
 }
 
 const DayMealList = (props: props) => {
@@ -43,6 +44,8 @@ const DayMealList = (props: props) => {
                         readyInMinutes={item.readyInMinutes}
                         servings={item.servings}
                         recipesIngredients={item.recipesIngredients}
+                        recipeLikes={item.recipeLikes}
+                        loggedUserID={props.loggedUserID}
                     />
                 );
             })}
