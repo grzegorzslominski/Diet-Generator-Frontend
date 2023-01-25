@@ -1,4 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import React from "react";
+
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { DaysForWeekDietI, getDiet } from "./const/meal";
 
 import MealItem from "./item/MealItem";
@@ -9,7 +11,11 @@ type MyDietViewProps = {
     loggedUserID: number;
 };
 const MealItemList = ({ loggedUserID }: MyDietViewProps) => {
-    const { data: diet, isLoading, error } = useQuery(["getAllDiet"], () => getDiet());
+    const {
+        data: diet,
+        isLoading,
+        error
+    } = useQuery(["getAllDiet"], () => getDiet());
 
     return (
         <S.Container>

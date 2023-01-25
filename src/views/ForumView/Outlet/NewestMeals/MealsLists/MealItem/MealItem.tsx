@@ -26,36 +26,6 @@ const MealItem = ({
     const dispatch = useDispatch();
 
     const handleChangeOpenModal = () => setOpenModal((prev) => !prev);
-    const addLike = () => {
-        axiosFoodieInstance
-            .get(`/forum/recipe/like/${id}`)
-            .then((response) => {
-                if (response.status === 201) {
-                    dispatch(
-                        setNotification({
-                            label: "Like post",
-                            header: "Success",
-                            message: "Like was added",
-                            timeout: 5000,
-                        }),
-                    );
-                }
-            })
-            .catch((err) => {
-                const errorMessage = err.response.data?.message
-                    ? err.response.data.message
-                    : "Cannot add like";
-
-                dispatch(
-                    setNotification({
-                        label: "add like to post",
-                        header: "Failed",
-                        message: errorMessage,
-                        timeout: 5000,
-                    }),
-                );
-            });
-    };
 
     return (
         <S.Container>
@@ -109,7 +79,7 @@ const MealItem = ({
                         </Label>
                     </S.IconWrapper>
                     <S.IconWrapper>
-                        <HeartEmptyIcon onClick={addLike} />
+                        <HeartEmptyIcon />
                         <Label
                             fontSize='1rem'
                             fontWeight='400'

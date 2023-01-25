@@ -13,6 +13,7 @@ import Button from "../../../../../../../../components/UI/Button/Button";
 import Label from "../../../../../../../../components/UI/Label/Label";
 
 import * as S from "./AddNewVerifiedComment.style";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface AddNewVerifiedCommentProps {
     id: number;
@@ -20,8 +21,10 @@ interface AddNewVerifiedCommentProps {
 const AddNewVerifiedComment = ({ id }: AddNewVerifiedCommentProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
 
-    const {
+
+  const {
         handleSubmit,
         handleChange,
         data: userComment,
@@ -41,9 +44,9 @@ const AddNewVerifiedComment = ({ id }: AddNewVerifiedCommentProps) => {
                 content: userComment.comment,
             };
             axiosFoodieInstance
-                .post(`${ENDPOINTS_USER}/${id}`, newComment)
+                .post(`${ENDPOINTS_USER.userAddMealComment}/${id}`, newComment)
                 .then((response) => {
-                    if (response.status === 201) {
+                    if (response.status === 201 || response.status === 200) {
                         dispatch(
                             setNotification({
                                 label: "Comment post",
@@ -52,6 +55,13 @@ const AddNewVerifiedComment = ({ id }: AddNewVerifiedCommentProps) => {
                                 timeout: 5000,
                             }),
                         );
+                        userComment.comment = "";
+                      queryClient.invalidateQueries([`forumRecipeVerified-${id}`,id], {
+                        refetchType: "all",
+                      });
+                      queryClient.invalidateQueries(["getForumPostsMeals"], {
+                        refetchType: "all",
+                      });
                     }
                 })
                 .catch((err) => {

@@ -11,9 +11,12 @@ import { ReactComponent as HeartFullIcon } from "../../../../../assets/icons/hea
 import { FullPostI } from "../../const/Posts";
 
 import * as S from "./FullPostItem.style";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axiosFoodieInstance from "../../../../../axios/axiosFoodieInstance";
 import { setNotification } from "../../../../../redux/slices/notification";
+import { useQueryClient } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { TStore } from "../../../../../redux/store/store";
 
 type FullPostItem = {
     post: FullPostI;
@@ -22,12 +25,18 @@ type FullPostItem = {
 
 const FullPostItem = ({ post, close }: FullPostItem) => {
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
+    const user = useSelector((state: TStore) => state?.userReducer);
+    const [isLike, setIsLike] = useState(post.likes);
 
+    useEffect(() => {
+        setIsLike(post.likes);
+    }, [post.likes]);
     const addLike = () => {
         axiosFoodieInstance
             .get(`/forum/post/like/${post.id}`)
             .then((response) => {
-                if (response.status === 201) {
+                if (response.status === 201 || response.status === 200) {
                     dispatch(
                         setNotification({
                             label: "Like post",
@@ -36,6 +45,12 @@ const FullPostItem = ({ post, close }: FullPostItem) => {
                             timeout: 5000,
                         }),
                     );
+                    queryClient.invalidateQueries([`forumPost-${post.id}`, post.id], {
+                        refetchType: "all",
+                    });
+                    queryClient.invalidateQueries(["forumPosts"], {
+                        refetchType: "all",
+                    });
                 }
             })
             .catch((err) => {
@@ -86,7 +101,11 @@ const FullPostItem = ({ post, close }: FullPostItem) => {
                             </Label>
                         </S.IconWrapper>
                         <S.IconWrapper>
-                            <HeartEmptyIcon onClick={addLike} />
+                            {isLike && user && isLike.find((item) => item.user.id === user.id) ? (
+                                <HeartFullIcon onClick={addLike} />
+                            ) : (
+                                <HeartEmptyIcon onClick={addLike} />
+                            )}
                             <Label
                                 fontSize='1rem'
                                 fontWeight='400'
