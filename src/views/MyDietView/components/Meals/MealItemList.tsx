@@ -1,10 +1,9 @@
-import React from "react";
-import * as S from "./MealItemList.style";
-import MealItem from "./item/MealItem";
-import { mealItemI, mealDayI, MEALItem } from "./const/mealItemData";
 import { useQuery } from "@tanstack/react-query";
 import { DaysForWeekDietI, getDiet } from "./const/meal";
 
+import MealItem from "./item/MealItem";
+
+import * as S from "./MealItemList.style";
 
 type MyDietViewProps = {
     loggedUserID: number;

@@ -83,7 +83,7 @@ const CreatorForm = ({
                     type='image/png'
                     onChange={(file) => onBackgroundChange(file)}
                     onRemove={() => onChange("backgroundImagePath", null)}
-                    error={userExtrasValidation.background_image}
+                    error={userExtrasValidation.backgroundImagePath}
                     disable={false}
                 />
             </S.UploadBoxWrapper>

@@ -19,7 +19,7 @@ export const ImageContainer = styled.div<ContainerProps>`
     justify-content: center;
     width: 100%;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 10px;
 
     &:hover {
         cursor: ${({ url }) => (!url ? "pointer" : "default")};

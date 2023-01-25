@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -35,6 +35,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
     const { recipeID } = useParams();
+    const formRef = useRef<HTMLDivElement>(null);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [openRecipeForm, setOpenRecipeForm] = useState(false);
@@ -120,7 +121,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
             recipe?.imagePath &&
             (!newUplodedImageURL || recipe.imagePath.url !== newUplodedImageURL)
         ) {
-            removeImageFile(ENDPOINTS_IMAGE_UPLOAD.deleteRecipeImage);
+            removeImageFile(`${ENDPOINTS_IMAGE_UPLOAD.deleteRecipeImage}/${recipe.id}`);
         }
     };
 
@@ -151,17 +152,15 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                     dataToSend.imagePath = imageURL;
                 }
             } else {
-                dataToSend.imagePath = "";
+                dataToSend.imagePath = recipe?.imagePath?.url ? recipe?.imagePath?.url : "";
             }
-
-            checkRemoveOldRecipeImage(dataToSend.imagePath);
 
             const requestConfig = {
                 url: recipe.id
                     ? `${ENDPOINTS_MEALS.editUserRecipe}/${recipe.id}`
                     : ENDPOINTS_MEALS.addMeal,
                 method: recipe.id ? "put" : "post",
-                dataToSend,
+                data: dataToSend,
             };
 
             await axiosFoodieInstance(requestConfig)
@@ -170,6 +169,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                         queryClient.invalidateQueries(["userRecipes"], {
                             refetchType: "all",
                         });
+                        checkRemoveOldRecipeImage(dataToSend.imagePath);
                         setRecipe(JSON.parse(JSON.stringify(NEW_RECIPE_DATA)));
                         dispatch(
                             setNotification({
@@ -203,6 +203,15 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
         const parseRecipe: RecipeForm = parseImageToEdit(recipe, "imagePath");
         setRecipe(parseRecipe);
         setOpenRecipeForm(true);
+        window.scrollTo({
+            top: formRef!.current!.offsetTop - 200,
+            behavior: "smooth",
+        });
+    };
+
+    const closeFormModal = () => {
+        setOpenRecipeForm(false);
+        setRecipe(JSON.parse(JSON.stringify(NEW_RECIPE_DATA)));
     };
 
     return (
@@ -220,7 +229,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                         )}
                     </S.TopeSection>
 
-                    {(openRecipeForm || recipeID) && (
+                    {(openRecipeForm || (recipeID && openRecipeForm)) && (
                         <RecipeFormContent
                             recipe={recipe}
                             recipeValidation={recipeValidation}
@@ -228,7 +237,8 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                             onChange={handleOnChange}
                             onImageChange={onChangeRecipeImagePrehandler}
                             onSubmit={handleSubmit}
-                            onClose={() => setOpenRecipeForm(false)}
+                            onClose={closeFormModal}
+                            ref={formRef}
                         />
                     )}
                     <S.Divider />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as S from "./DayMealDetailsItem.style";
-import { mealDayI, propObject } from "../../../../const/mealItemData";
+
 import Label from "../../../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../../../themes/mainTheme";
 import DayMealTable from "./DayMealTable/DayMealTable";
@@ -11,22 +11,9 @@ import ActionButton from "../../../../../../../../components/UI/ActionButton/Act
 import { IngredientsI, RecipeIngredientsI } from "../../../../const/meal";
 import { prepareRecipeInstrucion } from "../../../../../../../../helpers/textParse";
 
-// interface props {
-//     close: () => void;
-//     name: string;
-//     image: string;
-//     category: string;
-//     calories: string;
-//     proteins: string;
-//     carbs: string;
-//     fat: string;
-//     basicIngredients: string[];
-//     properties?: propObject[];
-// }
-
 type prop = {
-    close: () => void
-}
+    close: () => void;
+};
 
 type prop2 = {
     id: number;
@@ -45,12 +32,11 @@ type prop2 = {
     carbs: number;
     fat: number;
     protein: number;
-    recipesIngredients: IngredientsI[]
-    close: () => void
+    recipesIngredients: IngredientsI[];
+    close: () => void;
+};
 
-}
-
-type prop3 = prop & prop2
+type prop3 = prop & prop2;
 const DayMealDetailsItem = (props: prop2) => {
     return (
         <S.Container>
@@ -71,13 +57,13 @@ const DayMealDetailsItem = (props: prop2) => {
             </S.Header>
             <S.Table>
                 <S.TableItem>
-                            <DayMealTable
-                                vegetarian={props.vegetarian}
-                                vegan={props.vegan}
-                                veryHealthy={props.veryHealthy}
-                                glutenFree={props.glutenFree}
-                                dairyFre={props.dairyFree}
-                            />
+                    <DayMealTable
+                        vegetarian={props.vegetarian}
+                        vegan={props.vegan}
+                        veryHealthy={props.veryHealthy}
+                        glutenFree={props.glutenFree}
+                        dairyFre={props.dairyFree}
+                    />
                 </S.TableItem>
             </S.Table>
             <Label
@@ -111,7 +97,7 @@ const DayMealDetailsItem = (props: prop2) => {
             </S.Row>
             <S.Content>
                 <S.Items>
-                    {props.recipesIngredients.map((item,index: number) => {
+                    {props.recipesIngredients.map((item, index: number) => {
                         return (
                             <S.Item key={index}>
                                 <Label

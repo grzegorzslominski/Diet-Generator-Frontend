@@ -93,40 +93,42 @@ const SearchProducts = ({ selectedProducts, returnType, onChange }: SearchProduc
             </S.SearchContainer>
 
             <S.ProductsContainer>
-                {isLoading ? (
-                    <Spinner />
-                ) : (
-                    <ScrollBox scrollDistance={30} height={265}>
-                        {filteredProducts && filteredProducts.length ? (
-                            <S.ProductsList>
-                                {filteredProducts.map((product) => {
-                                    return (
-                                        <S.ProductItem
-                                            onClick={() => onChangePrehandler(product.name)}
-                                            key={product.name}
-                                            selected={checkProductIsSelested(product.name)}
-                                        >
-                                            <Label
-                                                fontSize='12px'
-                                                textAlign='center'
-                                                fontWeight='500'
-                                                color={mainTheme.colors.mainBlack}
+                <ScrollBox scrollDistance={30} height={265}>
+                    {filteredProducts && filteredProducts.length ? (
+                        <S.ProductsList>
+                            {isLoading ? (
+                                <Spinner size='medium' color='secondary' />
+                            ) : (
+                                <>
+                                    {filteredProducts.map((product) => {
+                                        return (
+                                            <S.ProductItem
+                                                onClick={() => onChangePrehandler(product.name)}
+                                                key={product.name}
+                                                selected={checkProductIsSelested(product.name)}
                                             >
-                                                {product.name}
-                                            </Label>
-                                        </S.ProductItem>
-                                    );
-                                })}
-                            </S.ProductsList>
-                        ) : (
-                            <S.EmptyContainer>
-                                <Label fontSize='12px' color={mainTheme.colors.grey}>
-                                    There are no products matching the search phrase
-                                </Label>
-                            </S.EmptyContainer>
-                        )}
-                    </ScrollBox>
-                )}
+                                                <Label
+                                                    fontSize='12px'
+                                                    textAlign='center'
+                                                    fontWeight='500'
+                                                    color={mainTheme.colors.mainBlack}
+                                                >
+                                                    {product.name}
+                                                </Label>
+                                            </S.ProductItem>
+                                        );
+                                    })}
+                                </>
+                            )}
+                        </S.ProductsList>
+                    ) : (
+                        <S.EmptyContainer>
+                            <Label fontSize='12px' color={mainTheme.colors.grey}>
+                                There are no products matching the search phrase
+                            </Label>
+                        </S.EmptyContainer>
+                    )}
+                </ScrollBox>
             </S.ProductsContainer>
         </S.Container>
     );

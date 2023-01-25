@@ -3,10 +3,8 @@ import { Ingredient } from "./Recipe";
 
 export type RecipeForm = {
     id?: number;
-    timestamp?: number;
     calories: number;
     title: string;
-    verifed: boolean;
     readyInMinutes: number;
     servings: number;
     instructions?: string;
@@ -19,7 +17,6 @@ export type RecipeForm = {
     fat: number;
     protein: number;
     carbs: number;
-    created_at: number;
     ingredients: Ingredient[];
     imagePath: UploadItem;
     [key: string]: number | string | boolean | Ingredient[] | UploadItem | null | undefined;
@@ -39,7 +36,6 @@ export const NEW_RECIPE_DATA: RecipeForm = {
     vegan: false,
     veryHealthy: false,
     verified: false,
-    created_at: 0,
     ingredients: [],
     fat: 0,
     protein: 0,
@@ -53,7 +49,7 @@ export type RecipeValidation = {
     instructions: string;
     calories: string;
     fat: string;
-    proteins: string;
+    protein: string;
     carbs: string;
     ingredients: string[];
     isIngredient: string;
@@ -68,7 +64,7 @@ export const RECIPE_VALIDATION_DATA: RecipeValidation = {
     instructions: "",
     calories: "",
     fat: "",
-    proteins: "",
+    protein: "",
     carbs: "",
     isIngredient: "",
     ingredients: [],
@@ -83,6 +79,6 @@ export const RECIPE_INPUT_PRESET: RecipeInputs = {
     readyInMinutes: "Time",
     calories: "Calories",
     fat: "Fat",
-    proteins: "proteins",
+    protein: "protein",
     carbs: "carbs",
 };

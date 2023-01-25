@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
-import { NAVIGATION } from "../../../../../navigation/paths";
 
 import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPad";
 import Label from "../../../../../components/UI/Label/Label";

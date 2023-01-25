@@ -20,6 +20,8 @@ export const ActionContainer = styled.div`
 `;
 
 export const Content = styled.div`
+    position: relative;
+    min-height: 30px;
     display: flex;
 `;
 

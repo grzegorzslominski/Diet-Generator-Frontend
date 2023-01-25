@@ -153,6 +153,7 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
     const onSubmit = async () => {
         setIsLoading(true);
         const validationPassed = validateForm();
+
         if (validationPassed) {
             const dataToSend: any = currentUserExtras;
 
@@ -175,6 +176,13 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                 }
 
                 dataToSend.userExtras.backgroundImagePath = imageURL;
+                console.log(dataToSend.userExtras.backgroundImagePath);
+            } else if (
+                !currentUserExtras.userExtras.backgroundImagePath?.file &&
+                currentUserExtras.userExtras.backgroundImagePath?.url
+            ) {
+                dataToSend.userExtras.backgroundImagePath =
+                    currentUserExtras.userExtras.backgroundImagePath?.url;
             }
             if (dataToSend?.userExtras) {
                 checkRemoveOldUserAvatar(dataToSend.userExtras.backgroundImagePath);
