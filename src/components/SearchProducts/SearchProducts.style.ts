@@ -17,6 +17,7 @@ export const InputRow = styled.div`
 `;
 
 export const ProductsContainer = styled.div`
+    position: relative;
     display: flex;
     width: 100%;
     border-radius: 5px;

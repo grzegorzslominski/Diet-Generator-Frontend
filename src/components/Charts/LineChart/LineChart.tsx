@@ -47,7 +47,6 @@ type ChartProps = {
 
 const LineChart = ({ chartData }: ChartProps) => {
     const data = useMemo(() => prepareData(chartData), [chartData]);
-    console.log(data);
 
     return (
         <S.ChartContainer>
