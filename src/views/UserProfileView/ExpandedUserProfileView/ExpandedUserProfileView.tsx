@@ -179,7 +179,7 @@ const ExpandedUserProfileView = ({ loggedUserID }: ExpandedUserProfileViewProps)
                                         <ProfileArticle
                                             key={post.id}
                                             post={post}
-                                            author={{ ...userProfile.user }}
+                                            author={userProfile.user}
                                         />
                                     ))}
                                 </>

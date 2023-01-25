@@ -4,7 +4,7 @@ import { SocialLinks } from "../../models/SocialsLinks/SocialsLinks";
 
 import * as S from "./Socials.style";
 
-export type SocialProps = {
+type SocialProps = {
     social: SocialLinks;
     iconSize?: string;
     iconColor?: string;
@@ -14,7 +14,7 @@ const Social = ({ social, iconSize = "0.85rem", iconColor = "#737380" }: SocialP
     return (
         <S.Container>
             {Object.keys(ICON_PRESET).map((keyIcon) => {
-                if (social[keyIcon]) {
+                if (social && social[keyIcon]) {
                     return (
                         <S.IconContanier
                             key={`${keyIcon}-icon`}

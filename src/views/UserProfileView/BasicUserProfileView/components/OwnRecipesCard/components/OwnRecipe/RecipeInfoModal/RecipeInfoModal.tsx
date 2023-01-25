@@ -17,10 +17,11 @@ import { prepareRecipeInstrucion } from "../../../../../../../../helpers/textPar
 
 type MealInfoModalProps = {
     userRecipe: Recipe;
+    editMode?: boolean;
     close: () => void;
 };
 
-const MealInfoModal = ({ userRecipe, close }: MealInfoModalProps) => {
+const MealInfoModal = ({ userRecipe, editMode = false, close }: MealInfoModalProps) => {
     const navigate = useNavigate();
 
     return (
@@ -59,15 +60,17 @@ const MealInfoModal = ({ userRecipe, close }: MealInfoModalProps) => {
                             {prepareRecipeInstrucion(userRecipe.instructions)}
                         </Label>
                     </S.Instrucions>
-                    <S.ActionContainer>
-                        <Button
-                            size='small'
-                            width='125px'
-                            onClick={() => navigate(`${NAVIGATION.recipes}/${userRecipe.id}`)}
-                        >
-                            Edit meal
-                        </Button>
-                    </S.ActionContainer>
+                    {editMode && (
+                        <S.ActionContainer>
+                            <Button
+                                size='small'
+                                width='125px'
+                                onClick={() => navigate(`${NAVIGATION.recipes}/${userRecipe.id}`)}
+                            >
+                                Edit meal
+                            </Button>
+                        </S.ActionContainer>
+                    )}
                 </S.Container>
             </BoxPad>
         </ModalPortal>

@@ -28,8 +28,8 @@ export enum ENDPOINTS_MEALS {
     addMeal = "/recipe/add",
     excludedProducts = "/diet/excludedProducts",
     userRecipes = "/recipe/user",
-    removeUserRecipe = "recipe/delete",
-    editUserRecipe = "recipe/update",
+    removeUserRecipe = "/recipe",
+    editUserRecipe = "/recipe",
 }
 
 export enum ENDPOINTS_EXPANDE_USER_PROFILE {
@@ -46,4 +46,8 @@ export enum ENDPOINTS_SUBSCRIPTION {
 
 export enum ENDPOINTS_FORUM {
     verifyMeal = "/recipe/verify",
+}
+
+export enum ENDPOINTS_DASHBOARD {
+    dashbordData = "/dashboard",
 }

@@ -53,6 +53,7 @@ const OwnRecipe = ({ userRecipe }: OwnRecipeProps) => {
             </S.MealValuesSection>
             {openRecipeModal && (
                 <RecipeInfoModal
+                    editMode
                     userRecipe={userRecipe}
                     close={() => setOpenRecipeInfoModal(false)}
                 />

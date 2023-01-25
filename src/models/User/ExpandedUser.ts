@@ -11,8 +11,8 @@ export type PublicUserProfile = {
     user: PublicUser;
     userExtras: Extras;
     userImagePath: string;
-    userPosts: Post[];
-    userRecipes: PublishedRecipe[];
+    userPosts?: Post[];
+    userRecipes?: PublishedRecipe[];
     [key: string]:
         | Follower[]
         | SocialLinks
@@ -20,7 +20,8 @@ export type PublicUserProfile = {
         | Extras
         | string
         | Post[]
-        | PublishedRecipe[];
+        | PublishedRecipe[]
+        | undefined;
 };
 
 export type Follower = {
@@ -52,9 +53,10 @@ export type Extras = {
 };
 
 export type PublishedRecipe = Recipe & {
+    recipeCreatorImage: string | null;
     recipeLikes: Like[];
     recipesIngredients: Ingredient[];
-    [key: string]: any;
+    [key: string]: string | null | Like[] | Ingredient[];
 };
 
 type Like = {
