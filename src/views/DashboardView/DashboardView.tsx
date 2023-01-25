@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getDashboardData } from "../../models/Dashboard/Dashboard";
 
 import ProfileArticle from "../UserProfileView/ExpandedUserProfileView/components/ProfileArticle/ProfileArticle";
-import NewCreator from "./components/newCreator/NewCreator";
 import ViewBox from "../../components/UI/ViewBox/ViewBox";
+import NewCreator from "./components/NewCreator/NewCreator";
 import MealsList from "./components/Meals/MealsList";
 import Label from "../../components/UI/Label/Label";
 import NewsBox from "./components/NewsBox/NewsBox";
