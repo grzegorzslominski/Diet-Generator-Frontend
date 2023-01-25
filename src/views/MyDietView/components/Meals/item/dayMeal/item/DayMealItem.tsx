@@ -1,25 +1,58 @@
 import React, { useState } from "react";
 import * as S from "./DayMealItem.style";
-import { mealDayI } from "../../../const/mealItemData";
-import Chicken from "../../../../../../../assets/dashboard/images/chicken.png";
 import Label from "../../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../../themes/mainTheme";
 import PieChart from "./chart/PieChart";
-import { ReactComponent as Heart } from "../../../../../../../assets/icons/blackHeart.svg";
+import {ReactComponent as HeartEmptyIcon} from "../../../../../../../assets/icons/heart-empty.svg";
+import {ReactComponent as HeartFullIcon} from "../../../../../../../assets/icons/heart-full.svg";
 import { ReactComponent as Info } from "../../../../../../../assets/icons/infoIcon.svg";
-import { ReactComponent as Like } from "../../../../../../../assets/icons/likeIcon.svg";
-import { ReactComponent as Dislike } from "../../../../../../../assets/icons/dislikeIcon.svg";
 import ModalPortal from "../../../../../../../components/UI/ModalPortal/ModalPortal";
 import DayMealDetailsItem from "./DayMealDetailsItem/DayMealDetailsItem";
 import { RecipeIngredientsI } from "../../../const/meal";
+import axiosFoodieInstance from "../../../../../../../axios/axiosFoodieInstance";
+import { useDispatch } from "react-redux";
+import { setNotification } from "../../../../../../../redux/slices/notification";
 
 const DayMealItem = ({
   id,title,servings,readyInMinutes,imagePath,instructions,vegetarian,
   vegan,glutenFree,dairyFree,veryHealthy,verified,calories,carbs,fat,protein,
-  recipesIngredients
+  recipesIngredients,recipeLikes,loggedUserID
                      }: RecipeIngredientsI) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const handleIsOpen = () => setIsOpen((current) => !current);
+    const [isLike,setIsLike] = useState(recipeLikes)
+    const dispatch = useDispatch();
+    const addLike = () => {
+        axiosFoodieInstance
+          .get(`/forum/recipe/like/${id}`)
+          .then((response) => {
+              if(response.status === 200){
+                  dispatch(
+                    setNotification({
+                        label: "Like post",
+                        header: "Success",
+                        message: "Like was added",
+                        timeout: 5000,
+                    }),
+                  );
+              }
+          })
+          .catch((err) => {
+              const errorMessage = err.response.data?.message
+                ? err.response.data.message
+                : "Cannot add like";
+
+              dispatch(
+                setNotification({
+                    label: "add like to post",
+                    header: "Failed",
+                    message: errorMessage,
+                    timeout: 5000,
+                }),
+              );
+          });
+    }
+
     return (
         <S.Container>
             <S.Content>
@@ -168,7 +201,16 @@ const DayMealItem = ({
                 </S.ThirdAndForthContent>
                 <S.FourthContainer>
                     <S.FourthContainerItem>
-                        <Heart />
+                        <Label
+                          fontFamily='Montserrat'
+                          fontWeight='400'
+                          fontSize='1.2rem'
+                          lineHeight='0.9rem'
+                          color={mainTheme.colors.mainBlack}
+                        >
+                            {recipeLikes ? recipeLikes.length : 0}
+                        </Label>
+                        {isLike && isLike.find(item => item.user.id === loggedUserID) ? <HeartFullIcon onClick={addLike}/> : <HeartEmptyIcon onClick={addLike}/>}
                         <Info onClick={handleIsOpen} />
                     </S.FourthContainerItem>
                 </S.FourthContainer>

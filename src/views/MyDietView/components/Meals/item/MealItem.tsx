@@ -17,6 +17,7 @@ interface props {
     daysForWeekDietI: DaysForWeekDietI;
     timestamp: number;
     index: number;
+    loggedUserID: number;
 }
 const MealItem = (props: props) => {
     const [open, setIsOpen] = useState(false);
@@ -125,7 +126,7 @@ const MealItem = (props: props) => {
                 {open ? <S.Line /> : null}
             </S.Container>
             {open && props.daysForWeekDietI.recipesForToday ? (
-                <DayMealList recipeIngredients={props.daysForWeekDietI.recipesForToday} />
+                <DayMealList recipeIngredients={props.daysForWeekDietI.recipesForToday} loggedUserID={props.loggedUserID}/>
             ) : null}
         </S.Wrapper>
     );
