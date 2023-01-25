@@ -5,7 +5,6 @@ export const Container = styled.div`
     background: #ffffff;
     box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -64,8 +63,10 @@ export const IconWrapper = styled.div`
     justify-content: space-between;
     gap: 10px;
     & > svg {
-        filter: brightness(0%);
+      filter: brightness(0%);
       cursor: pointer;
+      width: 20px;
+      height: 20px;
     }
 `;
 export const Footer = styled.div`

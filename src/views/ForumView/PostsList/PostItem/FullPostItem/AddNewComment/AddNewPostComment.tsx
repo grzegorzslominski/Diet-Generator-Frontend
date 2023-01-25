@@ -14,6 +14,7 @@ import Label from "../../../../../../components/UI/Label/Label";
 import { UserComment } from "../../../../../../models/Meal/Recipe";
 
 import * as S from "./AddNewComment.style";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface AddNewPostCommentProps {
     id: number;
@@ -21,6 +22,8 @@ interface AddNewPostCommentProps {
 const AddNewPostComment = ({ id }: AddNewPostCommentProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
+
     const {
         handleSubmit,
         handleChange,
@@ -43,7 +46,7 @@ const AddNewPostComment = ({ id }: AddNewPostCommentProps) => {
             axiosFoodieInstance
                 .post(`${ENDPOINTS_USER.userAddPostComment}/${id}`, newComment)
                 .then((response) => {
-                    if (response.status === 201)
+                    if (response.status === 201 || response.status === 200) {
                         dispatch(
                             setNotification({
                                 label: "Comment post",
@@ -52,6 +55,14 @@ const AddNewPostComment = ({ id }: AddNewPostCommentProps) => {
                                 timeout: 5000,
                             }),
                         );
+                        userComment.comment = "";
+                        queryClient.invalidateQueries([`forumPost-${id}`, id], {
+                            refetchType: "all",
+                        });
+                        queryClient.invalidateQueries(["forumPosts"], {
+                            refetchType: "all",
+                        });
+                    }
                 })
                 .catch((error) =>
                     dispatch(

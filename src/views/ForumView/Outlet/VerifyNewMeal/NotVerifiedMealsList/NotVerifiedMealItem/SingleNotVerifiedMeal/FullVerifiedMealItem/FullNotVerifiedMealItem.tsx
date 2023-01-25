@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import axiosFoodieInstance from "../../../../../../../../axios/axiosFoodieInstance";
 import { ENDPOINTS_FORUM } from "../../../../../../../../navigation/endpoints";
 import { setNotification } from "../../../../../../../../redux/slices/notification";
+import { useQueryClient } from "@tanstack/react-query";
 
 type FullPostItem = {
     recipe: recipeViewFullI;
@@ -21,6 +22,8 @@ type FullPostItem = {
 
 const FullNotVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
+
     const [isLoading,setIsLoading] = useState(false);
     const verifyNotVerifiedMeal = () => {
         setIsLoading(true);
@@ -28,7 +31,7 @@ const FullNotVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
         axiosFoodieInstance
           .get(`${ENDPOINTS_FORUM.verifyMeal}/${recipe.recipeView.id}`)
           .then((response) => {
-              if(response.status === 200){
+              if(response.status === 200 || response.status === 201){
                   dispatch(
                     setNotification({
                         label: "unverified meal",
@@ -37,6 +40,9 @@ const FullNotVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         timeout: 5000,
                     }),
                   );
+                  queryClient.invalidateQueries(["getForumNotVerifiedMeals"], {
+                      refetchType: "all",
+                  });
               }
           })
           .catch((err) => {

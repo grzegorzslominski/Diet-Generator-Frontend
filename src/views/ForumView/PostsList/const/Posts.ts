@@ -78,7 +78,7 @@ export interface CommentI {
 export interface LikesI {
     id: number;
     timestamp: number;
-    author: ForumUserI;
+    user: ForumUserI;
 }
 
 export interface recipeNotVerifiedBasicI {

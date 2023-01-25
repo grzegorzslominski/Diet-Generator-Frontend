@@ -25,9 +25,13 @@ import Label from "../../components/UI/Label/Label";
 import { mainTheme } from "../../themes/mainTheme";
 import ScrollBox from "../../components/UI/ScrollBox/ScrollBox";
 import Input from "../../components/UI/Input/Input";
+import ModalPortal from "../../components/UI/ModalPortal/ModalPortal";
+import Information from "./components/Modal/Information";
 
 const DietGeneratorView = () => {
     const [loading, setLoading] = useState<boolean>(false);
+    const [isOpen,setIsOpen] = useState<boolean>(true);
+    const [failed,setFailed] = useState<boolean>(false);
     const [data, setIsData] = useState<GeneratorI>(BASIC_GENERATOR_DATA);
     const [searchValue, setSearchValue] = useState<string>("");
     const [filteredResults, setFilteredResults] = useState<ProductType[]>();
@@ -71,6 +75,10 @@ const DietGeneratorView = () => {
     const handleResults = (value: string) => {
         setSearchValue(value);
     };
+
+    const handleChangeOpenModal = () => setIsOpen((prev) => !prev);
+    const handleChangeFailedModal = () => setFailed((prev) => !prev)
+
 
     const handleChangeExcludedProducts = (id: number) => {
         const findIndex = currentExcludedProducts.findIndex((product) => product.id === id);
@@ -146,7 +154,7 @@ const DietGeneratorView = () => {
         axiosFoodieInstance
             .post(ENDPOINTS_USER.generator, currentData)
             .then((response) => {
-                if (response.status === 201) {
+                if (response.status === 201 || response.status === 200) {
                     dispatch(
                         setNotification({
                             label: "Generator",
@@ -155,6 +163,11 @@ const DietGeneratorView = () => {
                             timeout: 5000,
                         }),
                     );
+                    setIsOpen(true)
+                    setIsData(JSON.parse(JSON.stringify(BASIC_GENERATOR_DATA)))
+                }
+                if(response.status === 204){
+                    setFailed(true)
                 }
             })
             .catch((err) => {
@@ -170,6 +183,7 @@ const DietGeneratorView = () => {
                         timeout: 5000,
                     }),
                 );
+                setFailed(true)
             })
             .finally(() => {
                 setLoading(false);
@@ -198,7 +212,7 @@ const DietGeneratorView = () => {
                             placeholder='meals per day'
                             label='Meals per day'
                             type='number'
-                            onChange={(e) => handleChange("mealsPerDay", e.target.value)}
+                            onChange={(e) => handleChange("mealsPerDay", +e.target.value)}
                         />
                     </S.InputContainer>
                     <MealPerDay />
@@ -374,6 +388,16 @@ const DietGeneratorView = () => {
             >
                 Submit your answers
             </Button>
+            {
+                isOpen ? <ModalPortal blurLevel='normal' blurBackground={true} close={handleChangeOpenModal}>
+                    <Information success={true} close={handleChangeOpenModal}/>
+                </ModalPortal> : null
+            }
+            {
+                failed ? <ModalPortal blurLevel='normal' blurBackground={true} close={handleChangeFailedModal}>
+                    <Information close={handleChangeOpenModal}/>
+                </ModalPortal> : null
+            }
         </S.Container>
     );
 };
