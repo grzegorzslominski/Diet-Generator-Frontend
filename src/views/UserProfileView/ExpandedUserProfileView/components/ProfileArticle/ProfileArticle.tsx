@@ -1,5 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 import { mainTheme } from "../../../../../themes/mainTheme";
 import noPhoto from "../../../../../assets/no-photo.png";
+import { NAVIGATION } from "../../../../../navigation/paths";
 
 import Label from "../../../../../components/UI/Label/Label";
 import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
@@ -8,12 +11,10 @@ import RedirectButton from "../../../../../components/UI/RedirectButton/Redirect
 import { Post, PostAuthor } from "../../../../../models/Forum/Post";
 
 import * as S from "./ProfileArticlestyle";
-import { useNavigate } from "react-router-dom";
-import { NAVIGATION } from "../../../../../navigation/paths";
 
 type ProfileArticleProps = {
     post: Post;
-    author: PostAuthor;
+    author?: PostAuthor;
 };
 
 const ProfileArticle = ({ post, author }: ProfileArticleProps) => {
@@ -42,13 +43,15 @@ const ProfileArticle = ({ post, author }: ProfileArticleProps) => {
                     </S.Content>
                     <S.ActionContainer>
                         <S.AuthorBox>
-                            {post.userImagePath && <img src={post.userImagePath} />}
+                            <img src={post?.userImagePath ? post?.userImagePath : noPhoto} />
                             <Label
                                 fontSize='16px'
                                 fontWeight='600'
                                 color={mainTheme.colors.mainBlack}
                             >
-                                {`${author.firstName} ${author.lastName}`}
+                                {!author
+                                    ? `${post.author.firstName} ${post.author.lastName}`
+                                    : `${author.firstName} ${author.lastName}`}
                             </Label>
                         </S.AuthorBox>
 

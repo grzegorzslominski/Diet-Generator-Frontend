@@ -1,18 +1,19 @@
+import { useMemo, useState } from "react";
+
 import { mainTheme } from "../../themes/mainTheme";
 import noPhoto from "../../assets/no-photo.png";
+import { prepareRecipeNutriensToChart } from "../../helpers/statistics";
 
+import RecipeInfoModal from "../../views/UserProfileView/BasicUserProfileView/components/OwnRecipesCard/components/OwnRecipe/RecipeInfoModal/RecipeInfoModal";
 import GradientLabel from "../UI/GradientLabel/GradientLabel";
+import ActionButton from "../UI/ActionButton/ActionButton";
 import Label from "../UI/Label/Label";
 import PieChart from "../Charts/PieChart/PieChart";
 
-import { Ingredient, Recipe, RECIPE_NUTRIONS_PRESET } from "../../models/Meal/Recipe";
+import { Ingredient, RECIPE_NUTRIONS_PRESET } from "../../models/Meal/Recipe";
+import { PublishedRecipe } from "../../models/User/ExpandedUser";
 
 import * as S from "./RecipeBox.style";
-import { PublishedRecipe } from "../../models/User/ExpandedUser";
-import ActionButton from "../UI/ActionButton/ActionButton";
-import { useMemo, useState } from "react";
-import RecipeInfoModal from "../../views/UserProfileView/BasicUserProfileView/components/OwnRecipesCard/components/OwnRecipe/RecipeInfoModal/RecipeInfoModal";
-import { prepareRecipeNutriensToChart } from "../../helpers/statistics";
 
 type RecipeBoxProps = {
     version?: "basic" | "author";
@@ -146,7 +147,7 @@ const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
                     <PieChart nutriensChartData={preparedNutriensChartData} />
                 </S.BottomSection>
             </S.Container>
-            {version === "author" && recipe?.created_at ? (
+            {version !== "basic" && recipe?.user && (
                 <S.AuthorBox>
                     <S.AuthorName>
                         <GradientLabel gradient={mainTheme.gradients.buttonGradient}>
@@ -155,12 +156,15 @@ const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
                             </Label>
                         </GradientLabel>
                         <Label fontSize='14px' fontWeight='500' color={mainTheme.colors.mainBlack}>
-                            {recipe.created_at}
+                            {`${recipe.user.firstName} ${recipe.user.lastName}`}
                         </Label>
                     </S.AuthorName>
-                    <img src={""} alt='meal author' />
+                    <img
+                        src={recipe.recipeCreatorImage ? recipe.recipeCreatorImage : noPhoto}
+                        alt='meal author'
+                    />
                 </S.AuthorBox>
-            ) : null}
+            )}
             {openRecipeModal && (
                 <RecipeInfoModal userRecipe={recipe} close={() => setOprenRecipeModal(false)} />
             )}

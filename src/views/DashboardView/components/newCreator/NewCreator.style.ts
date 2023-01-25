@@ -96,8 +96,8 @@ export const TitleWrapper = styled.div`
 
 export const Description = styled.div`
     display: flex;
-    height: 130px;
-    max-height: 130px;
+    height: 175px;
+    max-height: 175px;
 
     width: calc(100% - 24px);
 

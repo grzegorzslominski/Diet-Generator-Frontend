@@ -114,7 +114,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
         return validationPassed;
     };
 
-    const checkRemoveOldUserAvatar = (newUplodedImageURL: string | undefined | null) => {
+    const checkRemoveOldRecipeImage = (newUplodedImageURL: string | undefined | null) => {
         if (
             recipe?.id &&
             recipe?.imagePath &&
@@ -154,17 +154,23 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                 dataToSend.imagePath = "";
             }
 
-            checkRemoveOldUserAvatar(dataToSend.imagePath);
+            checkRemoveOldRecipeImage(dataToSend.imagePath);
 
-            await axiosFoodieInstance
-                .post(
-                    !recipe?.id
-                        ? ENDPOINTS_MEALS.addMeal
-                        : `${ENDPOINTS_MEALS.editUserRecipe}/${recipe.id}`,
-                    dataToSend,
-                )
+            const requestConfig = {
+                url: recipe.id
+                    ? `${ENDPOINTS_MEALS.editUserRecipe}/${recipe.id}`
+                    : ENDPOINTS_MEALS.addMeal,
+                method: recipe.id ? "put" : "post",
+                dataToSend,
+            };
+
+            await axiosFoodieInstance(requestConfig)
                 .then((response) => {
                     if (response.status === 200 || response.status === 201) {
+                        queryClient.invalidateQueries(["userRecipes"], {
+                            refetchType: "all",
+                        });
+                        setRecipe(JSON.parse(JSON.stringify(NEW_RECIPE_DATA)));
                         dispatch(
                             setNotification({
                                 label: "Recipe",
@@ -173,10 +179,6 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                                 timeout: 5000,
                             }),
                         );
-                        setRecipe(JSON.parse(JSON.stringify(NEW_RECIPE_DATA)));
-                        queryClient.invalidateQueries(["userRecipes"], {
-                            refetchType: "all",
-                        });
                     }
                 })
                 .catch((err) => {

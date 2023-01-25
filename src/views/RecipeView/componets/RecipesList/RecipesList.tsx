@@ -32,7 +32,7 @@ const RecipesList = ({ userID, onEditRecipe }: RecipesListProps) => {
 
     const removeRecipe = (recipeID?: number) => {
         axiosFoodieInstance
-            .post(`${ENDPOINTS_MEALS.removeUserRecipe}/${recipeID}`)
+            .delete(`${ENDPOINTS_MEALS.removeUserRecipe}/${recipeID}`)
             .then((response) => {
                 if (response.status === 200 || response.status === 201) {
                     queryClient.invalidateQueries(["userRecipes"], {

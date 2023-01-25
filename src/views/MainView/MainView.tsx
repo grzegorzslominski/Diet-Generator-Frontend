@@ -100,7 +100,9 @@ const MainView = () => {
                                             <Route
                                                 path={`${NAVIGATION.profile}/:userID`}
                                                 element={
-                                                    <ExpandedUserProfileView loggedUserID={user.id} />
+                                                    <ExpandedUserProfileView
+                                                        loggedUserID={user.id}
+                                                    />
                                                 }
                                             />
                                             <Route

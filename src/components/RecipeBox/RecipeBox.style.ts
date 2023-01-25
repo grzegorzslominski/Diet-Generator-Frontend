@@ -82,7 +82,7 @@ export const MiddleSection = styled.div<MiddleSectionProps>`
     display: flex;
     flex-direction: column;
     gap: 16px;
-    height: 160px;
+    height: 155px;
 `;
 
 export const BasicIngredients = styled.div`

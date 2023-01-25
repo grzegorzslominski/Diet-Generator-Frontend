@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import moment from "moment";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
 import { NAVIGATION } from "../../../../../navigation/paths";
@@ -8,23 +7,17 @@ import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPa
 import Label from "../../../../../components/UI/Label/Label";
 import Button from "../../../../../components/UI/Button/Button";
 
-import * as S from "./PremiumCard.style";
 import { Subscription } from "../../../../../models/Subscription/Subscription";
+
+import * as S from "./PremiumCard.style";
+import { calculatePremiumRemainingTime } from "../../../../AuthViews/helpers/date";
 
 type PremiumCardProps = ClassNameProp & {
     userSubscriptions: Subscription | null;
 };
 
-const calculatePremiumRemainingTime = (startTime?: number, endTime?: number) => {
-    if (!startTime || !endTime) {
-        return;
-    }
-    return moment(endTime).diff(moment(startTime), "days");
-};
-
 const PremiumCard = ({ className, userSubscriptions }: PremiumCardProps) => {
     const navigate = useNavigate();
-    console.log(userSubscriptions);
 
     return (
         <BoxPad
@@ -44,7 +37,7 @@ const PremiumCard = ({ className, userSubscriptions }: PremiumCardProps) => {
                         ? "You do not have an active subscription. Become a member of the community today and start using all the functionalities."
                         : `Your account has premium status, you have access to all functionalities of theapplication.`}
                 </Label>
-                {userSubscriptions?.status !== "ACTIVE" && (
+                {userSubscriptions?.status === "ACTIVE" && (
                     <S.RemainingStatusContainer>
                         <Label
                             color={mainTheme.colors.inputText}

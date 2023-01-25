@@ -1,17 +1,19 @@
 import { mainTheme } from "../../../../themes/mainTheme";
-import { MEALS_DATA, MealI } from "./const/mealListData";
 
 import Carousel from "../../../../components/UI/Carousel/Carousel";
+import RecipeBox from "../../../../components/RecipeBox/RecipeBox";
 import Label from "../../../../components/UI/Label/Label";
-import MealItem from "../../../../components/RecipeBox/RecipeBox";
+
+import { PublishedRecipe } from "../../../../models/User/ExpandedUser";
 
 import * as S from "./MealList.style";
 
 type MealsListProps = {
     title: string;
+    recipes: PublishedRecipe[];
     version?: "basic" | "author";
 };
-const MealsList = ({ title, version = "basic" }: MealsListProps) => {
+const MealsList = ({ title, recipes, version = "basic" }: MealsListProps) => {
     return (
         <S.Container>
             <Label
@@ -25,16 +27,16 @@ const MealsList = ({ title, version = "basic" }: MealsListProps) => {
             </Label>
 
             <S.MealsContainer>
-                {/* <Carousel
+                <Carousel
                     widthElement={270}
                     version='arrows'
                     gap={35}
                     buttonPosition={{ horizontal: -30, vertical: 230 }}
                 >
-                    {MEALS_DATA.map((meal: MealI, index) => (
-                        <MealItem key={`meal.name-${index}`} {...meal} version={version} />
+                    {recipes.map((recipe: PublishedRecipe, index) => (
+                        <RecipeBox key={`meal.name-${index}`} recipe={recipe} version={version} />
                     ))}
-                </Carousel> */}
+                </Carousel>
             </S.MealsContainer>
         </S.Container>
     );

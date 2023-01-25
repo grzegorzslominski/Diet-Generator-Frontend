@@ -1,5 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 import { mainTheme } from "../../../../themes/mainTheme";
-import { Creator, NEW_CREATORS } from "./const/creatorsData";
+import noPhoto from "../../../../assets/no-photo.png";
 
 import RedirectButton from "../../../../components/UI/RedirectButton/RedirectButton";
 import Carousel from "../../../../components/UI/Carousel/Carousel";
@@ -7,9 +9,18 @@ import BoxPad from "../../../../components/UI/BoxPad/BoxPad";
 import Social from "../../../../components/Socials/Socials";
 import Label from "../../../../components/UI/Label/Label";
 
-import * as S from "./NewCreator.style";
+import { PublicUserProfile } from "../../../../models/User/ExpandedUser";
 
-const NewCreator = () => {
+import * as S from "./NewCreator.style";
+import { NAVIGATION } from "../../../../navigation/paths";
+
+type NewCreatorProps = {
+    creators: PublicUserProfile[];
+};
+
+const NewCreator = ({ creators }: NewCreatorProps) => {
+    const navigate = useNavigate();
+
     return (
         <S.Container>
             <Label
@@ -28,11 +39,13 @@ const NewCreator = () => {
                     scrollAxie='vertical'
                     maxHeight='374px'
                 >
-                    {NEW_CREATORS.map((creator: Creator) => (
-                        <BoxPad width='100%' padding='24px' key={creator.id} boxShadow={false}>
+                    {creators.map((creator: PublicUserProfile) => (
+                        <BoxPad width='100%' padding='24px' key={creator.user.id} boxShadow={false}>
                             <S.CreatorCard>
                                 <S.ProfileAvatar
-                                    backgroundIMG={creator.avatarIMG}
+                                    backgroundIMG={
+                                        creator.userImagePath ? creator.userImagePath : noPhoto
+                                    }
                                 ></S.ProfileAvatar>
                                 <S.RightSection>
                                     <S.TitleWrapper>
@@ -43,7 +56,7 @@ const NewCreator = () => {
                                             lineHeight='24px'
                                             color={mainTheme.colors.mainBlack}
                                         >
-                                            {`${creator.firstName} ${creator.lastName}`}
+                                            {`${creator.user.firstName} ${creator.user.firstName}`}
                                         </Label>
                                         <Label
                                             fontFamily='Lato'
@@ -51,7 +64,9 @@ const NewCreator = () => {
                                             fontSize='14px'
                                             color={mainTheme.colors.mainBlack}
                                         >
-                                            Personal trainer
+                                            {creator.userExtras?.profession
+                                                ? creator.userExtras.profession
+                                                : "-"}
                                         </Label>
                                     </S.TitleWrapper>
                                     <S.Description>
@@ -60,10 +75,12 @@ const NewCreator = () => {
                                             fontSize='13px'
                                             color={mainTheme.colors.mainBlack}
                                         >
-                                            {creator.description}
+                                            {creator.userExtras?.about_me
+                                                ? creator.userExtras.about_me
+                                                : "-"}
                                         </Label>
                                     </S.Description>
-                                    <S.TagsContainer>
+                                    {/* <S.TagsContainer>
                                         {creator.tags.map((tag) => (
                                             <S.Tag key={tag}>
                                                 <Label
@@ -76,13 +93,15 @@ const NewCreator = () => {
                                                 </Label>
                                             </S.Tag>
                                         ))}
-                                    </S.TagsContainer>
+                                    </S.TagsContainer> */}
                                     <S.ActionWrapper>
-                                        <Social iconSize='20px' social={creator.socials} />
+                                        <Social iconSize='20px' social={creator?.socials} />
                                         <RedirectButton
                                             label='See profile'
                                             arrowIcon={false}
-                                            onClick={() => {}}
+                                            onClick={() =>
+                                                navigate(`${NAVIGATION.profile}/${creator.user.id}`)
+                                            }
                                         />
                                     </S.ActionWrapper>
                                 </S.RightSection>

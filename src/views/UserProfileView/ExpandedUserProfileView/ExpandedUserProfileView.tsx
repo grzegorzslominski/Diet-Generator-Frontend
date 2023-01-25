@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -13,6 +14,7 @@ import noPhoto from "../../../assets/no-photo.png";
 import { Post } from "../../../models/Forum/Post";
 import { useParams } from "react-router-dom";
 import { mainTheme } from "../../../themes/mainTheme";
+import { setNotification } from "../../../redux/slices/notification";
 
 import ViewBox from "../../../components/UI/ViewBox/ViewBox";
 import Label from "../../../components/UI/Label/Label";
@@ -24,8 +26,6 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Social from "../../../components/Socials/Socials";
 
 import * as S from "./ExpandedUserProfileView.style";
-import { useDispatch } from "react-redux";
-import { setNotification } from "../../../redux/slices/notification";
 
 const checkUserFollow = (followingList: Follower[], userID: number) => {
     return followingList.some((listRecord) => listRecord.follower.id === userID);
@@ -179,7 +179,7 @@ const ExpandedUserProfileView = ({ loggedUserID }: ExpandedUserProfileViewProps)
                                         <ProfileArticle
                                             key={post.id}
                                             post={post}
-                                            author={{ ...userProfile.user }}
+                                            author={userProfile.user}
                                         />
                                     ))}
                                 </>
