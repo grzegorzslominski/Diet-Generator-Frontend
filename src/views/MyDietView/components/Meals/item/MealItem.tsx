@@ -120,13 +120,16 @@ const MealItem = (props: props) => {
                     <MyDietChart
                         fat={props.daysForWeekDietI.todaysFat}
                         carbs={props.daysForWeekDietI.todaysCarbs}
-                        proteins={props.daysForWeekDietI.todaysProtein}
+                        protein={props.daysForWeekDietI.todaysProtein}
                     />
                 </S.RightSection>
                 {open ? <S.Line /> : null}
             </S.Container>
             {open && props.daysForWeekDietI.recipesForToday ? (
-                <DayMealList recipeIngredients={props.daysForWeekDietI.recipesForToday} loggedUserID={props.loggedUserID}/>
+                <DayMealList
+                    recipeIngredients={props.daysForWeekDietI.recipesForToday}
+                    loggedUserID={props.loggedUserID}
+                />
             ) : null}
         </S.Wrapper>
     );

@@ -28,6 +28,7 @@ export const ProductsList = styled.div`
     grid-template-columns: repeat(4, 100px);
     width: 100%;
     gap: 20px;
+    position: relative;
 
     @media screen and (max-width: 1200px) {
         grid-template-columns: repeat(3, 95px);

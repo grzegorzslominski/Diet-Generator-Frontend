@@ -3,8 +3,8 @@ import * as S from "./DayMealItem.style";
 import Label from "../../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../../themes/mainTheme";
 import PieChart from "./chart/PieChart";
-import {ReactComponent as HeartEmptyIcon} from "../../../../../../../assets/icons/heart-empty.svg";
-import {ReactComponent as HeartFullIcon} from "../../../../../../../assets/icons/heart-full.svg";
+import { ReactComponent as HeartEmptyIcon } from "../../../../../../../assets/icons/heart-empty.svg";
+import { ReactComponent as HeartFullIcon } from "../../../../../../../assets/icons/heart-full.svg";
 import { ReactComponent as Info } from "../../../../../../../assets/icons/infoIcon.svg";
 import ModalPortal from "../../../../../../../components/UI/ModalPortal/ModalPortal";
 import DayMealDetailsItem from "./DayMealDetailsItem/DayMealDetailsItem";
@@ -15,13 +15,29 @@ import { setNotification } from "../../../../../../../redux/slices/notification"
 import { useQueryClient } from "@tanstack/react-query";
 
 const DayMealItem = ({
-  id,title,servings,readyInMinutes,imagePath,instructions,vegetarian,
-  vegan,glutenFree,dairyFree,veryHealthy,verified,calories,carbs,fat,protein,
-  recipesIngredients,recipeLikes,loggedUserID
-                     }: RecipeIngredientsI) => {
+    id,
+    title,
+    servings,
+    readyInMinutes,
+    imagePath,
+    instructions,
+    vegetarian,
+    vegan,
+    glutenFree,
+    dairyFree,
+    veryHealthy,
+    verified,
+    calories,
+    carbs,
+    fat,
+    protein,
+    recipesIngredients,
+    recipeLikes,
+    loggedUserID,
+}: RecipeIngredientsI) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const handleIsOpen = () => setIsOpen((current) => !current);
-    const [isLike,setIsLike] = useState(recipeLikes)
+    const [isLike, setIsLike] = useState(recipeLikes);
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
 
@@ -30,14 +46,29 @@ const DayMealItem = ({
     },[recipeLikes])
     const addLike = () => {
         axiosFoodieInstance
-          .get(`/forum/recipe/like/${id}`)
-          .then((response) => {
-              if(response.status === 200){
-                  dispatch(
+            .get(`/forum/recipe/like/${id}`)
+            .then((response) => {
+                if (response.status === 200) {
+                    dispatch(
+                        setNotification({
+                            label: "Like post",
+                            header: "Success",
+                            message: "Like was added",
+                            timeout: 5000,
+                        }),
+                    );
+                }
+            })
+            .catch((err) => {
+                const errorMessage = err.response.data?.message
+                    ? err.response.data.message
+                    : "Cannot add like";
+
+                dispatch(
                     setNotification({
-                        label: "Like post",
-                        header: "Success",
-                        message: "Like was added",
+                        label: "add like to post",
+                        header: "Failed",
+                        message: errorMessage,
                         timeout: 5000,
                     }),
                   );
@@ -61,6 +92,7 @@ const DayMealItem = ({
               );
           });
     }
+
 
     return (
         <S.Container>
@@ -174,11 +206,7 @@ const DayMealItem = ({
                     </S.SecondItemsContent>
                 </S.SecondItem>
                 <S.ThirdAndForthContent>
-                    <PieChart
-                      proteins={protein}
-                      carbs={carbs}
-                      fat={fat}
-                    />
+                    <PieChart protein={protein} carbs={carbs} fat={fat} />
                     <S.ThirdItemContainer>
                         <Label
                             fontFamily='Montserrat'
@@ -190,7 +218,7 @@ const DayMealItem = ({
                             Basic ingredients:
                         </Label>
                         <S.ThirdItemUl>
-                            {recipesIngredients.slice(0,3).map((item,index:number) => {
+                            {recipesIngredients.slice(0, 3).map((item, index: number) => {
                                 return (
                                     <S.ThirdItemLi key={index}>
                                         <Label
@@ -211,15 +239,19 @@ const DayMealItem = ({
                 <S.FourthContainer>
                     <S.FourthContainerItem>
                         <Label
-                          fontFamily='Montserrat'
-                          fontWeight='400'
-                          fontSize='1.2rem'
-                          lineHeight='0.9rem'
-                          color={mainTheme.colors.mainBlack}
+                            fontFamily='Montserrat'
+                            fontWeight='400'
+                            fontSize='1.2rem'
+                            lineHeight='0.9rem'
+                            color={mainTheme.colors.mainBlack}
                         >
                             {recipeLikes ? recipeLikes.length : 0}
                         </Label>
-                        {isLike && isLike.find(item => item.user.id === loggedUserID) ? <HeartFullIcon onClick={addLike}/> : <HeartEmptyIcon onClick={addLike}/>}
+                        {isLike && isLike.find((item) => item.user.id === loggedUserID) ? (
+                            <HeartFullIcon onClick={addLike} />
+                        ) : (
+                            <HeartEmptyIcon onClick={addLike} />
+                        )}
                         <Info onClick={handleIsOpen} />
                     </S.FourthContainerItem>
                 </S.FourthContainer>

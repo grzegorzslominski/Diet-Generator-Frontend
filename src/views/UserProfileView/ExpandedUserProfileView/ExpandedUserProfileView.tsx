@@ -171,8 +171,7 @@ const ExpandedUserProfileView = ({ loggedUserID }: ExpandedUserProfileViewProps)
                                 </S.EmptyContainer>
                             )}
                         </ProfileSection>
-
-                        <ProfileSection title='Creatore articles' gap='24px' padding='0 12px'>
+                        <ProfileSection title='Article by the creators' gap='24px' padding='0 12px'>
                             {userProfile?.userPosts && userProfile?.userPosts.length ? (
                                 <>
                                     {userProfile?.userPosts.map((post: Post) => (

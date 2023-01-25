@@ -5,8 +5,10 @@ export const Container = styled.div`
     width: 100%;
     gap: 24px;
 
-    img {
-        width: 350px;
+    & > img {
+        min-width: 300px;
+        max-width: 300px;
+        min-height: 200px;
         max-height: 200px;
         object-fit: cover;
         object-position: center;
