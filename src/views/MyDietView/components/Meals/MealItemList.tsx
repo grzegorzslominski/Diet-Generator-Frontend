@@ -6,23 +6,22 @@ import { useQuery } from "@tanstack/react-query";
 import { DaysForWeekDietI, getDiet } from "./const/meal";
 
 const MealItemList = () => {
-    const {
-        data: diet,
-        isLoading,
-        error
-    } = useQuery(["getAllDiet"], () => getDiet())
+    const { data: diet, isLoading, error } = useQuery(["getAllDiet"], () => getDiet());
+    console.log(diet);
+
     return (
         <S.Container>
-            {diet && diet.daysForWeekDiet.map((item: DaysForWeekDietI,index: number) => {
-                return (
-                    <MealItem
-                      key={index}
-                     daysForWeekDietI={item}
-                     timestamp={diet.timestamp}
-                      index={index}
-                    />
-                );
-            })}
+            {diet &&
+                diet.daysForWeekDiet.map((item: DaysForWeekDietI, index: number) => {
+                    return (
+                        <MealItem
+                            key={index}
+                            daysForWeekDietI={item}
+                            timestamp={diet.timestamp}
+                            index={index}
+                        />
+                    );
+                })}
         </S.Container>
     );
 };

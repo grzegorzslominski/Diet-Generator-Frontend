@@ -48,8 +48,10 @@ const parseImageToEdit = (object: any, imageProperty: string) => {
     const initFile = JSON.parse(JSON.stringify(INIT_FILE));
     const currentObject = JSON.parse(JSON.stringify(object));
 
-    initFile.url = object[imageProperty];
-    currentObject[imageProperty] = initFile;
+    if (object[imageProperty]) {
+        initFile.url = object[imageProperty];
+        currentObject[imageProperty] = initFile;
+    }
 
     return currentObject;
 };

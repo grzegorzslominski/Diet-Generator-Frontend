@@ -36,7 +36,7 @@ import * as S from "./CreatorFormModal.style";
 
 type CreatorFormModalProps = {
     user: UserData;
-    userExtras: UserExtras | null | undefined;
+    userExtras?: UserExtras | null;
     onClose: () => void;
 };
 

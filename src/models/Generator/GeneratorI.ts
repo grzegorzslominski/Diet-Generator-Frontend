@@ -6,19 +6,18 @@ export interface GeneratorI {
     exclusions: ProductType[];
     mealsPerDay: number;
     vegan: boolean;
-    vegetarian: boolean
+    vegetarian: boolean;
     glutenFree: boolean;
     veryHealthy: boolean;
     dairyFree: boolean;
 }
 
-
-export type questionType = {id: number, value: number}
-export type exclusionType = {id: number, value: string}
+export type questionType = { id: number; value: number };
+export type exclusionType = { id: number; value: string };
 export type goalType = "LOSE" | "MAINTAIN" | "GAIN" | "MUSCLE" | "";
 export type exerciseType = "LOW" | "AVERAGE" | "HEAVY" | "";
 
-export const BASIC_GENERATOR_DATA:GeneratorI = {
+export const BASIC_GENERATOR_DATA: GeneratorI = {
     goal: "",
     exercise: "",
     exclusions: [],
@@ -28,9 +27,9 @@ export const BASIC_GENERATOR_DATA:GeneratorI = {
     glutenFree: false,
     veryHealthy: false,
     dairyFree: false,
-}
+};
 
-export interface GeneratorHandleChangeI{
+export interface GeneratorHandleChangeI {
     handleChange: (property: string, value: any) => void;
-    data?: GeneratorI
+    data?: GeneratorI;
 }

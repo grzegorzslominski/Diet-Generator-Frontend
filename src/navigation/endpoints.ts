@@ -51,3 +51,8 @@ export enum ENDPOINTS_FORUM {
 export enum ENDPOINTS_DASHBOARD {
     dashbordData = "/dashboard",
 }
+
+export enum ENDPOINTS_SURVEY {
+    productsSurvey = "/account/survey/rating",
+    flavorProfileSurvey = "/account/survey",
+}

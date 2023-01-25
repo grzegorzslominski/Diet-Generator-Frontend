@@ -48,7 +48,7 @@ export type Extras = {
     id?: number;
     profession: string;
     about_me: string;
-    backgroundImagePath: string;
+    backgroundImagePath?: string;
     [key: string]: number | string | undefined;
 };
 

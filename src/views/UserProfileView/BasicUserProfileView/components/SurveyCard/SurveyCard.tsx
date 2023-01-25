@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
@@ -5,6 +6,7 @@ import { NAVIGATION } from "../../../../../navigation/paths";
 
 import BoxPad, { ClassNameProp } from "../../../../../components/UI/BoxPad/BoxPad";
 import Label from "../../../../../components/UI/Label/Label";
+import SurveyModal from "./SurveyModal/SurveyModal";
 import Button from "../../../../../components/UI/Button/Button";
 
 import * as S from "./SurveyCard.style";
@@ -12,7 +14,7 @@ import * as S from "./SurveyCard.style";
 type SurveyCardProps = ClassNameProp & {};
 
 const SurveyCard = ({ className }: SurveyCardProps) => {
-    const navigate = useNavigate();
+    const [openSurveyModal, setOpenSurveyModal] = useState<boolean>(false);
 
     return (
         <BoxPad header='Preferential survey' className={className}>
@@ -25,7 +27,7 @@ const SurveyCard = ({ className }: SurveyCardProps) => {
                     <Button
                         styleType='primaryFull'
                         size='extraSmall'
-                        onClick={() => navigate(NAVIGATION.dashboard)}
+                        onClick={() => setOpenSurveyModal(true)}
                         width='140px'
                         borderRadius='10px'
                         fontSize='12px'
@@ -34,6 +36,7 @@ const SurveyCard = ({ className }: SurveyCardProps) => {
                     </Button>
                 </S.ActionContainer>
             </S.Container>
+            {openSurveyModal && <SurveyModal close={() => setOpenSurveyModal(false)} />}
         </BoxPad>
     );
 };

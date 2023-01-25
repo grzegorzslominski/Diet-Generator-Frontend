@@ -1,4 +1,4 @@
-import { ENDPOINTS_MEALS, ENDPOINTS_USER } from "./../../navigation/endpoints";
+import { ENDPOINTS_MEALS } from "./../../navigation/endpoints";
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
 import { PostAuthor } from "../Forum/Post";
 
