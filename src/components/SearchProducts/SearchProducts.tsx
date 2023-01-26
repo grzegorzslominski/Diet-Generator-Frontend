@@ -16,10 +16,16 @@ import * as S from "./SearchProducts.style";
 type SearchProductsProps = {
     selectedProducts: unknown;
     returnType: "products" | "ingredients";
+    size?: "normal" | "big";
     onChange: (value: Product[] | Ingredient[]) => void;
 };
 
-const SearchProducts = ({ selectedProducts, returnType, onChange }: SearchProductsProps) => {
+const SearchProducts = ({
+    selectedProducts,
+    returnType,
+    size = "normal",
+    onChange,
+}: SearchProductsProps) => {
     const { data: products, isLoading } = useQuery(["products"], () => getProducts());
 
     const [searchValue, setSearchValue] = useState<string | null>(null);
@@ -98,7 +104,7 @@ const SearchProducts = ({ selectedProducts, returnType, onChange }: SearchProduc
                 ) : (
                     <ScrollBox scrollDistance={30} height={265}>
                         {filteredProducts && filteredProducts.length ? (
-                            <S.ProductsList>
+                            <S.ProductsList size={size}>
                                 {filteredProducts.map((product) => {
                                     return (
                                         <S.ProductItem

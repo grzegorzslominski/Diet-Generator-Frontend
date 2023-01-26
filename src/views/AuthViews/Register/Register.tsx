@@ -166,7 +166,7 @@ const Register = () => {
                     >
                         or sign up using
                     </Label>
-                    <ExternalAuthProvidres authType='register' />
+                    {/* <ExternalAuthProvidres authType='register' /> */}
 
                     <S.RedirectContainer>
                         <Label

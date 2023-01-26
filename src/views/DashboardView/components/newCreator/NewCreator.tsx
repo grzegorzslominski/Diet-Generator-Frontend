@@ -56,7 +56,7 @@ const NewCreator = ({ creators }: NewCreatorProps) => {
                                             lineHeight='24px'
                                             color={mainTheme.colors.mainBlack}
                                         >
-                                            {`${creator.user.firstName} ${creator.user.firstName}`}
+                                            {`${creator.user.firstName} ${creator.user.lastName}`}
                                         </Label>
                                         <Label
                                             fontFamily='Lato'

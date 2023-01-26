@@ -10,6 +10,8 @@ export interface GeneratorI {
     glutenFree: boolean;
     veryHealthy: boolean;
     dairyFree: boolean;
+
+    [key: string]: goalType | exerciseType | ProductType[] | boolean | number;
 }
 
 export type questionType = { id: number; value: number };

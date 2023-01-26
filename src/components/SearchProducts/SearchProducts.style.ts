@@ -24,15 +24,25 @@ export const ProductsContainer = styled.div`
     min-height: 265px;
 `;
 
-export const ProductsList = styled.div`
+type ProductsListProps = {
+    size: "normal" | "big";
+};
+
+export const ProductsList = styled.div<ProductsListProps>`
     display: grid;
-    grid-template-columns: repeat(4, 100px);
+
+    grid-template-columns: repeat(${({ size }) => (size === "normal" ? 4 : 8)}, 100px);
     width: 100%;
     gap: 20px;
     position: relative;
 
     @media screen and (max-width: 1200px) {
         grid-template-columns: repeat(3, 95px);
+        gap: 20px 12px;
+    }
+
+    @media screen and (max-width: 560px) {
+        grid-template-columns: repeat(2, 95px);
         gap: 20px 12px;
     }
 `;
