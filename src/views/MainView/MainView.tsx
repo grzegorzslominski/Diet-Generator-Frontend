@@ -136,10 +136,10 @@ const MainView = () => {
                                             path={NAVIGATION.forumMeals}
                                             element={<NewestMeals />}
                                         />
-                                        <Route
+                                        {/* <Route
                                             path={NAVIGATION.forumNewlyAddedMeals}
                                             element={<VerifyNewMeal />}
-                                        />
+                                        /> */}
                                     </Route>
                                     <Route
                                         path={NAVIGATION.default}

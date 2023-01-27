@@ -21,9 +21,11 @@ import * as S from "./FullVerifiedMealItem.style";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { TStore } from "../../../../../../../redux/store/store";
+import { PublishedRecipe } from "../../../../../../../models/User/ExpandedUser";
+import { Ingredient } from "../../../../../../../models/Meal/Recipe";
 
 type FullPostItem = {
-    recipe: recipeViewFullI;
+    recipe: PublishedRecipe;
     close: () => void;
 };
 
@@ -80,7 +82,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
             <S.Post>
                 <S.Header>
                     {recipe.userProfilePicture ? (
-                        <img src={recipe.userProfilePicture} alt='' />
+                        <img src={recipe.recipeCreatorImage ? recipe.recipeCreatorImage : ''} alt='' />
                     ) : null}
                     <Label
                         fontSize='1rem'
@@ -88,18 +90,18 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         fontWeight='600'
                         color={mainTheme.colors.mainBlack}
                     >
-                        {recipe.author && recipe.author.firstName && recipe.author.lastName
-                            ? `${recipe.author.firstName} ${recipe.author.lastName}`
-                            : `user${recipe.author.id}`}
+                        {recipe.user && recipe.user.firstName && recipe.user.lastName
+                            ? `${recipe.user.firstName} ${recipe.user.lastName}`
+                            : `user${recipe.user.id}`}
                     </Label>
                 </S.Header>
                 <Label textAlign='center' fontWeight='600' color={mainTheme.colors.mainBlack}>
-                    {recipe.recipeView.title}
+                    {recipe.title}
                 </Label>
-                <img src={recipe.recipeView.imagePath} alt='meal image' />
-                <Label textAlign='center'>{recipe.recipeView.instructions}</Label>
+                <img src={recipe.imagePath ? recipe.imagePath : ''} alt='meal image' />
+                <Label textAlign='center'>{recipe.instructions}</Label>
                 <S.Table>
-                    <S.TableItem isOpen={recipe.recipeView.vegetarian}>
+                    <S.TableItem isOpen={recipe.vegetarian}>
                         <Label
                             fontFamily='Montserrat'
                             fontWeight='600'
@@ -109,13 +111,13 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         >
                             Vegetarian
                         </Label>
-                        {recipe.recipeView.vegetarian ? (
+                        {recipe.vegetarian ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='XIcon' />
                         )}
                     </S.TableItem>
-                    <S.TableItem isOpen={recipe.recipeView.vegan}>
+                    <S.TableItem isOpen={recipe.vegan}>
                         <Label
                             fontFamily='Montserrat'
                             fontWeight='600'
@@ -125,13 +127,13 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         >
                             Vegan
                         </Label>
-                        {recipe.recipeView.vegan ? (
+                        {recipe.vegan ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='XIcon' />
                         )}
                     </S.TableItem>
-                    <S.TableItem isOpen={recipe.recipeView.glutenFree}>
+                    <S.TableItem isOpen={recipe.glutenFree}>
                         <Label
                             fontFamily='Montserrat'
                             fontWeight='600'
@@ -141,13 +143,13 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         >
                             Gluten free
                         </Label>
-                        {recipe.recipeView.glutenFree ? (
+                        {recipe.glutenFree ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='XIcon' />
                         )}
                     </S.TableItem>
-                    <S.TableItem isOpen={recipe.recipeView.dairyFree}>
+                    <S.TableItem isOpen={recipe.dairyFree}>
                         <Label
                             fontFamily='Montserrat'
                             fontWeight='600'
@@ -157,13 +159,13 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         >
                             Dairy free
                         </Label>
-                        {recipe.recipeView.dairyFree ? (
+                        {recipe.dairyFree ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='XIcon' />
                         )}
                     </S.TableItem>
-                    <S.TableItem isOpen={recipe.recipeView.veryHealthy}>
+                    <S.TableItem isOpen={recipe.veryHealthy}>
                         <Label
                             fontFamily='Montserrat'
                             fontWeight='600'
@@ -173,7 +175,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         >
                             Healthy
                         </Label>
-                        {recipe.recipeView.veryHealthy ? (
+                        {recipe.veryHealthy ? (
                             <img src={CheckMark} alt='checkMark' />
                         ) : (
                             <img src={XIcon} alt='XIcon' />
@@ -189,7 +191,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         lineHeight='1rem'
                         color={mainTheme.colors.mainBlack}
                     >
-                        Servings: {recipe.recipeView.servings}
+                        Servings: {recipe.servings}
                     </Label>
                     <Label
                         textAlign='center'
@@ -199,7 +201,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         lineHeight='1rem'
                         color={mainTheme.colors.mainBlack}
                     >
-                        Ready in minutes: {recipe.recipeView.readyInMinutes}
+                        Ready in minutes: {recipe.readyInMinutes}
                     </Label>
                 </S.Servings>
                 <S.Table>
@@ -220,7 +222,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                             lineHeight='1rem'
                             color={mainTheme.colors.mainBlack}
                         >
-                            {recipe.recipeView.calories} calories
+                            {recipe.calories} calories
                         </Label>
                     </S.TableUnits>
                     <S.TableUnits>
@@ -240,7 +242,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                             lineHeight='1rem'
                             color={mainTheme.colors.mainBlack}
                         >
-                            {recipe.recipeView.carbs} g
+                            {recipe.carbs} g
                         </Label>
                     </S.TableUnits>
                     <S.TableUnits>
@@ -260,7 +262,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                             lineHeight='1rem'
                             color={mainTheme.colors.mainBlack}
                         >
-                            {recipe.recipeView.fat} g
+                            {recipe.fat} g
                         </Label>
                     </S.TableUnits>
                     <S.TableUnits>
@@ -280,7 +282,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                             lineHeight='1rem'
                             color={mainTheme.colors.mainBlack}
                         >
-                            {recipe.recipeView.protein} g
+                            {recipe.protein} g
                         </Label>
                     </S.TableUnits>
                 </S.Table>
@@ -296,7 +298,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         Ingredients:
                     </Label>
                 </S.LabelContainer>
-                {recipe.recipeView.ingredients.map((ingredient: ingredientsI) => {
+                {recipe.recipesIngredients.map((ingredient: Ingredient) => {
                     return (
                         <S.Ingredient key={ingredient.name}>
                             <Label
@@ -321,7 +323,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                                 fontSize=' 0.8rem'
                                 lineHeight='1rem'
                             >
-                                Unit: {ingredient.unit ? ingredient.unit : "grams"}
+                                Unit: {ingredient.unit ? ingredient.unit : "g"}
                             </Label>
                         </S.Ingredient>
                     );
@@ -336,7 +338,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                                 color={mainTheme.colors.mainBlack}
                                 textAlign='center'
                             >
-                                {recipe.recipeComments?.length}
+                                {recipe?.recipeComments?.length}
                             </Label>
                         </S.IconWrapper>
                         <S.IconWrapper>
@@ -358,7 +360,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                 </S.Footer>
             </S.Post>
             <S.Comments>
-                <AddNewVerifiedComment id={recipe.recipeView.id} />
+                {recipe.id && <AddNewVerifiedComment id={recipe.id} /> }
                 <CommentsList comments={recipe.recipeComments} />
             </S.Comments>
             <S.ClosingContainer>

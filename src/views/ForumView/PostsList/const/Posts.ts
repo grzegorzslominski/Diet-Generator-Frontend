@@ -1,5 +1,6 @@
 import ImageProfile from "../../../../assets/dashboard/images/userProfile.png";
 import axiosFoodieInstance from "../../../../axios/axiosFoodieInstance";
+import { PublishedRecipe } from "../../../../models/User/ExpandedUser";
 
 export interface BasicPostI {
     id: number;
@@ -103,7 +104,7 @@ export const getForumPostsMeals = async () => {
 };
 export const getForumFullMeal = async (postID: number | undefined) => {
     return await axiosFoodieInstance
-        .get<recipeViewFullI>(`/forum/recipe/${postID}`)
+        .get<PublishedRecipe>(`/forum/recipe/${postID}`)
         .then((response) => {
             if (response.status === 200) {
                 return response.data;

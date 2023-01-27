@@ -117,7 +117,7 @@ const RightSectionMeals = ({ basicPosts }: RightSectionProps) => {
                     blurBackground={true}
                     close={handleIsOpenMostLikedPost}
                 >
-                    <FullVerifiedMealItem recipe={fullPost} close={handleIsOpenMostLikedPost} />
+                    <FullVerifiedMealItem recipe={fullPost}  close={handleIsOpenMostLikedPost} />
                 </ModalPortal>
             ) : null}
         </S.Wrapper>
