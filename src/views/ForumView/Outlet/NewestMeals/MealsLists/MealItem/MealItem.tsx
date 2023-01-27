@@ -106,7 +106,7 @@ const MealItem = ({
                     </Button>
                 </S.FsecondItem>
             </S.Footer>
-            {openModal ? <SingleVerifiedMeal id={id} close={handleChangeOpenModal} /> : null}
+            {openModal && <SingleVerifiedMeal modalIsOpen={openModal} id={id} close={handleChangeOpenModal} />}
         </S.Container>
     );
 };

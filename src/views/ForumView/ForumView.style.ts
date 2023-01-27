@@ -13,8 +13,9 @@ export const Container = styled.div`
 
 export const Header = styled.div`
     display: flex;
+    flex-wrap: warp;
     width: 1100px;
-    justify-content: space-between;
+    jgap: 190px
 
     @media screen and (max-width: 1250px) {
         width: 530px;

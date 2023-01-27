@@ -6,12 +6,13 @@ import Label from "../../../../../../../components/UI/Label/Label";
 import { CommentI } from "../../../../const/Posts";
 
 import * as S from "./CommentItem.style";
+import { CommentMeal } from "../../../../../../../models/Meal/Recipe";
 
-const CommentItem = ({ id, content, timestamp, user }: CommentI) => {
+const CommentItem = ({ id, content, timestamp, user }: CommentMeal) => {
     return (
         <S.Container>
             <S.Header>
-                {user.userProfilePicture ? (
+                {user?.userProfilePicture ? (
                     <img src={user.userProfilePicture} alt='profile' />
                 ) : null}
                 <Label

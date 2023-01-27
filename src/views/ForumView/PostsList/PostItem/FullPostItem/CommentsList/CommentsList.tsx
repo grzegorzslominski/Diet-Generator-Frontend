@@ -3,9 +3,10 @@ import CommentItem from "./CommentItem/CommentItem";
 import { CommentI } from "../../../const/Posts";
 
 import * as S from "./CommentsList.style";
+import { CommentMeal } from "../../../../../../models/Meal/Recipe";
 
 type CommentsListProps = {
-    comments: CommentI[] | null;
+    comments?: CommentMeal[]  | null | undefined | any ;
 };
 
 const CommentsList = ({ comments }: CommentsListProps) => {
@@ -13,7 +14,7 @@ const CommentsList = ({ comments }: CommentsListProps) => {
         <S.Container>
             {comments ? (
                 <>
-                    {comments.map((comment: CommentI) => {
+                    {comments.map((comment: CommentMeal) => {
                         return <CommentItem key={comment.id} {...comment} />;
                     })}
                 </>
