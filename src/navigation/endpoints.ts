@@ -30,6 +30,7 @@ export enum ENDPOINTS_MEALS {
     userRecipes = "/recipe/user",
     removeUserRecipe = "/recipe",
     editUserRecipe = "/recipe",
+    likeRecipe = "/forum/recipe/like",
 }
 
 export enum ENDPOINTS_EXPANDE_USER_PROFILE {
@@ -55,4 +56,8 @@ export enum ENDPOINTS_DASHBOARD {
 export enum ENDPOINTS_SURVEY {
     productsSurvey = "/account/survey/rating",
     flavorProfileSurvey = "/account/survey",
+}
+
+export enum ENDPOINTS_DIET {
+    generatedDiet = "/diet",
 }

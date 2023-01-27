@@ -86,8 +86,8 @@ const MainView = () => {
                                                 element={<DietGeneratorView />}
                                             />
                                             <Route
-                                              path={`${NAVIGATION.myDiet}`}
-                                              element={<MyDietView loggedUserID={user.id}/>}
+                                                path={`${NAVIGATION.myDiet}`}
+                                                element={<MyDietView />}
                                             />
                                             <Route
                                                 path={NAVIGATION.default}

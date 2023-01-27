@@ -59,8 +59,6 @@ const ExpandedUserProfileView = ({ loggedUserID }: ExpandedUserProfileViewProps)
     }, [userProfile]);
 
     const followUser = async () => {
-        console.log("test");
-
         if (!userProfile?.user.id) return;
         const currentFollowingUser: FollowProfileStatus = JSON.parse(JSON.stringify(followingUser));
         const followResponse = await changeFollowingUserStatus(userProfile?.user.id);

@@ -84,6 +84,17 @@ export const RECIPE_TYPE_PRESET: RecipeTypePreset = {
 
 export type Unit = "ml" | "g";
 
+export type LikeMealStatus = {
+    likesCount: number;
+    isLiked: boolean;
+};
+
+export const sendLikeRecipe = async (recipeID: number) => {
+    return axiosFoodieInstance
+        .get(`${ENDPOINTS_MEALS.likeRecipe}/${recipeID}`)
+        .then((response) => response);
+};
+
 export const getUserRecipes = async (userID: number) => {
     return await axiosFoodieInstance
         .get<Recipe[]>(`${ENDPOINTS_MEALS.userRecipes}/${userID}`)

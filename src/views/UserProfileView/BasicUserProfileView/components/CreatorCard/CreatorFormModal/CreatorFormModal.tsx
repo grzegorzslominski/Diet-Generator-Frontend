@@ -176,7 +176,6 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                 }
 
                 dataToSend.userExtras.backgroundImagePath = imageURL;
-                console.log(dataToSend.userExtras.backgroundImagePath);
             } else if (
                 !currentUserExtras.userExtras.backgroundImagePath?.file &&
                 currentUserExtras.userExtras.backgroundImagePath?.url

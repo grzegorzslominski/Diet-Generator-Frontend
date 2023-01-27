@@ -1,41 +1,43 @@
 import { useState } from "react";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
-import pen from "../../../../../assets/MyDiet/icons/pen.svg";
 import downArrow from "../../../../../assets/MyDiet/icons/downArrow.svg";
 
-import { DaysForWeekDietI } from "../const/meal";
 import { parseUnixTime2, parseUnitTimeToDay } from "../../../../AuthViews/helpers/date";
 
 import MyDietChart from "../chart/MyDietChart";
-import DayMealList from "./dayMeal/DayMealList";
+import DayMealList from "./dayMeal/DietDayRecipes";
 import Label from "../../../../../components/UI/Label/Label";
+import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
 
-import * as S from "./MealItem.style";
+import { PublishedRecipe } from "../../../../../models/User/ExpandedUser";
+import { DietDay } from "../const/meal";
 
-interface props {
-    daysForWeekDietI: DaysForWeekDietI;
+import * as S from "./DietDayItem.style";
+
+interface DietDayItemProps {
+    dietDay: DietDay;
     timestamp: number;
     index: number;
-    loggedUserID: number;
+    userID: number;
 }
-const MealItem = (props: props) => {
+const DietDayItem = ({ dietDay, timestamp, index, userID }: DietDayItemProps) => {
     const [open, setIsOpen] = useState(false);
     const handleIsOpen = () => setIsOpen((prev) => !prev);
 
     return (
-        <S.Wrapper>
+        <BoxPad padding='0'>
             <S.Container>
                 <S.LeftSection>
                     <Label
                         fontFamily='Lato'
                         fontWeight='700'
-                        fontSize='1.5rem'
+                        fontSize='20px'
                         lineHeight='1.9rem'
                         textAlign='center'
                         color={mainTheme.colors.mainBlack}
                     >
-                        {parseUnixTime2(props.timestamp, props.index)}
+                        {parseUnixTime2(timestamp, index)}
                     </Label>
                     <Label
                         fontFamily='Montserrat'
@@ -44,23 +46,10 @@ const MealItem = (props: props) => {
                         lineHeight='1.25rem'
                         textAlign='center'
                     >
-                        {parseUnitTimeToDay(props.timestamp, props.index)}
+                        {parseUnitTimeToDay(timestamp, index)}
                     </Label>
-
-                    <S.Border>
-                        <Label
-                            fontFamily='Montserrat'
-                            fontWeight='600'
-                            fontSize='1rem'
-                            lineHeight='1.25rem'
-                            color='#4E4C75'
-                        >
-                            Edit day
-                        </Label>
-                        <img src={pen} alt='pen' />
-                    </S.Border>
                 </S.LeftSection>
-                <S.MiddleSection isOpen={open}>
+                <S.MiddleSection>
                     <Label
                         fontFamily='Montserrat'
                         fontWeight='600'
@@ -71,26 +60,24 @@ const MealItem = (props: props) => {
                     >
                         Meals
                     </Label>
-                    <S.UlStyled>
-                        {props.daysForWeekDietI.recipesForToday &&
-                            props.daysForWeekDietI.recipesForToday.slice(0, 5).map((item) => {
+                    <S.MealList>
+                        {dietDay &&
+                            dietDay.recipesForToday.slice(0, 5).map((recipe: PublishedRecipe) => {
                                 return (
-                                    <S.LiStyled key={item.id}>
+                                    <li key={recipe.id}>
                                         <Label
                                             fontFamily='Montserrat'
                                             fontWeight='600'
-                                            fontSize='0.5rem'
-                                            lineHeight='0.9rem'
-                                            textAlign='center'
+                                            fontSize='12px'
                                             color={mainTheme.colors.mainBlack}
+                                            width='80px'
                                         >
-                                            {item.title}
+                                            {recipe.title}
                                         </Label>
-                                    </S.LiStyled>
+                                    </li>
                                 );
                             })}
-                    </S.UlStyled>
-                    <img onClick={handleIsOpen} src={downArrow} alt='downArrow' />
+                    </S.MealList>
                 </S.MiddleSection>
                 <S.RightSection>
                     <S.LabelContainer>
@@ -102,7 +89,7 @@ const MealItem = (props: props) => {
                             color='#4E4C75'
                             textAlign='center'
                         >
-                            {props.daysForWeekDietI.todaysCalories}
+                            {dietDay.todaysCalories}
                         </Label>
                         <S.KcalContainer>
                             <Label
@@ -118,21 +105,20 @@ const MealItem = (props: props) => {
                         </S.KcalContainer>
                     </S.LabelContainer>
                     <MyDietChart
-                        fat={props.daysForWeekDietI.todaysFat}
-                        carbs={props.daysForWeekDietI.todaysCarbs}
-                        protein={props.daysForWeekDietI.todaysProtein}
+                        fat={dietDay.todaysFat}
+                        carbs={dietDay.todaysCarbs}
+                        protein={dietDay.todaysProtein}
                     />
                 </S.RightSection>
-                {open ? <S.Line /> : null}
             </S.Container>
-            {open && props.daysForWeekDietI.recipesForToday ? (
-                <DayMealList
-                    recipeIngredients={props.daysForWeekDietI.recipesForToday}
-                    loggedUserID={props.loggedUserID}
-                />
-            ) : null}
-        </S.Wrapper>
+            {open && dietDay.recipesForToday && (
+                <DayMealList recipes={dietDay.recipesForToday} userID={userID} />
+            )}
+            <S.ActionContainer isOpen={open}>
+                <img onClick={handleIsOpen} src={downArrow} alt='downArrow' />
+            </S.ActionContainer>
+        </BoxPad>
     );
 };
 
-export default MealItem;
+export default DietDayItem;
