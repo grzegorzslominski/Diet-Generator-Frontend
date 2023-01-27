@@ -107,7 +107,7 @@ const MainView = () => {
                                             />
                                             <Route
                                                 path={NAVIGATION.premium}
-                                                element={<PaymentView />}
+                                                element={<PaymentView user={user} />}
                                             />
                                             <Route
                                                 path={`${NAVIGATION.recipes}`}

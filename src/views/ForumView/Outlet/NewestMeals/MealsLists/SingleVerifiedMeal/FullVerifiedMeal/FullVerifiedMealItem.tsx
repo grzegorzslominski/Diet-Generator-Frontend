@@ -49,9 +49,12 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                             timeout: 5000,
                         }),
                     );
-                    queryClient.invalidateQueries([`forumRecipeVerified-${recipe.recipeView.id}`, recipe.recipeView.id], {
-                        refetchType: "all",
-                    });
+                    queryClient.invalidateQueries(
+                        [`forumRecipeVerified-${recipe.recipeView.id}`, recipe.recipeView.id],
+                        {
+                            refetchType: "all",
+                        },
+                    );
                     queryClient.invalidateQueries(["getForumPostsMeals"], {
                         refetchType: "all",
                     });
@@ -85,7 +88,6 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         fontWeight='600'
                         color={mainTheme.colors.mainBlack}
                     >
-                        Posted by :
                         {recipe.author && recipe.author.firstName && recipe.author.lastName
                             ? `${recipe.author.firstName} ${recipe.author.lastName}`
                             : `user${recipe.author.id}`}
@@ -339,9 +341,9 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         </S.IconWrapper>
                         <S.IconWrapper>
                             {isLike && user && isLike.find((item) => item.user.id === user.id) ? (
-                              <HeartFullIcon onClick={addLike} />
+                                <HeartFullIcon onClick={addLike} />
                             ) : (
-                              <HeartEmptyIcon onClick={addLike} />
+                                <HeartEmptyIcon onClick={addLike} />
                             )}
                             <Label
                                 fontSize='1rem'

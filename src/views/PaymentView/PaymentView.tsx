@@ -1,10 +1,11 @@
+/* eslint-disable camelcase */
 import { useDispatch } from "react-redux";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 import { calculatePremiumRemainingTime, parseUnixTime } from "../AuthViews/helpers/date";
-import { getUserData } from "../../models/User/User";
+import { getUserData, UserData } from "../../models/User/User";
 import { setUser } from "../../redux/slices/user";
 import { setNotification } from "../../redux/slices/notification";
 import {
@@ -34,7 +35,11 @@ import {
 
 import * as S from "./PaymentView.style";
 
-const PaymentView = () => {
+type PaymentView = {
+    user: UserData;
+};
+
+const PaymentView = ({ user }: PaymentView) => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
     const { data: subInfo, isLoading } = useQuery(["subInfo"], getSubscriptionInfo);
@@ -54,9 +59,9 @@ const PaymentView = () => {
             const subscriptionRequest: SubscriptionRequest = {
                 start_time: paypalResponse.start_time,
                 final_payment_time: paypalResponse.billing_info.final_payment_time,
-                email_address: paypalResponse.subscriber.email_address,
+                email_address: paypalResponse.subscribed.email_address,
                 status: paypalResponse.status,
-                payer_id: paypalResponse.subscriber.payer_id,
+                payer_id: paypalResponse.subscribed.payer_id,
                 id: paypalResponse.id,
             };
             const subscriptionConfirmation = await postNewSubscriptionInfo(subscriptionRequest);
@@ -222,7 +227,7 @@ const PaymentView = () => {
                                         <MoneyIcon />
                                     </S.Header>
                                     <Label fontSize='26px' color={mainTheme.colors.mainBlack}>
-                                        10$
+                                        6.15$
                                     </Label>
                                 </S.CostContanier>
                                 <S.ActionButton>
@@ -335,18 +340,12 @@ const PaymentView = () => {
                                                                     mainTheme.colors.secondaryColor
                                                                 }
                                                             >
-                                                                {rowItemKey !== "valid_till" &&
-                                                                rowItemKey !== "id" &&
+                                                                {rowItemKey !== "id" &&
                                                                 rowItemKey !== "status"
                                                                     ? parseUnixTime(
                                                                           +sub[rowItemKey],
                                                                       )
-                                                                    : rowItemKey !== "valid_till"
-                                                                    ? sub[rowItemKey]
-                                                                    : calculatePremiumRemainingTime(
-                                                                          sub["start_time"],
-                                                                          sub["valid_till"],
-                                                                      )}
+                                                                    : sub[rowItemKey]}
                                                             </Label>
                                                         </S.TableRowItem>
                                                     ))}

@@ -10,11 +10,7 @@ interface SinglePostItemProps {
 }
 
 const SinglePostItem = ({ id, close }: SinglePostItemProps) => {
-    const {
-        data: fullPost,
-        isLoading,
-        error,
-    } = useQuery([`forumPost-${id}`, id], () => getForumPost(id));
+    const { data: fullPost } = useQuery([`forumPost-${id}`, id], () => getForumPost(id));
 
     return fullPost ? (
         <ModalPortal blurLevel='normal' blurBackground={true} close={close}>

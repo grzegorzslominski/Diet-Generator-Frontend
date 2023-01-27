@@ -10,16 +10,18 @@ import AddWeightModal from "./components/AddWeightModal";
 
 import * as S from "./ProgressCard.style";
 
-type ProgressCardProps = ClassNameProp & {};
+type ProgressCardProps = ClassNameProp & {
+    weightAtDietGeneration?: number;
+    currentWeight?: number;
+};
 
-const ProgressCard = ({ className }: ProgressCardProps) => {
+const ProgressCard = ({ className, weightAtDietGeneration, currentWeight }: ProgressCardProps) => {
     const [openAddWeightModal, setOpenAddWeightModal] = useState<boolean>(false);
 
-    const {
-        data: userWeightStats,
-        isLoading: dataIsLoading,
-        error,
-    } = useQuery(["weightStats"], getUserWeightStats);
+    const { data: userWeightStats, isLoading: dataIsLoading } = useQuery(
+        ["weightStats"],
+        getUserWeightStats,
+    );
 
     const handleOpenAddWeightModal = (open: boolean) => {
         setOpenAddWeightModal(open);
@@ -53,7 +55,13 @@ const ProgressCard = ({ className }: ProgressCardProps) => {
 
                     <S.ContentWrapper>
                         <S.ProgressBarWrapper>
-                            <S.ProgressBarBackground progressValue={40}>
+                            <S.ProgressBarBackground
+                                progressValue={
+                                    weightAtDietGeneration && currentWeight
+                                        ? (weightAtDietGeneration - currentWeight) * 10
+                                        : 0
+                                }
+                            >
                                 <S.ProgressBarTop />
                             </S.ProgressBarBackground>
                         </S.ProgressBarWrapper>
@@ -64,15 +72,22 @@ const ProgressCard = ({ className }: ProgressCardProps) => {
                                 color={mainTheme.colors.mainBlack}
                                 fontWeight='700'
                             >
-                                6.1 kg - lost
+                                {`${
+                                    weightAtDietGeneration && currentWeight
+                                        ? currentWeight > weightAtDietGeneration
+                                            ? `+${currentWeight - weightAtDietGeneration}`
+                                            : `-${weightAtDietGeneration - currentWeight}`
+                                        : 0
+                                } kg`}
                             </Label>
+
                             <Label
                                 fontFamily='Lato'
                                 fontSize='12px'
                                 color={mainTheme.colors.mainBlack}
                                 fontWeight='500'
                             >
-                                Currently: 77.3 kg
+                                {`Currently ${currentWeight ? currentWeight : "-"} kg`}
                             </Label>
                         </S.CurrentResult>
                     </S.ContentWrapper>
@@ -84,7 +99,7 @@ const ProgressCard = ({ className }: ProgressCardProps) => {
                             color={mainTheme.colors.mainBlack}
                             fontWeight='700'
                         >
-                            81 kg
+                            {weightAtDietGeneration}
                         </Label>
                         <Label
                             fontFamily='Lato'
@@ -92,7 +107,7 @@ const ProgressCard = ({ className }: ProgressCardProps) => {
                             color={mainTheme.colors.mainBlack}
                             fontWeight='700'
                         >
-                            75 kg
+                            {currentWeight ? currentWeight - 5 : "-"}
                         </Label>
                     </S.GoalRange>
                 </S.Container>

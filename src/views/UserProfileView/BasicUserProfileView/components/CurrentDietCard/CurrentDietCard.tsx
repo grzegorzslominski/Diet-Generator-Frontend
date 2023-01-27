@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-import { CURRENT_DIET_DATA } from "./const/currentDietData";
 import { NAVIGATION } from "../../../../../navigation/paths";
 import { mainTheme } from "../../../../../themes/mainTheme";
 
@@ -11,9 +10,13 @@ import RedirectButton from "../../../../../components/UI/RedirectButton/Redirect
 
 import * as S from "./CurrentDietCard.style";
 
-type CurrentDietCardProps = ClassNameProp & {};
+type CurrentDietCardProps = ClassNameProp & {
+    weightAtDietGeneration?: number;
+    mealsPerDay?: number;
+    dailyCalGoal?: null | number;
+};
 
-const CurrentDietCard = ({ className }: CurrentDietCardProps) => {
+const CurrentDietCard = ({ className, mealsPerDay, dailyCalGoal }: CurrentDietCardProps) => {
     const navigate = useNavigate();
 
     return (
@@ -21,30 +24,86 @@ const CurrentDietCard = ({ className }: CurrentDietCardProps) => {
             <S.Content>
                 <GradientLabel>
                     <Label fontFamily='Lato' fontSize='16px' fontWeight='700'>
-                        My favorite diet
+                        Diet
                     </Label>
                 </GradientLabel>
                 <S.DetailsContainer>
-                    {CURRENT_DIET_DATA.map((dietDetail) => (
-                        <S.DietDetail key={dietDetail.header}>
-                            <Label
-                                fontFamily='Lato'
-                                fontSize='14px'
-                                color={mainTheme.colors.mainBlack}
-                                whiteSpace='nowrap'
-                            >
-                                {dietDetail.header}
-                            </Label>
-                            <Label
-                                fontFamily='Lato'
-                                fontSize='16px'
-                                fontWeight='600'
-                                color={mainTheme.colors.mainBlack}
-                            >
-                                {dietDetail.value}
-                            </Label>
-                        </S.DietDetail>
-                    ))}
+                    <S.DietDetail>
+                        <Label
+                            fontFamily='Lato'
+                            fontSize='14px'
+                            fontWeight='600'
+                            color={mainTheme.colors.mainBlack}
+                            whiteSpace='nowrap'
+                        >
+                            Days
+                        </Label>
+                        <Label
+                            fontFamily='Lato'
+                            fontSize='16px'
+                            fontWeight='600'
+                            color={mainTheme.colors.mainBlack}
+                        >
+                            {mealsPerDay ? 7 : "-"}
+                        </Label>
+                    </S.DietDetail>
+                    <S.DietDetail>
+                        <Label
+                            fontFamily='Lato'
+                            fontSize='14px'
+                            fontWeight='600'
+                            color={mainTheme.colors.mainBlack}
+                            whiteSpace='nowrap'
+                        >
+                            Meals
+                        </Label>
+                        <Label
+                            fontFamily='Lato'
+                            fontSize='16px'
+                            fontWeight='600'
+                            color={mainTheme.colors.mainBlack}
+                        >
+                            {mealsPerDay ? 7 * mealsPerDay : "-"}
+                        </Label>
+                    </S.DietDetail>
+                    <S.DietDetail>
+                        <Label
+                            fontFamily='Lato'
+                            fontSize='14px'
+                            fontWeight='600'
+                            color={mainTheme.colors.mainBlack}
+                            whiteSpace='nowrap'
+                        >
+                            Daily calories
+                        </Label>
+                        <Label
+                            fontFamily='Lato'
+                            fontSize='16px'
+                            fontWeight='600'
+                            color={mainTheme.colors.mainBlack}
+                        >
+                            {dailyCalGoal ? dailyCalGoal : "-"}
+                        </Label>
+                    </S.DietDetail>
+                    <S.DietDetail>
+                        <Label
+                            fontFamily='Lato'
+                            fontSize='14px'
+                            fontWeight='600'
+                            color={mainTheme.colors.mainBlack}
+                            whiteSpace='nowrap'
+                        >
+                            Daily meals
+                        </Label>
+                        <Label
+                            fontFamily='Lato'
+                            fontSize='16px'
+                            fontWeight='600'
+                            color={mainTheme.colors.mainBlack}
+                        >
+                            {mealsPerDay ? mealsPerDay : "-"}
+                        </Label>
+                    </S.DietDetail>
                 </S.DetailsContainer>
                 <S.ActionContanier>
                     <RedirectButton

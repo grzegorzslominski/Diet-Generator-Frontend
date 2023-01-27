@@ -25,7 +25,7 @@ const RightSectionMeals = ({ basicPosts }: RightSectionProps) => {
     const [mostLikedPost, setMostLikedPost] = useState<recipeVerifiedBasicI | undefined>();
     const [id, setId] = useState<number>();
     const navigate = useNavigate();
-    const handleNavigate = () => navigate(NAVIGATION.newMeal);
+    const handleNavigate = () => navigate(NAVIGATION.recipes);
 
     useEffect(() => {
         const mostLikedPost = basicPosts.reduce((prev, curr) =>
@@ -35,11 +35,7 @@ const RightSectionMeals = ({ basicPosts }: RightSectionProps) => {
         setId(mostLikedPost.id);
     }, [basicPosts, id]);
 
-    const {
-        data: fullPost,
-        isLoading,
-        error,
-    } = useQuery([`forumPost-${id}`, id], () => getForumFullMeal(id), {
+    const { data: fullPost } = useQuery([`forumPost-${id}`, id], () => getForumFullMeal(id), {
         enabled: Boolean(id),
     });
 

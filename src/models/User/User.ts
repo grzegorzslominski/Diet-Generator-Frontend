@@ -11,15 +11,17 @@ export type UserData = {
     weight?: number;
     height?: number;
     gender: GenderTypeValue | null;
+    completedSurvey?: boolean;
+    completedRatings?: boolean;
+    subscribed?: boolean;
     bmi: number;
     age?: number;
     calories?: number;
     timestamp: number;
     authorities?: AuthorityType[];
-    [key: string]: number | string | ProfileType | undefined | null | AuthorityType[];
+    [key: string]: number | string | ProfileType | undefined | null | AuthorityType[] | boolean;
 };
-export type AuthorityType = 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_DIETITIAN' | 'ROLE_INFLUENCER'
-
+export type AuthorityType = "ROLE_ADMIN" | "ROLE_USER" | "ROLE_DIETITIAN" | "ROLE_INFLUENCER";
 
 export type UserFormData = UserData & {
     profileImagePath: UploadItem;

@@ -28,7 +28,7 @@ export type Recipe = {
     protein: number;
     carbs: number;
     user: PostAuthor;
-    ingredients: Ingredient[];
+    recipesIngredients: Ingredient[];
     [key: string]: number | string | boolean | Ingredient[] | null | undefined | PostAuthor;
 };
 
@@ -49,6 +49,8 @@ export type Ingredient = {
 
 export type RecipeNutrionsType = "fat" | "protein" | "carbs";
 export type RecipeType = "glutenFree" | "dairyFree" | "vegetarian" | "vegan" | "veryHealthy";
+
+export const RECIPE_HEADERS = ["Name", "Amount", "Unit"];
 
 export const USER_RECIPE_NUTRIONS: RecipeNutrionsType[] = ["fat", "protein", "carbs"];
 

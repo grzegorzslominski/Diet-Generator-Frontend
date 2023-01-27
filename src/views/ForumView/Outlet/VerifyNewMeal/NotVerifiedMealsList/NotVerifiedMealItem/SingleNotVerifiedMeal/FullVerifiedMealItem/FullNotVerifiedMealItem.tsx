@@ -24,45 +24,45 @@ const FullNotVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
 
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const verifyNotVerifiedMeal = () => {
         setIsLoading(true);
 
         axiosFoodieInstance
-          .get(`${ENDPOINTS_FORUM.verifyMeal}/${recipe.recipeView.id}`)
-          .then((response) => {
-              if(response.status === 200 || response.status === 201){
-                  dispatch(
+            .get(`${ENDPOINTS_FORUM.verifyMeal}/${recipe.recipeView.id}`)
+            .then((response) => {
+                if (response.status === 200 || response.status === 201) {
+                    dispatch(
+                        setNotification({
+                            label: "unverified meal",
+                            header: "Success",
+                            message: "meal was verified",
+                            timeout: 5000,
+                        }),
+                    );
+                    queryClient.invalidateQueries(["getForumNotVerifiedMeals"], {
+                        refetchType: "all",
+                    });
+                }
+            })
+            .catch((err) => {
+                const errorMessage = err.response.data?.message
+                    ? err.response.data.message
+                    : "Cannot verify meal";
+
+                dispatch(
                     setNotification({
                         label: "unverified meal",
-                        header: "Success",
-                        message: "meal was verified",
+                        header: "Failed",
+                        message: errorMessage,
                         timeout: 5000,
                     }),
-                  );
-                  queryClient.invalidateQueries(["getForumNotVerifiedMeals"], {
-                      refetchType: "all",
-                  });
-              }
-          })
-          .catch((err) => {
-              const errorMessage = err.response.data?.message
-                ? err.response.data.message
-                : "Cannot verify meal";
-
-              dispatch(
-                setNotification({
-                    label: "unverified meal",
-                    header: "Failed",
-                    message: errorMessage,
-                    timeout: 5000,
-                }),
-              );
-          })
-          .finally(() => {
-              setIsLoading(false);
-          });
-    }
+                );
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    };
     return (
         <S.Container>
             <S.Post>
@@ -76,7 +76,6 @@ const FullNotVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                         fontWeight='600'
                         color={mainTheme.colors.mainBlack}
                     >
-                        Posted by :
                         {recipe.author && recipe.author.firstName && recipe.author.lastName
                             ? `${recipe.author.firstName} ${recipe.author.lastName}`
                             : `user${recipe.author.id}`}

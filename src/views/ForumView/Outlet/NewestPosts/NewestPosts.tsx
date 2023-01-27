@@ -10,14 +10,14 @@ import * as S from "./NewestPosts.style";
 const NewestPosts = () => {
     const { postID } = useParams();
 
-    const { data: basicPosts} = useQuery(["forumPosts"], () => getForumPosts());
+    const { data: basicPosts } = useQuery(["forumPosts"], () => getForumPosts());
 
     return (
         <S.Container>
             {basicPosts ? (
                 <>
                     <S.Posts>
-                        <PostsLists basicPosts={basicPosts} />
+                        <PostsLists basicPosts={basicPosts} postID={postID} />
                     </S.Posts>
                     <RightSection basicPosts={basicPosts} />
                     <Outlet />

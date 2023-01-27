@@ -32,7 +32,11 @@ export const Header = styled.div`
     justify-content: space-evenly;
 
     img {
-        width: 40px;
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
     }
 
     @media screen and (max-width: 535px) {
@@ -65,10 +69,9 @@ export const IconWrapper = styled.div`
     gap: 10px;
     & > svg {
         filter: brightness(0%);
-      cursor: pointer;
-      width: 20px;
-      height: 20px;
-
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
     }
 `;
 export const Footer = styled.div`

@@ -79,7 +79,6 @@ const FullPostItem = ({ post, close }: FullPostItem) => {
                         fontWeight='600'
                         color={mainTheme.colors.mainBlack}
                     >
-                        Posted by :
                         {post.author && post.author.firstName && post.author.lastName
                             ? `${post.author.firstName} ${post.author.lastName}`
                             : `user${post.author.id}`}

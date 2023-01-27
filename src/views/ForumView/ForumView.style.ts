@@ -25,11 +25,8 @@ export const Header = styled.div`
     }
 
     @media screen and (max-width: 535px) {
-      width: 300px;
-      }
-
-  
-
+        width: 300px;
+    }
 `;
 
 export const HeaderItem = styled.div`
@@ -44,8 +41,8 @@ export const HeaderItem = styled.div`
     cursor: pointer;
 
     @media screen and (max-width: 535px) {
-      width: 120px;
-      height: 120px;
+        width: 120px;
+        height: 120px;
     }
 
     &:hover {
@@ -66,11 +63,11 @@ export const MiddleSection = styled.div`
 
     @media screen and (max-width: 1250px) {
         width: 800px;
-      align-items: center;
+        align-items: center;
     }
 
     @media screen and (max-width: 535px) {
-      width: 350px;
+        width: 350px;
     }
 `;
 

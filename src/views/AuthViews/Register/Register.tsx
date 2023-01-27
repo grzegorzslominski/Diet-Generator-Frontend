@@ -156,7 +156,7 @@ const Register = () => {
                     >
                         Sign Up
                     </Button>
-
+                    {/* 
                     <Label
                         fontFamily={"Lato"}
                         fontWeight='700'
@@ -165,7 +165,7 @@ const Register = () => {
                         color={mainTheme.colors.mainBlack}
                     >
                         or sign up using
-                    </Label>
+                    </Label> */}
                     {/* <ExternalAuthProvidres authType='register' /> */}
 
                     <S.RedirectContainer>

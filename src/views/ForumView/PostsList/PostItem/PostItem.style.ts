@@ -9,7 +9,7 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 20px;
     position: relative;
-    padding: 15px;
+    padding: 24px;
 
     &:hover {
         border: solid black 1px;
@@ -25,13 +25,18 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-    width: 40%;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    padding-left: 24px;
+    gap: 24px;
 
     img {
-        width: 40px;
+        width: 65px;
+        height: 60px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
     }
 
     @media screen and (max-width: 535px) {
@@ -63,10 +68,10 @@ export const IconWrapper = styled.div`
     justify-content: space-between;
     gap: 10px;
     & > svg {
-      filter: brightness(0%);
-      cursor: pointer;
-      width: 20px;
-      height: 20px;
+        filter: brightness(0%);
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
     }
 `;
 export const Footer = styled.div`

@@ -133,7 +133,7 @@ const Login = ({ authorizeUser }: LoginProps) => {
                         Sign In
                     </Button>
 
-                    <Label
+                    {/* <Label
                         fontFamily={"Lato"}
                         fontWeight='700'
                         fontSize='0.8rem'
@@ -142,7 +142,7 @@ const Login = ({ authorizeUser }: LoginProps) => {
                     >
                         or sign in using
                     </Label>
-                    <ExternalAuthProvidres authType='login' />
+                    <ExternalAuthProvidres authType='login' /> */}
 
                     <S.RedirectContainer>
                         <Label

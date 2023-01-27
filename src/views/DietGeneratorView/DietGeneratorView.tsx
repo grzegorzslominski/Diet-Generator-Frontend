@@ -35,7 +35,7 @@ const DietGeneratorView = () => {
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState<boolean>(false);
-    const [isOpen, setIsOpen] = useState<boolean>(true);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const [failed, setFailed] = useState<boolean>(false);
     const [data, setIsData] = useState<GeneratorI>(BASIC_GENERATOR_DATA);
     const [currentExcludedProducts, setCurrentExcludedProducts] = useState<Product[]>([]);
@@ -318,7 +318,7 @@ const DietGeneratorView = () => {
                 >
                     Generate diet
                 </Button>
-                {isOpen ? (
+                {isOpen && (
                     <ModalPortal
                         blurLevel='normal'
                         blurBackground={true}
@@ -326,8 +326,8 @@ const DietGeneratorView = () => {
                     >
                         <Information success={true} close={handleChangeOpenModal} />
                     </ModalPortal>
-                ) : null}
-                {failed ? (
+                )}
+                {failed && (
                     <ModalPortal
                         blurLevel='normal'
                         blurBackground={true}
@@ -335,7 +335,7 @@ const DietGeneratorView = () => {
                     >
                         <Information close={handleChangeOpenModal} />
                     </ModalPortal>
-                ) : null}
+                )}
             </S.Container>
         </ViewBox>
     );

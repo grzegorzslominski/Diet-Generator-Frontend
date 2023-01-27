@@ -30,9 +30,7 @@ const ForumView = () => {
                         let flag = false;
                         user &&
                             user?.authorities?.map((authority: AuthorityType) => {
-                                item.authorities?.includes(authority)
-                                    && (flag = true)
-
+                                item.authorities?.includes(authority) && (flag = true);
                             });
                         if (flag)
                             return (
@@ -43,8 +41,8 @@ const ForumView = () => {
                                     <Label
                                         fontFamily='Lato'
                                         fontWeight='600'
-                                        fontSize='1.5rem'
-                                        lineHeight='2rem'
+                                        fontSize='24px'
+                                        width='225'
                                         textAlign='center'
                                         color={mainTheme.colors.mainBlack}
                                     >
@@ -58,8 +56,8 @@ const ForumView = () => {
                                 <Label
                                     fontFamily='Lato'
                                     fontWeight='600'
-                                    fontSize='1.5rem'
-                                    lineHeight='2rem'
+                                    fontSize='24px'
+                                    width='225'
                                     textAlign='center'
                                     color={mainTheme.colors.mainBlack}
                                 >
@@ -71,15 +69,6 @@ const ForumView = () => {
                 })}
             </S.Header>
             <S.MiddleSection>
-                <Label
-                    fontFamily='Lato'
-                    fontWeight='600'
-                    fontSize='1'
-                    lineHeight='2rem'
-                    color={mainTheme.colors.mainBlack}
-                >
-                    Newest posts:
-                </Label>
                 <Outlet />
             </S.MiddleSection>
         </S.Container>

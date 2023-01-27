@@ -16,6 +16,9 @@ export type UserBasicProfile = {
     socials?: SocialLinks;
     excludedProductsList?: ExcludedProducts;
     userSubscriptions: Subscription[];
+    weightAtDietGeneration?: number;
+    mealsPerDay?: number;
+    dailyCalGoal?: null | number;
 };
 
 export const getUserBasicProfile = async () => {

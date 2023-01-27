@@ -40,8 +40,17 @@ const BasicUserProfileView = () => {
                             className='ownMeals'
                             userRecipes={basicProfileData.userRecipes}
                         />
-                        <CurrentDietCard className='currentDiet' />
-                        <ProgressCard className='progress' />
+                        <CurrentDietCard
+                            className='currentDiet'
+                            weightAtDietGeneration={basicProfileData.weightAtDietGeneration}
+                            mealsPerDay={basicProfileData.mealsPerDay}
+                            dailyCalGoal={basicProfileData.dailyCalGoal}
+                        />
+                        <ProgressCard
+                            className='progress'
+                            currentWeight={user.weight}
+                            weightAtDietGeneration={basicProfileData.weightAtDietGeneration}
+                        />
                         <SurveyCard className='survey' />
                         <ExclusionsCard
                             className='exclusion'
