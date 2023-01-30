@@ -5,7 +5,7 @@ import { mainTheme } from "../../../../../../../../themes/mainTheme";
 import { ReactComponent as Comment } from "../../../../../../../../assets/icons/CommentIcon.svg";
 import { ReactComponent as Heart } from "../../../../../../../../assets/icons/heart.svg";
 import ActionButton from "../../../../../../../../components/UI/ActionButton/ActionButton";
-import { recipeViewFullI } from "../../../../../../PostsList/const/Posts";
+
 import CheckMark from "../../../../../../../../assets/icons/checkMark.svg";
 import XIcon from "../../../../../../../../assets/icons/XIcon.svg";
 import Button from "../../../../../../../../components/UI/Button/Button";
@@ -14,9 +14,10 @@ import axiosFoodieInstance from "../../../../../../../../axios/axiosFoodieInstan
 import { ENDPOINTS_FORUM } from "../../../../../../../../navigation/endpoints";
 import { setNotification } from "../../../../../../../../redux/slices/notification";
 import { useQueryClient } from "@tanstack/react-query";
+import { PublishedRecipe } from "../../../../../../../../models/User/ExpandedUser";
 
 type FullPostItem = {
-    recipe: recipeViewFullI;
+    recipe: PublishedRecipe;
     close: () => void;
 };
 

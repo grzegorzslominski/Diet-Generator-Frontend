@@ -10,7 +10,7 @@ import {
     FollowProfileStatus,
     getExpandedUserProfile,
 } from "../../../models/User/ExpandedUser";
-import noPhoto from "../../../assets/no-photo.png";
+import noPhoto from "../../../assets/no-photo.jpg";
 import { Post } from "../../../models/Forum/Post";
 import { useParams } from "react-router-dom";
 import { mainTheme } from "../../../themes/mainTheme";
@@ -156,9 +156,13 @@ const ExpandedUserProfileView = ({ loggedUserID }: ExpandedUserProfileViewProps)
                                         gap={39.5}
                                         buttonPosition={{ horizontal: -35, vertical: 230 }}
                                     >
-                                        {userProfile?.userRecipes.map((recipe, index) => (
-                                            <RecipeBox key={index} recipe={recipe} />
-                                        ))}
+                                        {userProfile?.userRecipes
+                                            .sort((a, b) => {
+                                                return a.id && b.id ? b.id - a.id : -1;
+                                            })
+                                            .map((recipe, index) => (
+                                                <RecipeBox key={index} recipe={recipe} />
+                                            ))}
                                     </Carousel>
                                 </S.MealsContainer>
                             ) : (
@@ -172,13 +176,15 @@ const ExpandedUserProfileView = ({ loggedUserID }: ExpandedUserProfileViewProps)
                         <ProfileSection title='Article by the creators' gap='24px' padding='0 12px'>
                             {userProfile?.userPosts && userProfile?.userPosts.length ? (
                                 <>
-                                    {userProfile?.userPosts.map((post: Post) => (
-                                        <ProfileArticle
-                                            key={post.id}
-                                            post={post}
-                                            author={userProfile.user}
-                                        />
-                                    ))}
+                                    {userProfile?.userPosts
+                                        .sort((a, b) => b.id - a.id)
+                                        .map((post: Post) => (
+                                            <ProfileArticle
+                                                key={post.id}
+                                                post={post}
+                                                author={userProfile.user}
+                                            />
+                                        ))}
                                 </>
                             ) : (
                                 <S.EmptyContainer>

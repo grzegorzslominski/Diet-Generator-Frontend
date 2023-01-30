@@ -5,6 +5,7 @@ export const Container = styled.div`
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
+    gap: 48px;
     position: relative;
     background-size: cover;
     align-items: center;
@@ -30,39 +31,20 @@ export const Header = styled.div`
 
 export const HeaderItem = styled.div`
     background: #ffffff;
-    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     width: 250px;
-    height: 105px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 
-    @media screen and (max-width: 535px) {
-        width: 120px;
-        height: 120px;
-    }
-`;
-
-export const MiddleSection = styled.div`
-    margin: 50px 0 50px 0;
-    width: 1100px;
-    gap: 25px;
-    display: flex;
-    flex-direction: column;
-    span {
-        align-items: start;
-    }
-    position: relative;
-
-    @media screen and (max-width: 1250px) {
-        width: 800px;
-        align-items: center;
-    }
-
-    @media screen and (max-width: 535px) {
-        width: 350px;
+    @media screen and (max-width: 680px) {
+        width: 100px;
+        border-radius: 8px;
+        span {
+            font-size: 16px;
+        }
     }
 `;
 

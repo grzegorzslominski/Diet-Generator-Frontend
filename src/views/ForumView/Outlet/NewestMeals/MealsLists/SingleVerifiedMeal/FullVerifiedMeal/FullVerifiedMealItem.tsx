@@ -11,8 +11,6 @@ import { ReactComponent as Comment } from "../../../../../../../assets/icons/Com
 import { ReactComponent as HeartEmptyIcon } from "../../../../../../../assets/icons/heart-empty.svg";
 import { ReactComponent as HeartFullIcon } from "../../../../../../../assets/icons/heart-full.svg";
 
-import { ingredientsI, recipeViewFullI } from "../../../../../PostsList/const/Posts";
-
 import AddNewVerifiedComment from "./AddNewVerifiedComment/AddNewVerifiedComment";
 import axiosFoodieInstance from "../../../../../../../axios/axiosFoodieInstance";
 import { setNotification } from "../../../../../../../redux/slices/notification";
@@ -82,7 +80,10 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
             <S.Post>
                 <S.Header>
                     {recipe.userProfilePicture ? (
-                        <img src={recipe.recipeCreatorImage ? recipe.recipeCreatorImage : ''} alt='' />
+                        <img
+                            src={recipe.recipeCreatorImage ? recipe.recipeCreatorImage : ""}
+                            alt=''
+                        />
                     ) : null}
                     <Label
                         fontSize='1rem'
@@ -98,7 +99,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                 <Label textAlign='center' fontWeight='600' color={mainTheme.colors.mainBlack}>
                     {recipe.title}
                 </Label>
-                <img src={recipe.imagePath ? recipe.imagePath : ''} alt='meal image' />
+                <img src={recipe.imagePath ? recipe.imagePath : ""} alt='meal image' />
                 <Label textAlign='center'>{recipe.instructions}</Label>
                 <S.Table>
                     <S.TableItem isOpen={recipe.vegetarian}>
@@ -360,7 +361,7 @@ const FullVerifiedMealItem = ({ recipe, close }: FullPostItem) => {
                 </S.Footer>
             </S.Post>
             <S.Comments>
-                {recipe.id && <AddNewVerifiedComment id={recipe.id} /> }
+                {recipe.id && <AddNewVerifiedComment id={recipe.id} />}
                 <CommentsList comments={recipe.recipeComments} />
             </S.Comments>
             <S.ClosingContainer>

@@ -20,6 +20,7 @@ export enum ENDPOINTS_IMAGE_UPLOAD {
     deleteExtrasBackground = "image/delete/background",
     uploadRecipeImage = "image/upload/recipe",
     deleteRecipeImage = "image/delete/recipe",
+    uploadPostImage = "/image/upload/post",
 }
 
 export enum ENDPOINTS_MEALS {
@@ -48,6 +49,7 @@ export enum ENDPOINTS_SUBSCRIPTION {
 
 export enum ENDPOINTS_FORUM {
     verifyMeal = "/recipe/verify",
+    addPost = "/forum/post",
 }
 
 export enum ENDPOINTS_DASHBOARD {

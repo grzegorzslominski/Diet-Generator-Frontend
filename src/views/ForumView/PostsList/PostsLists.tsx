@@ -1,18 +1,18 @@
 import PostItem from "./PostItem/PostItem";
 
-import { BasicPostI } from "./const/Posts";
+import { Post } from "./const/Posts";
 
 import * as S from "./PostsList.style";
 
 type PostsListsProps = {
-    basicPosts: BasicPostI[];
+    basicPosts: Post[];
     postID?: string;
 };
 
 const PostsLists = ({ basicPosts, postID }: PostsListsProps) => {
     return (
         <S.Container>
-            {basicPosts.map((item: BasicPostI) => {
+            {basicPosts.map((item: Post) => {
                 return (
                     <PostItem
                         key={item.id}

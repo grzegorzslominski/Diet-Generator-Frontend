@@ -8,7 +8,7 @@ import { mainTheme } from "../../../../../themes/mainTheme";
 import { ReactComponent as HeartEmptyIcon } from "../../../../../assets/icons/heart-empty.svg";
 import { ReactComponent as HeartFullIcon } from "../../../../../assets/icons/heart-full.svg";
 
-import { FullPostI } from "../../const/Posts";
+import { Post } from "../../const/Posts";
 
 import * as S from "./FullPostItem.style";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ import React, { useEffect, useState } from "react";
 import { TStore } from "../../../../../redux/store/store";
 
 type FullPostItem = {
-    post: FullPostI;
+    post: Post;
     close: () => void;
 };
 

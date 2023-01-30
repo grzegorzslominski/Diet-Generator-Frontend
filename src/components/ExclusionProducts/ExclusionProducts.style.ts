@@ -45,6 +45,7 @@ export const ExclusionItem = styled.div`
     border-radius: 8px;
     height: 40px;
     background: rgb(37, 150, 190, 0.15);
+    transition: all 0.35s;
     :hover {
         cursor: pointer;
     }

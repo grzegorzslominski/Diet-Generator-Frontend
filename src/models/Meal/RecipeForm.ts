@@ -79,6 +79,6 @@ export const RECIPE_INPUT_PRESET: RecipeInputs = {
     readyInMinutes: "Time",
     calories: "Calories",
     fat: "Fat",
-    protein: "protein",
-    carbs: "carbs",
+    protein: "Protein",
+    carbs: "Carbs",
 };

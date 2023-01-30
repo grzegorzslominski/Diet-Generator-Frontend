@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { TStore } from "../../redux/store/store";
 import { AuthorityType } from "../../models/User/User";
 import ViewBox from "../../components/UI/ViewBox/ViewBox";
+import BoxPad from "../../components/UI/BoxPad/BoxPad";
 
 const ForumView = () => {
     const navigate = useNavigate();
@@ -53,27 +54,27 @@ const ForumView = () => {
                                 );
                         } else {
                             return (
-                                <S.HeaderItem
-                                    key={item.label}
-                                    onClick={() => navigationHandler(item)}
-                                >
-                                    <Label
-                                        fontFamily='Lato'
-                                        fontWeight='600'
-                                        fontSize='18px'
-                                        textAlign='center'
-                                        color={mainTheme.colors.mainBlack}
+                                <BoxPad padding='18px'>
+                                    <S.HeaderItem
+                                        key={item.label}
+                                        onClick={() => navigationHandler(item)}
                                     >
-                                        {item.label}
-                                    </Label>
-                                </S.HeaderItem>
+                                        <Label
+                                            fontFamily='Lato'
+                                            fontWeight='600'
+                                            fontSize='18px'
+                                            textAlign='center'
+                                            color={mainTheme.colors.mainBlack}
+                                        >
+                                            {item.label}
+                                        </Label>
+                                    </S.HeaderItem>
+                                </BoxPad>
                             );
                         }
                     })}
                 </S.Header>
-                <S.MiddleSection>
-                    <Outlet />
-                </S.MiddleSection>
+                <Outlet />
             </S.Container>
         </ViewBox>
     );

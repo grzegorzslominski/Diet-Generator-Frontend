@@ -7,7 +7,7 @@ import { ReactComponent as HeartEmptyIcon } from "../../../../../../../assets/ic
 import { ReactComponent as HeartFullIcon } from "../../../../../../../assets/icons/heart-full.svg";
 import { ReactComponent as Info } from "../../../../../../../assets/icons/infoIcon.svg";
 import { ReactComponent as ReloadIcon } from "../../../../../../../assets/icons/reaload.svg";
-import noPhoto from "../../../../../../../assets/no-photo.png";
+import noPhoto from "../../../../../../../assets/no-photo.jpg";
 import { prepareRecipeNutriensToChart } from "../../../../../../../helpers/statistics";
 import { setNotification } from "../../../../../../../redux/slices/notification";
 import { NUTRIONS_BOX_PRESET } from "../../../const/nutrion";

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { mainTheme } from "../../../../../themes/mainTheme";
-import noPhoto from "../../../../../assets/no-photo.png";
+import noPhoto from "../../../../../assets/no-photo.jpg";
 import { NAVIGATION } from "../../../../../navigation/paths";
 
 import Label from "../../../../../components/UI/Label/Label";

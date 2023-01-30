@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { NAVIGATION } from "../../../../../../../../navigation/paths";
 import { mainTheme } from "../../../../../../../../themes/mainTheme";
-import noPhoto from "../../../../../../../../assets/no-photo.png";
+import noPhoto from "../../../../../../../../assets/no-photo.jpg";
 
 import RecipeProperyTable from "../../../../../../../../components/RecipeProperyTable/RecipeProperyTable";
 import ModalPortal from "../../../../../../../../components/UI/ModalPortal/ModalPortal";

@@ -6,7 +6,7 @@ import {
     ProductsSurveyAnswers,
     SurveyProduct,
 } from "../../../../../../../models/Survey/Survey";
-import noPhoto from "../../../../../../../assets/no-photo.png";
+import noPhoto from "../../../../../../../assets/no-photo.jpg";
 import { mainTheme } from "../../../../../../../themes/mainTheme";
 
 import RatingInput from "../RatingInput/RatingInput";

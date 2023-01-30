@@ -1,96 +1,97 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 800px;
-    background: #ffffff;
-    box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    position: relative;
-    padding: 24px;
-
-    @media screen and (max-width: 1250px) {
-        width: 500px;
-    }
-
-    @media screen and (max-width: 535px) {
-        width: 300px;
-    }
+    gap: 24px;
 `;
 
 export const Header = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    padding-left: 24px;
+    justify-content: space-between;
+    gap: 24px;
+`;
+
+export const HeaderRightSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+`;
+
+export const Icons = styled.div`
+    display: flex;
+    gap: 12px;
+`;
+
+export const MidSection = styled.div`
+    display: grid;
+
+    grid-template-columns: 260px 1fr;
     gap: 24px;
 
     img {
-        width: 65px;
-        height: 60px;
+        width: 100%;
         object-fit: cover;
         object-position: center;
-        border-radius: 50%;
+        border-radius: 10px;
+        justify-self: center;
     }
 
-    @media screen and (max-width: 535px) {
-        justify-content: center;
-        width: 100%;
+    @media screen and (max-width: 1250px) {
+        grid-template-columns: 220px 1fr;
+    }
+
+    @media screen and (max-width: 580px) {
+        grid-template-columns: 1fr;
+
+        img {
+            width: 85%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+        }
     }
 `;
 
-export const Title = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
-
-export const Description = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    max-height: 325px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    direction: rtl;
-    text-align: left;
-`;
 export const IconWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
     & > svg {
-        filter: brightness(0%);
-        cursor: pointer;
-        width: 20px;
-        height: 20px;
+        height: 15px;
+        max-height: 15px;
+        width: auto;
     }
 `;
 export const Footer = styled.div`
-    position: relative;
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     width: 100%;
-    padding: 0 10% 0 10%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
+    @media screen and (max-width: 1250px) {
+        padding-top: 12px;
+    }
 `;
 
-export const FfirstItem = styled.div`
-    position: relative;
+export const Author = styled.div`
     display: flex;
     align-items: center;
-    width: 100px;
-    justify-content: space-between;
-`;
+    gap: 12px;
 
-export const FsecondItem = styled.div`
-    position: relative;
-    display: flex;
-    align-items: center;
-    max-height: 40px;
-    justify-content: center;
+    img {
+        min-width: 40px;
+        width: 40px;
+        max-width: 40px;
+        height: 40px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+    }
 `;

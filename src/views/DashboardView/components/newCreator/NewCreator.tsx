@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { mainTheme } from "../../../../themes/mainTheme";
-import noPhoto from "../../../../assets/no-photo.png";
+import noPhoto from "../../../../assets/no-photo.jpg";
 
 import RedirectButton from "../../../../components/UI/RedirectButton/RedirectButton";
 import Carousel from "../../../../components/UI/Carousel/Carousel";

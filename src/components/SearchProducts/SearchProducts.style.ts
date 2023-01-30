@@ -59,6 +59,7 @@ export const ProductItem = styled.div<ProductItemProps>`
     border: 1px solid ${mainTheme.colors.secondaryColor};
     border-radius: 3px;
     min-height: 50px;
+    transition: all 0.35s;
 
     cursor: pointer;
 
