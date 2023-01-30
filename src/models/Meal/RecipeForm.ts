@@ -17,7 +17,7 @@ export type RecipeForm = {
     fat: number;
     protein: number;
     carbs: number;
-    ingredients: Ingredient[];
+    recipesIngredients: Ingredient[];
     imagePath: UploadItem;
     [key: string]: number | string | boolean | Ingredient[] | UploadItem | null | undefined;
 };
@@ -36,7 +36,7 @@ export const NEW_RECIPE_DATA: RecipeForm = {
     vegan: false,
     veryHealthy: false,
     verified: false,
-    ingredients: [],
+    recipesIngredients: [],
     fat: 0,
     protein: 0,
     carbs: 0,
@@ -51,7 +51,7 @@ export type RecipeValidation = {
     fat: string;
     protein: string;
     carbs: string;
-    ingredients: string[];
+    recipesIngredients: string[];
     isIngredient: string;
     [key: string]: string | string[];
 };
@@ -67,7 +67,7 @@ export const RECIPE_VALIDATION_DATA: RecipeValidation = {
     protein: "",
     carbs: "",
     isIngredient: "",
-    ingredients: [],
+    recipesIngredients: [],
 };
 
 type RecipeInputs = {
@@ -79,6 +79,6 @@ export const RECIPE_INPUT_PRESET: RecipeInputs = {
     readyInMinutes: "Time",
     calories: "Calories",
     fat: "Fat",
-    protein: "protein",
-    carbs: "carbs",
+    protein: "Protein",
+    carbs: "Carbs",
 };

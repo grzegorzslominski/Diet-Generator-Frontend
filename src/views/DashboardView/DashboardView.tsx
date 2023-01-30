@@ -42,13 +42,17 @@ const DashboardView = () => {
                             >
                                 Newly added article
                             </Label>
-                            {dashboardData.newPosts.map((post: Post) => {
-                                return <ProfileArticle post={post} key={post.id} />;
-                            })}
+                            {dashboardData.newPosts
+                                .sort((a, b) => b.timestamp - a.timestamp)
+                                .map((post: Post) => {
+                                    return <ProfileArticle post={post} key={post.id} />;
+                                })}
                         </>
                     </S.ArticleSection>
                     <MealsList
-                        recipes={dashboardData.creatorRecipes}
+                        recipes={dashboardData.creatorRecipes.sort((a, b) => {
+                            return a.id && b.id ? b.id - a.id : -1;
+                        })}
                         title='New meals from influencers'
                         version='author'
                     />

@@ -54,7 +54,7 @@ const SurveyModal = ({ close }: SurveyModalProps) => {
             const sendProfileFlavourForm = await postFlavorProfileSurvey(
                 surveyAnswers.flavourProfile,
             );
-            const sendRecipeForm = await postRecipesSurvey(surveyAnswers.products);
+            const sendRecipeForm = await postRecipesSurvey({ ratingList: surveyAnswers.products });
 
             Promise.all([sendProfileFlavourForm, sendRecipeForm]);
             close();

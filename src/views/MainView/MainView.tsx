@@ -29,6 +29,7 @@ import RecipeView from "../RecipeView/RecipeView";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 import * as S from "./MainView.style";
+import Notification from "../../components/UI/Notification/Notification";
 
 const MainView = () => {
     const location = useLocation();
@@ -86,8 +87,8 @@ const MainView = () => {
                                                 element={<DietGeneratorView />}
                                             />
                                             <Route
-                                              path={`${NAVIGATION.myDiet}`}
-                                              element={<MyDietView loggedUserID={user.id}/>}
+                                                path={`${NAVIGATION.myDiet}`}
+                                                element={<MyDietView />}
                                             />
                                             <Route
                                                 path={NAVIGATION.default}
@@ -107,7 +108,7 @@ const MainView = () => {
                                             />
                                             <Route
                                                 path={NAVIGATION.premium}
-                                                element={<PaymentView />}
+                                                element={<PaymentView user={user} />}
                                             />
                                             <Route
                                                 path={`${NAVIGATION.recipes}`}
@@ -136,10 +137,10 @@ const MainView = () => {
                                             path={NAVIGATION.forumMeals}
                                             element={<NewestMeals />}
                                         />
-                                        <Route
+                                        {/* <Route
                                             path={NAVIGATION.forumNewlyAddedMeals}
                                             element={<VerifyNewMeal />}
-                                        />
+                                        /> */}
                                     </Route>
                                     <Route
                                         path={NAVIGATION.default}
@@ -157,6 +158,7 @@ const MainView = () => {
                         </S.ContentWrapper>
                     </>
                 )}
+                <Notification />
             </S.Container>
         </ThemeProvider>
     );

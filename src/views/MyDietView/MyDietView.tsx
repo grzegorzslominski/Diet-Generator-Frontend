@@ -1,15 +1,11 @@
-import MealItemList from "./components/Meals/MealItemList";
+import ViewBox from "../../components/UI/ViewBox/ViewBox";
+import MealItemList from "./components/Meals/DietDaysList";
 
-import * as S from "./MyDietView.style";
-
-type MyDietViewProps = {
-  loggedUserID: number;
-}
-const MyDietView = ({loggedUserID}: MyDietViewProps) => {
+const MyDietView = () => {
     return (
-        <S.Container>
-            <MealItemList loggedUserID={loggedUserID}/>
-        </S.Container>
+        <ViewBox>
+            <MealItemList />
+        </ViewBox>
     );
 };
 

@@ -1,110 +1,55 @@
-import React, { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { setNotification } from "../../redux/slices/notification";
-
 import { BASIC_GENERATOR_DATA, GeneratorI } from "../../models/Generator/GeneratorI";
+import { NAVIGATION } from "../../navigation/paths";
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
 import { ENDPOINTS_USER } from "../../navigation/endpoints";
+import ExclusionProducts from "../../components/ExclusionProducts/ExclusionProducts";
 import { ReactComponent as MealPerDay } from "../../assets/dietGenerator/images/mealPerDay.svg";
+import { RECIPE_TYPE_PRESET } from "../../models/Meal/Recipe";
+import { mainTheme } from "../../themes/mainTheme";
+import { GoalItem } from "./components/Choose your goal/Goals/Goal.style";
 
-import GenerateYourOwnDiet from "./components/GenerateYourOwnDiet/GenerateYourOwnDiet";
-import ChooseYourGoal from "./components/Choose your goal/ChooseYourGoal";
+import Label from "../../components/UI/Label/Label";
 import Button from "../../components/UI/Button/Button";
+import Input from "../../components/UI/Input/Input";
+import ViewBox from "../../components/UI/ViewBox/ViewBox";
+import BoxPad from "../../components/UI/BoxPad/BoxPad";
+import Goal from "./components/Choose your goal/Goals/Goal";
+import Excercise from "./components/ChooseExcercise/Excercise/Excercise";
+import Switch from "../../components/Switch/Switch";
 
-import * as S from "./DietGeneratorView.style";
-import ChooseExcercise from "./components/ChooseExcercise/ChooseExcercise";
-import { useQuery } from "@tanstack/react-query";
 import {
-    diet,
-    getDietProducts,
+    DIET_TYPE_ICONS,
     getExcludedProducts,
     ProductType,
 } from "./components/Choose your goal/Goals/const/data";
-import Label from "../../components/UI/Label/Label";
-import { mainTheme } from "../../themes/mainTheme";
-import ScrollBox from "../../components/UI/ScrollBox/ScrollBox";
-import Input from "../../components/UI/Input/Input";
-import ModalPortal from "../../components/UI/ModalPortal/ModalPortal";
-import Information from "./components/Modal/Information";
+import { Product } from "../../models/Meal/Exclusions";
+
+import * as S from "./DietGeneratorView.style";
 
 const DietGeneratorView = () => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const [isOpen,setIsOpen] = useState<boolean>(true);
-    const [failed,setFailed] = useState<boolean>(false);
-    const [data, setIsData] = useState<GeneratorI>(BASIC_GENERATOR_DATA);
-    const [searchValue, setSearchValue] = useState<string>("");
-    const [filteredResults, setFilteredResults] = useState<ProductType[]>();
-    const [currentExcludedProducts, setCurrentExcludedProducts] = useState<ProductType[]>([]);
     const dispatch = useDispatch();
+    const navigation = useNavigate();
 
-    const {
-        data: excludedProducts,
-        isLoading: loadingExcludedProducts,
-        error: errorExcludedProducts,
-    } = useQuery(["getExcludedProducts"], () => getExcludedProducts());
+    const [loading, setLoading] = useState<boolean>(false);
+    const [data, setIsData] = useState<GeneratorI>(BASIC_GENERATOR_DATA);
+    const [currentExcludedProducts, setCurrentExcludedProducts] = useState<Product[]>([]);
+    const queryClient = useQueryClient();
 
-    const {
-        data: products,
-        isLoading: loadingAllProducts,
-        error: errorAllProducts,
-    } = useQuery(["getAllProducts"], () => getDietProducts());
+    const { data: excludedProducts } = useQuery(["excludedProducts"], () => getExcludedProducts());
 
     useEffect(() => {
-        if (products) {
-            const currentFilteredResults = products.filter((product: ProductType) =>
-                product.name.includes(searchValue),
-            );
-            currentFilteredResults.map((product: ProductType) => {
-                product.selected = !!excludedProducts?.listOfExcludedProducts?.find(
-                    (excludedProduct) => excludedProduct.name === product.name,
-                );
-                return products;
-            });
-
-            setFilteredResults(currentFilteredResults);
-        }
-    }, [searchValue, products]);
-
-    useEffect(() => {
-        if (excludedProducts) {
-            setCurrentExcludedProducts(excludedProducts.listOfExcludedProducts);
-        }
+        setCurrentExcludedProducts(currentExcludedProducts);
     }, [excludedProducts]);
 
-    const handleResults = (value: string) => {
-        setSearchValue(value);
-    };
-
-    const handleChangeOpenModal = () => setIsOpen((prev) => !prev);
-    const handleChangeFailedModal = () => setFailed((prev) => !prev)
-
-
-    const handleChangeExcludedProducts = (id: number) => {
-        const findIndex = currentExcludedProducts.findIndex((product) => product.id === id);
-        const excludedProductsCopy: ProductType[] = JSON.parse(
-            JSON.stringify(currentExcludedProducts),
-        );
-        const product = products?.find((product) => product.id === id);
-        if (findIndex > -1) {
-            excludedProductsCopy.splice(findIndex, 1);
-        } else if (product) {
-            excludedProductsCopy.push({
-                id: product.id,
-                name: product.name,
-            });
-        }
-        setCurrentExcludedProducts(excludedProductsCopy);
-    };
     const handleChange = (property: string, value: any) => {
         const currentData = JSON.parse(JSON.stringify(data));
-        if (property === "exclusions") {
-            const id = currentData[property].findIndex((id: number) => id === value);
-            id === -1 ? currentData[property].push(value) : currentData[property].splice(id, 1);
-        } else {
-            currentData[property] = value;
-        }
-
+        currentData[property] = value;
         setIsData(currentData);
     };
 
@@ -131,12 +76,12 @@ const DietGeneratorView = () => {
         return validationPassed;
     };
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         setLoading(true);
         const readyToSendExcludedProducts: ProductType[] = [];
         currentExcludedProducts.forEach((item) => {
             readyToSendExcludedProducts.push({
-                id: item.id,
+                id: item?.id ? item.id : 0,
                 name: item.name,
             });
         });
@@ -150,255 +95,252 @@ const DietGeneratorView = () => {
             dairyFree: data.dairyFree,
             veryHealthy: data.veryHealthy,
             excludedProductsList: readyToSendExcludedProducts,
+            personalized: data.personalized,
+            makroCheck: data.makroCheck,
         };
-        axiosFoodieInstance
+        await axiosFoodieInstance
             .post(ENDPOINTS_USER.generator, currentData)
             .then((response) => {
                 if (response.status === 201 || response.status === 200) {
+                    queryClient.invalidateQueries(["current-diet"], {
+                        refetchType: "all",
+                    });
                     dispatch(
                         setNotification({
-                            label: "Generator",
+                            label: "Generating a diet",
                             header: "Success",
-                            message: "Diet was created",
+                            message:
+                                "Diet was created, you will be redirected to the page with the generated diet",
                             timeout: 5000,
                         }),
                     );
-                    setIsOpen(true)
-                    setIsData(JSON.parse(JSON.stringify(BASIC_GENERATOR_DATA)))
+                    setIsData(JSON.parse(JSON.stringify(BASIC_GENERATOR_DATA)));
+                    setTimeout(() => {
+                        navigation(NAVIGATION.myDiet);
+                    }, 5000);
                 }
-                if(response.status === 204){
-                    setFailed(true)
+                if (response.status === 204) {
+                    dispatch(
+                        setNotification({
+                            label: "Generating a diet",
+                            header: "Failed",
+                            message: "Failed to generate diet, change settings or try again later",
+                            timeout: 5000,
+                        }),
+                    );
                 }
             })
             .catch((err) => {
                 const errorMessage = err.response.data?.message
                     ? err.response.data.message
                     : "Cannot create diet";
-
                 dispatch(
                     setNotification({
-                        label: "Generator",
+                        label: "Generating a diet",
                         header: "Failed",
                         message: errorMessage,
                         timeout: 5000,
                     }),
                 );
-                setFailed(true)
             })
             .finally(() => {
                 setLoading(false);
             });
     };
 
+    const onChangeExclusions = (selectedExclusions: Product[]) => {
+        setCurrentExcludedProducts(selectedExclusions);
+    };
+
     return (
-        <S.Container>
-            <GenerateYourOwnDiet />
-            <ChooseYourGoal handleChange={handleChange} />
-            <ChooseExcercise handleChange={handleChange} />
-            <S.ContainerVegan>
+        <ViewBox>
+            <S.Container>
                 <Label
-                    fontSize='1.5rem'
-                    fontFamily='Lato'
-                    fontWeight='700'
-                    lineHeight='2.3rem'
+                    color={mainTheme.colors.mainBlack}
+                    width='100%'
+                    fontSize='22px'
+                    fontWeight='500'
+                >
+                    Diet generator
+                </Label>
+                <Label
+                    width='100%'
+                    fontSize='14px'
+                    lineHeight='20px'
                     color={mainTheme.colors.mainBlack}
                 >
-                    {"Step 3: How many meals per day ?"}
+                    Welcome to diet generator page. You can here personalize your diet and also pick
+                    your preferences and goals. All you have to do is: <br />
+                    - pick your goal <br />
+                    - pick items that will be excluded from your diet
+                    <br />
+                    - answer couple of questions
+                    <br />
                 </Label>
-                <S.ProductsVegan>
-                    <S.InputContainer>
-                        <Input
-                            value={data.mealsPerDay}
-                            placeholder='meals per day'
-                            label='Meals per day'
-                            type='number'
-                            onChange={(e) => handleChange("mealsPerDay", +e.target.value)}
-                        />
-                    </S.InputContainer>
-                    <MealPerDay />
-                    <Label>{"By default it's 3 but you can choose between 3-5"}</Label>
-                </S.ProductsVegan>
-            </S.ContainerVegan>
-            <S.ContainerVegan>
-                <Label
-                    fontSize='1.5rem'
-                    fontFamily='Lato'
-                    fontWeight='700'
-                    lineHeight='2.3rem'
-                    color={mainTheme.colors.mainBlack}
-                >
-                    {"Step 4: What kind of diet would you like ?"}
-                </Label>
-                <S.ProductsVegan>
-                    <S.Content
-                        selected={data.vegan}
-                        onClick={() => handleChange("vegan", !data.vegan)}
+                <S.GenerateStep>
+                    <Label
+                        fontSize='20px'
+                        fontWeight='500'
+                        color={mainTheme.colors.mainBlack}
+                        width='100%'
                     >
-                        {diet[0].image}
-                        <S.Border>
-                            <Label
-                                fontFamily='Lato'
-                                fontWeight='600'
-                                fontSize='1rem'
-                                lineHeight='1.5rem'
-                                color='white'
-                                textAlign='center'
-                            >
-                                {diet[0].name}
-                            </Label>
-                        </S.Border>
-                    </S.Content>
-                    <S.Content
-                        selected={data.vegetarian}
-                        onClick={() => handleChange("vegetarian", !data.vegetarian)}
-                    >
-                        {diet[1].image}
-                        <S.Border>
-                            <Label
-                                fontFamily='Lato'
-                                fontWeight='600'
-                                fontSize='1rem'
-                                lineHeight='1.5rem'
-                                color='white'
-                                textAlign='center'
-                            >
-                                {diet[1].name}
-                            </Label>
-                        </S.Border>
-                    </S.Content>
-                    <S.Content
-                        selected={data.dairyFree}
-                        onClick={() => handleChange("dairyFree", !data.dairyFree)}
-                    >
-                        {diet[2].image}
-                        <S.Border>
-                            <Label
-                                fontFamily='Lato'
-                                fontWeight='600'
-                                fontSize='1rem'
-                                lineHeight='1.5rem'
-                                color='white'
-                                textAlign='center'
-                            >
-                                {diet[2].name}
-                            </Label>
-                        </S.Border>
-                    </S.Content>
-                    <S.Content
-                        selected={data.glutenFree}
-                        onClick={() => handleChange("glutenFree", !data.glutenFree)}
-                    >
-                        {diet[3].image}
-                        <S.Border>
-                            <Label
-                                fontFamily='Lato'
-                                fontWeight='600'
-                                fontSize='1rem'
-                                lineHeight='1.5rem'
-                                color='white'
-                                textAlign='center'
-                            >
-                                {diet[3].name}
-                            </Label>
-                        </S.Border>
-                    </S.Content>
-                    <S.Content
-                        selected={data.veryHealthy}
-                        onClick={() => handleChange("veryHealthy", !data.veryHealthy)}
-                    >
-                        {diet[4].image}
-                        <S.Border>
-                            <Label
-                                fontFamily='Lato'
-                                fontWeight='600'
-                                fontSize='1rem'
-                                lineHeight='1.5rem'
-                                color='white'
-                                textAlign='center'
-                            >
-                                {diet[4].name}
-                            </Label>
-                        </S.Border>
-                    </S.Content>
-                </S.ProductsVegan>
-            </S.ContainerVegan>
-            <S.ContainerWrapper>
-                <Label
-                    fontSize='1.5rem'
-                    fontFamily='Lato'
-                    fontWeight='700'
-                    lineHeight='2.3rem'
-                    color={mainTheme.colors.mainBlack}
-                >
-                    {"Step 5: Choose exclusions"}
-                </Label>
-                <S.ProductsWrapper>
-                    <S.SearchContainer>
-                        <S.Search>
-                            <Input
-                                placeholder='results'
-                                onChange={(e) => handleResults(e.target.value)}
-                                label='Search'
-                                value={searchValue}
-                            />
-                        </S.Search>
-                    </S.SearchContainer>
-                    <S.ProductsContainer>
-                        <ScrollBox scrollDistance={40} height={240} mobileScrollDistance={40}>
-                            <S.ProductsList>
-                                {filteredResults &&
-                                    filteredResults.map((product, index) => {
+                        Step 1
+                    </Label>
+                    <BoxPad width='100%'>
+                        <S.StepContent>
+                            <S.Substep>
+                                <Label
+                                    width='100%'
+                                    fontSize='16px'
+                                    fontFamily='Lato'
+                                    fontWeight='600'
+                                    color={mainTheme.colors.mainBlack}
+                                >
+                                    Choose your goal
+                                </Label>
+                                <Goal handleChange={handleChange} />
+                            </S.Substep>
+                            <S.Substep>
+                                <Label
+                                    width='100%'
+                                    fontSize='16px'
+                                    fontFamily='Lato'
+                                    fontWeight='600'
+                                    color={mainTheme.colors.mainBlack}
+                                >
+                                    Determine your level of physical activity
+                                </Label>
+                                <Excercise handleChange={handleChange} />
+                            </S.Substep>
+
+                            <S.Substep>
+                                <Label
+                                    width='100%'
+                                    fontSize='16px'
+                                    fontFamily='Lato'
+                                    fontWeight='600'
+                                    color={mainTheme.colors.mainBlack}
+                                >
+                                    What kind of diet would you like
+                                </Label>
+                                <S.MealCount>
+                                    {Object.keys(RECIPE_TYPE_PRESET).map((recipeTypeKey: any) => {
                                         return (
-                                            <S.productItem
-                                                key={product.name}
-                                                isOpen={
-                                                    !!currentExcludedProducts.find(
-                                                        (item) => item.id === product.id,
+                                            <GoalItem
+                                                key={recipeTypeKey}
+                                                selected={Boolean(data[recipeTypeKey])}
+                                                onClick={() =>
+                                                    handleChange(
+                                                        recipeTypeKey,
+                                                        !data[recipeTypeKey],
                                                     )
                                                 }
-                                                onClick={() =>
-                                                    handleChangeExcludedProducts(product.id)
-                                                }
                                             >
+                                                {DIET_TYPE_ICONS[recipeTypeKey]}
+
                                                 <Label
-                                                    fontSize='0.8rem'
-                                                    textAlign='center'
-                                                    fontWeight='400'
                                                     fontFamily='Lato'
+                                                    fontWeight='600'
+                                                    fontSize='12px'
+                                                    lineHeight='20px'
                                                     color={mainTheme.colors.secondaryColor}
+                                                    textAlign='center'
                                                 >
-                                                    {product.name}
+                                                    {RECIPE_TYPE_PRESET[
+                                                        recipeTypeKey
+                                                    ].toUpperCase()}
                                                 </Label>
-                                            </S.productItem>
+                                            </GoalItem>
                                         );
                                     })}
-                            </S.ProductsList>
-                        </ScrollBox>
-                    </S.ProductsContainer>
-                </S.ProductsWrapper>
-            </S.ContainerWrapper>
-            <Button
-                onClick={onSubmit}
-                styleType='gradientFull'
-                isLoading={loading}
-                width='12rem'
-                borderRadius='15px'
-                fontSize='1rem'
-                disabled={!handleForm()}
-            >
-                Submit your answers
-            </Button>
-            {
-                isOpen ? <ModalPortal blurLevel='normal' blurBackground={true} close={handleChangeOpenModal}>
-                    <Information success={true} close={handleChangeOpenModal}/>
-                </ModalPortal> : null
-            }
-            {
-                failed ? <ModalPortal blurLevel='normal' blurBackground={true} close={handleChangeFailedModal}>
-                    <Information close={handleChangeOpenModal}/>
-                </ModalPortal> : null
-            }
-        </S.Container>
+                                </S.MealCount>
+                            </S.Substep>
+                            <S.Substep>
+                                <Label
+                                    width='100%'
+                                    fontSize='16px'
+                                    fontFamily='Lato'
+                                    fontWeight='600'
+                                    color={mainTheme.colors.mainBlack}
+                                >
+                                    Specify the number of meals per day
+                                </Label>
+                                <S.MealCount>
+                                    <S.MealCountContainer>
+                                        <>
+                                            {Array.from(Array(3)).map((value, index) => (
+                                                <S.MealCountItem
+                                                    key={index + 3}
+                                                    checked={data.mealsPerDay === index + 3}
+                                                    onClick={() =>
+                                                        handleChange("mealsPerDay", index + 3)
+                                                    }
+                                                >
+                                                    <Label
+                                                        fontWeight='500'
+                                                        fontSize='18px'
+                                                        color={mainTheme.colors.secondaryColor}
+                                                    >
+                                                        {index + 3}
+                                                    </Label>
+                                                </S.MealCountItem>
+                                            ))}
+                                        </>
+                                    </S.MealCountContainer>
+                                </S.MealCount>
+                            </S.Substep>
+                            <S.SettingsContainer>
+                                <S.SettingItem>
+                                    <Label fontSize='12px'>Makro</Label>
+                                    <Switch
+                                        onClick={() => handleChange("makroCheck", !data.makroCheck)}
+                                        activeState={data.makroCheck}
+                                    />
+                                </S.SettingItem>
+                                <S.SettingItem>
+                                    <Label fontSize='12px'>Personalized</Label>
+                                    <Switch
+                                        onClick={() =>
+                                            handleChange("personalized", !data.personalized)
+                                        }
+                                        activeState={data.personalized}
+                                    />
+                                </S.SettingItem>
+                            </S.SettingsContainer>
+                        </S.StepContent>
+                    </BoxPad>
+                </S.GenerateStep>
+
+                <S.GenerateStep>
+                    <Label
+                        fontSize='20px'
+                        fontWeight='500'
+                        color={mainTheme.colors.mainBlack}
+                        width='100%'
+                    >
+                        Step 2
+                    </Label>
+                    <ExclusionProducts
+                        currentExclusions={currentExcludedProducts}
+                        onChange={(exclusions) => onChangeExclusions(exclusions)}
+                        size='big'
+                        type='variable'
+                    />
+                </S.GenerateStep>
+
+                <Button
+                    onClick={onSubmit}
+                    styleType='gradientFull'
+                    isLoading={loading}
+                    width='12rem'
+                    borderRadius='10px'
+                    fontSize='1rem'
+                    disabled={!handleForm()}
+                >
+                    Generate diet
+                </Button>
+            </S.Container>
+        </ViewBox>
     );
 };
 

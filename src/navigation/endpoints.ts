@@ -20,6 +20,7 @@ export enum ENDPOINTS_IMAGE_UPLOAD {
     deleteExtrasBackground = "image/delete/background",
     uploadRecipeImage = "image/upload/recipe",
     deleteRecipeImage = "image/delete/recipe",
+    uploadPostImage = "/image/upload/post",
 }
 
 export enum ENDPOINTS_MEALS {
@@ -30,6 +31,8 @@ export enum ENDPOINTS_MEALS {
     userRecipes = "/recipe/user",
     removeUserRecipe = "/recipe",
     editUserRecipe = "/recipe",
+    likeRecipe = "/forum/recipe/like",
+    replaceMeal = "diet/generate/replaceRecipe",
 }
 
 export enum ENDPOINTS_EXPANDE_USER_PROFILE {
@@ -46,6 +49,7 @@ export enum ENDPOINTS_SUBSCRIPTION {
 
 export enum ENDPOINTS_FORUM {
     verifyMeal = "/recipe/verify",
+    addPost = "/forum/post",
 }
 
 export enum ENDPOINTS_DASHBOARD {
@@ -55,4 +59,8 @@ export enum ENDPOINTS_DASHBOARD {
 export enum ENDPOINTS_SURVEY {
     productsSurvey = "/account/survey/rating",
     flavorProfileSurvey = "/account/survey",
+}
+
+export enum ENDPOINTS_DIET {
+    generatedDiet = "/diet",
 }

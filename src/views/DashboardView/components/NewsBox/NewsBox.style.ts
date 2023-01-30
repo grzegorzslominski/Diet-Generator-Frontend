@@ -44,7 +44,7 @@ export const NoteContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 24px;
-    gap: 20px;
+    gap: 12px;
     border: 1px solid ${mainTheme.colors.secondaryColor};
     border-radius: 5px;
 

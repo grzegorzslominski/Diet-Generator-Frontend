@@ -1,68 +1,28 @@
 import axiosFoodieInstance from "../../../../../axios/axiosFoodieInstance";
-import { ForumUserI } from "../../../../ForumView/PostsList/const/Posts";
+import { PublicUser, PublishedRecipe } from "../../../../../models/User/ExpandedUser";
+import { ENDPOINTS_DIET } from "../../../../../navigation/endpoints";
 
-export interface MealI {
+export type Diet = {
+    daysForWeekDiet: DietDay[];
     id: number;
-    daysForWeekDiet: DaysForWeekDietI[];
+    dietGoal: string;
     timestamp: number;
-}
+    startingWeight: number;
+    recipeIdsForTheWeek: number[];
+    user: PublicUser;
+};
 
-export interface DaysForWeekDietI {
+export type DietDay = {
     id: number;
-    title: string;
-    servings: number;
-    readyInMinutes: number;
-    imagePath: string;
-    instructions: string;
-    vegetarian: boolean;
-    vegan: boolean;
-    glutenFree: boolean;
-    dairyFree: boolean;
-    veryHealthy: boolean;
-    verified: boolean;
+    recipesForToday: PublishedRecipe[];
     todaysCalories: number;
     todaysCarbs: number;
     todaysFat: number;
     todaysProtein: number;
-    recipesForToday: RecipeIngredientsI[];
-}
-
-export interface RecipeIngredientsI {
-    id: number;
-    title: string;
-    servings: number;
-    readyInMinutes: number;
-    imagePath: string;
-    instructions: string;
-    vegetarian: boolean;
-    vegan: boolean;
-    glutenFree: boolean;
-    dairyFree: boolean;
-    veryHealthy: boolean;
-    verified: boolean;
-    calories: number;
-    carbs: number;
-    fat: number;
-    protein: number;
-    recipesIngredients: IngredientsI[];
-    recipeLikes: LikesI[] | null;
-    loggedUserID: number;
-}
-
-export interface LikesI {
-    id: number;
-    timestamp: number;
-    user: ForumUserI;
-}
-export interface IngredientsI {
-    id: number;
-    name: string;
-    amount: number;
-    unit: string;
-}
+};
 
 export const getDiet = async () => {
-    return await axiosFoodieInstance.get<MealI>(`/diet`).then((response) => {
+    return await axiosFoodieInstance.get<Diet>(ENDPOINTS_DIET.generatedDiet).then((response) => {
         if (response.status === 200) return response.data;
     });
 };

@@ -1,47 +1,49 @@
 import styled from "styled-components";
-import mainBackgroudn from "../../../assets/mainBackground.png"
+import mainBackgroudn from "../../../assets/mainBackground.png";
 
 export const Container = styled.div`
-  width: 1000px;
-  background: url(${mainBackgroudn});
-  border: solid black 1px;
-  border-radius: 10px;
-  height: 700px;
-  display: flex;
-  flex-direction: column;
-  gap:20px;
-  position: relative;
-  align-items: center;
-  padding: 25px;
-`
+    width: 620px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+
+    @media screen and (max-width: 1240px) {
+        width: 600px;
+    }
+
+    @media screen and (max-width: 720px) {
+        width: 320px;
+    }
+`;
 
 export const ClosingContainer = styled.div`
-  position: absolute;
-  right: 15px;
-`
-
-export const Post = styled.div`
-  box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
-  position: relative;
-  background: #FFFFFF;
-  border-radius: 10px;
-  width: 80%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 15px;
-  min-height: auto;
-`
+    position: absolute;
+    top: 15px;
+    right: 15px;
+`;
 
 export const InputContainer = styled.div`
-  margin-top: 50px;
-  width: 75%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 25px;
-  align-items: center;
-  gap: 25px;
-`
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+
+    @media screen and (max-width: 1240px) {
+        width: 100%;
+    }
+`;
+
+export const UploadBoxWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 200px;
+    width: 80%;
+
+    @media screen and (max-width: 720px) {
+        width: 100%;
+    }
+`;

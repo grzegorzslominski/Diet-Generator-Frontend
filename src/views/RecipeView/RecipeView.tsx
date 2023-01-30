@@ -64,11 +64,11 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
 
         const currentRecipeValidation = JSON.parse(JSON.stringify(recipeValidation));
         if (index !== undefined) {
-            currentRecipe.ingredients[index][property] = value;
+            currentRecipe.recipesIngredients[index][property] = value;
         } else {
             currentRecipe[property] = value;
         }
-        if (property === "ingredients") {
+        if (property === "recipesIngredients") {
             currentRecipeValidation["isIngredient"] = "";
         }
         currentRecipeValidation[property] = "";
@@ -95,14 +95,14 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
         );
         const currentRecipe: RecipeForm = JSON.parse(JSON.stringify(recipe));
         Object.keys(currentValidation).forEach((key: string) => {
-            if (key === "ingredients") {
+            if (key === "recipesIngredients") {
                 currentRecipe[key].forEach((product: Ingredient, index: number) => {
                     if (!product.amount) {
-                        currentValidation["ingredients"][index] = "This field is required";
+                        currentValidation["recipesIngredients"][index] = "This field is required";
                         validationPassed = false;
                     }
                 });
-            } else if (key === "isIngredient" && !currentRecipe["ingredients"].length) {
+            } else if (key === "isIngredient" && !currentRecipe["recipesIngredients"].length) {
                 currentValidation.isIngredient = "Minimum 1 ingredient";
                 validationPassed = false;
             } else if (!currentRecipe[key] && key !== "isIngredient") {
@@ -175,7 +175,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                             setNotification({
                                 label: "Recipe",
                                 header: "Success",
-                                message: `Meal was ${!recipe?.id ? "added" : "edited"}`,
+                                message: `Recipe was ${!recipe?.id ? "added" : "edited"}`,
                                 timeout: 5000,
                             }),
                         );
@@ -184,7 +184,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                 .catch((err) => {
                     const errorMessage = err.response.data?.message
                         ? err.response.data.message
-                        : `Cannot ${!recipe.id ? "add" : "edit"} meal`;
+                        : `Cannot ${!recipe.id ? "add" : "edit"} recipe`;
 
                     dispatch(
                         setNotification({
@@ -201,6 +201,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
 
     const editRecipe = (recipe: Recipe) => {
         const parseRecipe: RecipeForm = parseImageToEdit(recipe, "imagePath");
+
         setRecipe(parseRecipe);
         setOpenRecipeForm(true);
         window.scrollTo({

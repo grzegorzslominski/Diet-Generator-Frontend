@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { mainTheme } from "../../themes/mainTheme";
-import noPhoto from "../../assets/no-photo.png";
+import noPhoto from "../../assets/no-photo.jpg";
 import { prepareRecipeNutriensToChart } from "../../helpers/statistics";
 import { prepareRecipeInstrucion } from "../../helpers/textParse";
 

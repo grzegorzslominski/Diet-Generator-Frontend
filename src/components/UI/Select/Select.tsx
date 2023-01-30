@@ -270,10 +270,11 @@ const Select = ({
                             />
                         ) : value && !multiSelect ? (
                             React.Children.count(children) > 1 ? (
-                                children.map((child: any) => {
+                                children.map((child: any, index: number) => {
                                     if (child.props.value === value) {
                                         return (
                                             <S.ValueContainer
+                                                key={index}
                                                 textOverflow={textOverflow}
                                                 ref={valueContainerRef}
                                             >

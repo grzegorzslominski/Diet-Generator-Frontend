@@ -56,13 +56,13 @@ export type PublishedRecipe = Recipe & {
     recipeCreatorImage: string | null;
     recipeLikes: Like[];
     recipesIngredients: Ingredient[];
-    [key: string]: string | null | Like[] | Ingredient[];
+    [key: string]: string | null | Like[] | Ingredient[] | any;
 };
 
-type Like = {
+export type Like = {
     id: number;
     timestamp: number;
-    author: PublicUser;
+    user: PublicUser;
 };
 
 export type FollowProfileStatus = {

@@ -20,7 +20,7 @@ export const NAV_ITEMS: NavItem[] = [
     },
     {
         label: "Forum",
-        routing: NAVIGATION.forum,
+        routing: `${NAVIGATION.forum}/posts`,
         access: "all",
     },
     {

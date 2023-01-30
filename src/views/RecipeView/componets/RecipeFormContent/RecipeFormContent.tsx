@@ -104,9 +104,9 @@ const RecipeFormContent = forwardRef<HTMLDivElement, RecipeFormContent>(
                 />
                 <S.MidSection>
                     <SearchProducts
-                        selectedProducts={recipe.ingredients as Product[]}
+                        selectedProducts={recipe.recipesIngredients as Product[]}
                         onChange={(value: Ingredient[] | Product[]) =>
-                            onChange("ingredients", value)
+                            onChange("recipesIngredients", value)
                         }
                         returnType='ingredients'
                     />
@@ -119,17 +119,21 @@ const RecipeFormContent = forwardRef<HTMLDivElement, RecipeFormContent>(
                         >
                             Added ingredients
                         </Label>
-                        <S.IngredientsList emptyList={Boolean(!recipe.ingredients?.length)}>
-                            {recipe.ingredients?.length ? (
+                        <S.IngredientsList emptyList={Boolean(!recipe.recipesIngredients?.length)}>
+                            {recipe.recipesIngredients?.length ? (
+
                                 <ScrollBox height={260} scrollDistance={20}>
                                     <S.IngredientsItemsWrapper>
-                                        {recipe.ingredients.map((ingredient, index) => (
+                                        {recipe.recipesIngredients.map((ingredient, index) => (
                                             <S.IngredientItem key={ingredient.name}>
                                                 <Label
                                                     fontSize='14px'
                                                     color={mainTheme.colors.mainBlack}
                                                     fontWeight='500'
-                                                    error={recipeValidation.ingredients[index]}
+                                                    error={
+                                                        recipeValidation.recipesIngredients[index]
+                                                    }
+
                                                 >
                                                     {ingredient.name}
                                                 </Label>
@@ -142,7 +146,9 @@ const RecipeFormContent = forwardRef<HTMLDivElement, RecipeFormContent>(
                                                     value={ingredient.amount}
                                                     size='small'
                                                     width='80px'
-                                                    error={recipeValidation.ingredients[index]}
+                                                    error={
+                                                        recipeValidation.recipesIngredients[index]
+                                                    }
                                                     showErrorMessage={false}
                                                 />
                                                 <Select

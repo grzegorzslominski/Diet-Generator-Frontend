@@ -12,10 +12,6 @@ export const Container = styled.div`
     position: relative;
     padding: 15px;
 
-    &:hover {
-        border: solid black 1px;
-    }
-
     @media screen and (max-width: 1250px) {
         width: 500px;
     }
@@ -32,9 +28,12 @@ export const Header = styled.div`
     justify-content: space-evenly;
 
     img {
-        width: 40px;
+        width: 65px;
+        height: 60px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
     }
-
     @media screen and (max-width: 535px) {
         justify-content: center;
         width: 100%;
@@ -75,7 +74,6 @@ export const Footer = styled.div`
     align-items: center;
     justify-content: flex-end;
 `;
-
 
 export const FsecondItem = styled.div`
     position: relative;

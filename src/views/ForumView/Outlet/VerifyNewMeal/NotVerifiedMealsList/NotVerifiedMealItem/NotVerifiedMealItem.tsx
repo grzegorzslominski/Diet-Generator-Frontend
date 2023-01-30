@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import {
-    recipeNotVerifiedBasicI,
-} from "../../../../PostsList/const/Posts";
+import { recipeNotVerifiedBasicI } from "../../../../PostsList/const/Posts";
 import * as S from "./NotVerifiedMealItem.style";
 import Label from "../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../themes/mainTheme";
@@ -33,7 +31,6 @@ const MealItem = ({
                     fontWeight='600'
                     color={mainTheme.colors.mainBlack}
                 >
-                    Posted by :
                     {author && author.firstName && author.lastName
                         ? `${author.firstName} ${author.lastName}`
                         : `user${author.id}`}

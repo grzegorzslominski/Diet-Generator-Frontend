@@ -2,18 +2,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { mainTheme } from "../../../../../../themes/mainTheme";
 import axiosFoodieInstance from "../../../../../../axios/axiosFoodieInstance";
 import { ENDPOINTS_MEALS } from "../../../../../../navigation/endpoints";
 import { AxiosError } from "axios";
 import { setNotification } from "../../../../../../redux/slices/notification";
 
-import SearchProducts from "../../../../../../components/SearchProducts/SearchProducts";
-import ScrollBox from "../../../../../../components/UI/ScrollBox/ScrollBox";
 import ModalPortal from "../../../../../../components/UI/ModalPortal/ModalPortal";
-import BoxPad from "../../../../../../components/UI/BoxPad/BoxPad";
-import Label from "../../../../../../components/UI/Label/Label";
-import Button from "../../../../../../components/UI/Button/Button";
+import ExclusionProducts from "../../../../../../components/ExclusionProducts/ExclusionProducts";
 
 import { Product } from "../../../../../../models/Meal/Exclusions";
 
@@ -36,15 +31,8 @@ const ExclusionsModal = ({ exclusions, close }: ExclusionsModalProps) => {
         }
     }, [exclusions]);
 
-    const onChangeExclusions = (exclusions: Product[]) => {
-        const currentExclusionsCopy = JSON.parse(JSON.stringify(exclusions));
-        setCurrentExclusions(currentExclusionsCopy);
-    };
-
-    const removeExclusion = (index: number) => {
-        const currentExclusionsCopy = JSON.parse(JSON.stringify(currentExclusions));
-        currentExclusionsCopy.splice(index, 1);
-        setCurrentExclusions(currentExclusionsCopy);
+    const onChange = (exclusions: Product[]) => {
+        setCurrentExclusions(exclusions);
     };
 
     const saveExclusions = async () => {
@@ -90,68 +78,14 @@ const ExclusionsModal = ({ exclusions, close }: ExclusionsModalProps) => {
 
     return (
         <ModalPortal close={close}>
-            <BoxPad header='List of excluded products' padding='24px'>
-                <S.Container>
-                    <Label fontSize='12px'>
-                        The selected exclusions will be included in each generated diet. If you want
-                        to modify this list for a specific diet, you will be able to do so during
-                        the diet generation process.
-                    </Label>
-
-                    {!currentExclusions?.length ? (
-                        <S.EmptyContainer>
-                            <Label fontSize='12px' color={mainTheme.colors.mainBlack}>
-                                No exclusions in the diet
-                            </Label>
-                        </S.EmptyContainer>
-                    ) : (
-                        <S.ExclusionsWrapper>
-                            <Label
-                                fontSize='12px'
-                                fontWeight='500'
-                                color={mainTheme.colors.mainBlack}
-                            >
-                                Current exclusions
-                            </Label>
-                            <ScrollBox height={150} scrollDistance={20}>
-                                <S.Exclusions>
-                                    {currentExclusions.map((exclusion, index) => (
-                                        <S.ExclusionItem
-                                            key={exclusion.name}
-                                            onClick={() => removeExclusion(index)}
-                                        >
-                                            <Label
-                                                fontSize='11px'
-                                                fontWeight='500'
-                                                textAlign='center'
-                                                color={mainTheme.colors.mainBlack}
-                                            >
-                                                {exclusion.name}
-                                            </Label>
-                                        </S.ExclusionItem>
-                                    ))}
-                                </S.Exclusions>
-                            </ScrollBox>
-                        </S.ExclusionsWrapper>
-                    )}
-                    <SearchProducts
-                        selectedProducts={currentExclusions}
-                        returnType='products'
-                        onChange={(products) => onChangeExclusions(products)}
-                    />
-                    <S.ActionContainer>
-                        <Button
-                            styleType='primaryFull'
-                            onClick={saveExclusions}
-                            size='small'
-                            width='100px'
-                            isLoading={isLoading}
-                        >
-                            Save
-                        </Button>
-                    </S.ActionContainer>
-                </S.Container>
-            </BoxPad>
+            <S.Container>
+                <ExclusionProducts
+                    isLoading={isLoading}
+                    currentExclusions={currentExclusions}
+                    onChange={(exclusions) => onChange(exclusions)}
+                    onSave={saveExclusions}
+                />
+            </S.Container>
         </ModalPortal>
     );
 };

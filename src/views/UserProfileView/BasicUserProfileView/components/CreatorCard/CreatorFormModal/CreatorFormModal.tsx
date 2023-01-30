@@ -176,7 +176,6 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                 }
 
                 dataToSend.userExtras.backgroundImagePath = imageURL;
-                console.log(dataToSend.userExtras.backgroundImagePath);
             } else if (
                 !currentUserExtras.userExtras.backgroundImagePath?.file &&
                 currentUserExtras.userExtras.backgroundImagePath?.url
@@ -207,7 +206,9 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                             setNotification({
                                 label: "Creator account",
                                 header: "Success",
-                                message: "Creator account was created",
+                                message: `Creator account was  ${
+                                    userExtras?.userExtras?.id ? "updated" : "created"
+                                }`,
                                 timeout: 5000,
                             }),
                         );
@@ -225,6 +226,7 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                 });
         }
         setIsLoading(false);
+        onClose();
     };
 
     return (

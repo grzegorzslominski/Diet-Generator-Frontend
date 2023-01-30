@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import noPhoto from "../../assets/no-photo.png";
+import noPhoto from "../../assets/no-photo.jpg";
 
 export const Wrapper = styled.div`
     padding-top: 60px;

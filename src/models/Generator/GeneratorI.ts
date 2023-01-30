@@ -10,6 +10,10 @@ export interface GeneratorI {
     glutenFree: boolean;
     veryHealthy: boolean;
     dairyFree: boolean;
+    personalized: boolean;
+    makroCheck: boolean;
+
+    [key: string]: goalType | exerciseType | ProductType[] | boolean | number;
 }
 
 export type questionType = { id: number; value: number };
@@ -27,6 +31,8 @@ export const BASIC_GENERATOR_DATA: GeneratorI = {
     glutenFree: false,
     veryHealthy: false,
     dairyFree: false,
+    personalized: false,
+    makroCheck: true,
 };
 
 export interface GeneratorHandleChangeI {

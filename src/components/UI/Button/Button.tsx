@@ -47,7 +47,7 @@ const Button = ({
                                 <Label
                                     fontSize={fontSize}
                                     lineHeight='100%'
-                                    fontWeight='700'
+                                    fontWeight='600'
                                     color={BUTTON_STYLE_PRESET.gradientEmpty.color}
                                     fontFamily='Lato'
                                 >
@@ -57,8 +57,7 @@ const Button = ({
                         ) : (
                             <Label
                                 fontSize={fontSize}
-                                lineHeight='100%'
-                                fontWeight='600'
+                                fontWeight='500'
                                 color={BUTTON_STYLE_PRESET[styleType].color}
                                 fontFamily='Lato'
                             >

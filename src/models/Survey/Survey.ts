@@ -25,6 +25,10 @@ export type FlavorProfileAnswer = {
 
 export type ProductsSurveyAnswers = ProductsAnswer[];
 
+export type ProductsSurveySendedData = {
+    ratingList: ProductsSurveyAnswers;
+};
+
 export type ProductsAnswer = {
     id: number;
     score: number;
@@ -68,7 +72,7 @@ export const postFlavorProfileSurvey = async (surveyAnswers: FlavourProfileSurve
         });
 };
 
-export const postRecipesSurvey = async (surveyAnswers: ProductsSurveyAnswers) => {
+export const postRecipesSurvey = async (surveyAnswers: ProductsSurveySendedData) => {
     return await axiosFoodieInstance
         .post<ProductsSurveyAnswers>(ENDPOINTS_SURVEY.productsSurvey, surveyAnswers)
         .then((response) => {

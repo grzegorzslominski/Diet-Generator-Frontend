@@ -39,9 +39,10 @@ import * as S from "./UserDetailsCard.style";
 type UserDetailsCardProps = {
     className?: string;
     user: User;
+    dailyCalGoal?: null | number;
 };
 
-const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
+const UserDetailsCard = ({ className, user, dailyCalGoal }: UserDetailsCardProps) => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
 
@@ -63,8 +64,16 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
     }, [user]);
 
     const handleOnChange = (property: string, value: any) => {
+        let file;
+
+        if (userDetails?.profileImagePath?.file) {
+            file = userDetails?.profileImagePath?.file;
+        }
         const currentUserDetailsData = JSON.parse(JSON.stringify(userDetails));
         currentUserDetailsData[property] = value;
+        if (file) {
+            currentUserDetailsData.profileImagePath.file = file;
+        }
         setUserDetails(currentUserDetailsData);
     };
 
@@ -124,7 +133,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
         const dataToSend = JSON.parse(JSON.stringify(userDetails));
         let refetchUser = false;
 
-        delete dataToSend.email;
+        //   delete dataToSend.email;
         delete dataToSend.timestamp;
 
         if (userDetails?.profileImagePath?.file) {
@@ -135,6 +144,8 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
                 "image",
                 userDetails?.profileImagePath.file,
             );
+            uploadedAvatarURL = imageURL;
+            dataToSend.profileImagePath = uploadedAvatarURL;
 
             if (avatarUploadError) {
                 dispatch(
@@ -145,11 +156,12 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
                         timeout: 5000,
                     }),
                 );
-            } else {
-                uploadedAvatarURL = imageURL;
+                dataToSend.profileImagePath = null;
             }
-
-            dataToSend.profileImagePath = uploadedAvatarURL;
+        } else if (!userDetails?.profileImagePath?.file && userDetails?.profileImagePath?.url) {
+            dataToSend.profileImagePath = userDetails.profileImagePath?.url;
+        } else {
+            dataToSend.profileImagePath = null;
         }
 
         checkRemoveOldUserAvatar(dataToSend.profileImagePath);
@@ -189,8 +201,9 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
             });
 
         if (refetchUser) {
-            const freshUserData = await getUserData();
-            dispatch(setUser(freshUserData ? freshUserData : dataToSend));
+            // const freshUserData = await getUserData();
+
+            dispatch(setUser(dataToSend));
         }
     };
 
@@ -322,9 +335,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
                                     fontWeight='700'
                                     lineHeight='18px'
                                 >
-                                    {userDetails.calories
-                                        ? `${userDetails.calories} calories`
-                                        : "-"}
+                                    {dailyCalGoal ? `${dailyCalGoal} kcal` : "-"}
                                 </Label>
                             </S.ExtraDetail>
                             <S.ExtraDetail>
@@ -359,7 +370,7 @@ const UserDetailsCard = ({ className, user }: UserDetailsCardProps) => {
                                         fontWeight='700'
                                         lineHeight='18px'
                                     >
-                                        Premium
+                                        {user?.subscribed ? "Premium" : "Basic"}
                                     </Label>
                                 </GradientLabel>
                             </S.ExtraDetail>

@@ -31,7 +31,11 @@ const BasicUserProfileView = () => {
             ) : (
                 <S.Container>
                     <S.ProfileDetailsContainer>
-                        <UserDetailsCard className='details' user={user} />
+                        <UserDetailsCard
+                            className='details'
+                            user={user}
+                            dailyCalGoal={basicProfileData.dailyCalGoal}
+                        />
                         <UserStatisticsCard
                             className='statistics'
                             userStats={basicProfileData.userStats}
@@ -40,8 +44,17 @@ const BasicUserProfileView = () => {
                             className='ownMeals'
                             userRecipes={basicProfileData.userRecipes}
                         />
-                        <CurrentDietCard className='currentDiet' />
-                        <ProgressCard className='progress' />
+                        <CurrentDietCard
+                            className='currentDiet'
+                            weightAtDietGeneration={basicProfileData.weightAtDietGeneration}
+                            mealsPerDay={basicProfileData.mealsPerDay}
+                            dailyCalGoal={basicProfileData.dailyCalGoal}
+                        />
+                        <ProgressCard
+                            className='progress'
+                            currentWeight={user.weight}
+                            weightAtDietGeneration={basicProfileData.weightAtDietGeneration}
+                        />
                         <SurveyCard className='survey' />
                         <ExclusionsCard
                             className='exclusion'

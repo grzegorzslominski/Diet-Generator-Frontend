@@ -21,4 +21,5 @@ export type PostAuthor = {
     firstName: string | null;
     lastName: string | null;
     subscribed?: boolean;
+    userProfilePicture?: string;
 };

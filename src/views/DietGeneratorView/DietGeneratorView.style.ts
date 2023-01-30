@@ -1,208 +1,108 @@
 import styled, { css } from "styled-components";
-import mainBackgroudn from "../../assets/mainBackground.png";
-import { mainTheme } from "../../themes/mainTheme";
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
-    position: relative;
-    background-size: cover;
-    background: url(${mainBackgroudn});
+    width: 1018px;
     align-items: center;
-    margin: 50px 0 50px 0;
+    gap: 42px;
+
+    @media screen and (max-width: 1220px) {
+        width: 520px;
+    }
+
+    @media screen and (max-width: 720px) {
+        width: 340px;
+    }
 `;
 
-export const ProductsList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5,100px);
-  width: 100%;
-  justify-content: center;
-  gap: 20px;
-
-  @media screen and (max-width: 1400px){
-    display: grid;
-    grid-template-columns: repeat(2,100px);
-    width: 100%;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  @media screen and (max-width: 750px){
-    display: grid;
-    grid-template-columns: repeat(2,60px);
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
-`
-
-interface prop {
-  isOpen: boolean;
-}
-
-export const productItem = styled.div<prop>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  
-  cursor: pointer;
-
-  ${({isOpen}) => isOpen ? css `
-    border: 1px solid green;
-  ` : css`
-    border: 1px solid ${mainTheme.colors.secondaryColor};
-  `}
-
-
-`
-
-interface prop2 {
-  selected: boolean;
-}
-
-export const Content = styled.div<prop2>`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 30%;
-
-  @media screen and (max-width: 1400px) {
-    width: 120px;
-  }
-
-  &>svg {
-    width: 60px;
-    height: 60px;
-  }
-  border: solid 1px lightgray;
-  padding: 10px 10px 10px 10px;
-  cursor: pointer;
-  ${({selected}) => selected ? css `background-color: whitesmoke` : null}
-  
-  
-`
-
-export const Border = styled.div`
-  background: linear-gradient(184.44deg, rgba(106, 179, 91, 0.9) -2.43%, rgba(87, 82, 179, 0.5) -2.42%, rgba(87, 82, 179, 0.75) 87.44%);
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  min-height: 60px;
-  min-width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  
-  @media screen and (max-width: 500px){
-    max-width: 100px;
-    min-width: 100px;
-
-  }
-
-`
-
-export const ProductsWrapper = styled.div`
-  background: #FFFFFF;
-  box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
-  padding: 25px;
-  border-radius: 15px;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  position: relative;
-  min-height: 250px;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 50px;
-  margin-left: 20%;
-
-
-  @media screen and (max-width: 1400px){
+export const GenerateStep = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-  }
-  @media screen and (max-width: 750px) {
-    
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-left: 0;
-  }
-`
-
-
-export const InputContainer = styled.div`
-  width: 33%;
-  transition: none;
-`
-export const ProductsVegan = styled(ProductsWrapper)`
-  flex-direction: row;
-  
-  @media screen and (max-width: 1400px) {
-    width: 60%;
-    display: grid;
-    grid-template-columns: repeat(3,minmax(0,1fr));
-    gap: 10px;
-    padding: 20px;
     align-items: center;
-    align-content: center;
-  }
-  
-  & > svg {
-    width: 100px;
-    height: 100px;
-  }
-  @media screen and (max-width: 750px) {
+    gap: 12px;
+    width: 100%;
+`;
 
+export const StepContent = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
-    margin-left: 0;
-  }
+    align-items: center;
+    gap: 48px;
 
-`
-
-export const ContainerWrapper = styled.div`
-  display: flex;
-  width: 80%;
-  margin-bottom: 2%;
-  flex-direction: column;
-  gap: 30px;
-`
-
-export const ContainerVegan = styled(ContainerWrapper)`
-  transition: transform .2s;
-
-  @media (hover: hover) {
-
-    div>div:hover {
-      transform: scale(1.2);
+    @media screen and (max-width: 720px) {
+        gap: 72px;
     }
-  }
-`
+`;
 
-export const ProductsContainer = styled.div`
-  width: 90%;
-  border: 1px solid ${mainTheme.colors.secondaryColor};
-  padding: 24px;
-  border-radius: 5px;
+export const MealCount = styled.div`
+    display: flex;
+    align-items: flex-end;
 
-`
+    justify-content: center;
+    gap: 24px;
 
-export const SearchContainer = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: flex-end;
-`
-export const Search = styled.div`
-  width: 30%;
-`
+    & > svg {
+        width: 80px;
+        max-width: 80px;
+        height: auto;
+    }
 
+    @media screen and (max-width: 1220px) {
+        flex-wrap: wrap;
+    }
+`;
+
+export const Substep = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    align-items: center;
+`;
+
+export const SettingsContainer = styled.div`
+    display: flex;
+    gap: 24px;
+    width: 100%;
+`;
+
+export const SettingItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+`;
+
+type MealCountItemProps = {
+    checked: boolean;
+};
+
+export const MealCountContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 24px;
+`;
+
+export const MealCountItem = styled.div<MealCountItemProps>`
+    border: 1px solid ${({ theme }) => theme.colors.secondaryColor};
+    border-radius: 3px;
+    height: 50px;
+    width: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.35s;
+
+    ${({ theme, checked }) =>
+        checked &&
+        css`
+            background: ${theme.colors.secondaryColor};
+            span {
+                color: white;
+            }
+        `};
+
+    :hover {
+        cursor: pointer;
+    }
+`;

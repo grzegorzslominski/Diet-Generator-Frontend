@@ -27,8 +27,6 @@ const FlavorProfileForm = ({ flavorProfileAnswer, onChange }: FlavorProfileForm)
         const findedIndex = currentAnswers.answers.findIndex((answer) => answer.id === questionID);
         if (findedIndex > -1) {
             currentAnswers.answers[findedIndex].value = value;
-
-            console.log(currentAnswers.answers[findedIndex]);
         } else {
             const newAnswer = JSON.parse(JSON.stringify({ id: questionID, value: value }));
             currentAnswers.answers.push(newAnswer);

@@ -1,17 +1,19 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-import { ReactComponent as Close } from "../../../assets/modal/close.svg";
+import { ReactComponent as Close } from "../../../assets/icons/XIcon.svg";
 
 export const Container = styled(motion.div)`
+    opacity: 1;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 480px;
+    width: 360px;
     display: flex;
     flex-direction: column;
-    background: #121212;
-    border: 4px #161819 solid;
+    background: ${({ theme }) => theme.colors.secondaryColor};
+
+    border-radius: 10px;
 
     z-index: 1000;
 
@@ -34,11 +36,17 @@ export const Content = styled.div`
 
 export const StyledClose = styled(Close)`
     z-index: 1005;
-    width: 15.31px;
-    height: 14px;
+    width: 20px;
+    max-width: 20px;
+    height: auto;
+
     position: absolute;
     top: 16px;
     right: 16px;
+
+    svg {
+        fill: white;
+    }
 
     &:hover {
         cursor: pointer;

@@ -6,7 +6,6 @@ export const Container = styled.div`
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
-    position: relative;
     background-size: cover;
     background: url(${mainBackgroudn});
     align-items: center;

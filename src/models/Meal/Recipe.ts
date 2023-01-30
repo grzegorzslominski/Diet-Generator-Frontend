@@ -1,3 +1,4 @@
+import { Product } from "./Exclusions";
 import { ENDPOINTS_MEALS } from "./../../navigation/endpoints";
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
 import { PostAuthor } from "../Forum/Post";
@@ -28,8 +29,24 @@ export type Recipe = {
     protein: number;
     carbs: number;
     user: PostAuthor;
-    ingredients: Ingredient[];
-    [key: string]: number | string | boolean | Ingredient[] | null | undefined | PostAuthor;
+    recipesIngredients: Ingredient[];
+    recipeComments?: CommentMeal[] | null;
+    [key: string]:
+        | number
+        | string
+        | boolean
+        | Ingredient[]
+        | null
+        | undefined
+        | PostAuthor
+        | CommentMeal[];
+};
+
+export type CommentMeal = {
+    id: number;
+    content: string;
+    timestamp: number;
+    user: PostAuthor;
 };
 
 export type RecipeNutriens = {
@@ -49,6 +66,8 @@ export type Ingredient = {
 
 export type RecipeNutrionsType = "fat" | "protein" | "carbs";
 export type RecipeType = "glutenFree" | "dairyFree" | "vegetarian" | "vegan" | "veryHealthy";
+
+export const RECIPE_HEADERS = ["Name", "Amount", "Unit"];
 
 export const USER_RECIPE_NUTRIONS: RecipeNutrionsType[] = ["fat", "protein", "carbs"];
 
@@ -83,6 +102,41 @@ export const RECIPE_TYPE_PRESET: RecipeTypePreset = {
 };
 
 export type Unit = "ml" | "g";
+
+export type LikeMealStatus = {
+    likesCount: number;
+    isLiked: boolean;
+};
+
+export type ReplaceRecipeInfo = {
+    dayDietId: number;
+    recipeToReplaceId: number;
+    [key: string]: number;
+};
+
+export const INIT_REPLACE_RECIPE_INFO: ReplaceRecipeInfo = {
+    dayDietId: 0,
+    recipeToReplaceId: 0,
+};
+
+export const replaceRecipe = async (replaceRecipeInfo: ReplaceRecipeInfo) => {
+    return axiosFoodieInstance
+        .post(ENDPOINTS_MEALS.replaceMeal, replaceRecipeInfo)
+        .then((response) => {
+            if (response.status === 200) {
+                return response.data;
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+export const sendLikeRecipe = async (recipeID: number) => {
+    return axiosFoodieInstance
+        .get(`${ENDPOINTS_MEALS.likeRecipe}/${recipeID}`)
+        .then((response) => response);
+};
 
 export const getUserRecipes = async (userID: number) => {
     return await axiosFoodieInstance

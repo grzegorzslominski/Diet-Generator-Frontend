@@ -67,6 +67,27 @@ export const Divider = styled.div`
     border-radius: 5px;
 `;
 
+export const SubHistoryTable = styled.div`
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid ${({ theme }) => theme.colors.mainBlack};
+    border-left: 1px solid ${({ theme }) => theme.colors.mainBlack};
+`;
+
+export const TableRow = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+`;
+
+export const TableRowItem = styled.div`
+    padding: 0 12px;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.mainBlack};
+    border-right: 1px solid ${({ theme }) => theme.colors.mainBlack};
+    display: flex;
+    align-items: center;
+    height: 30px;
+`;
+
 export const ActionContainer = styled.div`
     width: 100%;
     display: flex;

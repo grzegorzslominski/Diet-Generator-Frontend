@@ -25,7 +25,14 @@ export const Container = styled.div`
 
 export const TopSection = styled.div`
     display: flex;
+    gap: 6px;
     justify-content: space-between;
+
+    span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 `;
 
 export const MealValuesSection = styled.div`

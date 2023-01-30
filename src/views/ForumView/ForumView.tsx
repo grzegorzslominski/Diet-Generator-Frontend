@@ -9,6 +9,8 @@ import * as S from "./ForumView.style";
 import { useSelector } from "react-redux";
 import { TStore } from "../../redux/store/store";
 import { AuthorityType } from "../../models/User/User";
+import ViewBox from "../../components/UI/ViewBox/ViewBox";
+import BoxPad from "../../components/UI/BoxPad/BoxPad";
 
 const ForumView = () => {
     const navigate = useNavigate();
@@ -23,66 +25,58 @@ const ForumView = () => {
 
     const user = useSelector((state: TStore) => state?.userReducer);
     return (
-        <S.Container>
-            <S.Header>
-                {NAV_ITEMS.map((item) => {
-                    if (item.authorities) {
-                        let flag = false;
-                        user &&
-                            user?.authorities?.map((authority: AuthorityType) => {
-                                item.authorities?.includes(authority)
-                                    && (flag = true)
-
-                            });
-                        if (flag)
-                            return (
-                                <S.HeaderItem
-                                    key={item.label}
-                                    onClick={() => navigationHandler(item)}
-                                >
-                                    <Label
-                                        fontFamily='Lato'
-                                        fontWeight='600'
-                                        fontSize='1.5rem'
-                                        lineHeight='2rem'
-                                        textAlign='center'
-                                        color={mainTheme.colors.mainBlack}
+        <ViewBox>
+            <S.Container>
+                <S.Header>
+                    {NAV_ITEMS.map((item) => {
+                        if (item.authorities) {
+                            let flag = false;
+                            user &&
+                                user?.authorities?.map((authority: AuthorityType) => {
+                                    item.authorities?.includes(authority) && (flag = true);
+                                });
+                            if (flag)
+                                return (
+                                    <S.HeaderItem
+                                        key={item.label}
+                                        onClick={() => navigationHandler(item)}
                                     >
-                                        {item.label}
-                                    </Label>
-                                </S.HeaderItem>
+                                        <Label
+                                            fontFamily='Lato'
+                                            fontWeight='600'
+                                            fontSize='18px'
+                                            textAlign='center'
+                                            color={mainTheme.colors.mainBlack}
+                                        >
+                                            {item.label}
+                                        </Label>
+                                    </S.HeaderItem>
+                                );
+                        } else {
+                            return (
+                                <BoxPad padding='18px'>
+                                    <S.HeaderItem
+                                        key={item.label}
+                                        onClick={() => navigationHandler(item)}
+                                    >
+                                        <Label
+                                            fontFamily='Lato'
+                                            fontWeight='600'
+                                            fontSize='18px'
+                                            textAlign='center'
+                                            color={mainTheme.colors.mainBlack}
+                                        >
+                                            {item.label}
+                                        </Label>
+                                    </S.HeaderItem>
+                                </BoxPad>
                             );
-                    } else {
-                        return (
-                            <S.HeaderItem key={item.label} onClick={() => navigationHandler(item)}>
-                                <Label
-                                    fontFamily='Lato'
-                                    fontWeight='600'
-                                    fontSize='1.5rem'
-                                    lineHeight='2rem'
-                                    textAlign='center'
-                                    color={mainTheme.colors.mainBlack}
-                                >
-                                    {item.label}
-                                </Label>
-                            </S.HeaderItem>
-                        );
-                    }
-                })}
-            </S.Header>
-            <S.MiddleSection>
-                <Label
-                    fontFamily='Lato'
-                    fontWeight='600'
-                    fontSize='1'
-                    lineHeight='2rem'
-                    color={mainTheme.colors.mainBlack}
-                >
-                    Newest posts:
-                </Label>
+                        }
+                    })}
+                </S.Header>
                 <Outlet />
-            </S.MiddleSection>
-        </S.Container>
+            </S.Container>
+        </ViewBox>
     );
 };
 

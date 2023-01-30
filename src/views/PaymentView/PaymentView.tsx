@@ -3,8 +3,8 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-import { calculatePremiumRemainingTime, parseUnixTime } from "../AuthViews/helpers/date";
-import { getUserData } from "../../models/User/User";
+import { parseUnixTime } from "../AuthViews/helpers/date";
+import { getUserData, UserData } from "../../models/User/User";
 import { setUser } from "../../redux/slices/user";
 import { setNotification } from "../../redux/slices/notification";
 import {
@@ -34,7 +34,11 @@ import {
 
 import * as S from "./PaymentView.style";
 
-const PaymentView = () => {
+type PaymentView = {
+    user: UserData;
+};
+
+const PaymentView = ({ user }: PaymentView) => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
     const { data: subInfo, isLoading } = useQuery(["subInfo"], getSubscriptionInfo);
@@ -60,6 +64,7 @@ const PaymentView = () => {
                 id: paypalResponse.id,
             };
             const subscriptionConfirmation = await postNewSubscriptionInfo(subscriptionRequest);
+
             if (subscriptionConfirmation && subscriptionConfirmation.status === "ACTIVE") {
                 queryClient.invalidateQueries(["subInfo"], {
                     refetchType: "all",
@@ -72,6 +77,9 @@ const PaymentView = () => {
                         timeout: 5000,
                     }),
                 );
+                queryClient.invalidateQueries(["subInfo"], {
+                    refetchType: "all",
+                });
                 const refreshedUser = await getUserData();
                 if (refreshedUser) {
                     dispatch(setUser(refreshedUser));
@@ -222,7 +230,7 @@ const PaymentView = () => {
                                         <MoneyIcon />
                                     </S.Header>
                                     <Label fontSize='26px' color={mainTheme.colors.mainBlack}>
-                                        10$
+                                        6.15$
                                     </Label>
                                 </S.CostContanier>
                                 <S.ActionButton>
@@ -322,37 +330,34 @@ const PaymentView = () => {
                                                 </S.TableRowItem>
                                             ))}
                                         </S.TableRow>
-                                        {subInfo.reverse().map((sub: Subscription) => {
-                                            return (
-                                                <S.TableRow key={sub.id}>
-                                                    {SUB_TABLE_KEY.map((rowItemKey) => (
-                                                        <S.TableRowItem
-                                                            key={`${sub.id}-${rowItemKey}`}
-                                                        >
-                                                            <Label
-                                                                fontSize='13px'
-                                                                color={
-                                                                    mainTheme.colors.secondaryColor
-                                                                }
+                                        {subInfo
+                                            .map((sub: Subscription) => {
+                                                return (
+                                                    <S.TableRow key={sub.id}>
+                                                        {SUB_TABLE_KEY.map((rowItemKey) => (
+                                                            <S.TableRowItem
+                                                                key={`${sub.id}-${rowItemKey}`}
                                                             >
-                                                                {rowItemKey !== "valid_till" &&
-                                                                rowItemKey !== "id" &&
-                                                                rowItemKey !== "status"
-                                                                    ? parseUnixTime(
-                                                                          +sub[rowItemKey],
-                                                                      )
-                                                                    : rowItemKey !== "valid_till"
-                                                                    ? sub[rowItemKey]
-                                                                    : calculatePremiumRemainingTime(
-                                                                          sub["start_time"],
-                                                                          sub["valid_till"],
-                                                                      )}
-                                                            </Label>
-                                                        </S.TableRowItem>
-                                                    ))}
-                                                </S.TableRow>
-                                            );
-                                        })}
+                                                                <Label
+                                                                    fontSize='13px'
+                                                                    color={
+                                                                        mainTheme.colors
+                                                                            .secondaryColor
+                                                                    }
+                                                                >
+                                                                    {rowItemKey !== "id" &&
+                                                                    rowItemKey !== "status"
+                                                                        ? parseUnixTime(
+                                                                              +sub[rowItemKey],
+                                                                          )
+                                                                        : sub[rowItemKey]}
+                                                                </Label>
+                                                            </S.TableRowItem>
+                                                        ))}
+                                                    </S.TableRow>
+                                                );
+                                            })
+                                            .reverse()}
                                     </>
                                 </S.SubHistoryTable>
                             ) : (

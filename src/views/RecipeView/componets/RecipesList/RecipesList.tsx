@@ -4,7 +4,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { prepareRecipeInstrucion } from "../../../../helpers/textParse";
 import axiosFoodieInstance from "../../../../axios/axiosFoodieInstance";
 import { ENDPOINTS_MEALS } from "../../../../navigation/endpoints";
-import noPhoto from "../../../../assets/no-photo.png";
+import noPhoto from "../../../../assets/no-photo.jpg";
+
 import { getUserRecipes, Recipe } from "../../../../models/Meal/Recipe";
 import { mainTheme } from "../../../../themes/mainTheme";
 import { setNotification } from "../../../../redux/slices/notification";
@@ -25,8 +26,17 @@ type RecipesListProps = {
 const RecipesList = ({ userID, onEditRecipe }: RecipesListProps) => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
-    const { data: userRecipes, isLoading } = useQuery(["userRecipes", userID], () =>
-        getUserRecipes(userID),
+    const { data: userRecipes, isLoading } = useQuery(
+        ["userRecipes", userID],
+        () => getUserRecipes(userID),
+        {
+            select: (data) =>
+                data
+                    ? data.sort((a, b) => {
+                          return a.id && b.id ? b.id - a.id : -1;
+                      })
+                    : [],
+        },
     );
 
     const removeRecipe = (recipeID?: number) => {

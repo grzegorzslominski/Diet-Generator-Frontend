@@ -5,11 +5,9 @@ import Label from "../../../../../../components/UI/Label/Label";
 import { mainTheme } from "../../../../../../themes/mainTheme";
 import { ReactComponent as Comment } from "../../../../../../assets/icons/CommentIcon.svg";
 import { ReactComponent as HeartEmptyIcon } from "../../../../../../assets/icons/heart-empty.svg";
-import { ReactComponent as HeartFullIcon } from "../../../../../../assets/icons/heart-full.svg";
 import Button from "../../../../../../components/UI/Button/Button";
 import SingleVerifiedMeal from "../SingleVerifiedMeal/SingleVerifiedMeal";
-import axiosFoodieInstance from "../../../../../../axios/axiosFoodieInstance";
-import { setNotification } from "../../../../../../redux/slices/notification";
+
 import { useDispatch } from "react-redux";
 
 const MealItem = ({
@@ -23,7 +21,6 @@ const MealItem = ({
     likesCount,
 }: recipeVerifiedBasicI) => {
     const [openModal, setOpenModal] = useState(false);
-    const dispatch = useDispatch();
 
     const handleChangeOpenModal = () => setOpenModal((prev) => !prev);
 
@@ -38,7 +35,6 @@ const MealItem = ({
                     fontWeight='600'
                     color={mainTheme.colors.mainBlack}
                 >
-                    Posted by :
                     {author && author.firstName && author.lastName
                         ? `${author.firstName} ${author.lastName}`
                         : `user${author.id}`}
@@ -110,7 +106,7 @@ const MealItem = ({
                     </Button>
                 </S.FsecondItem>
             </S.Footer>
-            {openModal ? <SingleVerifiedMeal id={id} close={handleChangeOpenModal} /> : null}
+            {openModal && <SingleVerifiedMeal modalIsOpen={openModal} id={id} close={handleChangeOpenModal} />}
         </S.Container>
     );
 };

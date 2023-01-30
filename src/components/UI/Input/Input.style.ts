@@ -10,6 +10,7 @@ export const Container = styled.div<InputContainerProps>`
     flex-direction: column;
     position: relative;
     width: ${({ width }) => width};
+    height: fit-content;
 
     ${({ labelIndent }) =>
         labelIndent &&

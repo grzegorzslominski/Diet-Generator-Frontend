@@ -1,7 +1,7 @@
-import ImageProfile from "../../../../assets/dashboard/images/userProfile.png";
 import axiosFoodieInstance from "../../../../axios/axiosFoodieInstance";
+import { PublishedRecipe } from "../../../../models/User/ExpandedUser";
 
-export interface BasicPostI {
+export type Post = {
     id: number;
     title: string;
     timestamp: number;
@@ -10,12 +10,10 @@ export interface BasicPostI {
     description: string | undefined;
     commentsCount: number;
     likesCount: number;
-}
-
-export interface FullPostI extends BasicPostI {
+    postImagePath?: string;
     postComments: CommentI[] | null;
     likes: LikesI[] | null;
-}
+};
 
 export interface recipeVerifiedBasicI {
     id: number;
@@ -26,32 +24,6 @@ export interface recipeVerifiedBasicI {
     userProfilePicture: string | null;
     commentsCount: number;
     likesCount: number;
-}
-
-export interface recipeViewI {
-    id: number;
-    servings: number;
-    title: string;
-    readyInMinutes: number;
-    imagePath: string | undefined;
-    instructions: string;
-    vegetarian: boolean;
-    vegan: boolean;
-    glutenFree: boolean;
-    dairyFree: boolean;
-    veryHealthy: boolean;
-    verified: boolean;
-    calories: number;
-    carbs: number;
-    fat: number;
-    protein: number;
-    ingredients: ingredientsI[];
-}
-
-export interface recipeViewFullI extends recipeVerifiedBasicI {
-    recipeView: recipeViewI;
-    recipeComments: CommentI[] | null;
-    recipeLikes: LikesI[] | null;
 }
 
 export interface ForumUserI {
@@ -97,13 +69,21 @@ export const getForumPostsMeals = async () => {
         .get<recipeVerifiedBasicI[][]>(`/forum/recipe/verified`)
         .then((response) => {
             if (response.status === 200) {
-                return response.data[0].concat(response.data[1]);
+                return response.data[0]
+                    .sort((a, b) => {
+                        return a.id && b.id ? b.id - a.id : -1;
+                    })
+                    .concat(
+                        response.data[1].sort((a, b) => {
+                            return a.id && b.id ? b.id - a.id : -1;
+                        }),
+                    );
             }
         });
 };
 export const getForumFullMeal = async (postID: number | undefined) => {
     return await axiosFoodieInstance
-        .get<recipeViewFullI>(`/forum/recipe/${postID}`)
+        .get<PublishedRecipe>(`/forum/recipe/${postID}`)
         .then((response) => {
             if (response.status === 200) {
                 return response.data;
@@ -123,7 +103,7 @@ export const getForumUnverifiedPostsMeals = async () => {
 
 export const getForumUnverifiedPostMeal = async (postID: number | undefined) => {
     return await axiosFoodieInstance
-        .get<recipeViewFullI>(`/forum/recipe/${postID}`)
+        .get<PublishedRecipe>(`/forum/recipe/${postID}`)
         .then((response) => {
             if (response.status === 200) {
                 return response.data;
@@ -132,15 +112,18 @@ export const getForumUnverifiedPostMeal = async (postID: number | undefined) => 
 };
 
 export const getForumPosts = async () => {
-    return await axiosFoodieInstance.get<BasicPostI[][]>(`/forum/post`).then((response) => {
+    return await axiosFoodieInstance.get<Post[][]>(`/forum/post`).then((response) => {
         if (response.status === 200) {
-            return response.data[0].concat(response.data[1]);
+            return response.data[0]
+                .sort((a, b) => b.id - a.id)
+                .concat(response.data[1])
+                .sort((a, b) => b.id - a.id);
         }
     });
 };
 
 export const getForumPost = async (postID: number | undefined) => {
-    return await axiosFoodieInstance.get<FullPostI>(`/forum/post/${postID}`).then((response) => {
+    return await axiosFoodieInstance.get<Post>(`/forum/post/${postID}`).then((response) => {
         if (response.status === 200) {
             return response.data;
         }
