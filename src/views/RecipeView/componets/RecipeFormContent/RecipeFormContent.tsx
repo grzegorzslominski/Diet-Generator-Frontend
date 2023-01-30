@@ -121,6 +121,7 @@ const RecipeFormContent = forwardRef<HTMLDivElement, RecipeFormContent>(
                         </Label>
                         <S.IngredientsList emptyList={Boolean(!recipe.recipesIngredients?.length)}>
                             {recipe.recipesIngredients?.length ? (
+
                                 <ScrollBox height={260} scrollDistance={20}>
                                     <S.IngredientsItemsWrapper>
                                         {recipe.recipesIngredients.map((ingredient, index) => (
@@ -132,6 +133,7 @@ const RecipeFormContent = forwardRef<HTMLDivElement, RecipeFormContent>(
                                                     error={
                                                         recipeValidation.recipesIngredients[index]
                                                     }
+
                                                 >
                                                     {ingredient.name}
                                                 </Label>
