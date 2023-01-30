@@ -206,7 +206,9 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                             setNotification({
                                 label: "Creator account",
                                 header: "Success",
-                                message: "Creator account was created",
+                                message: `Creator account was  ${
+                                    userExtras?.userExtras?.id ? "updated" : "created"
+                                }`,
                                 timeout: 5000,
                             }),
                         );
@@ -224,6 +226,7 @@ export const CreatorFormModal = ({ user, userExtras, onClose }: CreatorFormModal
                 });
         }
         setIsLoading(false);
+        onClose();
     };
 
     return (

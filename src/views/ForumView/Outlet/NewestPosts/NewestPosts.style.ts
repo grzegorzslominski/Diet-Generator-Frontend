@@ -2,14 +2,16 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
+    position: relative;
+    min-height: 100vh;
     width: 100%;
     justify-content: space-between;
 
-  @media screen and (max-width: 900px){
-    flex-direction: column-reverse;
-    align-items: center;
-    gap: 20px;
-  }
+    @media screen and (max-width: 900px) {
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 20px;
+    }
 `;
 
 export const Posts = styled.div`
@@ -17,8 +19,7 @@ export const Posts = styled.div`
     flex-direction: column;
     width: 800px;
 
-  @media screen and (max-width: 900px){
-    align-items: center;
-  }
-
+    @media screen and (max-width: 900px) {
+        align-items: center;
+    }
 `;

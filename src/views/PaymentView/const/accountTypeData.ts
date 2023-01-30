@@ -16,6 +16,6 @@ export const PREMIUM_ACCOUNT_ADVANTAGES: string[] = [
     "and more",
 ];
 
-export const SUB_TABLE_HEADERS = ["LP.", "Payment date", "Start date", "Valid date", "Status"];
+export const SUB_TABLE_HEADERS = ["ID.", "Payment date", "Start date", "Valid date", "Status"];
 
 export const SUB_TABLE_KEY = ["id", "final_payment_time", "start_time", "valid_till", "status"];

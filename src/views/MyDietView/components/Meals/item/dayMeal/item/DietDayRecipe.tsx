@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -5,6 +6,7 @@ import { mainTheme } from "../../../../../../../themes/mainTheme";
 import { ReactComponent as HeartEmptyIcon } from "../../../../../../../assets/icons/heart-empty.svg";
 import { ReactComponent as HeartFullIcon } from "../../../../../../../assets/icons/heart-full.svg";
 import { ReactComponent as Info } from "../../../../../../../assets/icons/infoIcon.svg";
+import { ReactComponent as ReloadIcon } from "../../../../../../../assets/icons/reaload.svg";
 import noPhoto from "../../../../../../../assets/no-photo.png";
 import { prepareRecipeNutriensToChart } from "../../../../../../../helpers/statistics";
 import { setNotification } from "../../../../../../../redux/slices/notification";
@@ -13,9 +15,16 @@ import { NUTRIONS_BOX_PRESET } from "../../../const/nutrion";
 import MealInfoModal from "../../../../../../UserProfileView/BasicUserProfileView/components/OwnRecipesCard/components/OwnRecipe/RecipeInfoModal/RecipeInfoModal";
 import Label from "../../../../../../../components/UI/Label/Label";
 import PieChart from "../../../../../../../components/Charts/PieChart/PieChart";
+import RecipeRatingModal from "./DayMealDetailsItem/RecipeRatingModal/RecipeRatingModal";
 
 import { Like, PublishedRecipe } from "../../../../../../../models/User/ExpandedUser";
-import { LikeMealStatus, sendLikeRecipe } from "../../../../../../../models/Meal/Recipe";
+import {
+    INIT_REPLACE_RECIPE_INFO,
+    LikeMealStatus,
+    replaceRecipe,
+    ReplaceRecipeInfo,
+    sendLikeRecipe,
+} from "../../../../../../../models/Meal/Recipe";
 
 import * as S from "./DietDayRecipe.style";
 
@@ -26,12 +35,17 @@ const checkUserLikeMeal = (recipeLikeList: Like[], userID: number) => {
 type DietDayRecipeProps = {
     recipe: PublishedRecipe;
     userID: number;
+    dayDietId: number;
 };
 
-const DietDayRecipe = ({ recipe, userID }: DietDayRecipeProps) => {
+const DietDayRecipe = ({ recipe, userID, dayDietId }: DietDayRecipeProps) => {
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
+
     const [likeRecipeStatus, setLikeRecipeStatus] = useState<LikeMealStatus>();
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [openRatingModal, setOpenRatingModal] = useState(false);
+    const [isReloading, setIsReloading] = useState(false);
 
     const preparedNutriensChartData = useMemo(
         () =>
@@ -43,8 +57,6 @@ const DietDayRecipe = ({ recipe, userID }: DietDayRecipeProps) => {
         [recipe],
     );
 
-    const handleIsOpen = () => setIsOpen((current) => !current);
-
     useEffect(() => {
         if (userID) {
             const isLiked = checkUserLikeMeal(recipe.recipeLikes, userID);
@@ -55,6 +67,44 @@ const DietDayRecipe = ({ recipe, userID }: DietDayRecipeProps) => {
             setLikeRecipeStatus(currentLikeStatus);
         }
     }, [recipe]);
+
+    const handleIsOpen = () => setIsOpen((current) => !current);
+
+    const changeRecipeHandler = async () => {
+        setIsReloading(true);
+
+        const replacedRecipeInfo: ReplaceRecipeInfo = JSON.parse(
+            JSON.stringify(INIT_REPLACE_RECIPE_INFO),
+        );
+        replacedRecipeInfo.recipeToReplaceId = recipe.id ? recipe.id : 0;
+        replacedRecipeInfo.dayDietId = dayDietId;
+
+        const replaceResponse = await replaceRecipe(replacedRecipeInfo);
+        if (replaceResponse) {
+            queryClient.invalidateQueries(["current-diet"], {
+                refetchType: "all",
+            });
+            dispatch(
+                setNotification({
+                    label: "Replace meal",
+                    header: "Success",
+                    message: "Meal was replaced",
+                    timeout: 5000,
+                }),
+            );
+        } else {
+            dispatch(
+                setNotification({
+                    label: "Replace meal",
+                    header: "Failed",
+                    message: "Meal replacement failed, please try again later",
+                    timeout: 5000,
+                }),
+            );
+        }
+
+        setIsReloading(false);
+    };
 
     const onLikeRecipe = async () => {
         if (!recipe.id) {
@@ -75,7 +125,7 @@ const DietDayRecipe = ({ recipe, userID }: DietDayRecipeProps) => {
                 setNotification({
                     label: "Like post",
                     header: "Success",
-                    message: "Like was added",
+                    message: `Like was ${currentLikeMealStatus ? "added" : "added"}`,
                     timeout: 5000,
                 }),
             );
@@ -160,28 +210,46 @@ const DietDayRecipe = ({ recipe, userID }: DietDayRecipeProps) => {
                         })}
                     </S.ThirdItemUl>
                 </S.ThirdItemContainer>
-
-                <S.FourthContainer>
-                    <S.FourthContainerItem>
-                        <Label
-                            fontFamily='Montserrat'
-                            fontWeight='500'
-                            fontSize='22px'
-                            width='15px'
-                            color={mainTheme.colors.mainBlack}
-                        >
-                            {likeRecipeStatus?.likesCount ? likeRecipeStatus.likesCount : 0}
-                        </Label>
-                        {likeRecipeStatus?.isLiked ? (
-                            <HeartFullIcon onClick={onLikeRecipe} />
-                        ) : (
-                            <HeartEmptyIcon onClick={onLikeRecipe} />
-                        )}
-                        <Info onClick={handleIsOpen} />
-                    </S.FourthContainerItem>
-                </S.FourthContainer>
+                <S.ActionsContainer>
+                    <S.FourthContainer>
+                        <S.FourthContainerItem isReloading={isReloading}>
+                            <ReloadIcon onClick={changeRecipeHandler} />
+                            <Label
+                                fontFamily='Montserrat'
+                                fontWeight='500'
+                                fontSize='22px'
+                                width='15px'
+                                color={mainTheme.colors.mainBlack}
+                            >
+                                {likeRecipeStatus?.likesCount ? likeRecipeStatus.likesCount : 0}
+                            </Label>
+                            {likeRecipeStatus?.isLiked ? (
+                                <HeartFullIcon onClick={onLikeRecipe} />
+                            ) : (
+                                <HeartEmptyIcon onClick={onLikeRecipe} />
+                            )}
+                            <Info onClick={handleIsOpen} />
+                        </S.FourthContainerItem>
+                    </S.FourthContainer>
+                    <Label
+                        fontSize='14px'
+                        fontWeight='600'
+                        color={mainTheme.colors.mainBlack}
+                        textAlign='end'
+                        onClick={() => setOpenRatingModal(true)}
+                    >
+                        Rate meal
+                    </Label>
+                </S.ActionsContainer>
             </S.Content>
             {isOpen && <MealInfoModal userRecipe={recipe} close={() => setIsOpen(false)} />}
+            {openRatingModal && recipe.id && (
+                <RecipeRatingModal
+                    recipeID={recipe.id}
+                    recipeTitle={recipe.title}
+                    close={() => setOpenRatingModal(false)}
+                />
+            )}
         </S.Container>
     );
 };

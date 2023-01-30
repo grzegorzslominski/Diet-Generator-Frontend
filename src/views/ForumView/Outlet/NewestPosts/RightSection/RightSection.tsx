@@ -57,9 +57,7 @@ const RightSection = ({ basicPosts }: RightSectionProps) => {
                     onClick={handleIsOpen}
                     background={mainTheme.gradients.buttonGradient}
                 >
-                    <Label textAlign='center' color='white'>
-                        Add new post
-                    </Label>
+                    Add new post
                 </Button>
             </S.Container2>
             <S.Container>

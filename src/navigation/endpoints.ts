@@ -31,6 +31,7 @@ export enum ENDPOINTS_MEALS {
     removeUserRecipe = "/recipe",
     editUserRecipe = "/recipe",
     likeRecipe = "/forum/recipe/like",
+    replaceMeal = "diet/generate/replaceRecipe",
 }
 
 export enum ENDPOINTS_EXPANDE_USER_PROFILE {

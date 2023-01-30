@@ -11,6 +11,7 @@ import Label from "../../../../../components/UI/Label/Label";
 import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
 
 import { PublishedRecipe } from "../../../../../models/User/ExpandedUser";
+import { Product } from "../../../../../models/Meal/Exclusions";
 import { DietDay } from "../const/meal";
 
 import * as S from "./DietDayItem.style";
@@ -112,7 +113,11 @@ const DietDayItem = ({ dietDay, timestamp, index, userID }: DietDayItemProps) =>
                 </S.RightSection>
             </S.Container>
             {open && dietDay.recipesForToday && (
-                <DayMealList recipes={dietDay.recipesForToday} userID={userID} />
+                <DayMealList
+                    recipes={dietDay.recipesForToday}
+                    userID={userID}
+                    dayDietId={dietDay.id}
+                />
             )}
             <S.ActionContainer isOpen={open}>
                 <img onClick={handleIsOpen} src={downArrow} alt='downArrow' />

@@ -11,10 +11,6 @@ export const Container = styled.div`
     position: relative;
     padding: 24px;
 
-    &:hover {
-        border: solid black 1px;
-    }
-
     @media screen and (max-width: 1250px) {
         width: 500px;
     }

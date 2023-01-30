@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
     display: flex;
@@ -59,4 +59,50 @@ export const Substep = styled.div`
     gap: 18px;
     width: 100%;
     align-items: center;
+`;
+
+export const SettingsContainer = styled.div`
+    display: flex;
+    gap: 24px;
+    width: 100%;
+`;
+
+export const SettingItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+`;
+
+type MealCountItemProps = {
+    checked: boolean;
+};
+
+export const MealCountContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 24px;
+`;
+
+export const MealCountItem = styled.div<MealCountItemProps>`
+    border: 1px solid ${({ theme }) => theme.colors.secondaryColor};
+    border-radius: 3px;
+    height: 50px;
+    width: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.35s;
+
+    ${({ theme, checked }) =>
+        checked &&
+        css`
+            background: ${theme.colors.secondaryColor};
+            span {
+                color: white;
+            }
+        `};
+
+    :hover {
+        cursor: pointer;
+    }
 `;

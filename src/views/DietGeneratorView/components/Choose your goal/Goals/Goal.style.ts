@@ -14,12 +14,13 @@ export const GoalItem = styled.div<GoalItemProps>`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 150px;
+    width: 125px;
     gap: 6px;
+    transition: all 0.35s;
 
     & > svg {
-        height: 50px;
-        max-height: 50px;
+        height: 30px;
+        max-height: 30px;
         width: auto;
     }
     border: solid 1px ${({ theme }) => theme.colors.secondaryColor};

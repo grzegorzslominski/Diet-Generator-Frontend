@@ -1,10 +1,9 @@
-/* eslint-disable camelcase */
 import { useDispatch } from "react-redux";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-import { calculatePremiumRemainingTime, parseUnixTime } from "../AuthViews/helpers/date";
+import { parseUnixTime } from "../AuthViews/helpers/date";
 import { getUserData, UserData } from "../../models/User/User";
 import { setUser } from "../../redux/slices/user";
 import { setNotification } from "../../redux/slices/notification";
@@ -59,12 +58,13 @@ const PaymentView = ({ user }: PaymentView) => {
             const subscriptionRequest: SubscriptionRequest = {
                 start_time: paypalResponse.start_time,
                 final_payment_time: paypalResponse.billing_info.final_payment_time,
-                email_address: paypalResponse.subscribed.email_address,
+                email_address: paypalResponse.subscriber.email_address,
                 status: paypalResponse.status,
-                payer_id: paypalResponse.subscribed.payer_id,
+                payer_id: paypalResponse.subscriber.payer_id,
                 id: paypalResponse.id,
             };
             const subscriptionConfirmation = await postNewSubscriptionInfo(subscriptionRequest);
+
             if (subscriptionConfirmation && subscriptionConfirmation.status === "ACTIVE") {
                 queryClient.invalidateQueries(["subInfo"], {
                     refetchType: "all",
@@ -77,6 +77,9 @@ const PaymentView = ({ user }: PaymentView) => {
                         timeout: 5000,
                     }),
                 );
+                queryClient.invalidateQueries(["subInfo"], {
+                    refetchType: "all",
+                });
                 const refreshedUser = await getUserData();
                 if (refreshedUser) {
                     dispatch(setUser(refreshedUser));
@@ -327,31 +330,34 @@ const PaymentView = ({ user }: PaymentView) => {
                                                 </S.TableRowItem>
                                             ))}
                                         </S.TableRow>
-                                        {subInfo.reverse().map((sub: Subscription) => {
-                                            return (
-                                                <S.TableRow key={sub.id}>
-                                                    {SUB_TABLE_KEY.map((rowItemKey) => (
-                                                        <S.TableRowItem
-                                                            key={`${sub.id}-${rowItemKey}`}
-                                                        >
-                                                            <Label
-                                                                fontSize='13px'
-                                                                color={
-                                                                    mainTheme.colors.secondaryColor
-                                                                }
+                                        {subInfo
+                                            .map((sub: Subscription) => {
+                                                return (
+                                                    <S.TableRow key={sub.id}>
+                                                        {SUB_TABLE_KEY.map((rowItemKey) => (
+                                                            <S.TableRowItem
+                                                                key={`${sub.id}-${rowItemKey}`}
                                                             >
-                                                                {rowItemKey !== "id" &&
-                                                                rowItemKey !== "status"
-                                                                    ? parseUnixTime(
-                                                                          +sub[rowItemKey],
-                                                                      )
-                                                                    : sub[rowItemKey]}
-                                                            </Label>
-                                                        </S.TableRowItem>
-                                                    ))}
-                                                </S.TableRow>
-                                            );
-                                        })}
+                                                                <Label
+                                                                    fontSize='13px'
+                                                                    color={
+                                                                        mainTheme.colors
+                                                                            .secondaryColor
+                                                                    }
+                                                                >
+                                                                    {rowItemKey !== "id" &&
+                                                                    rowItemKey !== "status"
+                                                                        ? parseUnixTime(
+                                                                              +sub[rowItemKey],
+                                                                          )
+                                                                        : sub[rowItemKey]}
+                                                                </Label>
+                                                            </S.TableRowItem>
+                                                        ))}
+                                                    </S.TableRow>
+                                                );
+                                            })
+                                            .reverse()}
                                     </>
                                 </S.SubHistoryTable>
                             ) : (

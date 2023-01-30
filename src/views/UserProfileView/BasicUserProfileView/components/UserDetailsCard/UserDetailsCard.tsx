@@ -335,7 +335,7 @@ const UserDetailsCard = ({ className, user, dailyCalGoal }: UserDetailsCardProps
                                     fontWeight='700'
                                     lineHeight='18px'
                                 >
-                                    {dailyCalGoal ? `${dailyCalGoal} calories` : "-"}
+                                    {dailyCalGoal ? `${dailyCalGoal} kcal` : "-"}
                                 </Label>
                             </S.ExtraDetail>
                             <S.ExtraDetail>

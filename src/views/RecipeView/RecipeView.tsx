@@ -175,7 +175,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                             setNotification({
                                 label: "Recipe",
                                 header: "Success",
-                                message: `Meal was ${!recipe?.id ? "added" : "edited"}`,
+                                message: `Recipe was ${!recipe?.id ? "added" : "edited"}`,
                                 timeout: 5000,
                             }),
                         );
@@ -184,7 +184,7 @@ const RecipeView = ({ userID }: RecipeViewProps) => {
                 .catch((err) => {
                     const errorMessage = err.response.data?.message
                         ? err.response.data.message
-                        : `Cannot ${!recipe.id ? "add" : "edit"} meal`;
+                        : `Cannot ${!recipe.id ? "add" : "edit"} recipe`;
 
                     dispatch(
                         setNotification({

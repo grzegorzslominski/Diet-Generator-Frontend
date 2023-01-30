@@ -44,7 +44,7 @@ const ACTIONS_ITEMS: ActionItem = {
                 color={mainTheme.colors.mainBlack}
                 fontSize='12px'
                 fontWeight='700'
-                lineHeight='12px'
+                lineHeight='10px'
             >
                 ?
             </Label>

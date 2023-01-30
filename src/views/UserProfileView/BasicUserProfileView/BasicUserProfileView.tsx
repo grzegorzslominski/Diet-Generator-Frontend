@@ -31,7 +31,11 @@ const BasicUserProfileView = () => {
             ) : (
                 <S.Container>
                     <S.ProfileDetailsContainer>
-                        <UserDetailsCard className='details' user={user} />
+                        <UserDetailsCard
+                            className='details'
+                            user={user}
+                            dailyCalGoal={basicProfileData.dailyCalGoal}
+                        />
                         <UserStatisticsCard
                             className='statistics'
                             userStats={basicProfileData.userStats}

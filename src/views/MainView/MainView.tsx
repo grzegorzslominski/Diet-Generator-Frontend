@@ -29,6 +29,7 @@ import RecipeView from "../RecipeView/RecipeView";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 import * as S from "./MainView.style";
+import Notification from "../../components/UI/Notification/Notification";
 
 const MainView = () => {
     const location = useLocation();
@@ -157,6 +158,7 @@ const MainView = () => {
                         </S.ContentWrapper>
                     </>
                 )}
+                <Notification />
             </S.Container>
         </ThemeProvider>
     );

@@ -7,6 +7,7 @@ import GradientLabel from "../GradientLabel/GradientLabel";
 import { TStore } from "../../../redux/store/store";
 
 import * as S from "./Notification.style";
+import { mainTheme } from "../../../themes/mainTheme";
 
 const NOTIFICATION_VARIANTS = {
     hidden: { opacity: 0, y: 300, transition: { duration: 0.75, ease: "easeOut" } },
@@ -67,18 +68,20 @@ const Notification = () => {
                                     fontWeight='400'
                                     fontSize='14px'
                                     lineHeight='30px'
-                                    color='#7a86a1'
+                                    color='white'
                                 >
                                     {notificationData?.label}
                                 </Label>
                             )}
-                            <GradientLabel>
-                                <Label fontWeight='700' fontSize='28px' lineHeight='30px'>
+                            <GradientLabel gradient={mainTheme.colors.checked}>
+                                <Label fontWeight='700' fontSize='28px' lineHeight='24px'>
                                     {notificationData?.header.toUpperCase()}
                                 </Label>
                             </GradientLabel>
                         </S.HeaderContainer>
-                        <Label fontSize='14px'>{notificationData?.message}</Label>
+                        <Label fontSize='16px' color='white'>
+                            {notificationData?.message}
+                        </Label>
                         <S.StyledClose onClick={() => setShowNotification(false)} />
                     </S.Content>
                 </S.Container>

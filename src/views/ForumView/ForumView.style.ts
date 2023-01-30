@@ -8,15 +8,13 @@ export const Container = styled.div`
     position: relative;
     background-size: cover;
     align-items: center;
-    margin: 50px 0 50px 0;
 `;
 
 export const Header = styled.div`
     display: flex;
     flex-wrap: warp;
     width: 1100px;
-    jgap: 190px
-
+    gap: 190px;
     @media screen and (max-width: 1250px) {
         width: 530px;
         display: grid;
@@ -35,7 +33,7 @@ export const HeaderItem = styled.div`
     box-shadow: 6px 6px 25px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     width: 250px;
-    height: 175px;
+    height: 105px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,10 +42,6 @@ export const HeaderItem = styled.div`
     @media screen and (max-width: 535px) {
         width: 120px;
         height: 120px;
-    }
-
-    &:hover {
-        border: solid black 1px;
     }
 `;
 

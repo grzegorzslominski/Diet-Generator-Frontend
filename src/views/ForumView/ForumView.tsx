@@ -9,6 +9,7 @@ import * as S from "./ForumView.style";
 import { useSelector } from "react-redux";
 import { TStore } from "../../redux/store/store";
 import { AuthorityType } from "../../models/User/User";
+import ViewBox from "../../components/UI/ViewBox/ViewBox";
 
 const ForumView = () => {
     const navigate = useNavigate();
@@ -23,16 +24,34 @@ const ForumView = () => {
 
     const user = useSelector((state: TStore) => state?.userReducer);
     return (
-        <S.Container>
-            <S.Header>
-                {NAV_ITEMS.map((item) => {
-                    if (item.authorities) {
-                        let flag = false;
-                        user &&
-                            user?.authorities?.map((authority: AuthorityType) => {
-                                item.authorities?.includes(authority) && (flag = true);
-                            });
-                        if (flag)
+        <ViewBox>
+            <S.Container>
+                <S.Header>
+                    {NAV_ITEMS.map((item) => {
+                        if (item.authorities) {
+                            let flag = false;
+                            user &&
+                                user?.authorities?.map((authority: AuthorityType) => {
+                                    item.authorities?.includes(authority) && (flag = true);
+                                });
+                            if (flag)
+                                return (
+                                    <S.HeaderItem
+                                        key={item.label}
+                                        onClick={() => navigationHandler(item)}
+                                    >
+                                        <Label
+                                            fontFamily='Lato'
+                                            fontWeight='600'
+                                            fontSize='18px'
+                                            textAlign='center'
+                                            color={mainTheme.colors.mainBlack}
+                                        >
+                                            {item.label}
+                                        </Label>
+                                    </S.HeaderItem>
+                                );
+                        } else {
                             return (
                                 <S.HeaderItem
                                     key={item.label}
@@ -41,8 +60,7 @@ const ForumView = () => {
                                     <Label
                                         fontFamily='Lato'
                                         fontWeight='600'
-                                        fontSize='24px'
-                                        width='225'
+                                        fontSize='18px'
                                         textAlign='center'
                                         color={mainTheme.colors.mainBlack}
                                     >
@@ -50,28 +68,14 @@ const ForumView = () => {
                                     </Label>
                                 </S.HeaderItem>
                             );
-                    } else {
-                        return (
-                            <S.HeaderItem key={item.label} onClick={() => navigationHandler(item)}>
-                                <Label
-                                    fontFamily='Lato'
-                                    fontWeight='600'
-                                    fontSize='24px'
-                                    width='225'
-                                    textAlign='center'
-                                    color={mainTheme.colors.mainBlack}
-                                >
-                                    {item.label}
-                                </Label>
-                            </S.HeaderItem>
-                        );
-                    }
-                })}
-            </S.Header>
-            <S.MiddleSection>
-                <Outlet />
-            </S.MiddleSection>
-        </S.Container>
+                        }
+                    })}
+                </S.Header>
+                <S.MiddleSection>
+                    <Outlet />
+                </S.MiddleSection>
+            </S.Container>
+        </ViewBox>
     );
 };
 

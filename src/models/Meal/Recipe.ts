@@ -1,7 +1,7 @@
+import { Product } from "./Exclusions";
 import { ENDPOINTS_MEALS } from "./../../navigation/endpoints";
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
 import { PostAuthor } from "../Forum/Post";
-import { CommentsI } from "../../views/ForumView/Outlet/NewestMeals/const/Meals";
 
 export const UNITS: string[] = ["g", "ml"];
 
@@ -31,15 +31,23 @@ export type Recipe = {
     user: PostAuthor;
     recipesIngredients: Ingredient[];
     recipeComments?: CommentMeal[] | null;
-    [key: string]: number | string | boolean | Ingredient[] | null | undefined | PostAuthor | CommentMeal[];
+    [key: string]:
+        | number
+        | string
+        | boolean
+        | Ingredient[]
+        | null
+        | undefined
+        | PostAuthor
+        | CommentMeal[];
 };
 
-export type  CommentMeal = {
+export type CommentMeal = {
     id: number;
     content: string;
     timestamp: number;
-    user: PostAuthor
-}
+    user: PostAuthor;
+};
 
 export type RecipeNutriens = {
     fat: number;
@@ -98,6 +106,30 @@ export type Unit = "ml" | "g";
 export type LikeMealStatus = {
     likesCount: number;
     isLiked: boolean;
+};
+
+export type ReplaceRecipeInfo = {
+    dayDietId: number;
+    recipeToReplaceId: number;
+    [key: string]: number;
+};
+
+export const INIT_REPLACE_RECIPE_INFO: ReplaceRecipeInfo = {
+    dayDietId: 0,
+    recipeToReplaceId: 0,
+};
+
+export const replaceRecipe = async (replaceRecipeInfo: ReplaceRecipeInfo) => {
+    return axiosFoodieInstance
+        .post(ENDPOINTS_MEALS.replaceMeal, replaceRecipeInfo)
+        .then((response) => {
+            if (response.status === 200) {
+                return response.data;
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 export const sendLikeRecipe = async (recipeID: number) => {

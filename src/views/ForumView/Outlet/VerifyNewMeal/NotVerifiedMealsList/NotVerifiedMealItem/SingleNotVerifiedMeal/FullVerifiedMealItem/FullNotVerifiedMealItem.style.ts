@@ -4,7 +4,6 @@ import mainBackgroudn from "../../../../../../../../assets/mainBackground.png";
 export const Container = styled.div`
     width: 1000px;
     background: url(${mainBackgroudn});
-    border: solid black 1px;
     border-radius: 10px;
     height: 700px;
     display: flex;

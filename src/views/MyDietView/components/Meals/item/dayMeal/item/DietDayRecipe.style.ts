@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { mainTheme } from "../../../../../../../themes/mainTheme";
 
 export const Container = styled.div`
@@ -125,23 +125,56 @@ export const FourthContainer = styled.div`
     }
 `;
 
-export const FourthContainerItem = styled.div`
+type FourthContainerItem = {
+    isReloading: boolean;
+};
+
+export const ActionsContainer = styled.div`
     display: flex;
-    gap: 16px;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & > span {
+        :hover {
+            cursor: pointer;
+        }
+    }
+`;
+
+export const FourthContainerItem = styled.div<FourthContainerItem>`
+    display: flex;
+    gap: 10px;
 
     svg {
         transition: all 1s;
-        width: 25px;
+        width: 22px;
+        max-width: 22px;
         height: auto;
         fill: ${mainTheme.colors.secondaryColor};
         path {
-            stroke: 2px;
             fill: ${mainTheme.colors.secondaryColor};
         }
 
         :hover {
             cursor: pointer;
             transform: scale(1.05);
+        }
+    }
+
+    ${({ isReloading }) =>
+        isReloading &&
+        css`
+            & > svg:first-child {
+                animation: spinnerAnim 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            }
+        `}
+
+    @keyframes spinnerAnim {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
         }
     }
 `;
