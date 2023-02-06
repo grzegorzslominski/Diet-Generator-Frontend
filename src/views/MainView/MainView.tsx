@@ -22,14 +22,14 @@ import NavbarVertical from "../../components/NavbarVertical/NavbarVertical";
 import ExpandedUserProfileView from "../UserProfileView/ExpandedUserProfileView/ExpandedUserProfileView";
 import PaymentView from "../PaymentView/PaymentView";
 import ForumView from "../ForumView/ForumView";
-import NewestPosts from "../ForumView/Outlet/NewestPosts/NewestPosts";
-import NewestMeals from "../ForumView/Outlet/NewestMeals/NewestMeals";
-import VerifyNewMeal from "../ForumView/Outlet/VerifyNewMeal/VerifyNewMeal";
 import RecipeView from "../RecipeView/RecipeView";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import Notification from "../../components/UI/Notification/Notification";
+import PostsSection from "../ForumView/PostsSection/PostsSection";
+import PostView from "../ForumView/PostsSection/PostView/PostView";
+import RecipesSection from "../ForumView/RecipesSection/RecipesSection";
 
 import * as S from "./MainView.style";
-import Notification from "../../components/UI/Notification/Notification";
 
 const MainView = () => {
     const location = useLocation();
@@ -124,18 +124,21 @@ const MainView = () => {
                                         path={NAVIGATION.home}
                                         element={<HomeView authorizeUser={authorizeUser} />}
                                     />
-                                    <Route path={NAVIGATION.forum} element={<ForumView />}>
+                                    <Route
+                                        path={NAVIGATION.forum}
+                                        element={<ForumView user={user} />}
+                                    >
                                         <Route
                                             path={`${NAVIGATION.forumPosts}`}
-                                            element={<NewestPosts />}
+                                            element={<PostsSection user={user} />}
                                         />
                                         <Route
                                             path={`${NAVIGATION.forumPosts}/:postID`}
-                                            element={<NewestPosts />}
+                                            element={<PostView userID={user?.id} />}
                                         />
                                         <Route
                                             path={NAVIGATION.forumMeals}
-                                            element={<NewestMeals />}
+                                            element={<RecipesSection user={user} />}
                                         />
                                         {/* <Route
                                             path={NAVIGATION.forumNewlyAddedMeals}

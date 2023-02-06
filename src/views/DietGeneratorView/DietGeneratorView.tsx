@@ -9,14 +9,12 @@ import { NAVIGATION } from "../../navigation/paths";
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
 import { ENDPOINTS_USER } from "../../navigation/endpoints";
 import ExclusionProducts from "../../components/ExclusionProducts/ExclusionProducts";
-import { ReactComponent as MealPerDay } from "../../assets/dietGenerator/images/mealPerDay.svg";
 import { RECIPE_TYPE_PRESET } from "../../models/Meal/Recipe";
 import { mainTheme } from "../../themes/mainTheme";
 import { GoalItem } from "./components/Choose your goal/Goals/Goal.style";
 
 import Label from "../../components/UI/Label/Label";
 import Button from "../../components/UI/Button/Button";
-import Input from "../../components/UI/Input/Input";
 import ViewBox from "../../components/UI/ViewBox/ViewBox";
 import BoxPad from "../../components/UI/BoxPad/BoxPad";
 import Goal from "./components/Choose your goal/Goals/Goal";

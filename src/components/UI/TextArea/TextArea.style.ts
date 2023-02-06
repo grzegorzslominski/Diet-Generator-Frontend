@@ -78,11 +78,7 @@ export const Container = styled.div<ContainerProps>`
     flex-direction: column;
     position: relative;
     width: ${({ width }) => width};
-    height: 100%;
-
-    @media only screen and (max-width: 1000px) {
-        width: 100%;
-    }
+    height: fit-content;
 `;
 
 export const LimitContainer = styled.div`

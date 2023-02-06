@@ -8,13 +8,14 @@ import Label from "../../../../../components/UI/Label/Label";
 import BoxPad from "../../../../../components/UI/BoxPad/BoxPad";
 import RedirectButton from "../../../../../components/UI/RedirectButton/RedirectButton";
 
-import { Post, PostAuthor } from "../../../../../models/Forum/Post";
+import { Post } from "../../../../../models/Forum/Post";
+import { PublicUser } from "../../../../../models/User/ExpandedUser";
 
 import * as S from "./ProfileArticlestyle";
 
 type ProfileArticleProps = {
     post: Post;
-    author?: PostAuthor;
+    author?: PublicUser;
 };
 
 const ProfileArticle = ({ post, author }: ProfileArticleProps) => {

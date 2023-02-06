@@ -35,7 +35,8 @@ export type PublicUser = {
     id: number;
     firstName: string;
     lastName: string;
-    subscribed: boolean;
+    subscribed?: boolean;
+    userProfilePicture?: string;
 };
 
 export type UserExtras = {
@@ -65,7 +66,7 @@ export type Like = {
     user: PublicUser;
 };
 
-export type FollowProfileStatus = {
+export type FollowStatus = {
     follow: boolean;
     followersCount: number;
 };

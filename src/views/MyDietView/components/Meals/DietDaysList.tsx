@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getExcludedProducts } from "../../../DietGeneratorView/components/Choose your goal/Goals/const/data";
 import { DietDay, getDiet } from "./const/meal";
 
 import Spinner from "../../../../components/UI/Spinner/Spinner";

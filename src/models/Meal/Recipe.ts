@@ -1,7 +1,6 @@
-import { Product } from "./Exclusions";
 import { ENDPOINTS_MEALS } from "./../../navigation/endpoints";
 import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
-import { PostAuthor } from "../Forum/Post";
+import { PublicUser } from "../User/ExpandedUser";
 
 export const UNITS: string[] = ["g", "ml"];
 
@@ -28,7 +27,7 @@ export type Recipe = {
     fat: number;
     protein: number;
     carbs: number;
-    user: PostAuthor;
+    user: PublicUser;
     recipesIngredients: Ingredient[];
     recipeComments?: CommentMeal[] | null;
     [key: string]:
@@ -38,7 +37,7 @@ export type Recipe = {
         | Ingredient[]
         | null
         | undefined
-        | PostAuthor
+        | PublicUser
         | CommentMeal[];
 };
 
@@ -46,7 +45,7 @@ export type CommentMeal = {
     id: number;
     content: string;
     timestamp: number;
-    user: PostAuthor;
+    user: PublicUser;
 };
 
 export type RecipeNutriens = {

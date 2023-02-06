@@ -12,10 +12,11 @@ import { prepareRecipeNutriensToChart } from "../../../../../../../helpers/stati
 import { setNotification } from "../../../../../../../redux/slices/notification";
 import { NUTRIONS_BOX_PRESET } from "../../../const/nutrion";
 
-import MealInfoModal from "../../../../../../UserProfileView/BasicUserProfileView/components/OwnRecipesCard/components/OwnRecipe/RecipeInfoModal/RecipeInfoModal";
+import RecipeInfo from "../../../../../../UserProfileView/BasicUserProfileView/components/OwnRecipesCard/components/OwnRecipe/RecipeInfo/RecipeInfo";
 import Label from "../../../../../../../components/UI/Label/Label";
 import PieChart from "../../../../../../../components/Charts/PieChart/PieChart";
 import RecipeRatingModal from "./DayMealDetailsItem/RecipeRatingModal/RecipeRatingModal";
+import ModalPortal from "../../../../../../../components/UI/ModalPortal/ModalPortal";
 
 import { Like, PublishedRecipe } from "../../../../../../../models/User/ExpandedUser";
 import {
@@ -242,7 +243,11 @@ const DietDayRecipe = ({ recipe, userID, dayDietId }: DietDayRecipeProps) => {
                     </Label>
                 </S.ActionsContainer>
             </S.Content>
-            {isOpen && <MealInfoModal userRecipe={recipe} close={() => setIsOpen(false)} />}
+            {isOpen && (
+                <ModalPortal close={() => setIsOpen(false)} blurBackground blurLevel='normal'>
+                    <RecipeInfo recipe={recipe} editMode />
+                </ModalPortal>
+            )}
             {openRatingModal && recipe.id && (
                 <RecipeRatingModal
                     recipeID={recipe.id}

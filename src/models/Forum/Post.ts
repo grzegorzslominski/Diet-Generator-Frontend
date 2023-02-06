@@ -1,25 +1,34 @@
-export type Post = {
+import { ENDPOINTS_FORUM } from "./../../navigation/endpoints";
+import axiosFoodieInstance from "../../axios/axiosFoodieInstance";
+import { PublicUser } from "../User/ExpandedUser";
+
+export type PostBase = {
     id: number;
     timestamp: number;
     title: string;
     description: string;
-    author: PostAuthor;
-    likes: PostLike[];
+    author: PublicUser;
     postComments: [];
     postImagePath: string | null;
     userImagePath: string | null;
+    userProfilePicture?: string | null;
+};
+
+export type Post = PostBase & {
+    postLikes: PostLike[];
+};
+
+export type FullPost = PostBase & {
+    likes: PostLike[];
 };
 
 export type PostLike = {
     id: number;
     timestamp: number;
-    user: PostAuthor;
+    user: PublicUser;
 };
 
-export type PostAuthor = {
-    id: number;
-    firstName: string | null;
-    lastName: string | null;
-    subscribed?: boolean;
-    userProfilePicture?: string;
+export const likePost = async (postID: number) => {
+    const response = await axiosFoodieInstance.get(`${ENDPOINTS_FORUM.likePost}/${postID}`);
+    return response.data;
 };

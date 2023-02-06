@@ -5,11 +5,12 @@ import noPhoto from "../../assets/no-photo.jpg";
 import { prepareRecipeNutriensToChart } from "../../helpers/statistics";
 import { prepareRecipeInstrucion } from "../../helpers/textParse";
 
-import RecipeInfoModal from "../../views/UserProfileView/BasicUserProfileView/components/OwnRecipesCard/components/OwnRecipe/RecipeInfoModal/RecipeInfoModal";
+import RecipeInfo from "../../views/UserProfileView/BasicUserProfileView/components/OwnRecipesCard/components/OwnRecipe/RecipeInfo/RecipeInfo";
 import GradientLabel from "../UI/GradientLabel/GradientLabel";
 import ActionButton from "../UI/ActionButton/ActionButton";
 import Label from "../UI/Label/Label";
 import PieChart from "../Charts/PieChart/PieChart";
+import ModalPortal from "../UI/ModalPortal/ModalPortal";
 
 import { Ingredient, RECIPE_NUTRIONS_PRESET } from "../../models/Meal/Recipe";
 import { PublishedRecipe } from "../../models/User/ExpandedUser";
@@ -167,7 +168,9 @@ const RecipeBox = ({ recipe, version = "basic" }: RecipeBoxProps) => {
                 </S.AuthorBox>
             )}
             {openRecipeModal && (
-                <RecipeInfoModal userRecipe={recipe} close={() => setOprenRecipeModal(false)} />
+                <ModalPortal close={close} blurBackground blurLevel='normal'>
+                    <RecipeInfo recipe={recipe} />
+                </ModalPortal>
             )}
         </S.Wrapper>
     );

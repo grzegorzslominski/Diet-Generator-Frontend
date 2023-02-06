@@ -5,7 +5,8 @@ import { mainTheme } from "../../../../../../../themes/mainTheme";
 import NutriensBarChart from "../../../../../../../components/NutriensBarChart/NutriensBarChart";
 import ActionButton from "../../../../../../../components/UI/ActionButton/ActionButton";
 import Label from "../../../../../../../components/UI/Label/Label";
-import RecipeInfoModal from "./RecipeInfoModal/RecipeInfoModal";
+import RecipeInfo from "./RecipeInfo/RecipeInfo";
+import ModalPortal from "../../../../../../../components/UI/ModalPortal/ModalPortal";
 
 import { Recipe } from "../../../../../../../models/Meal/Recipe";
 
@@ -52,11 +53,13 @@ const OwnRecipe = ({ userRecipe }: OwnRecipeProps) => {
                 </S.CaloriesValueContainer>
             </S.MealValuesSection>
             {openRecipeModal && (
-                <RecipeInfoModal
-                    editMode
-                    userRecipe={userRecipe}
+                <ModalPortal
                     close={() => setOpenRecipeInfoModal(false)}
-                />
+                    blurBackground
+                    blurLevel='normal'
+                >
+                    <RecipeInfo recipe={userRecipe} editMode />
+                </ModalPortal>
             )}
         </S.Container>
     );

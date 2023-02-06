@@ -7,7 +7,7 @@ import { ReactComponent as HeartFullIcon } from "../../../assets/icons/heart-ful
 import {
     changeFollowingUserStatus,
     Follower,
-    FollowProfileStatus,
+    FollowStatus,
     getExpandedUserProfile,
 } from "../../../models/User/ExpandedUser";
 import noPhoto from "../../../assets/no-photo.jpg";
@@ -45,7 +45,7 @@ const ExpandedUserProfileView = ({ loggedUserID }: ExpandedUserProfileViewProps)
             enabled: Boolean(userID),
         },
     );
-    const [followingUser, setFollowingUser] = useState<FollowProfileStatus>();
+    const [followingUser, setFollowingUser] = useState<FollowStatus>();
 
     useEffect(() => {
         if (userProfile) {
@@ -60,7 +60,7 @@ const ExpandedUserProfileView = ({ loggedUserID }: ExpandedUserProfileViewProps)
 
     const followUser = async () => {
         if (!userProfile?.user.id) return;
-        const currentFollowingUser: FollowProfileStatus = JSON.parse(JSON.stringify(followingUser));
+        const currentFollowingUser: FollowStatus = JSON.parse(JSON.stringify(followingUser));
         const followResponse = await changeFollowingUserStatus(userProfile?.user.id);
         if (followResponse === 200) {
             currentFollowingUser.follow = !followingUser?.follow;

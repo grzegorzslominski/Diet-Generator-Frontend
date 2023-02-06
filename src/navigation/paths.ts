@@ -8,7 +8,6 @@ export enum NAVIGATION {
     profile = "/profile",
     forum = "/forum",
     forumPosts = "/forum/posts",
-    forumPost = "/forum/posts/post",
     forumMeals = "/forum/meals",
     forumMeal = "/forum/meals/meal",
     forumFeedbacks = "/forum/feedbacks",

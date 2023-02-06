@@ -3,8 +3,6 @@ export enum ENDPOINTS_USER {
     login = "/authenticate",
     register = "/account/register",
     userInfo = "/account/profile/info",
-    userAddPostComment = "/forum/post/comment",
-    userAddMealComment = "/forum/recipe/comment",
     userStats = "/account/stats",
 }
 
@@ -48,8 +46,13 @@ export enum ENDPOINTS_SUBSCRIPTION {
 }
 
 export enum ENDPOINTS_FORUM {
+    getPost = "/forum/post",
+    getPosts = "/forum/posts",
     verifyMeal = "/recipe/verify",
     addPost = "/forum/post",
+    likePost = "/forum/post/like",
+    addPostComment = "/forum/post/comment",
+    addMealComment = "/forum/recipe/comment",
 }
 
 export enum ENDPOINTS_DASHBOARD {
